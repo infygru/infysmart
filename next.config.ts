@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
+    const nextConfig = {
+      output: 'standalone', 
+      images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'placehold.co',
+          },
+          {
+            protocol: 'https',
+            hostname: 'images.unsplash.com',
+          },
+        ],
+      },
+    };
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+    export default nextConfig;
