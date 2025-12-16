@@ -8,23 +8,57 @@ import {
   PenTool, Wrench, Headphones, Clock, Truck, Factory, Search, Server, Smartphone, Filter
 } from 'lucide-react';
 
-// --- THEME CONFIGURATION (Trendy Industrial Dark/Teal/Amber) ---
+// --- TYPESCRIPT INTERFACES ---
+interface SectionHeaderProps {
+  title: string;
+  subtitle: string;
+  centered?: boolean;
+}
+
+interface BrandStripProps {
+  filter?: string;
+}
+
+interface HeroProps {
+  navigateTo: (page: string) => void;
+  onOpenQuote: () => void;
+}
+
+interface ProcessProps {
+  onOpenQuote: () => void;
+}
+
+interface NavbarProps {
+  activePage: string;
+  setActivePage: (page: string) => void;
+  onOpenQuote: () => void;
+}
+
+interface FooterProps {
+  navigateTo: (page: string) => void;
+}
+
+interface QuoteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface LegalPageProps {
+  type: string;
+}
+
+// --- THEME CONFIGURATION ---
 const THEME = {
-  // Backgrounds
-  heroBg: "bg-slate-950",        // Deepest Charcoal
-  sectionBg: "bg-slate-50",      // Crisp Light Grey
+  heroBg: "bg-slate-950",
+  sectionBg: "bg-slate-50",
   cardBg: "bg-white",
   darkCard: "bg-slate-900",
-  
-  // Text
   primaryText: "text-slate-900",
   headingText: "text-slate-900",
   lightText: "text-slate-400",
-  
-  // Accents
-  brandPrimary: "bg-teal-700",   // Sophisticated Green/Teal
+  brandPrimary: "bg-teal-700",
   brandText: "text-teal-700",
-  accent: "bg-amber-500",        // Industrial Amber (Safety/Energy)
+  accent: "bg-amber-500",
   accentHover: "hover:bg-amber-600",
   accentText: "text-amber-600",
 };
@@ -96,7 +130,7 @@ const DATA = {
 
 // --- SUB-COMPONENTS ---
 
-const SectionHeader = ({ title, subtitle, centered = true }) => (
+const SectionHeader = ({ title, subtitle, centered = true }: SectionHeaderProps) => (
   <div className={`mb-16 ${centered ? 'text-center' : 'text-left'}`}>
     <h2 className={`text-3xl md:text-5xl font-extrabold ${THEME.headingText} mb-6 tracking-tight`}>
       {title}
@@ -127,7 +161,7 @@ const ClientStrip = () => (
 );
 
 // 1.2 BRAND PARTNERS STRIP
-const BrandStrip = ({ filter = "All" }) => {
+const BrandStrip = ({ filter = "All" }: BrandStripProps) => {
   const brands = filter === "All" ? DATA.brands : DATA.brands.filter(b => b.type === filter);
   return (
     <div className="bg-white py-16 border-b border-slate-200">
@@ -156,9 +190,8 @@ const BrandStrip = ({ filter = "All" }) => {
 // --- HOME PAGE COMPONENTS ---
 
 // 1. HERO SECTION
-const Hero = ({ navigateTo, onOpenQuote }) => (
+const Hero = ({ navigateTo, onOpenQuote }: HeroProps) => (
   <div className={`relative ${THEME.heroBg} min-h-[700px] flex items-center overflow-hidden`}>
-    {/* Abstract Tech Background */}
     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-teal-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
     <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
@@ -166,7 +199,6 @@ const Hero = ({ navigateTo, onOpenQuote }) => (
     <div className="max-w-7xl mx-auto px-4 relative z-10 w-full pt-20 pb-20">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         
-        {/* Text Content */}
         <div className="space-y-8">
           <div className="inline-flex items-center gap-3 bg-slate-900/50 border border-slate-700 rounded-full px-4 py-1.5 backdrop-blur-md">
             <span className="flex h-2 w-2 relative">
@@ -203,7 +235,6 @@ const Hero = ({ navigateTo, onOpenQuote }) => (
           </div>
         </div>
 
-        {/* Visual Cards Grid */}
         <div className="hidden lg:grid grid-cols-2 gap-4 relative">
           <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700 p-6 rounded-2xl transform translate-y-8 shadow-2xl">
             <div className="h-12 w-12 bg-teal-900/50 rounded-lg flex items-center justify-center mb-4 text-teal-400">
@@ -261,7 +292,7 @@ const HomeStats = () => (
 );
 
 // 1.4 PROCESS SECTION
-const HomeProcess = ({ onOpenQuote }) => (
+const HomeProcess = ({ onOpenQuote }: ProcessProps) => (
   <div className="py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4">
       <SectionHeader title="Our Execution Process" subtitle="From initial survey in Chennai to lifetime support, we follow a standardized 4-step protocol." />
@@ -290,7 +321,7 @@ const HomeProcess = ({ onOpenQuote }) => (
 // --- OTHER PAGES ---
 
 // 2. CCTV PAGE (Updated with AMC)
-const CCTVPage = ({ onOpenQuote }) => (
+const CCTVPage = ({ onOpenQuote }: ProcessProps) => (
   <div className="animate-fade-in pb-20">
     <div className="bg-slate-900 text-white py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -304,7 +335,7 @@ const CCTVPage = ({ onOpenQuote }) => (
 
     <BrandStrip filter="Security" />
 
-    {/* AMC Callout Section (NEW) */}
+    {/* AMC Callout Section */}
     <div className="bg-amber-50 border-y border-amber-100 py-16">
        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
           <div>
@@ -394,7 +425,7 @@ const CCTVPage = ({ onOpenQuote }) => (
 );
 
 // 3. SOLAR PAGE
-const SolarPage = ({ onOpenQuote }) => (
+const SolarPage = ({ onOpenQuote }: ProcessProps) => (
   <div className="animate-fade-in pb-20">
     <div className="bg-slate-900 text-white py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -442,7 +473,7 @@ const SolarPage = ({ onOpenQuote }) => (
 );
 
 // 4. AUTOMATION PAGE
-const AutomationPage = ({ onOpenQuote }) => (
+const AutomationPage = ({ onOpenQuote }: ProcessProps) => (
   <div className="animate-fade-in pb-20">
     <div className="bg-slate-900 text-white py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -494,7 +525,7 @@ const AutomationPage = ({ onOpenQuote }) => (
   </div>
 );
 
-// 5. BLOG PAGE (Enhanced with Search & Filter)
+// 5. BLOG PAGE
 const BlogPage = () => {
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
@@ -567,9 +598,9 @@ const BlogPage = () => {
   );
 };
 
-// 6. LEGAL PAGE (New)
-const LegalPage = ({ type }) => {
-  const titles = {
+// 6. LEGAL PAGE
+const LegalPage = ({ type }: LegalPageProps) => {
+  const titles: Record<string, string> = {
     privacy: "Privacy Policy",
     terms: "Terms of Service",
     cookies: "Cookie Policy"
@@ -618,7 +649,7 @@ const LegalPage = ({ type }) => {
 };
 
 // 7. DYNAMIC QUOTE FORM
-const QuoteModal = ({ isOpen, onClose }) => {
+const QuoteModal = ({ isOpen, onClose }: QuoteModalProps) => {
   const [service, setService] = useState('CCTV');
 
   if (!isOpen) return null;
@@ -757,7 +788,7 @@ const Chatbot = () => {
   ]);
   const [input, setInput] = useState('');
 
-  const handleSend = (e) => {
+  const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -831,7 +862,7 @@ const Chatbot = () => {
 
 // --- LAYOUT SHELL ---
 
-const Navbar = ({ activePage, setActivePage, onOpenQuote }) => {
+const Navbar = ({ activePage, setActivePage, onOpenQuote }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -895,7 +926,7 @@ const Navbar = ({ activePage, setActivePage, onOpenQuote }) => {
   );
 };
 
-const Footer = ({ navigateTo }) => (
+const Footer = ({ navigateTo }: FooterProps) => (
   <footer className="bg-slate-950 text-slate-400 pt-20 pb-10 border-t border-slate-900">
     <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 mb-12">
       <div className="col-span-1 md:col-span-2">
