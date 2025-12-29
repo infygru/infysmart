@@ -58,12 +58,12 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 shrink-0 text-brand-500" />
-                <span>{settings?.address || 'Chennai, Tamil Nadu, India'}</span>
+                <span>{settings?.address || '16, Sarathi Nagar, Saidapet, Chennai, Tamil Nadu, India'}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 shrink-0 text-brand-500" />
                 <a href={`tel:${settings?.contact_phone}`} className="hover:text-white">
-                  {settings?.contact_phone || '+91 98765 43210'}
+                  {settings?.contact_phone || '+91 830029 0019'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
