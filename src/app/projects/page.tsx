@@ -3,8 +3,7 @@ import { readItems, readSingleton } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, MapPin, CheckCircle2 } from 'lucide-react';
-import Navbar from '@/components/Navbar'; 
-import Footer from '@/components/Footer'; 
+import Navbar from '@/components/Navbar';
 
 // Force dynamic rendering so new projects show up instantly
 export const dynamic = 'force-dynamic';
@@ -13,13 +12,13 @@ export default async function ProjectsPage() {
   // 1. Fetch ALL projects (Removed the 'Completed' filter for debugging)
   const [settings, projects] = await Promise.all([
     directus.request(readSingleton('global_settings')),
-    directus.request(readItems('projects')) 
+    directus.request(readItems('projects'))
   ]);
 
   return (
     <main className="min-h-screen bg-slate-50">
 
-      
+
       <div className="bg-slate-900 text-white pt-32 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
@@ -27,7 +26,7 @@ export default async function ProjectsPage() {
               <ArrowLeft className="h-4 w-4 mr-2" /> Back to Home
             </Link>
             <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
-              Our Execution Portfolio
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">Execution Portfolio</span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
               Explore our track record of enterprise security, solar energy, and automation installations.
@@ -38,16 +37,16 @@ export default async function ProjectsPage() {
 
       <section className="py-20">
         <div className="container mx-auto px-4">
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div key={project.id} className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
                 <div className="relative h-64 w-full bg-slate-200 overflow-hidden">
                   {project.image ? (
-                    <Image 
-                      src={getAssetUrl(project.image)} 
-                      alt={project.title} 
-                      fill 
+                    <Image
+                      src={getAssetUrl(project.image)}
+                      alt={project.title}
+                      fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   ) : (
@@ -55,7 +54,7 @@ export default async function ProjectsPage() {
                       No Image
                     </div>
                   )}
-                  
+
                   {/* Show the actual status from DB */}
                   <div className="absolute top-4 left-4 bg-green-600/90 backdrop-blur text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm uppercase tracking-wider">
                     <CheckCircle2 className="h-3 w-3" /> {project.status || 'Project'}
@@ -66,12 +65,12 @@ export default async function ProjectsPage() {
                   <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
                     {project.title}
                   </h3>
-                  
+
                   <div className="flex items-center text-slate-500 font-medium text-sm mb-6">
                     <MapPin className="h-4 w-4 mr-1.5 text-orange-500 shrink-0" />
                     {project.location}
                   </div>
-                  
+
                   <p className="text-slate-600 leading-relaxed text-sm mb-6 flex-1">
                     {project.summary}
                   </p>
@@ -100,7 +99,6 @@ export default async function ProjectsPage() {
         </div>
       </section>
 
-      <Footer settings={settings} />
     </main>
   );
 }

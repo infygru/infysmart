@@ -9,10 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Matches the "Infy" and "Solutions" orange
+        // Unified Brand Colors
         brand: {
-          orange: '#ea580c', // Primary Call-to-Action color
-          light: '#fff7ed',  // Warm background tint
+          blue: '#2563eb',   // Primary Brand Color (Blue-600)
+          dark: '#1e3a8a',   // Darker shade for accents (Blue-900)
+          orange: '#ea580c', // Secondary Action Color (Orange-600)
+          light: '#eff6ff',  // Light Blue Background (Blue-50)
         },
         // Matches the "Smart" green
         accent: {
@@ -28,8 +30,8 @@ const config: Config = {
         'hero-gradient': 'linear-gradient(to right bottom, #020617, #0f172a, #14532d)', // Dark to Green fade
       },
       boxShadow: {
-      modal: '0 20px 60px rgba(0,0,0,0.35)',
-    }
+        modal: '0 20px 60px rgba(0,0,0,0.35)',
+      }
     },
   },
   plugins: [],

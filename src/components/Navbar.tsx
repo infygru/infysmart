@@ -54,7 +54,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
               />
             ) : (
               <div className="text-2xl font-bold tracking-tight text-slate-900">
-                Infy<span className="text-brand-orange">Smart</span>
+                Infy<span className="text-brand-blue">Smart</span>
               </div>
             )}
           </Link>
@@ -65,7 +65,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
               <Link
                 key={item.label}
                 href={item.href}
-                className={`whitespace-nowrap transition-colors hover:text-brand-orange ${baseTextColor}`}
+                className={`whitespace-nowrap transition-colors hover:text-brand-blue ${baseTextColor}`}
               >
                 {item.label}
               </Link>
@@ -74,11 +74,10 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
             {/* GET QUOTE BUTTON (MODAL TRIGGER) */}
             <button
               onClick={() => setIsQuoteOpen(true)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded transition-all font-bold whitespace-nowrap ${
-                isScrolled
-                  ? 'bg-brand-orange text-white hover:bg-orange-700'
-                  : 'bg-white text-brand-orange hover:bg-gray-100'
-              }`}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded transition-all font-bold whitespace-nowrap ${isScrolled
+                  ? 'bg-brand-blue text-white hover:bg-blue-700'
+                  : 'bg-white text-brand-blue hover:bg-gray-100'
+                }`}
             >
               <Phone className="h-4 w-4" />
               <span>Get Quote</span>
@@ -86,17 +85,17 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
           </nav>
 
           {/* Mobile Menu Icon */}
-          <button className={`md:hidden ${baseTextColor} hover:text-brand-orange transition-colors`}>
+          <button className={`md:hidden ${baseTextColor} hover:text-brand-blue transition-colors`}>
             <Menu size={24} />
           </button>
         </div>
       </header>
 
       {/* QUOTE MODAL */}
-<GetQuoteModal
-  isOpen={isQuoteOpen}
-  onClose={() => setIsQuoteOpen(false)}
-/>
+      <GetQuoteModal
+        isOpen={isQuoteOpen}
+        onClose={() => setIsQuoteOpen(false)}
+      />
     </>
   );
 }

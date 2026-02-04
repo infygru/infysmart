@@ -1,16 +1,17 @@
 import { Metadata } from "next";
-import { 
-  Building2, 
-  ShieldCheck, 
-  Landmark, 
-  Factory, 
-  Target, 
-  MapPin, 
-  Phone, 
-  Mail, 
+import {
+  Building2,
+  ShieldCheck,
+  Landmark,
+  Factory,
+  Target,
+  MapPin,
+  Phone,
+  Mail,
   CheckCircle2,
   Briefcase
 } from "lucide-react";
+import FadeIn from "@/components/animations/FadeIn";
 
 
 export const metadata: Metadata = {
@@ -43,28 +44,30 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="bg-white font-sans text-slate-900">
-      
+    <main className="bg-white font-sans text-slate-900 overflow-x-hidden">
+
       {/* 1. PREMIUM HERO SECTION */}
       <section className="relative bg-slate-900 py-24 md:py-32 overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-sm font-bold tracking-wider uppercase mb-8">
-            <ShieldCheck className="w-4 h-4" /> Official Brand of Infygru Private Limited
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-            Engineering Trust. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-              Securing The Future.
-            </span>
-          </h1>
-          <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed">
-            Delivering enterprise-grade CCTV, Automation, and Solar infrastructure solutions 
-            with precision and long-term reliability for Government and Industrial sectors.
-          </p>
+          <FadeIn direction="up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-sm font-bold tracking-wider uppercase mb-8">
+              <ShieldCheck className="w-4 h-4" /> Official Brand of <a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors underline decoration-blue-500/30">Infygru Private Limited</a>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+              Engineering Trust. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
+                Securing The Future.
+              </span>
+            </h1>
+            <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed">
+              Delivering enterprise-grade CCTV, Automation, and Solar infrastructure solutions
+              with precision and long-term reliability for Government and Industrial sectors.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -72,13 +75,17 @@ export default function AboutPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
+
             {/* Visual Column */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 transform rotate-2 rounded-2xl opacity-10"></div>
+            <FadeIn direction="right" className="relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue to-purple-600 transform rotate-2 rounded-2xl opacity-10"></div>
               <div className="relative bg-slate-50 p-10 rounded-2xl border border-slate-200 shadow-xl">
                 <Building2 className="w-16 h-16 text-slate-800 mb-6" />
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Infygru Private Limited</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                  <a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-blue transition-colors">
+                    Infygru Private Limited
+                  </a>
+                </h3>
                 <p className="text-slate-500 font-medium mb-6 uppercase tracking-widest text-xs">The Parent Entity</p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -95,30 +102,30 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
 
             {/* Content Column */}
-            <div>
+            <FadeIn direction="left">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                 A Unified Vision for <br />
-                <span className="text-blue-600">Smart Infrastructure</span>
+                <span className="text-brand-blue">Smart Infrastructure</span>
               </h2>
               <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                <strong>InfySmart</strong> is the specialized operating unit of <strong>Infygru Private Limited</strong>. 
-                While Infygru provides the corporate backbone and compliance framework required for large-scale projects, 
+                <strong>InfySmart</strong> is the specialized operating unit of <strong><a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:text-blue-800 hover:underline">Infygru Private Limited</a></strong>.
+                While Infygru provides the corporate backbone and compliance framework required for large-scale projects,
                 InfySmart brings the technical expertise and agile execution teams needed on the ground.
               </p>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                This structure allows us to serve massive government mandates and corporate requirements with 
+                This structure allows us to serve massive government mandates and corporate requirements with
                 the speed of a tech company and the stability of a registered corporation.
               </p>
-              
-              <div className="border-l-4 border-blue-600 pl-6 py-2 bg-slate-50 rounded-r-lg">
+
+              <div className="border-l-4 border-brand-blue pl-6 py-2 bg-slate-50 rounded-r-lg">
                 <p className="text-slate-700 italic font-medium">
                   "We don't just install technology; we engineer ecosystems that protect assets and optimize operations."
                 </p>
               </div>
-            </div>
+            </FadeIn>
 
           </div>
         </div>
@@ -128,48 +135,56 @@ export default function AboutPage() {
       <section className="py-20 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Core Sectors</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              We focus on high-stakes environments where security failures are not an option.
-            </p>
+            <FadeIn direction="up">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Core Sectors</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                We focus on high-stakes environments where security failures are not an option.
+              </p>
+            </FadeIn>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Government */}
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group">
-              <div className="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
-                <Landmark className="w-7 h-7 text-blue-600 group-hover:text-white" />
+            <FadeIn direction="up" delay={0.1}>
+              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group h-full">
+                <div className="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-blue transition-colors">
+                  <Landmark className="w-7 h-7 text-brand-blue group-hover:text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Government & PSUs</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  Executing state-wide surveillance projects, municipal monitoring systems, and public infrastructure
+                  upgrades with strict adherence to tender specifications and ISI/BIS standards.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Government & PSUs</h3>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                Executing state-wide surveillance projects, municipal monitoring systems, and public infrastructure 
-                upgrades with strict adherence to tender specifications and ISI/BIS standards.
-              </p>
-            </div>
+            </FadeIn>
 
             {/* Industrial */}
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group">
-              <div className="w-14 h-14 bg-orange-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors">
-                <Factory className="w-7 h-7 text-orange-600 group-hover:text-white" />
+            <FadeIn direction="up" delay={0.2}>
+              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group h-full">
+                <div className="w-14 h-14 bg-orange-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors">
+                  <Factory className="w-7 h-7 text-orange-600 group-hover:text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Industrial Complexes</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  Ruggedized surveillance for factories, perimeter protection for warehouses, and
+                  high-temperature camera systems for manufacturing units like TNPL.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Industrial Complexes</h3>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                Ruggedized surveillance for factories, perimeter protection for warehouses, and 
-                high-temperature camera systems for manufacturing units like TNPL.
-              </p>
-            </div>
+            </FadeIn>
 
             {/* Corporate */}
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group">
-              <div className="w-14 h-14 bg-purple-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
-                <Briefcase className="w-7 h-7 text-purple-600 group-hover:text-white" />
+            <FadeIn direction="up" delay={0.3}>
+              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 group h-full">
+                <div className="w-14 h-14 bg-purple-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
+                  <Briefcase className="w-7 h-7 text-purple-600 group-hover:text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Corporate Enterprise</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  End-to-end office automation, server room biometric security, and fire safety systems
+                  designed for scalability and ease of management for IT Parks and offices.
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Corporate Enterprise</h3>
-              <p className="text-slate-600 leading-relaxed text-sm">
-                End-to-end office automation, server room biometric security, and fire safety systems 
-                designed for scalability and ease of management for IT Parks and offices.
-              </p>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -177,98 +192,102 @@ export default function AboutPage() {
       {/* 4. WHY CHOOSE US LIST */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
-            <div className="grid lg:grid-cols-2">
-              <div className="p-12 md:p-16">
-                <h2 className="text-3xl font-bold text-white mb-6">The InfySmart Advantage</h2>
-                <p className="text-slate-400 mb-8">
-                  Why leading organizations trust us with their critical infrastructure.
-                </p>
-                <div className="space-y-4">
-                  {[
-                    "Official Unit of Infygru Private Limited",
-                    "Compliance-First Approach (Govt Standards)",
-                    "Tier-1 Hardware Partners (Hikvision, Dahua, etc.)",
-                    "Dedicated In-House Engineering Team",
-                    "Comprehensive AMC & After-Sales Support",
-                    "State-wide Service Network in Tamil Nadu"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="w-4 h-4 text-green-400" />
+          <FadeIn direction="up">
+            <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="grid lg:grid-cols-2">
+                <div className="p-12 md:p-16">
+                  <h2 className="text-3xl font-bold text-white mb-6">The InfySmart Advantage</h2>
+                  <p className="text-slate-400 mb-8">
+                    Why leading organizations trust us with their critical infrastructure.
+                  </p>
+                  <div className="space-y-4">
+                    {[
+                      <span key="infygru">Official Unit of <a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 hover:underline">Infygru Private Limited</a></span>,
+                      "Compliance-First Approach (Govt Standards)",
+                      "Tier-1 Hardware Partners (Hikvision, Dahua, etc.)",
+                      "Dedicated In-House Engineering Team",
+                      "Comprehensive AMC & After-Sales Support",
+                      "State-wide Service Network in Tamil Nadu"
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                        </div>
+                        <span className="text-slate-200 font-medium">{item}</span>
                       </div>
-                      <span className="text-slate-200 font-medium">{item}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-slate-800 p-12 md:p-16 flex flex-col justify-center">
+                  <Target className="w-16 h-16 text-brand-blue mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                  <p className="text-slate-400 leading-relaxed text-lg">
+                    To be the premier technology partner for government bodies and enterprises
+                    by delivering secure, intelligent, and sustainable systems that create
+                    long-term operational value and safety.
+                  </p>
                 </div>
               </div>
-              <div className="bg-slate-800 p-12 md:p-16 flex flex-col justify-center">
-                 <Target className="w-16 h-16 text-blue-500 mb-6" />
-                 <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
-                 <p className="text-slate-400 leading-relaxed text-lg">
-                   To be the premier technology partner for government bodies and enterprises 
-                   by delivering secure, intelligent, and sustainable systems that create 
-                   long-term operational value and safety.
-                 </p>
-              </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* 5. CONTACT & FOOTER CTA */}
       <section className="py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">Get in Touch</h2>
-            <p className="text-slate-600 mt-2">Reach out to our corporate office for consultations and tenders.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Address */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <h4 className="font-bold text-slate-900 mb-2">Registered Office</h4>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Infygru Private Limited,<br />
-                Chennai, Tamil Nadu - 600001,<br />
-                India
-              </p>
+          <FadeIn direction="up">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900">Get in Touch</h2>
+              <p className="text-slate-600 mt-2">Reach out to our corporate office for consultations and tenders.</p>
             </div>
 
-            {/* Phone */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
-                <Phone className="w-6 h-6" />
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Address */}
+              <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-blue">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-2">Registered Office</h4>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  <a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-brand-blue transition-colors">Infygru Private Limited</a>,<br />
+                  Chennai, Tamil Nadu - 600001,<br />
+                  India
+                </p>
               </div>
-              <h4 className="font-bold text-slate-900 mb-2">Phone Support</h4>
-              <p className="text-slate-600 text-sm mb-1">
-                <a href="tel:+919876543210" className="hover:text-blue-600 transition-colors font-semibold">
-                  +91 98765 43210
-                </a>
-              </p>
-              <p className="text-xs text-slate-400">Mon-Sat 9am to 6pm</p>
-            </div>
 
-            {/* Email */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
-                <Mail className="w-6 h-6" />
+              {/* Phone */}
+              <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-2">Phone Support</h4>
+                <p className="text-slate-600 text-sm mb-1">
+                  <a href="tel:+919876543210" className="hover:text-brand-blue transition-colors font-semibold">
+                    +91 98765 43210
+                  </a>
+                </p>
+                <p className="text-xs text-slate-400">Mon-Sat 9am to 6pm</p>
               </div>
-              <h4 className="font-bold text-slate-900 mb-2">Email Us</h4>
-              <p className="text-slate-600 text-sm mb-1">
-                <a href="mailto:sales@infysmart.com" className="hover:text-blue-600 transition-colors font-semibold">
-                  sales@infysmart.com
-                </a>
-              </p>
-              <p className="text-xs text-slate-400">For Sales & Tenders</p>
+
+              {/* Email */}
+              <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-slate-100">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-2">Email Us</h4>
+                <p className="text-slate-600 text-sm mb-1">
+                  <a href="mailto:sales@infysmart.com" className="hover:text-brand-blue transition-colors font-semibold">
+                    sales@infysmart.com
+                  </a>
+                </p>
+                <p className="text-xs text-slate-400">For Sales & Tenders</p>
+              </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
-      
+
     </main>
   );
 }

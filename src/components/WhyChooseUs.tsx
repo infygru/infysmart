@@ -15,20 +15,20 @@ const features = [
   },
   {
     icon: <Clock className="h-6 w-6 text-green-500" />,
-    title: "24/7 AMC Support",
-    description: "Security never sleeps. We provide rapid on-site support and 1-year free maintenance with every installation."
+    title: "AMC & Stand-by Support",
+    description: "Unlimited breakdown visits and free standby backup cameras during repairs. AMC plans ensure 99.9% uptime."
   },
   {
     icon: <CheckCircle2 className="h-6 w-6 text-purple-500" />,
-    title: "Smart Integration",
-    description: "We don't just install cameras; we build ecosystems. Integrate CCTV with solar power and home automation."
+    title: "100% Satisfaction Guarantee",
+    description: "We don't just sell; we partner. Enjoy a 100% money-back guarantee if our service doesn't meet the promised standards."
   }
 ];
 
 export default function WhyChooseUs() {
   return (
     <section className="py-24 bg-slate-900 relative overflow-hidden">
-      
+
       {/* Background Accents */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        
+
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-700 bg-slate-800/50 text-slate-300 text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
@@ -44,12 +44,12 @@ export default function WhyChooseUs() {
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
             Engineering Excellence for <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
               Critical Infrastructure.
             </span>
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            We understand that security and power are the backbone of your operations. 
+            We understand that security and power are the backbone of your operations.
             That is why we bring certified expertise to every project, big or small.
           </p>
         </div>
@@ -57,8 +57,8 @@ export default function WhyChooseUs() {
         {/* Feature Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="group p-8 rounded-2xl bg-slate-800/50 border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all duration-300"
             >
               <div className="flex items-start gap-5">
