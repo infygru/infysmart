@@ -72,8 +72,8 @@ export default async function AutomationPage() {
               </span>
             </h1>
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl">
-              From <span className="text-white font-bold">Luxury Villas in ECR</span> to <span className="text-white font-bold">Industrial Factories in Sriperumbudur</span>.
-              We install heavy-duty Gate Motors, Rolling Shutters, and Boom Barriers.
+              From <span className="text-white font-bold">Luxury Villas in ECR and Puducherry</span> to <span className="text-white font-bold">Industrial Factories in Hosur & Sriperumbudur</span>.
+              We install heavy-duty Gate Motors, Rolling Shutters, Boom Barriers, and <strong>Office Access Control Systems</strong>.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/50 text-center">
@@ -137,6 +137,20 @@ export default async function AutomationPage() {
               </p>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide">
                 <CheckCircle2 className="w-4 h-4 text-green-500" /> 100% Duty Cycle
+              </div>
+            </div>
+
+            {/* Access Control Systems (New Block for SEO) */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-red-500 transition-all group">
+              <div className="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-600 transition-colors">
+                <Shield className="w-7 h-7 text-red-600 group-hover:text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Access Control</h3>
+              <p className="text-slate-600 text-sm mb-6 leading-relaxed">
+                <strong>Biometric & Card Access</strong> for server rooms and offices. Restrict entry using Fingerprint, Face ID, or RFID Cards. Dealer for eSSL, Matrix, and ZKTeco.
+              </p>
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide">
+                <CheckCircle2 className="w-4 h-4 text-green-500" /> Cloud Logs
               </div>
             </div>
           </div>

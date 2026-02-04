@@ -73,8 +73,8 @@ export default async function SolarPage() {
               </span>
             </h1>
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl">
-              From <span className="text-white font-bold">Residential Rooftops in Chennai</span> to <span className="text-white font-bold">MW Scale Industrial Plants in Coimbatore</span>.
-              We are the certified installation partners for Tata Power, Adani, and Waaree.
+              From <span className="text-white font-bold">Residential Rooftops in Chennai & Puducherry</span> to <span className="text-white font-bold">MW Scale Industrial Plants in Coimbatore & Hosur</span>.
+              Certified partners for Tata Power, Adani, and Waaree. <strong>Specialists in Standalone Solar 4G CCTV Cameras</strong> for remote sites.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/20 text-center">
@@ -315,8 +315,14 @@ export default async function SolarPage() {
                   </div>
                 </div>
               </div>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-start gap-4">
+                <ShieldCheck className="w-6 h-6 text-blue-600 shrink-0" />
+                <div>
+                  <h4 className="font-bold text-slate-900">Solar 4G CCTV</h4>
+                  <p className="text-sm text-slate-500">Wireless surveillance for farms, construction sites, and yards without power.</p>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -339,6 +345,6 @@ export default async function SolarPage() {
         </div>
       </section>
 
-    </main>
+    </main >
   );
 }

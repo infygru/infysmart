@@ -11,7 +11,7 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
   return (
     <footer className="bg-slate-900 text-slate-400 pt-20 pb-10 border-t border-slate-800">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
+        <div className="grid md:grid-cols-5 gap-8 mb-16">
 
           {/* Brand Column */}
           <div className="md:col-span-1">
@@ -49,14 +49,32 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
             </ul>
           </div>
 
+          {/* Areas Served Column (New for SEO) */}
+          <div>
+            <h4 className="text-white font-bold mb-6">Areas We Serve</h4>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li>Puducherry, India</li>
+              <li>Hosur, Tamil Nadu</li>
+              <li>Chennai, Tamil Nadu</li>
+              <li>Bengaluru, Karnataka</li>
+              <li>Coimbatore, Tamil Nadu</li>
+              <li>Cuddalore, Tamil Nadu</li>
+              <li>Karaikudi, Tamil Nadu</li>
+              <li>Dharmapuri, Tamil Nadu</li>
+            </ul>
+          </div>
+
           {/* Services Column */}
           <div>
             <h4 className="text-white font-bold mb-6">Solutions</h4>
             <ul className="space-y-4 text-sm">
-              <li><Link href="/services/cctv" className="hover:text-brand-blue transition">CCTV Surveillance</Link></li>
-              <li><Link href="/services/solar" className="hover:text-brand-blue transition">Solar Power</Link></li>
-              <li><Link href="/services/automation" className="hover:text-brand-blue transition">Home Automation</Link></li>
-              <li><Link href="/services/amc" className="hover:text-brand-blue transition">AMC Support</Link></li>
+              <li><Link href="/cctv" className="hover:text-brand-blue transition">Industrial CCTV</Link></li>
+              <li><Link href="/cctv" className="hover:text-brand-blue transition">IP Camera Setup</Link></li>
+              <li><Link href="/solar" className="hover:text-brand-blue transition">Solar 4G Cameras</Link></li>
+              <li><Link href="/automation" className="hover:text-brand-blue transition">Access Control</Link></li>
+              <li><Link href="/amc" className="hover:text-brand-blue transition">CCTV AMC</Link></li>
+              <li><Link href="/services/video-door-phones" className="hover:text-brand-blue transition">Video Door Phones</Link></li>
+              <li><Link href="/services/biometric-systems" className="hover:text-brand-blue transition">Biometric Systems</Link></li>
             </ul>
           </div>
 

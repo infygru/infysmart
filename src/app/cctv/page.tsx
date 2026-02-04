@@ -110,7 +110,7 @@ export default async function CCTVPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Sales & Supply</h3>
                 <p className="text-sm text-slate-600">
-                  Wholesale pricing on Cameras, DVRs, NVRs, and Hard Disks. Authorized dealers for top brands.
+                  Wholesale pricing on Hikvision, Dahua, & CP Plus Cameras. Wireless & 4G Solar Options available.
                 </p>
               </div>
             </FadeIn>
@@ -237,7 +237,7 @@ export default async function CCTVPage() {
                 <h2 className="text-2xl font-bold text-slate-900">Chennai Service Network</h2>
               </div>
               <p className="text-slate-600 mb-6 leading-relaxed">
-                Looking for <strong>"CCTV installation near me"</strong>? We have rapid-response technicians stationed across key zones in Chennai for quick installation and repair services.
+                Looking for <strong>"CCTV installation near me"</strong>? We have rapid-response technicians stationed across key zones in Chennai, Hosur, and Bengaluru for quick installation and repair services.
               </p>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <h4 className="font-bold text-slate-900 mb-4 border-b pb-2">We Serve Your Neighborhood:</h4>
@@ -269,7 +269,7 @@ export default async function CCTVPage() {
                 <div className="relative z-10">
                   <h4 className="font-bold text-xl mb-2">Industrial & Govt Tenders</h4>
                   <p className="text-blue-100 text-sm mb-4">
-                    Serving Coimbatore, Madurai, Trichy, Salem, Tirunelveli, Hosur, Dharmapuri, and Karaikudi.
+                    Serving Puducherry, Coimbatore, Madurai, Trichy, Salem, Hosur, Bengaluru, Dharmapuri, Cuddalore, and Karaikudi.
                   </p>
                   <Link href="/contact" className="inline-block bg-white text-blue-900 px-6 py-2 rounded-lg font-bold hover:bg-blue-50 transition-colors text-sm">
                     Request State-wide Quote
