@@ -56,6 +56,11 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
               <li>Puducherry, India</li>
               <li>Hosur, Tamil Nadu</li>
               <li>Chennai, Tamil Nadu</li>
+              <li>Ambattur Industrial Estate</li>
+              <li>Guindy Industrial Estate</li>
+              <li>Sriperumbudur & Oragadam</li>
+              <li>Kanchipuram & Vallam</li>
+              <li>SIPCOT Industrial Parks</li>
               <li>Bengaluru, Karnataka</li>
               <li>Coimbatore, Tamil Nadu</li>
               <li>Cuddalore, Tamil Nadu</li>

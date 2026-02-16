@@ -16,7 +16,14 @@ import {
   Clock
 } from 'lucide-react';
 
+import { Metadata } from 'next';
+
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Industrial CCTV Camera Installation in Chennai, Ambattur, Guindy | InfySmart',
+  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units in Ambattur, Guindy, Sriperumbudur, Kanchipuram & SIPCOT. Installation & AMC.',
+};
 
 // 1. Define Interface
 interface Service {
@@ -63,9 +70,9 @@ export default async function CCTVPage() {
               <Eye className="w-3 h-3" /> Sales • Installation • Service • AMC
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Total Surveillance Solutions <br />
+              Commercial & Industrial <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
-                Across Tamil Nadu.
+                Surveillance Solutions.
               </span>
             </h1>
             <ul className="flex flex-wrap gap-4 text-lg text-slate-300 mb-8 max-w-2xl list-none">
@@ -225,58 +232,100 @@ export default async function CCTVPage() {
         </div>
       </section>
 
-      {/* 4. SEO LOCATION BLOCK (Chennai & Tamil Nadu) */}
       <section className="py-20 bg-slate-100">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Service Locations & Industrial Coverage</h2>
+            <p className="text-slate-600 max-w-3xl mx-auto">
+              From small offices in <strong>Guindy</strong> to large-scale manufacturing units in <strong>Sriperumbudur and Oragadam</strong>, we provide specialized CCTV & Surveillance solutions tailored for commercial and industrial needs.
+            </p>
+          </div>
 
-            {/* Chennai Local Service */}
-            <FadeIn direction="up">
-              <div className="flex items-center gap-3 mb-6">
-                <MapPin className="w-8 h-8 text-brand-orange" />
-                <h2 className="text-2xl font-bold text-slate-900">Chennai Service Network</h2>
-              </div>
-              <p className="text-slate-600 mb-6 leading-relaxed">
-                Looking for <strong>"CCTV installation near me"</strong>? We have rapid-response technicians stationed across key zones in Chennai, Hosur, and Bengaluru for quick installation and repair services.
-              </p>
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h4 className="font-bold text-slate-900 mb-4 border-b pb-2">We Serve Your Neighborhood:</h4>
-                <div className="grid grid-cols-2 gap-y-2 text-sm text-slate-600">
-                  <span className="hover:text-brand-blue cursor-pointer">• Saidapet</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• T. Nagar</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Chromepet</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Tambaram</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Velachery</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Guindy</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Adyar</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Porur</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Anna Nagar</span>
-                  <span className="hover:text-brand-blue cursor-pointer">• Ambattur</span>
+          <div className="grid md:grid-cols-3 gap-8">
+
+            {/* Commercial/Residential Zones */}
+            <FadeIn direction="up" className="md:col-span-1">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <MapPin className="w-8 h-8 text-brand-orange" />
+                  <h3 className="text-xl font-bold text-slate-900">Chennai City & Suburbs</h3>
+                </div>
+                <p className="text-slate-600 mb-6 text-sm">
+                  Rapid installation teams for retail shops, apartments, and offices across Chennai metropolitan areas.
+                </p>
+                <div className="grid grid-cols-1 gap-y-2 text-sm text-slate-600 font-medium">
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> Adyar & Besant Nagar</span>
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> T. Nagar & Kodambakkam</span>
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> Velachery & OMR</span>
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> Anna Nagar & Mogappair</span>
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> Tambaram & Chromepet</span>
+                  <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-brand-orange"></div> Porur & Valasaravakkam</span>
                 </div>
               </div>
             </FadeIn>
 
-            {/* Tamil Nadu Projects */}
-            <FadeIn direction="up" delay={0.2}>
-              <div className="flex items-center gap-3 mb-6">
-                <Truck className="w-8 h-8 text-brand-blue" />
-                <h2 className="text-2xl font-bold text-slate-900">Projects Across Tamil Nadu</h2>
-              </div>
-              <p className="text-slate-600 mb-6 leading-relaxed">
-                Infysmart specializes in executing large-scale <strong>Government and Industrial CCTV projects</strong> anywhere in the state. We handle logistics, installation, and commissioning for multi-site requirements.
-              </p>
-              <div className="bg-brand-blue text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+            {/* Industrial Hubs - NEW SEO TARGET */}
+            <FadeIn direction="up" delay={0.1} className="md:col-span-1">
+              <div className="bg-slate-900 text-white p-8 rounded-xl shadow-xl border border-slate-700 h-full relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <Settings className="w-32 h-32 text-white" />
+                </div>
                 <div className="relative z-10">
-                  <h4 className="font-bold text-xl mb-2">Industrial & Govt Tenders</h4>
-                  <p className="text-blue-100 text-sm mb-4">
-                    Serving Puducherry, Coimbatore, Madurai, Trichy, Salem, Hosur, Bengaluru, Dharmapuri, Cuddalore, and Karaikudi.
+                  <div className="flex items-center gap-3 mb-6">
+                    <HardDrive className="w-8 h-8 text-yellow-400" />
+                    <h3 className="text-xl font-bold text-white">Industrial & SIPCOT Zones</h3>
+                  </div>
+                  <p className="text-slate-300 mb-6 text-sm">
+                    Specialized <strong>Factory & Warehouse Surveillance</strong> logic for heavy-industry zones. IP Cameras, Fiber Optic Cabling & Perimeter Protection.
                   </p>
-                  <Link href="/contact" className="inline-block bg-white text-blue-900 px-6 py-2 rounded-lg font-bold hover:bg-blue-50 transition-colors text-sm">
-                    Request State-wide Quote
+                  <ul className="space-y-3 text-sm text-slate-200 font-medium">
+                    <li className="flex items-center gap-2 border-b border-slate-700 pb-2">
+                      <CheckCircle2 className="w-4 h-4 text-brand-orange" />
+                      Ambattur Industrial Estate
+                    </li>
+                    <li className="flex items-center gap-2 border-b border-slate-700 pb-2">
+                      <CheckCircle2 className="w-4 h-4 text-brand-orange" />
+                      Guindy Industrial Estate
+                    </li>
+                    <li className="flex items-center gap-2 border-b border-slate-700 pb-2">
+                      <CheckCircle2 className="w-4 h-4 text-brand-orange" />
+                      Sriperumbudur & Oragadam
+                    </li>
+                    <li className="flex items-center gap-2 border-b border-slate-700 pb-2">
+                      <CheckCircle2 className="w-4 h-4 text-brand-orange" />
+                      Kanchipuram & Vallam
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-brand-orange" />
+                      SIPCOT (Irungattukottai/Siruseri)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* State-wide Projects */}
+            <FadeIn direction="up" delay={0.2} className="md:col-span-1">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 h-full flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <Truck className="w-8 h-8 text-brand-blue" />
+                  <h3 className="text-xl font-bold text-slate-900">Tamil Nadu Wide</h3>
+                </div>
+                <p className="text-slate-600 mb-6 text-sm">
+                  We handle multi-site commercial projects for retail chains and government tenders across the state.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-auto">
+                  <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Coimbatore</span>
+                  <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Madurai</span>
+                  <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Trichy</span>
+                  <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Salem</span>
+                  <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Hosur</span>
+                </div>
+                <div className="mt-8 pt-6 border-t border-slate-100">
+                  <Link href="/contact" className="flex items-center justify-center gap-2 text-brand-blue font-bold hover:gap-3 transition-all group-hover:text-blue-700">
+                    Request Industrial Quote <span className="text-xl leading-none">&rarr;</span>
                   </Link>
                 </div>
-                {/* Decorative Map BG */}
-                <MapPin className="absolute -bottom-4 -right-4 w-32 h-32 text-blue-500 opacity-30" />
               </div>
             </FadeIn>
 
