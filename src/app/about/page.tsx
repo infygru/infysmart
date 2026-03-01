@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website"
   },
   alternates: {
-    canonical: "https://infysmart.com/about"
+    canonical: "/about"
   }
 };
 
@@ -122,7 +122,7 @@ export default function AboutPage() {
 
               <div className="border-l-4 border-brand-blue pl-6 py-2 bg-slate-50 rounded-r-lg">
                 <p className="text-slate-700 italic font-medium">
-                  "We don't just install technology; we engineer ecosystems that protect assets and optimize operations."
+                  &quot;We don&apos;t just install technology; we engineer ecosystems that protect assets and optimize operations.&quot;
                 </p>
               </div>
             </FadeIn>
@@ -150,7 +150,7 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-blue transition-colors">
                   <Landmark className="w-7 h-7 text-brand-blue group-hover:text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Government & PSUs</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Government &amp; PSUs</h3>
                 <p className="text-slate-600 leading-relaxed text-sm">
                   Executing state-wide surveillance projects, municipal monitoring systems, and public infrastructure
                   upgrades with strict adherence to tender specifications and ISI/BIS standards.
@@ -190,46 +190,111 @@ export default function AboutPage() {
       </section>
 
       {/* 4. WHY CHOOSE US LIST */}
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <FadeIn direction="up">
             <div className="bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
               <div className="grid lg:grid-cols-2">
                 <div className="p-12 md:p-16">
-                  <h2 className="text-3xl font-bold text-white mb-6">The InfySmart Advantage</h2>
-                  <p className="text-slate-400 mb-8">
-                    Why leading organizations trust us with their critical infrastructure.
+                  <h2 className="text-3xl font-bold text-white mb-6">The InfySmart Engineering Advantage</h2>
+                  <p className="text-slate-400 mb-8 leading-relaxed text-sm">
+                    In the highly fragmented security and automation market, finding a reliable system integrator is challenging. As a unit of Infygru, we differentiate ourselves not merely by the products we sell, but by the rigorous engineering standards we apply during installation. We do not believe in cost-cutting with inferior cabling or unbranded power supplies that compromise the longevity of expensive Tier-1 hardware.
                   </p>
                   <div className="space-y-4">
                     {[
                       <span key="infygru">Official Unit of <a href="https://infygru.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 hover:underline">Infygru Private Limited</a></span>,
-                      "Compliance-First Approach (Govt Standards)",
-                      "Tier-1 Hardware Partners (Hikvision, Dahua, etc.)",
-                      "Dedicated In-House Engineering Team",
-                      "Comprehensive AMC & After-Sales Support",
-                      "State-wide Service Network in Tamil Nadu"
+                      "Compliance-First Approach (Govt & SIPCOT Standards)",
+                      "Tier-1 Hardware Partners (Hikvision, Dahua, Matrix)",
+                      "Dedicated In-House Engineering & R&amp;D Team",
+                      "Comprehensive AMC & Proven After-Sales Support",
+                      "State-wide Rapid Service Network in Tamil Nadu"
                     ].map((item, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
                           <CheckCircle2 className="w-4 h-4 text-green-400" />
                         </div>
-                        <span className="text-slate-200 font-medium">{item}</span>
+                        <span className="text-slate-200 font-medium text-sm">{item}</span>
                       </div>
                     ))}
                   </div>
                 </div>
                 <div className="bg-slate-800 p-12 md:p-16 flex flex-col justify-center">
                   <Target className="w-16 h-16 text-brand-blue mb-6" />
-                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
-                  <p className="text-slate-400 leading-relaxed text-lg">
-                    To be the premier technology partner for government bodies and enterprises
-                    by delivering secure, intelligent, and sustainable systems that create
-                    long-term operational value and safety.
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision & Mission</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm mb-4">
+                    <strong>Mission:</strong> To democratize enterprise-grade security and smart automation by pioneering scalable, cost-effective infrastructure solutions without compromising on reliability or data privacy.
+                  </p>
+                  <p className="text-slate-400 leading-relaxed text-sm">
+                    <strong>Vision:</strong> To be recognized as the premier indigenous technology partner for government bodies, multinational corporations, and critical industrial sectors across South India, delivering intelligent ecosystems that ensure absolute asset protection.
                   </p>
                 </div>
               </div>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* 4.5 OUR TECHNICAL PHILOSOPHY & CAPABILITIES (SEO EXPANSION) */}
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Technical Philosophy</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              We approach every site—whether a residential villa or a manufacturing plant—with a mindset rooted in risk-mitigation and future-proofing.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 text-sm text-slate-700 leading-relaxed">
+            <div>
+              <p className="mb-4">
+                The core philosophy driving InfySmart is that technology should be an invisible enabler. A surveillance system or an automated gate should work flawlessly in the background, requiring intervention only when a security anomaly occurs. Achieving this requires meticulous site surveying. Before we lay a single cable, our engineers assess lux levels (ambient lighting) for cameras, calculate starting torque requirements for gate motors based on wind resistance and incline, and analyze roof structural integrity for solar panel ballasts.
+              </p>
+              <p>
+                We heavily prioritize network security. With the rise of IoT devices, we ensure that every IP camera, bio-metric scanner, and NVR we deploy sits behind a secure firewall, utilizing strong passwords and firmware-level encryption to prevent unauthorized remote access, keeping our corporate clients compliant with modern data protection regulations.
+              </p>
+            </div>
+            <div>
+              <p className="mb-4">
+                Furthermore, we recognize that the true test of an integrator is not the day of installation, but the day the equipment fails. Electronic degradation is inevitable in harsh tropical climates. This is why our Service Level Agreements (SLAs) under our Annual Maintenance Contracts (AMCs) are structured to be aggressive. We maintain a substantial inventory of essential spare parts locally, ensuring that if a client&apos;s DVR motherboard fails at 2 AM, a backup unit is deployed the next morning to eliminate critical recording downtime.
+              </p>
+              <p>
+                As an authorized dealer for global giants like Hikvision, Dahua, Matrix, and eSSL, we act as the crucial technical bridge between the manufacturer&apos;s complex R&amp;D and the end-user&apos;s daily operational needs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FAQ SECTION */}
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-600">Common inquiries about our company and operations.</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">What is the relationship between InfySmart and Infygru?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                InfySmart is the dedicated technology brand owned and operated by Infygru Private Limited. All legal contracts, government tenders, billing, and compliances are executed under the registered entity, Infygru Private Limited. InfySmart acts as the consumer and enterprise-facing identity focused specifically on electronics infrastructure.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Do you undertake residential projects, or only commercial/government work?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                While our primary volume comes from B2B enterprise and government sectors, we enthusiastically undertake premium residential projects. For individual homeowners, we offer specialized services like Smart Home Automation, Video Door Phones for villas, and residential solar roof-top systems under the PM Surya Ghar scheme.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Where is your technical team located?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Our registered corporate office is in Chennai, Tamil Nadu. However, we have decentralized teams and service hubs in key industrial belts including Hosur, Bengaluru, Coimbatore, and Puducherry to ensure rapid response times for our AMC clients across the state.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

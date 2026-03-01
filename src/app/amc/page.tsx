@@ -16,14 +16,15 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "CCTV AMC Services in Chennai & Hosur | Annual Maintenance Contract",
-    description: "Comprehensive AMC for CCTV, Fire Alarms, and Biometric systems. On-site repair & preventive maintenance for Factories, Apartments, and Offices in Tamil Nadu.",
+    title: "CCTV & Solar AMC Services in Chennai, Coimbatore, Bangalore | InfySmart",
+    description: "Comprehensive AMC for CCTV, Solar, Fire Alarms, and Biometric systems. On-site repair & preventive maintenance across Tamil Nadu and Bangalore.",
     keywords: [
         "CCTV AMC Service", "Annual Maintenance Contract CCTV", "Security System Repair",
         "Biometric AMC", "Fire Alarm Maintenance", "Hikvision Service Center", "CP Plus Repair",
         "CCTV Technician near me", "AMC for Apartments",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
-    ]
+    ],
+    alternates: { canonical: '/amc' }
 };
 
 export const revalidate = 60;
@@ -59,7 +60,7 @@ export default async function AMCPage() {
                             </span>
                         </h1>
                         <p className="text-lg text-slate-300 mb-8 max-w-xl leading-relaxed">
-                            Don't wait for a security breach to fix your system. Get proactive <strong>Annual Maintenance Contracts (AMC)</strong> for CCTV, Biometrics, and Fire Alarms.
+                            don&apos;t wait for a security breach to fix your system. Get proactive <strong>Annual Maintenance Contracts (AMC)</strong> for CCTV, Biometrics, and Fire Alarms.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link href="/contact" className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-900/50 text-center">
@@ -170,7 +171,82 @@ export default async function AMCPage() {
                 </div>
             </section>
 
-            {/* 4. PRICING OR CTA */}
+            {/* 4. TECHNICAL SLA & COMPLIANCE (SEO EXPANSION) */}
+            <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold mb-4">Enterprise-Grade Service Level Agreements</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">
+                            Strict maintenance protocols designed for continuous operations.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-red-500">Preventive vs Corrective Maintenance</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Most vendors only perform Corrective Maintenance (fixing what is already broken). Our Comprehensive AMC guarantees <strong>Preventive Maintenance</strong>. We proactively identify oxidized BNC connectors, failing power management ICs, and degrading hard sectors on surveillance drives before they cause a total system crash during a critical incident.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-red-500">Response Time SLAs</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                For industrial facilities in SIPCOT and Ambattur, security downtime implies immense liability. We offer tiered response SLAs. Our standard industrial contract ensures a technician arrives on-site within <strong>4 to 8 Business Hours</strong>. For mission-critical server rooms, we offer 24/7 telephonic troubleshooting and rapid hardware swapping to ensure zero recording gaps.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-red-500">Comprehensive Checklists</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                During each quarterly visit, our certified technicians execute a 24-point checklist. This includes testing the Uninterruptible Power Supply (UPS) battery load, re-calibrating PTZ camera home positions, archiving essential logs, and physically clearing cobwebs and dust from external infra-red (IR) lenses to ensure night vision remains unobstructed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. FAQ SECTION */}
+            <section className="py-20 bg-white border-t border-slate-200">
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">AMC Frequently Asked Questions</h2>
+                        <p className="text-slate-600">Clarifying our maintenance contract terms and conditions.</p>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">What is the difference between Comprehensive and Non-Comprehensive AMCs?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                A <strong>Non-Comprehensive AMC</strong> covers only the service charges for repairs and the scheduled quarterly visits; if a camera or hard drive needs replacement, the cost of the spare part is billed separately. A <strong>Comprehensive AMC</strong> covers both the service labor AND the cost of replacing faulty hardware components during the contract period, offering total peace of mind and predictable budgeting.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Will you take over the AMC if the system was installed by someone else?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes. Before we sign the AMC, our engineers conduct a thorough initial site audit to evaluate the current health, cabling quality, and configuration of your existing setup. If critical flaws exist (like exposed wiring), we provide a one-time rectification quote to bring the system up to our maintainable standards, after which the AMC commences.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Are standby cameras provided during repairs?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes, under specific premium industrial contracts. If a critical component like a multi-channel NVR or a primary entrance camera needs to be taken to our service center for PCB repair, we temporarily install a standby unit to ensure your premises remain under surveillance until the original component is fixed.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">How do I track when my next service is due?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                We utilize a digital ticketing and CRM system. You will receive an automated email/SMS reminder 7 days before your scheduled quarterly preventive maintenance visit. Post-service, you receive a digital service report signed by our technician detailing the health parameters of your system.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. PRICING OR CTA */}
             <section className="py-20 bg-brand-blue text-white">
                 <div className="container mx-auto px-6 text-center max-w-2xl">
                     <h2 className="text-3xl font-bold mb-4">Start Your AMC @ ₹450 / Camera</h2>

@@ -21,7 +21,7 @@ const features = [
   {
     icon: <CheckCircle2 className="h-6 w-6 text-purple-500" />,
     title: "100% Satisfaction Guarantee",
-    description: "We don't just sell; we partner. Enjoy a 100% money-back guarantee if our service doesn't meet the promised standards."
+    description: "We don&apos;t just sell; we partner. Enjoy a 100% money-back guarantee if our service doesn&apos;t meet the promised standards."
   }
 ];
 

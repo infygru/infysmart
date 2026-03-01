@@ -50,7 +50,7 @@ export default function AuthorizedBrands() {
               className="relative h-10 w-32 shrink-0 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             >
               {/* Logic: If you have the image, show it. Otherwise text fallback. */}
-              {/* For now, using text fallback style to match your ClientStrip screenshot if images aren't loaded yet */}
+              {/* For now, using text fallback style to match your ClientStrip screenshot if images aren&apos;t loaded yet */}
               
               <span className="text-xl font-bold text-slate-300 uppercase tracking-tight whitespace-nowrap">
                 {brand.name}

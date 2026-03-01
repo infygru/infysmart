@@ -19,6 +19,13 @@ import {
   Settings,
   ShieldCheck
 } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Affordable Solar Panel Maintenance & Installation in Chennai, Coimbatore, Hosur | InfySmart",
+  description: "High-efficiency solar power plants for homes and industries across Tamil Nadu and Bangalore.",
+  alternates: { canonical: '/solar' }
+};
 
 export const revalidate = 60;
 
@@ -66,14 +73,14 @@ export default async function SolarPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/50 text-yellow-300 text-xs font-bold uppercase tracking-widest mb-6">
               <Sun className="w-3 h-3" /> Premier Solar EPC Partner
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Powering Tamil Nadu <br />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+              Affordable Solar Panel <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
-                With Free Solar Energy.
+                Installation & Maintenance.
               </span>
             </h1>
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl">
-              From <span className="text-white font-bold">Residential Rooftops in Chennai & Puducherry</span> to <span className="text-white font-bold">MW Scale Industrial Plants in Coimbatore & Hosur</span>.
+              From <span className="text-white font-bold">Residential Rooftops in Chennai & Puducherry</span> to <span className="text-white font-bold">MW Scale Industrial Plants in Coimbatore, Hosur & Bangalore</span>.
               Certified partners for Tata Power, Adani, and Waaree. <strong>Specialists in Standalone Solar 4G CCTV Cameras</strong> for remote sites.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -134,7 +141,7 @@ export default async function SolarPage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Concept to Commissioning</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
-              We handle the entire solar lifecycle so you don't have to deal with multiple vendors.
+              We handle the entire solar lifecycle so you don&apos;t have to deal with multiple vendors.
             </p>
           </div>
 
@@ -327,7 +334,94 @@ export default async function SolarPage() {
         </div>
       </section>
 
-      {/* 6. CTA SECTION */}
+      {/* 6. TECHNICAL DEEP DIVE (SEO EXPANSION) */}
+      <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Solar Engineering Excellence</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Precision design and execution for maximum yield.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-yellow-400">Mono-PERC vs Polycrystalline</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                We exclusively utilize <strong>Mono-PERC (Passivated Emitter and Rear Cell)</strong> half-cut solar panels for our installations. Unlike older blue polycrystalline panels, Mono-PERC panels offer higher conversion efficiencies (21%+) and perform remarkably better under low-light, cloudy conditions, or high-heat environments common in Tamil Nadu.
+              </p>
+              <ul className="text-sm text-slate-400 space-y-2">
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Degradation &lt; 2% in the first year.</li>
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> 25-Year Linear Performance Warranty.</li>
+              </ul>
+            </div>
+
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-yellow-400">Inverter Topologies</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                Selecting the right inverter is the heart of the plant. For residential, we deploy reliable <strong>String Inverters</strong> with dual MPPTs to handle varying roof-angles. For complex roofs subjected to partial shading, we recommend <strong>Micro-inverters</strong> to isolate panel performance, ensuring a single shaded panel doesn&apos;t drag down the entire string array.
+              </p>
+              <ul className="text-sm text-slate-400 space-y-2">
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Pure Sine Wave output.</li>
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Global remote monitoring via cloud portal.</li>
+              </ul>
+            </div>
+
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-yellow-400">Structural Safety</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                Solar structures must last as long as the panels (25+ years). We utilize <strong>Hot-Dip Galvanized Iron (GI)</strong> or Anodized Aluminum structures. These are custom fabricated and structurally engineered to withstand wind speeds of up to 150 kmph, safeguarding your investment against cyclonic weather on coastal regions like Chennai.
+              </p>
+              <ul className="text-sm text-slate-400 space-y-2">
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Non-penetrating ballast mounts for flat roofs.</li>
+                <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Elevated &apos;High-Rise&apos; structures for roof usability.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQ SECTION */}
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Solar Energy FAQs</h2>
+            <p className="text-slate-600">Expert answers to common residential and commercial solar questions.</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How does a Net Metering system work?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                In an On-Grid system, the solar electricity you generate is consumed immediately by your house. If you generate more than you consume, the surplus is exported back to the TNEB grid. The new bi-directional &quot;Net Meter&quot; records this export. At the end of the billing cycle, TNEB subtracts your exported units from your imported units, and you only pay for the net difference. If you export more than you import, the surplus units are carried forward over to the next billing cycle.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Will my solar system work during a power cut?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                A standard <strong>On-Grid</strong> solar system automatically shuts down during a grid power failure. This is a mandatory safety feature called &quot;anti-islanding&quot; to protect grid linemen who might be repairing the wires. If you want power during outages, you need an <strong>Hybrid System</strong> with a battery bank, which costs significantly more and does not qualify for net-metering subsidies in the same way.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How to apply for the PM Surya Ghar Muft Bijli Yojana Subsidy?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                As a registered vendor, InfySmart assists you through the entire process. We register you on the National Portal, submit the technical feasibility reports, install DCR (Domestic Content Requirement) panels as mandated by the scheme, and facilitate the CEIG inspection and Net Meter installation. Once commissioned, the subsidy amount (up to ₹78,000 for 3kW) is credited directly to your bank account within 30 days.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Is a solar water pump a viable investment for agriculture?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Absolutely. Solar water pumps are off-grid systems meaning they don&apos;t require EB connections to operate. They are equipped with Variable Frequency Drives (VFDs) that power submersible or surface pumps directly from sunlight. Because they utilize direct DC power without necessitating expensive battery banks, they offer rapid payback periods for farmers facing unstable diesel prices or erratic farm electricity supply.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA SECTION */}
       <section className="py-20 bg-slate-900 text-white border-t border-slate-800">
         <div className="container mx-auto px-6 text-center max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">Switch to Solar Today</h2>

@@ -9,6 +9,13 @@ import ExecutionProcess from '@/components/ExecutionProcess';
 import CurrentProjects from '@/components/CurrentProjects';
 import FadeIn from '@/components/animations/FadeIn';
 import PriceGuideCTA from '@/components/PriceGuideCTA';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Best CCTV Installation Service & Solar Power in Chennai, Hosur, Coimbatore, Bangalore | InfySmart',
+  description: 'Top-rated CCTV, Solar, and Automation services in Tamil Nadu.',
+  alternates: { canonical: '/' }
+};
 
 export const revalidate = 60;
 

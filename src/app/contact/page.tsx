@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contact InfySmart Solutions',
+  description: 'Get in touch with us for CCTV, Solar or Automation requirements.',
+  alternates: { canonical: '/contact' }
+};
+
 export default function ContactPage() {
   return (
     <main className="bg-white text-slate-900">

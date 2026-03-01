@@ -18,6 +18,13 @@ import {
   Lock,
   Factory // Added this missing import
 } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Smart Automation & Security Systems in Chennai, Bangalore, Coimbatore | InfySmart",
+  description: "Secure automation systems including Gate Motors, Rolling Shutters, and Office Access Control in Tamil Nadu and Bangalore.",
+  alternates: { canonical: '/automation' }
+};
 
 export const revalidate = 60;
 
@@ -65,10 +72,10 @@ export default async function AutomationPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/50 border border-blue-700 text-blue-300 text-xs font-bold uppercase tracking-widest mb-6">
               <Zap className="w-3 h-3" /> Smart Entry Solutions
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Secure & Effortless <br />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+              Advanced Automation Solutions <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
-                Automation Systems.
+                for Chennai, Hosur & Bangalore.
               </span>
             </h1>
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-2xl">
@@ -232,7 +239,7 @@ export default async function AutomationPage() {
                 <h2 className="text-2xl font-bold text-slate-900">Automation in Chennai</h2>
               </div>
               <p className="text-slate-600 mb-6 leading-relaxed">
-                We provide quick installation and on-site motor repair services across Chennai. Whether it's a <strong>stuck gate</strong> or a <strong>faulty remote</strong>, our technicians are a call away.
+                We provide quick installation and on-site motor repair services across Chennai. Whether it&apos;s a <strong>stuck gate</strong> or a <strong>faulty remote</strong>, our technicians are a call away.
               </p>
               <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
                 <h4 className="font-bold text-slate-900 mb-4 border-b pb-2 border-slate-200">Key Service Areas:</h4>
@@ -278,7 +285,82 @@ export default async function AutomationPage() {
         </div>
       </section>
 
-      {/* 5. BRANDS */}
+      {/* 5. TECHNICAL DEEP DIVE (SEO EXPANSION) */}
+      <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Engineering Behind the Automation</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Precision mechanics designed for thousands of fault-free cycles.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-purple-400">Maximum Payload Capacities</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                Proper motor sizing is critical. We calculate the starting inertia based on gate weight and incline. Our <strong>residential sliding motors</strong> handle 400kg to 800kg using 24V DC configurations for softer starts. For <strong>industrial applications</strong>, we deploy 230V AC or 400V Three-Phase motors capable of moving monolithic gates weighing up to 2500kg with immense starting torque.
+              </p>
+            </div>
+
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-purple-400">Extreme Environment Ratings</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                Outdoor automation faces dust, torrential rain, and heat. Our installed equipment mandates a minimum <strong>IP44 to IP55 Ingress Protection rating</strong>. The internal control boards feature conformal coating to prevent short circuits from humidity. For coastal areas like ECR Chennai, we use specialized anti-corrosive housing alloys to resist salt mist degradation.
+              </p>
+            </div>
+
+            <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+              <h3 className="text-xl font-bold mb-4 text-purple-400">IoT Ecosystem Integration</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                We integrate traditional access points into modern IoT architectures. Access Controllers can be interfaced via Wiegand protocols using fire-alarm panels for emergency fail-safes. Gate motors can be retrofitted with smart Wi-Fi relays, enabling geo-fenced auto-opening capabilities or voice commands via Alexa and Google Home integrations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FAQ SECTION */}
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Automation FAQs</h2>
+            <p className="text-slate-600">Common questions about automated gates, barriers, and access systems.</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">What happens to an automatic gate during a power cut?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                All professional gate motors are equipped with a mechanical release mechanism. You will be provided with a customized release key that decouples the motor from the gearing system, allowing you to slide or push the gate manually. Additionally, many 24V DC residential motors come with optional backup batteries that can operate the gate for 10-20 cycles without mains power.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Is it safe? Can children or pets get crushed by an automated gate?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Safety is our highest priority. Every gate motor installation includes <strong>infrared photocell sensors</strong> mounted across the driveway. If the invisible beam is broken by a car, child, or pet while the gate is closing, the motor instantaneously halts and reverses operation. Furthermore, modern control panels feature built-in obstacle detection torque-sensors that reverse upon hitting an unusually high resistance.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Can existing manual gates be automated, or do I need a new gate?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                In 95% of scenarios, your existing manual gates can be automated. We retrofit the hardware by welding a galvanized rack onto a sliding gate or attaching articulated arms onto swing gate pillars. We only require that the existing physical structure (hinges, tracks, and wheels) operates smoothly without excessive mechanical friction before we install the motor.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How do boom barriers integrate with FASTag or UHF readers?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                For rapid access in IT parks or high-traffic apartments, we integrate Boom Barriers with UHF (Ultra High Frequency) RFID readers. These readers function similarly to highway FASTags, reading authorized vehicle tags attached to the windshield from 5-10 meters away. This triggers the boom barrier to open automatically without the driver needing to stop, dramatically reducing entry congestion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. BRANDS */}
       <section className="py-12 bg-slate-50 border-t border-slate-200">
         <div className="container mx-auto px-6 text-center">
           <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">

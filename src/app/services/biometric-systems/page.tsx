@@ -16,14 +16,15 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Biometric Access Control & Time Attendance System | Infysmart",
-    description: "Advanced Biometric Attendance Machines & Door Access Control. Fingerprint, Face Recognition, and RFID Card systems for Offices & Factories in Tamil Nadu.",
+    title: "Biometric Access Control Systems in Chennai, Coimbatore, Bangalore | InfySmart",
+    description: "Advanced Biometric Attendance Machines & Door Access Control. Fingerprint, Face Recognition, and RFID systems for Offices & Factories across Tamil Nadu and Bangalore.",
     keywords: [
         "Biometric Access Control", "Time Attendance System", "Fingerprint Scanner",
         "Face Recognition Attendance", "Door Access Control System", "Essl Biometric Dealer",
         "Realtime Biometric Dealer", "Matrix Access Control", "Employee Monitoring System",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
-    ]
+    ],
+    alternates: { canonical: '/services/biometric-systems' }
 };
 
 export const revalidate = 60;
@@ -87,7 +88,7 @@ export default async function BiometricSystemsPage() {
                         <FadeIn direction="up" delay={0.1}>
                             <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all h-full">
                                 <Clock className="w-12 h-12 text-brand-blue mb-4" />
-                                <h3 className="text-xl font-bold mb-3">Time & Attendance</h3>
+                                <h3 className="text-xl font-bold mb-3">Time &amp; Attendance</h3>
                                 <p className="text-slate-600 text-sm">
                                     Automate payroll with accurate punch-in/out logs. Generate daily, weekly, and monthly reports via software or mobile app.
                                 </p>
@@ -165,8 +166,83 @@ export default async function BiometricSystemsPage() {
                 </div>
             </section>
 
-            {/* 4. SERVICE AREAS */}
-            <section className="py-16 bg-white border-t border-slate-200">
+            {/* 4. TECHNICAL DEEP DIVE (SEO EXPANSION) */}
+            <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold mb-4">Biometric Security Architecture</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">
+                            Understanding template security and physical access control integratons.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-cyan-400">Template Encryption & Anti-Spoofing</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Our modern facial recognition systems employ <strong>Anti-Spoofing algorithms</strong> utilizing deep learning models to distinguish between a live face and a photograph or video playback. Furthermore, fingerprint scanners do not store actual images of fingerprints; instead, they convert the minutiae points into a mathematically hashed <strong>encrypted template</strong>, rendering it impossible to reverse-engineer the actual fingerprint if the database is breached.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-cyan-400">Wiegand & Physical Interlocking</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                For high-security zones (like pharmaceutical labs in SIPCOT), we integrate biometric readers with heavy-duty <strong>Electro-Magnetic (EM) Locks and Drop Bolts</strong>. We implement Wiegand protocols connecting the readers to central Multi-Door Controllers. We also design <strong>Interlocking Door Systems</strong> (Mantrap logic) where Door B will not open until Door A is securely closed behind the person.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-cyan-400">Cloud API & Payroll Sync</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Gone are the days of manual USB drive downloads. We deploy devices with built-in Wi-Fi and 4G modules that push punch records via REST APIs directly to cloud servers. This active <strong>Push Data Technology</strong> seamlessly syncs with leading payroll software (like Zoho People or Keka), automating salary calculations based on exact in/out times and overtime hours without HR intervention.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. FAQ SECTION */}
+            <section className="py-20 bg-white border-t border-slate-200">
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Biometrics & Access Control FAQs</h2>
+                        <p className="text-slate-600">Expert answers to common workplace implementation questions.</p>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">What happens to the access doors during a power failure?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Access control systems comply with fire safety regulations using &quot;Fail-Safe&quot; or &quot;Fail-Secure&quot; logic. Most office EM locks are <strong>Fail-Safe</strong>, meaning if the power is entirely cut, the magnet de-energizes and the door unlocks, allowing people to evacuate safely. However, we always install systems with robust battery backups (12V 7Ah minimum) to maintain security during routine power cuts.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Can employees punch attendance from their mobile phones when working remotely?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes. Our comprehensive HRMS and Time-Attendance software suites include a dedicated mobile application for field staff. Furthermore, it utilizes <strong>Geo-fencing</strong> and GPS tracking, ensuring the employee can only successfully mark their attendance when physically present within the predefined coordinates of a client site or branch office.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Is face recognition reliable for employees wearing PPE or face masks?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes. Brands like ZKTeco and Matrix offer advanced Visible Light Facial Recognition series that map the upper half of the face (eyes, brow ridges). These algorithms successfully authenticate personnel wearing industrial safety helmets, glasses, and surgical masks in under 0.5 seconds, which is crucial for manufacturing units post-pandemic.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">How many users can a single biometric machine store?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Capacity varies by model. Entry-level devices typically store 1,000 to 3,000 fingerprint templates and 50,000 punch logs. Enterprise-grade models can hold up to 10,000 face templates and 500,000 logs in internal memory. Once the log capacity is reached, older logs are either overwritten or pushed to the central server, ensuring continuous operation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. SERVICE AREAS */}
+            <section className="py-16 bg-slate-50 border-t border-slate-200">
                 <div className="container mx-auto px-6">
                     <div className="flex items-center gap-2 mb-6 justify-center text-center">
                         <MapPin className="text-brand-orange w-6 h-6" />

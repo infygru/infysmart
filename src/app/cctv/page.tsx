@@ -21,8 +21,9 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Industrial CCTV Camera Installation in Chennai, Ambattur, Guindy | InfySmart',
-  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units in Ambattur, Guindy, Sriperumbudur, Kanchipuram & SIPCOT. Installation & AMC.',
+  title: 'Best CCTV Installation Service in Chennai, Coimbatore, Hosur, Dharmapuri, Karaikudi & Bangalore | InfySmart',
+  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units across Tamil Nadu and Bangalore.',
+  alternates: { canonical: '/cctv' }
 };
 
 // 1. Define Interface
@@ -69,10 +70,10 @@ export default async function CCTVPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/50 border border-blue-700 text-blue-300 text-xs font-bold uppercase tracking-widest mb-6">
               <Eye className="w-3 h-3" /> Sales • Installation • Service • AMC
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Commercial & Industrial <br />
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+              Best CCTV Installation Service <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
-                Surveillance Solutions.
+                in Chennai, Hosur, Dharmapuri, Coimbatore, Karaikudi & Bangalore.
               </span>
             </h1>
             <ul className="flex flex-wrap gap-4 text-lg text-slate-300 mb-8 max-w-2xl list-none">
@@ -103,7 +104,7 @@ export default async function CCTVPage() {
             <FadeIn direction="up">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Complete Lifecycle Support</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">
-                We don't just sell boxes. We provide end-to-end security ownership.
+                We don&apos;t just sell boxes. We provide end-to-end security ownership.
               </p>
             </FadeIn>
           </div>
@@ -165,7 +166,7 @@ export default async function CCTVPage() {
             </FadeIn>
 
             {/* RENTALS - Optional 5th card or keep consistent grid */}
-            {/* Only 4 cols in grid, this might wrap awkward if not handled. Let's hide or keep as extra service? 
+            {/* Only 4 cols in grid, this might wrap awkward if not handled. let&apos;s hide or keep as extra service? 
                  The original had it. I'll put it in a separate row or just append if grid adapts.
                  Original grid was md:grid-cols-4. If 5 items, last one wraps.
               */}
@@ -333,7 +334,102 @@ export default async function CCTVPage() {
         </div>
       </section>
 
-      {/* 5. BRANDS */}
+      {/* 5. TECHNICAL DEEP DIVE (SEO EXPANSION) */}
+      <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <FadeIn direction="up">
+              <h2 className="text-3xl font-bold mb-4">Industrial CCTV Architecture</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">
+                Deep technical expertise for complex enterprise deployments.
+              </p>
+            </FadeIn>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FadeIn direction="up" delay={0.1}>
+              <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                <h3 className="text-xl font-bold mb-4 text-brand-orange">IP vs Analog HD</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                  For industrial plants, we strongly recommend <strong>IP Camera Networks</strong> over traditional Analog HD. IP cameras offer digital zoom without pixelation, native POE (Power over Ethernet) simplifying cabling, and decentralized recording options.
+                </p>
+                <ul className="text-sm text-slate-400 space-y-2">
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> CAT6 cabling handles both power and data.</li>
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Easier integration with existing IT infrastructure.</li>
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={0.2}>
+              <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                <h3 className="text-xl font-bold mb-4 text-brand-orange">Storage & Encoding</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                  Using advanced <strong>H.265+ encoding</strong>, we compress video files up to 80% without losing quality. This means a standard 4TB Surveillance HDD can store up to 30 days of 1080p continuous recording for a 16-channel system.
+                </p>
+                <ul className="text-sm text-slate-400 space-y-2">
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> WD Purple / Seagate Skyhawk Enterprise Drives.</li>
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Motion-based recording to maximize retention.</li>
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={0.3}>
+              <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                <h3 className="text-xl font-bold mb-4 text-brand-orange">Compliance & Safety</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                  Our installations comply with strict safety standards required by SIPCOT and industrial safety audits. We utilize PVC conduits, armored fiber optic cables for long distances, and weatherproof IP67 rated camera housings.
+                </p>
+                <ul className="text-sm text-slate-400 space-y-2">
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> BIS certified power supplies.</li>
+                  <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" /> Surge protection on video and power lines.</li>
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FAQ SECTION */}
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-600">Expert answers to your surveillance queries.</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How long do CCTV cameras record before overwriting?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Recording duration depends entirely on your hard drive capacity (TB), the number of cameras, the resolution (2MP vs 5MP), and the encoding format used. A typical 8-camera 2MP system with a 2TB hard drive using H.265 compression will record continuously for about 15-20 days. We optimize this by enabling motion-detection recording, which can extend retention to 30+ days.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Do I need internet for a CCTV system to work?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                No, internet is <strong>not required</strong> for a CCTV system to record or monitor locally on a connected TV/monitor. However, if you want to view the live footage remotely on your smartphone (via apps like Hik-Connect) or receive motion-alert push notifications when you are away from the office, an active internet connection at the DVR/NVR site is necessary.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Can wireless CCTV cameras be used for large industrial areas?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                We generally advise against basic Wi-Fi cameras for large critical infrastructure due to connectivity drops and latency. Instead, for remote areas like farmhouses or large perimeter fences without network cabling, we install <strong>4G Solar PTZ Cameras</strong>. These operate entirely off-grid using a built-in solar panel and an inserted 4G SIM card for direct cloud connectivity. For networked warehouses, Point-to-Point (P2P) wireless bridges are highly reliable.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">What does an Annual Maintenance Contract (AMC) cover?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Our AMC packages cover comprehensive quarterly preventive maintenance. This involves cleaning camera lenses, re-focusing, testing UPS battery backups, extracting dust from the DVR/NVR, updating firmware, and verifying hard drive health to prevent sudden recording failures. Spare parts and hardware replacements may be billed separately or included depending on whether it is a Comprehensive or Non-Comprehensive AMC.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. BRANDS */}
       <section className="py-12 bg-white border-t border-slate-200">
         <div className="container mx-auto px-6 text-center">
           <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">

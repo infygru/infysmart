@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { GlobalSettings } from '@/lib/directus';
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
-// FIX: Added '?' to make settings optional so it doesn't crash if missing
+// FIX: Added '?' to make settings optional so it doesn&apos;t crash if missing
 export default function Footer({ settings }: { settings?: GlobalSettings | null }) {
   const currentYear = new Date().getFullYear();
 
@@ -24,7 +24,7 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
             </p>
             <div className="p-4 bg-slate-800 rounded-lg border border-slate-700 mb-6">
               <p className="text-xs text-slate-300 font-semibold mb-1">
-                Government & PSU Compliant
+                Government &amp; PSU Compliant
               </p>
               <p className="text-xs text-slate-400 leading-snug">
                 Fully compliant for Tenders in Tamil Nadu. GST & MSME Registered.
@@ -110,7 +110,7 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
           <p className="mb-4 md:mb-0">© {currentYear} Infygru Private Limited. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="hover:text-white transition">Terms & Conditions</Link>
+            <Link href="/terms" className="hover:text-white transition">Terms &amp; Conditions</Link>
             <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
             <Link href="/cookie-policy" className="hover:text-white transition">Cookie Policy</Link>
             <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>

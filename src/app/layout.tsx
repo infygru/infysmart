@@ -10,6 +10,7 @@ import { readSingleton } from "@directus/sdk";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://infysmart.com"),
   title: "Govt Approved CCTV Installation in Hosur, Chennai & Bengaluru | Infysmart",
   description: "Premier Security System Installation Service in Tamil Nadu & Karnataka. Specialists in Industrial CCTV, Factory Surveillance, Solar 4G Cameras, and Biometric Access Control for TNPL, ACCET, and private enterprises.",
   keywords: [

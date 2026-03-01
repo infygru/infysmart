@@ -6,6 +6,15 @@ import { notFound } from 'next/navigation';
 import { Clock, User, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Breadcrumbs from '@/components/Breadcrumbs'; // Import the new component
+import type { Metadata } from 'next';
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  return {
+    alternates: {
+      canonical: `/blog/${params.slug}`
+    }
+  };
+}
 
 // Force refresh
 export const revalidate = 0;

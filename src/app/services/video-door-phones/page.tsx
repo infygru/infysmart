@@ -16,14 +16,15 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Video Door Phone Installation | Smart Intercom Systems",
-    description: "Secure your home with Video Door Phones (VDP) & IP Intercoms. Hikvision & Dahua dealers in Chennai, Hosur, Bengaluru, and Puducherry.",
+    title: "Video Door Phone Installation in Chennai, Coimbatore, Bangalore | InfySmart",
+    description: "Secure your home with Video Door Phones (VDP) & IP Intercoms. Authorized dealers in Chennai, Hosur, Coimbatore, Dharmapuri, and Bengaluru.",
     keywords: [
         "Video Door Phone Installation", "wireless video door phone", "Hikvision Video Door Phone",
         "Panasonic Video Door Phone", "Smart Doorbell with Camera", "IP Video Intercom",
         "Apartment Intercom System", "Villa Video Door Phone", "Gate Security Camera",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
-    ]
+    ],
+    alternates: { canonical: '/services/video-door-phones' }
 };
 
 export const revalidate = 60;
@@ -53,7 +54,7 @@ export default async function VideoDoorPhonePage() {
                             <Bell className="w-3 h-3" /> Smart Entry Solutions
                         </div>
                         <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-                            See Who's At Your Door <br />
+                            See who&apos;s At Your Door <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
                                 Before You Open It.
                             </span>
@@ -124,7 +125,7 @@ export default async function VideoDoorPhonePage() {
                             <h2 className="text-3xl font-bold mb-6">Authorized Dealers for Top Brands</h2>
                             <p className="text-slate-400 mb-6 leading-relaxed">
                                 We supply and install industry-leading Video Door Phone systems known for durability and clarity.
-                                Whether you need a simple 4.3" screen or a premium 10" Touch IP Intercom, we have it in stock.
+                                Whether you need a simple 4.3&quot; screen or a premium 10&quot; Touch IP Intercom, we have it in stock.
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex items-center gap-3">
@@ -159,7 +160,82 @@ export default async function VideoDoorPhonePage() {
                 </div>
             </section>
 
-            {/* 4. SERVICE AREAS */}
+            {/* 4. TECHNICAL DEEP DIVE (SEO EXPANSION) */}
+            <section className="py-20 bg-slate-900 border-t border-slate-800 text-white">
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold mb-4">IP Intercom Technology</h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto">
+                            The backbone of modern villa and multi-apartment communication.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-orange-400">SIP Protocol Integration</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Premium Video Door Phones utilize the <strong>Session Initiation Protocol (SIP)</strong> to route audio/video calls over internet networks just like an IP-PBX system. This allows the outdoor lobby station to dial directly to the resident&apos;s mobile app anywhere globally via cloud P2P servers without the need for static IP addresses.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-orange-400">TCP/IP Network Topology</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Analog systems suffer from signal degradation over long distances. In large residential complexes, we design <strong>TCP/IP based intercom networks</strong> using cascaded PoE switches. This ensures crisp 1080p HD video and clear duplex audio between the main security gate and a flat located on the 20th floor, utilizing standard CAT6 cabling.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 h-full">
+                            <h3 className="text-xl font-bold mb-4 text-orange-400">Lock Interfaces & Dry Contacts</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                The outdoor station acts as an access control relay. It features normally-open (NO) and normally-closed (NC) <strong>dry contact outputs</strong> capable of integrating with Electromagnetic Locks, Strike Locks on wooden doors, or Automated Sliding Gates. Authorized users can trigger the relay via the indoor monitor, RFID tag, or a mobile app.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. FAQ SECTION */}
+            <section className="py-20 bg-white border-t border-slate-200">
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Smart Intercom FAQs</h2>
+                        <p className="text-slate-600">Expert answers to common Video Door Phone integration questions.</p>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Can I connect my Video Door Phone to my CCTV DVR?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes. Analog VDP systems can often pass their video signal into a DVR via BNC adapters. More efficiently, IP-based Video Door Phones from brands like Hikvision provide an RTSP stream. This protocol allows your NVR (Network Video Recorder) to treat the door phone&apos;s camera exactly like an ordinary CCTV camera, recording the 24/7 video feed for continuous surveillance over the main entrance.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">What happens if my home Wi-Fi goes down?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                If the internet is disconnected, the remote mobile app feature (receiving calls on your phone) will stop working. However, the core functionality between the outdoor bell and the physical indoor monitor screen will continue to work perfectly via the local wired connection, ensuring you are never locked out from communicating with visitors inside your home.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">I live in a multi-story house. Can I have multiple indoor screens?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Yes. The system can be expanded by running cascade connections to supplementary &quot;Slave&quot; monitors. For example, if you have a G+2 villa, we install the main &quot;Master&quot; monitor in the living room, and smaller screens in the upstairs bedrooms. When the bell rings, all screens chime simultaneously, and you can converse with the visitor from any floor.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 className="text-lg font-bold text-slate-900 mb-2">Is the outdoor camera weather-proof and vandal-proof?</h4>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Outdoor lobby stations are built specifically to withstand the elements. They typically possess an IP65 rating to resist heavy rain and dust. Premium models also carry an IK08 or IK09 vandal-resistance rating, featuring cast-aluminum alloy housings and polycarbonate shields over the camera lens to protect against physical tampering or deliberate damage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. SERVICE AREAS */}
             <section className="py-16 bg-slate-50 border-t border-slate-200">
                 <div className="container mx-auto px-6">
                     <div className="flex items-center gap-2 mb-6 justify-center text-center">

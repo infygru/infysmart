@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
+    async redirects() {
+        return [
+            {
+                source: '/:path*',
+                has: [{ type: 'host', value: 'www.infysmart.com' }],
+                destination: 'https://infysmart.com/:path*',
+                permanent: true,
+            },
+        ];
+    },
     images: {
         remotePatterns: [
             {

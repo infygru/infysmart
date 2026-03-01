@@ -17,7 +17,7 @@ export default function Hero({ heroImage }: HeroProps) {
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4" />
-        {/* Removed grid-pattern.svg reference to avoid 404 if you don't have it, added simple CSS grid instead if needed */}
+        {/* Removed grid-pattern.svg reference to avoid 404 if you don&apos;t have it, added simple CSS grid instead if needed */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" />
       </div>
 
@@ -44,18 +44,18 @@ export default function Hero({ heroImage }: HeroProps) {
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-            Government-Approved <br />
+            Best CCTV Installation Service <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">
-              Security Systems
+              & Solar Power Systems
             </span> <br />
             <span className="text-2xl md:text-3xl lg:text-4xl text-slate-300 block mt-2">
-              for Industrial & Commercial Projects
+              in Chennai, Hosur, Coimbatore & Bangalore
             </span>
           </h1>
 
           <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg">
             Registered Vendor for <strong className="text-slate-200">Tamil Nadu Government</strong>, serving clients like <strong className="text-slate-200">TNPL & ACCET</strong>.
-            <br /><span className="text-orange-400 font-semibold block mt-4">✓ Protecting assets across Chennai, Hosur, & Coimbatore</span>
+            <br /><span className="text-orange-400 font-semibold block mt-4">✓ Protecting assets across Chennai, Hosur, Dharmapuri, Coimbatore, Karaikudi & Bangalore</span>
           </p>
 
           <div className="flex flex-wrap gap-4">

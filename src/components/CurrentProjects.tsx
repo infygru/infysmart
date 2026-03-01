@@ -5,7 +5,7 @@ import { getAssetUrl, Project } from '@/lib/directus';
 import { Loader2, MapPin } from 'lucide-react';
 
 export default function CurrentProjects({ projects }: { projects: Project[] }) {
-  // Safety check: if projects is undefined or empty, don't break the page
+  // Safety check: if projects is undefined or empty, don&apos;t break the page
   if (!projects) return null;
 
   // Filter for only 'Ongoing' projects (Case sensitive!)
