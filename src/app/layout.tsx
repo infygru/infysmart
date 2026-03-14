@@ -22,26 +22,54 @@ export const metadata: Metadata = {
   description:
     "Govt-approved security system provider in Tamil Nadu & Karnataka. Expert CCTV installation, Solar 4G cameras, biometric access control & video door phones for industrial, commercial, and government projects in Chennai, Hosur, Coimbatore & Bangalore.",
   keywords: [
+    // Core service keywords
+    "CCTV installation service",
+    "CCTV camera installation",
+    "industrial CCTV installation",
+    "factory surveillance system",
+    "IP camera setup",
+    "Solar 4G CCTV camera",
+    "solar panel installation",
+    "biometric access control system",
+    "fingerprint attendance machine",
+    "face recognition access control",
+    "video door phone installation",
+    "IP video intercom",
+    "gate motor automation",
+    "rolling shutter motor",
+    "boom barrier installation",
+    "building automation system",
+    "CCTV AMC service",
+    "annual maintenance contract CCTV",
+    "perimeter security system",
+    "fire alarm installation",
+    "burglar alarm system",
+    // Brand/dealer keywords
+    "Hikvision authorized dealer Tamil Nadu",
+    "Dahua authorized dealer Chennai",
+    "CP Plus dealer",
+    "Honeywell security dealer",
+    "Essl biometric dealer",
+    "Matrix access control dealer",
+    // Government / compliance
+    "government approved CCTV vendor",
+    "TNPL CCTV installation",
+    "ACCET CCTV project",
+    "PSU security vendor Tamil Nadu",
+    "MSME registered security company",
+    // Location keywords
     "CCTV installation Chennai",
     "CCTV installation Hosur",
     "CCTV installation Coimbatore",
     "CCTV installation Bangalore",
-    "Security system installation Tamil Nadu",
-    "Industrial CCTV installation",
-    "Factory surveillance system",
-    "Solar 4G CCTV camera",
-    "IP camera installation",
-    "Hikvision authorized dealer",
-    "Dahua authorized dealer",
-    "CP Plus dealer",
-    "Biometric access control",
-    "Video door phone installation",
-    "CCTV AMC service",
-    "Government approved CCTV vendor",
-    "TNPL CCTV installation",
-    "ACCET CCTV project",
-    "Building automation system",
-    "Perimeter security system",
+    "CCTV installation Dharmapuri",
+    "CCTV installation Karaikudi",
+    "CCTV installation Puducherry",
+    "security system Tamil Nadu",
+    "security system Karnataka",
+    "SIPCOT industrial CCTV",
+    "Ambattur industrial estate CCTV",
+    "Sriperumbudur CCTV installation",
   ],
   authors: [{ name: "Infysmart", url: "https://infysmart.com" }],
   creator: "Infysmart - Infygru Private Limited",
@@ -86,10 +114,24 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://infysmart.com",
   },
-  // Add your Google Search Console verification token here:
+  //
+  // ──────────────────────────────────────────────────────────────────────────
+  // GOOGLE SEARCH CONSOLE & BING WEBMASTER VERIFICATION
+  // Steps:
+  //   1. Go to https://search.google.com/search-console → Add property
+  //      → choose "HTML tag" method → copy the content value from the meta tag
+  //   2. Replace "PASTE_GOOGLE_TOKEN_HERE" below with that value, then uncomment.
+  //   3. For Bing: https://www.bing.com/webmasters → Add site → HTML meta tag
+  //      → Replace "PASTE_BING_TOKEN_HERE" with your Bing verification content value.
+  //   4. After deploying, click "Verify" in both consoles.
+  //   5. Submit sitemap: https://infysmart.com/sitemap.xml in both consoles.
+  // ──────────────────────────────────────────────────────────────────────────
+  //
   // verification: {
-  //   google: "YOUR_GOOGLE_VERIFICATION_TOKEN",
-  //   other: { "msvalidate.01": "YOUR_BING_VERIFICATION_TOKEN" },
+  //   google: "PASTE_GOOGLE_TOKEN_HERE",
+  //   other: {
+  //     "msvalidate.01": "PASTE_BING_TOKEN_HERE",
+  //   },
   // },
 };
 
