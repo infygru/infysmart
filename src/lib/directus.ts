@@ -34,10 +34,12 @@ export interface Blog {
 }
 
 export interface Client {
-  id: number;
+  id: number | string;
   name: string;
-  logo: string; 
-  website_url: string;
+  logo: string | null;
+  website_url?: string;
+  sort?: number;
+  status?: string;
 }
 
 export interface Lead {
