@@ -89,12 +89,14 @@ export default function Hero({ heroImage }: HeroProps) {
       {/* Background Ambience */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.1, 0.16, 0.1] }}
+          initial={{ scale: 1 }}
+          animate={{ scale: [1, 1.08, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-0 right-0 w-[900px] h-[900px] bg-blue-600/10 rounded-full blur-[160px] -translate-y-1/3 translate-x-1/4"
         />
         <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.06, 0.12, 0.06] }}
+          initial={{ scale: 1 }}
+          animate={{ scale: [1, 1.06, 1] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
           className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-orange-500/10 rounded-full blur-[130px] translate-y-1/4 -translate-x-1/4"
         />
@@ -260,6 +262,7 @@ export default function Hero({ heroImage }: HeroProps) {
 
               {/* Scan line animation */}
               <motion.div
+                initial={{ y: '0%' }}
                 animate={{ y: ['0%', '100%', '0%'] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
                 className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent pointer-events-none"

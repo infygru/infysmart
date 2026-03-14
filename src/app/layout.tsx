@@ -114,6 +114,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://infysmart.com",
   },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
   //
   // ──────────────────────────────────────────────────────────────────────────
   // GOOGLE SEARCH CONSOLE & BING WEBMASTER VERIFICATION
@@ -275,26 +279,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://api.infysmart.com" />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
-        <link rel="dns-prefetch" href="https://www.transparenttextures.com" />
-
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-        {/* Organization + WebSite Schema */}
+      <body className={inter.className}>
+        {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-      </head>
-      <body className={inter.className}>
         <Navbar settings={settings} />
         {children}
         <Footer settings={settings} />
