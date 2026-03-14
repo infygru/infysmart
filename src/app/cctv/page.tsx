@@ -176,9 +176,9 @@ export default async function CCTVPage() {
               <Link href="/contact" className="bg-brand-blue text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-900/50 text-center">
                 Book Free Site Visit
               </Link>
-              <Link href="tel:+919876543210" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center">
+              <a href="tel:+919445675619" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center">
                 Call for Repair / AMC
-              </Link>
+              </a>
             </div>
           </FadeIn>
         </div>

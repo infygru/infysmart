@@ -35,14 +35,14 @@ export default function InfrastructureEcosystem({ services }: { services: Servic
             <Link
               key={service.id}
               href={`/services/${service.slug}`}
-              className="group relative bg-white p-8 rounded-2xl border border-slate-200 hover:border-brand-500/50 shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group relative bg-white p-8 rounded-2xl border border-slate-200 hover:border-brand-blue/50 shadow-sm hover:shadow-xl transition-all duration-300"
             >
               {/* Icon */}
-              <div className="h-16 w-16 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300">
+              <div className="h-16 w-16 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
                 {getIcon(service.title)}
               </div>
 
-              <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">
+              <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-white transition-colors">
                 {service.title}
               </h3>
 
@@ -50,7 +50,7 @@ export default function InfrastructureEcosystem({ services }: { services: Servic
                 {service.short_description}
               </p>
 
-              <div className="flex items-center text-sm font-bold text-brand-600 gap-2">
+              <div className="flex items-center text-sm font-bold text-brand-blue gap-2">
                 Learn More
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </div>

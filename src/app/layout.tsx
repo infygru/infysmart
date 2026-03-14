@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileStickyButton from "@/components/MobileStickyButton";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { directus } from "@/lib/directus";
 import { readSingleton } from "@directus/sdk";
 
@@ -285,10 +287,12 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <AnnouncementBar />
         <Navbar settings={settings} />
         {children}
         <Footer settings={settings} />
         <MobileStickyButton />
+        <WhatsAppButton />
       </body>
     </html>
   );
