@@ -2,7 +2,6 @@ import { directus } from '@/lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
 import {
   Smartphone,
   Shield,
@@ -97,9 +96,9 @@ export default async function AutomationPage() {
               <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/50 text-center">
                 Get Quote for Motor
               </Link>
-              <Link href="tel:+919876543210" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">
+              <a href="tel:+919445675619" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">
                 <Settings className="w-4 h-4" /> Service & Repair
-              </Link>
+              </a>
             </div>
           </div>
         </div>

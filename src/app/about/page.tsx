@@ -334,8 +334,8 @@ export default function AboutPage() {
                 </div>
                 <h4 className="font-bold text-slate-900 mb-2">Phone Support</h4>
                 <p className="text-slate-600 text-sm mb-1">
-                  <a href="tel:+919876543210" className="hover:text-brand-blue transition-colors font-semibold">
-                    +91 98765 43210
+                  <a href="tel:+919445675619" className="hover:text-brand-blue transition-colors font-semibold">
+                    +91 94456 75619
                   </a>
                 </p>
                 <p className="text-xs text-slate-400">Mon-Sat 9am to 6pm</p>

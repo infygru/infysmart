@@ -443,9 +443,9 @@ export default async function SolarPage() {
             <Link href="/contact" className="bg-yellow-500 text-slate-900 px-10 py-4 rounded-full font-bold hover:bg-yellow-400 transition-all">
               Request Free Site Survey
             </Link>
-            <Link href="tel:+919876543210" className="bg-transparent border border-white text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
-              Calculate Savings
-            </Link>
+            <a href="tel:+919445675619" className="bg-transparent border border-white text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
+              Call: +91 94456 75619
+            </a>
           </div>
         </div>
       </section>

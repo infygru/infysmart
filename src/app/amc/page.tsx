@@ -71,15 +71,15 @@ export default async function AMCPage() {
                             </span>
                         </h1>
                         <p className="text-lg text-slate-300 mb-8 max-w-xl leading-relaxed">
-                            don&apos;t wait for a security breach to fix your system. Get proactive <strong>Annual Maintenance Contracts (AMC)</strong> for CCTV, Biometrics, and Fire Alarms.
+                            Don&apos;t wait for a security breach to fix your system. Get proactive <strong>Annual Maintenance Contracts (AMC)</strong> for CCTV, Biometrics, and Fire Alarms.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link href="/contact" className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-900/50 text-center">
                                 Get AMC Proposal
                             </Link>
-                            <Link href="tel:+919876543210" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">
+                            <a href="tel:+919445675619" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">
                                 <Phone className="w-4 h-4" /> Book Technician
-                            </Link>
+                            </a>
                         </div>
                     </FadeIn>
                 </div>
