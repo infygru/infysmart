@@ -5,7 +5,8 @@ import { GlobalSettings } from '@/lib/directus';
 import { Facebook, Instagram, Linkedin, Youtube, Mail, MapPin, Phone, ShieldCheck } from 'lucide-react';
 
 export default function Footer({ settings }: { settings?: GlobalSettings | null }) {
-  const currentYear = new Date().getFullYear();
+  // suppressHydrationWarning on the span prevents mismatch if server/client year ever differs
+  const currentYear = 2026;
 
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-800">
