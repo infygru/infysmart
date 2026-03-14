@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | Infysmart Solutions",
   description: "Privacy Policy outlining how Infysmart Solutions collects, uses, and protects your data.",
-  alternates: { canonical: '/privacy' }
+  alternates: { canonical: 'https://infysmart.com/privacy' },
+  robots: { index: false, follow: false }
 };
 
 export default function PrivacyPage() {

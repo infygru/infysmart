@@ -22,8 +22,19 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Smart Automation & Security Systems in Chennai, Bangalore, Coimbatore | InfySmart",
-  description: "Secure automation systems including Gate Motors, Rolling Shutters, and Office Access Control in Tamil Nadu and Bangalore.",
-  alternates: { canonical: '/automation' }
+  description: "Secure building automation systems including gate motors, rolling shutters, boom barriers & office access control in Tamil Nadu and Bangalore. Expert installation & AMC support.",
+  alternates: { canonical: 'https://infysmart.com/automation' },
+  openGraph: {
+    title: "Smart Automation & Security Systems in Chennai, Bangalore, Coimbatore | InfySmart",
+    description: "Gate motors, rolling shutters, boom barriers & access control across Tamil Nadu & Bangalore.",
+    url: 'https://infysmart.com/automation',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Building Automation Systems by Infysmart' }],
+  },
+  twitter: {
+    title: "Smart Automation Systems in Tamil Nadu | InfySmart",
+    description: "Gate motors, rolling shutters & access control across Tamil Nadu & Bangalore.",
+    images: ['/og-image.png'],
+  },
 };
 
 export const revalidate = 60;

@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Cookie Policy | Infysmart Solutions",
     description: "Cookie Policy explaining how Infysmart Solutions uses cookies.",
-    alternates: { canonical: '/cookie-policy' }
+    alternates: { canonical: 'https://infysmart.com/cookie-policy' },
+    robots: { index: false, follow: false }
 };
 
 export default function CookiePolicyPage() {

@@ -35,10 +35,16 @@ export const metadata: Metadata = {
       "InfySmart, a unit of Infygru Private Limited, specializes in CCTV, smart security, automation, and solar infrastructure projects for government and enterprise clients.",
     url: "https://infysmart.com/about",
     siteName: "InfySmart",
-    type: "website"
+    type: "website",
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'About Infysmart — Security & Technology Solutions' }],
+  },
+  twitter: {
+    title: "About Infysmart | Security & Infrastructure Solutions",
+    description: "Govt-approved CCTV, automation & solar projects for government & enterprise clients.",
+    images: ['/og-image.png'],
   },
   alternates: {
-    canonical: "/about"
+    canonical: "https://infysmart.com/about"
   }
 };
 

@@ -17,14 +17,25 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: "CCTV & Solar AMC Services in Chennai, Coimbatore, Bangalore | InfySmart",
-    description: "Comprehensive AMC for CCTV, Solar, Fire Alarms, and Biometric systems. On-site repair & preventive maintenance across Tamil Nadu and Bangalore.",
+    description: "Comprehensive Annual Maintenance Contracts for CCTV, Solar, Fire Alarms & Biometric systems. On-site repair & preventive maintenance across Tamil Nadu and Bangalore. AMC starting ₹450/year.",
     keywords: [
         "CCTV AMC Service", "Annual Maintenance Contract CCTV", "Security System Repair",
         "Biometric AMC", "Fire Alarm Maintenance", "Hikvision Service Center", "CP Plus Repair",
         "CCTV Technician near me", "AMC for Apartments",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
     ],
-    alternates: { canonical: '/amc' }
+    alternates: { canonical: 'https://infysmart.com/amc' },
+    openGraph: {
+        title: "CCTV & Solar AMC Services in Chennai, Coimbatore, Bangalore | InfySmart",
+        description: "Comprehensive AMC for CCTV, Solar, Fire Alarms & Biometric systems. Starting ₹450/year across Tamil Nadu & Bangalore.",
+        url: 'https://infysmart.com/amc',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'CCTV AMC Services by Infysmart' }],
+    },
+    twitter: {
+        title: "CCTV & Solar AMC Services | InfySmart",
+        description: "Comprehensive AMC for CCTV, Solar & Biometric systems. Starting ₹450/year.",
+        images: ['/og-image.png'],
+    },
 };
 
 export const revalidate = 60;

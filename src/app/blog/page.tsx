@@ -5,9 +5,20 @@ import BlogListClient from './BlogListClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Insights & Innovation | Infysmart Blog",
-  description: "Deep dives into security infrastructure, renewable energy trends, and smart automation technologies.",
-  alternates: { canonical: '/blog' }
+  title: "Security & Technology Blog | Infysmart",
+  description: "Expert articles on CCTV installation, solar power, biometric systems, and smart automation. Stay updated with security industry trends, tips, and guides from Tamil Nadu's leading security provider.",
+  alternates: { canonical: 'https://infysmart.com/blog' },
+  openGraph: {
+    title: "Security & Technology Blog | Infysmart",
+    description: "Expert articles on CCTV, solar power, biometric & automation. Security industry tips and guides.",
+    url: 'https://infysmart.com/blog',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart Blog' }],
+  },
+  twitter: {
+    title: "Security & Technology Blog | Infysmart",
+    description: "Expert CCTV, solar & biometric articles from Tamil Nadu's leading security provider.",
+    images: ['/og-image.png'],
+  },
 };
 
 // Force refresh so you see new blogs immediately

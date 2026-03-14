@@ -24,7 +24,18 @@ export const metadata: Metadata = {
         "Apartment Intercom System", "Villa Video Door Phone", "Gate Security Camera",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
     ],
-    alternates: { canonical: '/services/video-door-phones' }
+    alternates: { canonical: 'https://infysmart.com/services/video-door-phones' },
+    openGraph: {
+        title: "Video Door Phone Installation in Chennai, Coimbatore, Bangalore | InfySmart",
+        description: "Video Door Phones & IP Intercoms for homes & apartments. Authorized dealers in Tamil Nadu & Bangalore.",
+        url: 'https://infysmart.com/services/video-door-phones',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Video Door Phone Installation by Infysmart' }],
+    },
+    twitter: {
+        title: "Video Door Phone Installation | InfySmart",
+        description: "Video Door Phones & IP Intercoms in Tamil Nadu & Bangalore.",
+        images: ['/og-image.png'],
+    },
 };
 
 export const revalidate = 60;

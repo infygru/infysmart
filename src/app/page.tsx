@@ -13,8 +13,21 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Best CCTV Installation Service & Solar Power in Chennai, Hosur, Coimbatore, Bangalore | InfySmart',
-  description: 'Top-rated CCTV, Solar, and Automation services in Tamil Nadu.',
-  alternates: { canonical: '/' }
+  description: 'Govt-approved CCTV installation, Solar 4G cameras, biometric access control & building automation for industrial, corporate, and government clients across Tamil Nadu & Karnataka. Authorized Hikvision, Dahua & CP Plus dealer.',
+  alternates: {
+    canonical: 'https://infysmart.com/',
+  },
+  openGraph: {
+    title: 'Best CCTV Installation Service & Solar Power in Chennai, Hosur, Coimbatore, Bangalore | InfySmart',
+    description: 'Govt-approved CCTV, Solar & Security System provider across Tamil Nadu & Karnataka. Serving TNPL, ACCET and leading industrial clients.',
+    url: 'https://infysmart.com/',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart — Security & Technology Solutions' }],
+  },
+  twitter: {
+    title: 'Best CCTV Installation & Solar Power | InfySmart',
+    description: 'Govt-approved CCTV, Solar 4G cameras & biometric systems across Tamil Nadu & Karnataka.',
+    images: ['/og-image.png'],
+  },
 };
 
 export const revalidate = 60;

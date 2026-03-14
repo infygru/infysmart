@@ -7,9 +7,20 @@ import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Our Execution Portfolio | Infysmart',
-  description: 'Explore our track record of enterprise security, solar energy, and automation installations.',
-  alternates: { canonical: '/projects' }
+  title: 'CCTV & Security Projects Portfolio | Infysmart',
+  description: 'Explore our completed and ongoing CCTV, solar, and security automation projects for government institutions, industrial clients, and commercial enterprises across Tamil Nadu & Karnataka.',
+  alternates: { canonical: 'https://infysmart.com/projects' },
+  openGraph: {
+    title: 'CCTV & Security Projects Portfolio | Infysmart',
+    description: 'Completed & ongoing CCTV, solar & security automation projects for government, industrial & commercial clients.',
+    url: 'https://infysmart.com/projects',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart Project Portfolio' }],
+  },
+  twitter: {
+    title: 'CCTV & Security Projects Portfolio | Infysmart',
+    description: 'Government, industrial & commercial security projects across Tamil Nadu & Karnataka.',
+    images: ['/og-image.png'],
+  },
 };
 
 // Force dynamic rendering so new projects show up instantly

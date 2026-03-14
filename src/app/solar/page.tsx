@@ -23,8 +23,19 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Affordable Solar Panel Maintenance & Installation in Chennai, Coimbatore, Hosur | InfySmart",
-  description: "High-efficiency solar power plants for homes and industries across Tamil Nadu and Bangalore.",
-  alternates: { canonical: '/solar' }
+  description: "High-efficiency solar panel installation & maintenance for homes, factories, and industries across Tamil Nadu and Bangalore. On-grid, off-grid & solar 4G CCTV systems. Government-approved installer.",
+  alternates: { canonical: 'https://infysmart.com/solar' },
+  openGraph: {
+    title: "Solar Panel Installation & Maintenance in Chennai, Coimbatore, Hosur | InfySmart",
+    description: "On-grid, off-grid & solar 4G CCTV systems for homes and industries across Tamil Nadu & Bangalore.",
+    url: 'https://infysmart.com/solar',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Solar Panel Installation by Infysmart' }],
+  },
+  twitter: {
+    title: "Solar Panel Installation in Tamil Nadu | InfySmart",
+    description: "On-grid, off-grid & Solar 4G CCTV systems across Tamil Nadu & Bangalore.",
+    images: ['/og-image.png'],
+  },
 };
 
 export const revalidate = 60;

@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms and Conditions | Infysmart Solutions",
   description: "Terms and Conditions for using Infysmart Solutions services and website.",
-  alternates: { canonical: '/terms' }
+  alternates: { canonical: 'https://infysmart.com/terms' },
+  robots: { index: false, follow: false }
 };
 
 export default function TermsPage() {

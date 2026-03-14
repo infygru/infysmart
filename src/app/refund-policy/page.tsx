@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Payment and Refund Policy | Infysmart Solutions",
     description: "Payment and Refund Policy for Infysmart Solutions products and services.",
-    alternates: { canonical: '/refund-policy' }
+    alternates: { canonical: 'https://infysmart.com/refund-policy' },
+    robots: { index: false, follow: false }
 };
 
 export default function RefundPolicyPage() {

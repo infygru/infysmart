@@ -22,8 +22,87 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Best CCTV Installation Service in Chennai, Coimbatore, Hosur, Dharmapuri, Karaikudi & Bangalore | InfySmart',
-  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units across Tamil Nadu and Bangalore.',
-  alternates: { canonical: '/cctv' }
+  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units across Tamil Nadu and Bangalore. Sales, installation, repair & AMC from authorized Hikvision and Dahua dealers. Starting ₹450/year AMC.',
+  alternates: { canonical: 'https://infysmart.com/cctv' },
+  openGraph: {
+    title: 'Best CCTV Installation Service in Chennai, Coimbatore, Hosur & Bangalore | InfySmart',
+    description: 'Expert CCTV & Surveillance for Commercial, Industrial & Factory units across Tamil Nadu and Bangalore. Authorized Hikvision & Dahua dealer.',
+    url: 'https://infysmart.com/cctv',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'CCTV Installation Services by Infysmart' }],
+  },
+  twitter: {
+    title: 'Best CCTV Installation in Chennai, Hosur & Bangalore | InfySmart',
+    description: 'Expert CCTV for Industrial & Commercial units. AMC from ₹450/year.',
+    images: ['/og-image.png'],
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How long do CCTV cameras record before overwriting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Recording duration depends on hard drive capacity, number of cameras, resolution, and encoding format. A typical 8-camera 2MP system with a 2TB HDD using H.265 compression records continuously for 15–20 days. With motion-detection recording enabled, retention extends to 30+ days.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I need internet for a CCTV system to work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No, internet is not required for local recording or monitoring. However, for remote smartphone viewing via apps like Hik-Connect or push notifications, an active internet connection at the DVR/NVR site is required.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can wireless CCTV cameras be used for large industrial areas?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Basic Wi-Fi cameras are not recommended for large critical infrastructure due to reliability concerns. For remote areas, we install 4G Solar PTZ Cameras that operate off-grid with a built-in solar panel and 4G SIM. For networked warehouses, Point-to-Point wireless bridges are highly reliable.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What does an Annual Maintenance Contract (AMC) cover?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Our AMC packages cover quarterly preventive maintenance including cleaning camera lenses, re-focusing, testing UPS batteries, extracting dust from DVR/NVR, firmware updates, and verifying hard drive health. AMC packages start at ₹450 per year.",
+      },
+    },
+  ],
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "CCTV Installation Service",
+  serviceType: "Security Camera Installation",
+  provider: {
+    "@id": "https://infysmart.com/#organization",
+  },
+  areaServed: [
+    { "@type": "City", name: "Chennai" },
+    { "@type": "City", name: "Hosur" },
+    { "@type": "City", name: "Coimbatore" },
+    { "@type": "City", name: "Bangalore" },
+    { "@type": "City", name: "Dharmapuri" },
+    { "@type": "City", name: "Karaikudi" },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "CCTV Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "CCTV Camera Sales & Supply" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Professional CCTV Installation" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "CCTV Repair & Service" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "CCTV Annual Maintenance Contract (AMC)" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "CCTV Camera Rentals" } },
+    ],
+  },
 };
 
 // 1. Define Interface
@@ -51,6 +130,14 @@ export default async function CCTVPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
 
       {/* 1. HERO SECTION (SEO Optimized H1) */}
       <section className="relative h-[75vh] flex items-center bg-slate-900 overflow-hidden">

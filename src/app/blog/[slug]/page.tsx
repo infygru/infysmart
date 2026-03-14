@@ -8,12 +8,59 @@ import Navbar from '@/components/Navbar';
 import Breadcrumbs from '@/components/Breadcrumbs'; // Import the new component
 import type { Metadata } from 'next';
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  return {
-    alternates: {
-      canonical: `/blog/${params.slug}`
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  try {
+    const blogs = await directus.request(
+      readItems('blogs', {
+        filter: { slug: { _eq: params.slug } } as Record<string, unknown>,
+        limit: 1,
+        fields: ['title', 'summary', 'image', 'category', 'author', 'date_published'],
+      })
+    );
+    const blog = blogs[0] as unknown as {
+      title: string;
+      summary: string;
+      image: string;
+      category: string;
+      author: string;
+      date_published: string;
+    } | undefined;
+
+    if (!blog) {
+      return { title: 'Blog Post | Infysmart' };
     }
-  };
+
+    const imageUrl = blog.image
+      ? getAssetUrl(blog.image)
+      : 'https://infysmart.com/og-image.png';
+
+    return {
+      title: blog.title,
+      description: blog.summary || `Read about ${blog.title} on the Infysmart security blog.`,
+      alternates: { canonical: `https://infysmart.com/blog/${params.slug}` },
+      openGraph: {
+        title: blog.title,
+        description: blog.summary,
+        type: 'article',
+        url: `https://infysmart.com/blog/${params.slug}`,
+        publishedTime: blog.date_published,
+        authors: [blog.author || 'Infysmart Team'],
+        section: blog.category,
+        images: [{ url: imageUrl, width: 1200, height: 630, alt: blog.title }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: blog.title,
+        description: blog.summary,
+        images: [imageUrl],
+      },
+    };
+  } catch {
+    return {
+      title: 'Blog Post | Infysmart',
+      alternates: { canonical: `https://infysmart.com/blog/${params.slug}` },
+    };
+  }
 }
 
 // Force refresh
@@ -45,8 +92,40 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     { label: currentBlog.title, active: true }
   ];
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: currentBlog.title,
+    description: currentBlog.summary,
+    image: currentBlog.image ? getAssetUrl(currentBlog.image) : 'https://infysmart.com/og-image.png',
+    datePublished: currentBlog.date_published,
+    author: {
+      "@type": "Person",
+      name: currentBlog.author || "Infysmart Team",
+    },
+    publisher: {
+      "@id": "https://infysmart.com/#organization",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://infysmart.com/blog/${params.slug}`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://infysmart.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://infysmart.com/blog" },
+      { "@type": "ListItem", position: 3, name: currentBlog.title, item: `https://infysmart.com/blog/${params.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <article>
 

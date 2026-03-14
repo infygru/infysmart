@@ -24,7 +24,18 @@ export const metadata: Metadata = {
         "Realtime Biometric Dealer", "Matrix Access Control", "Employee Monitoring System",
         "Chennai", "Hosur", "Coimbatore", "Bengaluru", "Puducherry", "Cuddalore", "Karaikudi", "Dharmapuri"
     ],
-    alternates: { canonical: '/services/biometric-systems' }
+    alternates: { canonical: 'https://infysmart.com/services/biometric-systems' },
+    openGraph: {
+        title: "Biometric Access Control Systems in Chennai, Coimbatore, Bangalore | InfySmart",
+        description: "Fingerprint, face recognition & RFID access control for offices & factories across Tamil Nadu & Bangalore.",
+        url: 'https://infysmart.com/services/biometric-systems',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Biometric Access Control by Infysmart' }],
+    },
+    twitter: {
+        title: "Biometric Access Control Systems | InfySmart",
+        description: "Fingerprint, face recognition & RFID systems for offices & factories in Tamil Nadu.",
+        images: ['/og-image.png'],
+    },
 };
 
 export const revalidate = 60;
