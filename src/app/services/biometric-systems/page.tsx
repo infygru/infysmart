@@ -1,5 +1,3 @@
-import { directus } from '@/lib/directus';
-import { readSingleton } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeIn from '@/components/animations/FadeIn';
@@ -9,7 +7,6 @@ import {
     Users,
     Building2,
     MapPin,
-    CheckCircle2,
     Clock,
     ShieldCheck
 } from 'lucide-react';
@@ -41,8 +38,6 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function BiometricSystemsPage() {
-    const settings = await directus.request(readSingleton('global_settings')).catch(() => null);
-
     return (
         <main className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
 

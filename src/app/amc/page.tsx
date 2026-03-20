@@ -1,12 +1,8 @@
-import { directus } from '@/lib/directus';
-import { readSingleton } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeIn from '@/components/animations/FadeIn';
 import {
-    ShieldCheck,
     Wrench,
-    Clock,
     CheckCircle2,
     AlertTriangle,
     Server,
@@ -41,8 +37,6 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function AMCPage() {
-    const settings = await directus.request(readSingleton('global_settings')).catch(() => null);
-
     return (
         <main className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
 

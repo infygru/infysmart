@@ -1,11 +1,9 @@
 import { directus } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
   Sun,
-  Zap,
-  BatteryCharging,
   IndianRupee,
   Factory,
   CheckCircle2,
@@ -13,7 +11,6 @@ import {
   Home,
   Building2,
   TrendingUp,
-  MapPin,
   Truck,
   FileText,
   Settings,
@@ -49,13 +46,10 @@ interface Service {
 }
 
 export default async function SolarPage() {
-  const [settings, services] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('services', {
-      filter: { slug: { _eq: 'solar' } },
-      limit: 1
-    }))
-  ]);
+  const services = await directus.request(readItems('services', {
+    filter: { slug: { _eq: 'solar' } },
+    limit: 1
+  }));
 
   // 2. Double-cast to fix TypeScript error
   const service = services[0] as unknown as Service | undefined;
@@ -95,7 +89,7 @@ export default async function SolarPage() {
               Certified partners for Tata Power, Adani, and Waaree. <strong>Specialists in Standalone Solar 4G CCTV Cameras</strong> for remote sites.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/20 text-center">
+              <Link href="/get-quote/solar" className="bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/20 text-center">
                 Get Quote & ROI Report
               </Link>
               <Link href="#subsidy" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">
@@ -132,7 +126,7 @@ export default async function SolarPage() {
                   <CheckCircle2 className="w-5 h-5 text-green-600" /> We handle Net-Metering Paperwork
                 </li>
               </ul>
-              <Link href="/contact" className="inline-flex items-center text-green-700 font-bold hover:underline">
+              <Link href="/get-quote/solar" className="inline-flex items-center text-green-700 font-bold hover:underline">
                 Apply for Subsidy via InfySmart &rarr;
               </Link>
             </div>
@@ -440,7 +434,7 @@ export default async function SolarPage() {
             Join 1000+ satisfied customers across Tamil Nadu. Stop renting electricity from the grid, start owning it.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/contact" className="bg-yellow-500 text-slate-900 px-10 py-4 rounded-full font-bold hover:bg-yellow-400 transition-all">
+            <Link href="/get-quote/solar" className="bg-yellow-500 text-slate-900 px-10 py-4 rounded-full font-bold hover:bg-yellow-400 transition-all">
               Request Free Site Survey
             </Link>
             <a href="tel:+919445675619" className="bg-transparent border border-white text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 transition-all">

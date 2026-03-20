@@ -1,9 +1,8 @@
 import { directus, getAssetUrl } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, MapPin, CheckCircle2 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -28,10 +27,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function ProjectsPage() {
   // 1. Fetch ALL projects (Removed the 'Completed' filter for debugging)
-  const [settings, projects] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('projects'))
-  ]);
+  const projects = await directus.request(readItems('projects'));
 
   return (
     <main className="min-h-screen bg-slate-50">

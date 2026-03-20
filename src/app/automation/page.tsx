@@ -1,5 +1,5 @@
 import { directus } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -13,7 +13,6 @@ import {
   Warehouse,
   MapPin,
   Truck,
-  Wifi,
   Lock,
   Factory // Added this missing import
 } from 'lucide-react';
@@ -47,13 +46,10 @@ interface Service {
 }
 
 export default async function AutomationPage() {
-  const [settings, services] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('services', {
-      filter: { slug: { _eq: 'automation' } },
-      limit: 1
-    }))
-  ]);
+  const services = await directus.request(readItems('services', {
+    filter: { slug: { _eq: 'automation' } },
+    limit: 1
+  }));
 
   // 2. Double-cast to fix TypeScript error
   const service = services[0] as unknown as Service | undefined;
@@ -93,7 +89,7 @@ export default async function AutomationPage() {
               We install heavy-duty Gate Motors, Rolling Shutters, Boom Barriers, and <strong>Office Access Control Systems</strong>.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/50 text-center">
+              <Link href="/get-quote/automation" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/50 text-center">
                 Get Quote for Motor
               </Link>
               <a href="tel:+919445675619" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center flex items-center justify-center gap-2">

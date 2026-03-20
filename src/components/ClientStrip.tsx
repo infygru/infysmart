@@ -16,7 +16,7 @@ export default function ClientStrip({ clients }: { clients: Client[] }) {
       logo: null, // Will use text fallback or you can add a static image path here
       sort: 0,
       status: 'published'
-    } as any);
+    } as Client);
   }
 
   const sortedClients = allClients.sort((a, b) => {

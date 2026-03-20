@@ -1,4 +1,4 @@
-import { directus, getAssetUrl } from '@/lib/directus';
+import { directus, getAssetUrl, Service } from '@/lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import Hero from '@/components/Hero';
 import ClientStrip from '@/components/ClientStrip';
@@ -41,7 +41,7 @@ export default async function HomePage() {
   ]);
 
   // Transform services content to match new government-focused messaging
-  const transformedServices = services?.map((service: any) => {
+  const transformedServices = services?.map((service: Service) => {
     // 1. Rename "Industrial CCTV" -> "Industrial & PSU Surveillance"
     if (service.title === "Industrial CCTV") {
       return {

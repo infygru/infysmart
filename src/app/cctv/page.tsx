@@ -1,5 +1,5 @@
 import { directus } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeIn from '@/components/animations/FadeIn';
@@ -114,13 +114,10 @@ interface Service {
 }
 
 export default async function CCTVPage() {
-  const [settings, services] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('services', {
-      filter: { slug: { _eq: 'cctv' } },
-      limit: 1
-    }))
-  ]);
+  const services = await directus.request(readItems('services', {
+    filter: { slug: { _eq: 'cctv' } },
+    limit: 1
+  }));
 
   // 2. FIX: Use 'as unknown as Service' to bypass the strict check
   const service = services[0] as unknown as Service | undefined;
@@ -173,8 +170,8 @@ export default async function CCTVPage() {
               <li><Link href="/services/amc" className="hover:text-brand-blue transition border-b border-transparent hover:border-brand-blue">AMC Support</Link></li>
             </ul>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="bg-brand-blue text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-900/50 text-center">
-                Book Free Site Visit
+              <Link href="/get-quote/cctv" className="bg-brand-blue text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-900/50 text-center">
+                Get Free CCTV Quote
               </Link>
               <a href="tel:+919445675619" className="px-8 py-4 rounded-lg font-bold text-white border border-slate-600 hover:bg-slate-800 transition-colors text-center">
                 Call for Repair / AMC
@@ -410,7 +407,7 @@ export default async function CCTVPage() {
                   <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Hosur</span>
                 </div>
                 <div className="mt-8 pt-6 border-t border-slate-100">
-                  <Link href="/contact" className="flex items-center justify-center gap-2 text-brand-blue font-bold hover:gap-3 transition-all group-hover:text-blue-700">
+                  <Link href="/get-quote/cctv" className="flex items-center justify-center gap-2 text-brand-blue font-bold hover:gap-3 transition-all group-hover:text-blue-700">
                     Request Industrial Quote <span className="text-xl leading-none">&rarr;</span>
                   </Link>
                 </div>

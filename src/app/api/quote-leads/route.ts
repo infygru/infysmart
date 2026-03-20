@@ -10,11 +10,11 @@ function getAdminClient() {
 export async function POST(request: Request) {
   try {
     const body = await request.json() as Record<string, unknown>;
-    const { name, phone, service = 'General', source = 'Website', ...rest } = body;
+    const { name, phone, service_type, ...rest } = body;
 
-    if (!name || !phone) {
+    if (!name || !phone || !service_type) {
       return NextResponse.json(
-        { error: 'Name and Phone are required' },
+        { error: 'name, phone, and service_type are required' },
         { status: 400 }
       );
     }
@@ -22,15 +22,13 @@ export async function POST(request: Request) {
     const directus = getAdminClient();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const newLead = await directus.request(createItem('leads' as any, {
-      name, phone, service, source,
-      message: JSON.stringify(rest),
-      created_at: new Date().toISOString(),
+    const lead = await directus.request(createItem('quote_leads' as any, {
+      name, phone, service_type, status: 'New', ...rest,
     } as never));
 
-    return NextResponse.json({ success: true, data: newLead });
+    return NextResponse.json({ success: true, data: lead });
   } catch (error) {
-    console.error('Lead Submission Error:', error);
-    return NextResponse.json({ error: 'Failed to submit lead' }, { status: 500 });
+    console.error('Quote Lead Submission Error:', error);
+    return NextResponse.json({ error: 'Failed to submit quote request' }, { status: 500 });
   }
 }

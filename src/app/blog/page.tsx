@@ -1,6 +1,5 @@
-import { directus, Blog } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
-import Navbar from '@/components/Navbar';
+import { directus } from '@/lib/directus';
+import { readItems } from '@directus/sdk';
 import BlogListClient from './BlogListClient';
 import type { Metadata } from 'next';
 
@@ -25,12 +24,9 @@ export const metadata: Metadata = {
 export const revalidate = 0;
 
 export default async function BlogIndexPage() {
-  const [settings, blogs] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('blogs', {
-      sort: ['-date_published'],
-    }))
-  ]);
+  const blogs = await directus.request(readItems('blogs', {
+    sort: ['-date_published'],
+  }));
 
   return (
     <main className="min-h-screen bg-white">

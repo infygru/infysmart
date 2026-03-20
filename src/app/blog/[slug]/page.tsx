@@ -1,18 +1,18 @@
 import { directus, getAssetUrl } from '@/lib/directus';
-import { readItems, readSingleton } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Clock, User, ArrowRight } from 'lucide-react';
-import Navbar from '@/components/Navbar';
 import Breadcrumbs from '@/components/Breadcrumbs'; // Import the new component
 import type { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   try {
     const blogs = await directus.request(
       readItems('blogs', {
-        filter: { slug: { _eq: params.slug } } as Record<string, unknown>,
+        filter: { slug: { _eq: slug } } as Record<string, unknown>,
         limit: 1,
         fields: ['title', 'summary', 'image', 'category', 'author', 'date_published'],
       })
@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     return {
       title: blog.title,
       description: blog.summary || `Read about ${blog.title} on the Infysmart security blog.`,
-      alternates: { canonical: `https://infysmart.com/blog/${params.slug}` },
+      alternates: { canonical: `https://infysmart.com/blog/${slug}` },
       openGraph: {
         title: blog.title,
         description: blog.summary,
         type: 'article',
-        url: `https://infysmart.com/blog/${params.slug}`,
+        url: `https://infysmart.com/blog/${slug}`,
         publishedTime: blog.date_published,
         authors: [blog.author || 'Infysmart Team'],
         section: blog.category,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   } catch {
     return {
       title: 'Blog Post | Infysmart',
-      alternates: { canonical: `https://infysmart.com/blog/${params.slug}` },
+      alternates: { canonical: `https://infysmart.com/blog/${slug}` },
     };
   }
 }
@@ -66,23 +66,22 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 // Force refresh
 export const revalidate = 0;
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
   // 1. Fetch Current Blog & "Read Next" suggestions
-  const [settings, blogs] = await Promise.all([
-    directus.request(readSingleton('global_settings')),
-    directus.request(readItems('blogs', {
-      sort: ['-date_published'],
-      limit: 3
-    }))
-  ]);
+  const blogs = await directus.request(readItems('blogs', {
+    sort: ['-date_published'],
+    limit: 3
+  }));
 
   // Find the current blog
-  const currentBlog = blogs.find(b => b.slug === params.slug);
+  const currentBlog = blogs.find(b => b.slug === slug);
 
   if (!currentBlog) notFound();
 
   // Get other blogs for "Read Next"
-  const nextBlogs = blogs.filter(b => b.slug !== params.slug).slice(0, 2);
+  const nextBlogs = blogs.filter(b => b.slug !== slug).slice(0, 2);
 
   // 2. Define Breadcrumb Structure
   const breadcrumbItems = [
@@ -108,7 +107,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://infysmart.com/blog/${params.slug}`,
+      "@id": `https://infysmart.com/blog/${slug}`,
     },
   };
 
@@ -118,7 +117,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://infysmart.com" },
       { "@type": "ListItem", position: 2, name: "Blog", item: "https://infysmart.com/blog" },
-      { "@type": "ListItem", position: 3, name: currentBlog.title, item: `https://infysmart.com/blog/${params.slug}` },
+      { "@type": "ListItem", position: 3, name: currentBlog.title, item: `https://infysmart.com/blog/${slug}` },
     ],
   };
 
