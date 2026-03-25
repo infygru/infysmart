@@ -28,7 +28,8 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(self), payment=()',
+            // payment=(self) is required for Razorpay checkout to work
+            value: 'camera=(), microphone=(), geolocation=(self), payment=(self)',
           },
           {
             key: 'Strict-Transport-Security',
@@ -54,7 +55,7 @@ const nextConfig = {
   },
 
   images: {
-    formats: ['image/avif', 'image/webp'], // Modern image formats for speed
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       { protocol: 'https', hostname: 'placehold.co' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -62,6 +63,11 @@ const nextConfig = {
       { protocol: 'https', hostname: 'upload.wikimedia.org' },
       { protocol: 'https', hostname: 'www.transparenttextures.com' },
     ],
+  },
+
+  // Expose site URL for server-side self-fetch (order confirmation, verify route)
+  env: {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://infysmart.com',
   },
 };
 

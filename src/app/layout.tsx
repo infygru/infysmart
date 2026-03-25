@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import MobileStickyButton from "@/components/MobileStickyButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import CartDrawer from "@/components/cart/CartDrawer";
+import { CartProvider } from "@/lib/cart-context";
 import { directus } from "@/lib/directus";
 import { readSingleton } from "@directus/sdk";
 
@@ -282,17 +284,21 @@ export default async function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <AnnouncementBar />
-        <Navbar settings={settings} />
-        {children}
-        <Footer settings={settings} />
-        <MobileStickyButton />
-        <WhatsAppButton />
+        <CartProvider>
+          {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          />
+          <AnnouncementBar />
+          <Navbar settings={settings} />
+          {children}
+          <Footer settings={settings} />
+          <MobileStickyButton />
+          <WhatsAppButton />
+          {/* Global Cart Drawer — rendered outside page stack for correct z-index */}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );
