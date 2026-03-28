@@ -25,8 +25,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
   const isLowStock = product.track_inventory && product.stock_quantity > 0 && product.stock_quantity <= 5;
 
-  const inCart = isInCart(product.id);
-  const qtyInCart = getItemQuantity(product.id);
+  const inCart = isInCart(String(product.id));
+  const qtyInCart = getItemQuantity(String(product.id));
 
   const thumbnailSrc = product.thumbnail
     ? getAssetUrl(product.thumbnail, { width: '400', height: '300', fit: 'cover', quality: '80' })
@@ -43,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       : null;
 
   const cartProduct: CartProduct = {
-    id: product.id,
+    id: String(product.id),
     name: product.name,
     slug: product.slug,
     sku: product.sku,
@@ -52,8 +52,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     thumbnail: product.thumbnail,
     stock_quantity: product.stock_quantity,
     track_inventory: product.track_inventory,
-    category: typeof product.category === 'string' ? product.category : (product.category as ProductCategory)?.id ?? '',
-    brand: typeof product.brand === 'string' ? product.brand : (product.brand as ProductBrand)?.id ?? '',
+    category: typeof product.category === 'string' ? product.category : String((product.category as ProductCategory)?.id ?? ''),
+    brand: typeof product.brand === 'string' ? product.brand : String((product.brand as ProductBrand)?.id ?? ''),
   };
 
   return (

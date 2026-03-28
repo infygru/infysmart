@@ -15,13 +15,13 @@ export default function AddToCartSection({ product }: Props) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart, isInCart, getItemQuantity } = useCart();
 
-  const inCart = isInCart(product.id);
-  const qtyInCart = getItemQuantity(product.id);
+  const inCart = isInCart(String(product.id));
+  const qtyInCart = getItemQuantity(String(product.id));
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
   const maxQty = product.track_inventory ? product.stock_quantity : 99;
 
   const cartProduct: CartProduct = {
-    id: product.id,
+    id: String(product.id),
     name: product.name,
     slug: product.slug,
     sku: product.sku,
@@ -33,11 +33,11 @@ export default function AddToCartSection({ product }: Props) {
     category:
       typeof product.category === 'string'
         ? product.category
-        : (product.category as ProductCategory)?.id ?? '',
+        : String((product.category as ProductCategory)?.id ?? ''),
     brand:
       typeof product.brand === 'string'
         ? product.brand
-        : (product.brand as ProductBrand)?.id ?? '',
+        : String((product.brand as ProductBrand)?.id ?? ''),
   };
 
   const handleAdd = () => {
