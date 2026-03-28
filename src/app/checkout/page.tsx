@@ -72,6 +72,7 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [serviceableStates, setServiceableStates] = useState<string[]>([]);
 
   // Load Razorpay SDK
   useEffect(() => {
@@ -81,6 +82,16 @@ export default function CheckoutPage() {
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
     document.body.appendChild(script);
+  }, []);
+
+  // Fetch shipping rules (serviceable states)
+  useEffect(() => {
+    fetch('/api/shipping/rules')
+      .then((r) => r.json())
+      .then((data: { serviceable_states: string[] }) => {
+        setServiceableStates(data.serviceable_states ?? []);
+      })
+      .catch(() => { /* fail open — all states allowed */ });
   }, []);
 
   // Redirect if cart empty
@@ -125,7 +136,11 @@ export default function CheckoutPage() {
     const addr = form.shipping;
     if (!addr.line1.trim()) e['shipping.line1'] = 'Address line 1 is required';
     if (!addr.city.trim()) e['shipping.city'] = 'City is required';
-    if (!addr.state) e['shipping.state'] = 'State is required';
+    if (!addr.state) {
+      e['shipping.state'] = 'State is required';
+    } else if (serviceableStates.length > 0 && !serviceableStates.includes(addr.state)) {
+      e['shipping.state'] = `We don't deliver to ${addr.state} yet. Check our serviceable states.`;
+    }
     if (!addr.pincode || !isValidPincode(addr.pincode)) e['shipping.pincode'] = 'Valid 6-digit PIN required';
 
     if (!form.billing_same) {
@@ -358,7 +373,13 @@ export default function CheckoutPage() {
 
             {/* Shipping Address */}
             <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-brand-blue" />}>
-              <AddressFields prefix="shipping" address={form.shipping} errors={errors} setField={setField} />
+              <AddressFields
+                prefix="shipping"
+                address={form.shipping}
+                errors={errors}
+                setField={setField}
+                serviceableStates={serviceableStates}
+              />
             </FormSection>
 
             {/* Billing Address */}
@@ -375,7 +396,7 @@ export default function CheckoutPage() {
                 </span>
               </label>
               {!form.billing_same && (
-                <AddressFields prefix="billing" address={form.billing} errors={errors} setField={setField} />
+                <AddressFields prefix="billing" address={form.billing} errors={errors} setField={setField} serviceableStates={[]} />
               )}
             </FormSection>
 
@@ -486,7 +507,6 @@ export default function CheckoutPage() {
                   {totals.discount > 0 && (
                     <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-green-600 font-semibold" />
                   )}
-                  <Row label={`GST (${GST_PERCENTAGE}%)`} value={formatPrice(totals.gst)} />
                   <Row
                     label="Shipping"
                     value={totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
@@ -497,12 +517,15 @@ export default function CheckoutPage() {
                   <span>Total</span>
                   <span>{formatPrice(totals.total)}</span>
                 </div>
+                <p className="text-[11px] text-slate-400 text-center">
+                  Incl. of {GST_PERCENTAGE}% GST (₹{totals.gst.toLocaleString('en-IN')})
+                </p>
               </div>
 
               {/* Place Order */}
               <button
                 onClick={handlePlaceOrder}
-                disabled={loading}
+                disabled={loading || (serviceableStates.length > 0 && form.shipping.state !== '' && !serviceableStates.includes(form.shipping.state))}
                 className="w-full flex items-center justify-center gap-2.5 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm shadow-brand-blue/30 text-base"
               >
                 {loading ? (
@@ -586,13 +609,20 @@ function inputClass(hasError: boolean) {
 }
 
 function AddressFields({
-  prefix, address, errors, setField,
+  prefix, address, errors, setField, serviceableStates,
 }: {
   prefix: 'shipping' | 'billing';
   address: ShippingAddress;
   errors: FormErrors;
   setField: (path: string, value: string) => void;
+  serviceableStates: string[];
 }) {
+  const stateNotServiceable =
+    prefix === 'shipping' &&
+    serviceableStates.length > 0 &&
+    address.state !== '' &&
+    !serviceableStates.includes(address.state);
+
   return (
     <div className="space-y-4">
       <FormField label="Address Line 1 *" error={errors[`${prefix}.line1`]}>
@@ -636,18 +666,32 @@ function AddressFields({
         </FormField>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
-        <FormField label="State *" error={errors[`${prefix}.state`]}>
-          <select
-            value={address.state}
-            onChange={(e) => setField(`${prefix}.state`, e.target.value)}
-            className={inputClass(!!errors[`${prefix}.state`])}
-          >
-            <option value="">Select State</option>
-            {INDIAN_STATES.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-        </FormField>
+        <div>
+          <FormField label="State *" error={errors[`${prefix}.state`]}>
+            <select
+              value={address.state}
+              onChange={(e) => setField(`${prefix}.state`, e.target.value)}
+              className={inputClass(!!errors[`${prefix}.state`] || stateNotServiceable)}
+            >
+              <option value="">Select State</option>
+              {INDIAN_STATES.map((s) => (
+                <option
+                  key={s}
+                  value={s}
+                  disabled={serviceableStates.length > 0 && !serviceableStates.includes(s)}
+                >
+                  {s}{serviceableStates.length > 0 && !serviceableStates.includes(s) ? ' (not serviceable)' : ''}
+                </option>
+              ))}
+            </select>
+          </FormField>
+          {stateNotServiceable && !errors[`${prefix}.state`] && (
+            <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+              <AlertCircle className="w-3 h-3" />
+              We don&apos;t deliver to {address.state} yet.
+            </p>
+          )}
+        </div>
         <FormField label="Country" error={undefined}>
           <input
             type="text"

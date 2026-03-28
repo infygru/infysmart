@@ -12,6 +12,10 @@ export interface GlobalSettings {
   hero_image: string;
   legal_disclaimer: string;
   announcement_bar: string;
+  // Shipping config
+  serviceable_states: string[] | null;  // null/empty = all states allowed
+  shipping_charge: number | null;       // flat rate (default ₹299)
+  free_shipping_above: number | null;   // free shipping threshold (default ₹5000)
 }
 
 export interface Service {
@@ -64,12 +68,12 @@ export interface Project {
 // ─── Ecommerce Types ───────────────────────────────────────────────────────────
 
 export interface ProductCategory {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   description: string | null;
   image: string | null;           // Directus file UUID
-  parent_category: string | null; // Self-referencing M2O
+  parent_category: number | null; // Self-referencing M2O
   sort: number;
   status: 'published' | 'draft';
   meta_title: string | null;
@@ -78,7 +82,7 @@ export interface ProductCategory {
 }
 
 export interface ProductBrand {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   logo: string | null;            // Directus file UUID
@@ -87,8 +91,8 @@ export interface ProductBrand {
 }
 
 export interface ProductImage {
-  id: string;
-  product: string;                // FK → products
+  id: number;
+  product: number;                // FK → products
   image: string;                  // Directus file UUID
   alt_text: string | null;
   sort: number;
@@ -100,12 +104,12 @@ export interface ProductSpecification {
 }
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   sku: string;
-  category: string | ProductCategory;   // FK or populated
-  brand: string | ProductBrand;         // FK or populated
+  category: number | ProductCategory;   // FK or populated
+  brand: number | ProductBrand;         // FK or populated
   short_description: string;
   description: string | null;           // Rich HTML
   specifications: ProductSpecification[] | null;
@@ -152,9 +156,9 @@ export interface ShippingAddress {
 }
 
 export interface OrderItem {
-  id: string;
-  order: string;                    // FK → orders
-  product: string | null;           // FK → products (nullable if deleted)
+  id: number;
+  order: number;                    // FK → orders
+  product: number | null;           // FK → products (nullable if deleted)
   product_snapshot: {               // Immutable snapshot at time of order
     id: string;
     name: string;
@@ -171,7 +175,7 @@ export interface OrderItem {
 }
 
 export interface Order {
-  id: string;
+  id: number;
   order_number: string;
   status: OrderStatus;
   payment_status: PaymentStatus;
@@ -198,7 +202,7 @@ export interface Order {
 }
 
 export interface Coupon {
-  id: string;
+  id: number;
   code: string;
   discount_type: 'percentage' | 'fixed';
   discount_value: number;

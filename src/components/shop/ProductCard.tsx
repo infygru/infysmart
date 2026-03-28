@@ -143,7 +143,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
-        <p className="text-[10px] text-slate-400 -mt-2">+ 18% GST applicable</p>
+        <p className="text-[10px] text-slate-400 -mt-2">Incl. of all taxes</p>
 
         {/* Stock status */}
         {isLowStock && !isOutOfStock && (
@@ -180,16 +180,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </button>
 
-        {/* Quick compare / wishlist placeholder for future */}
-        {!isOutOfStock && (
-          <Link
-            href={`/shop/${product.slug}`}
-            className="flex items-center justify-center gap-1.5 text-xs text-slate-500 hover:text-brand-blue transition-colors"
-          >
-            <Tag className="w-3 h-3" />
-            View Details
-          </Link>
-        )}
+        <Link
+          href={`/shop/${product.slug}`}
+          className="flex items-center justify-center gap-1.5 text-xs text-slate-500 hover:text-brand-blue transition-colors"
+        >
+          <Tag className="w-3 h-3" />
+          View Details
+        </Link>
       </div>
     </div>
   );

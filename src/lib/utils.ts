@@ -27,10 +27,27 @@ export function getEffectivePrice(price: number, salePrice: number | null): numb
 }
 
 /**
- * Calculate GST amount (18%) on a given base amount.
+ * Calculate GST amount on a given base (ex-GST) amount.
+ * Used for internal calculations only.
  */
 export function calculateGST(baseAmount: number): number {
   return Math.round(baseAmount * GST_RATE);
+}
+
+/**
+ * Extract the GST component from a GST-inclusive price.
+ * e.g. extractGST(11800) → 1800  (where rate is 18%)
+ */
+export function extractGST(inclPrice: number): number {
+  return Math.round(inclPrice * GST_RATE / (1 + GST_RATE));
+}
+
+/**
+ * Extract the base (ex-GST) price from a GST-inclusive price.
+ * e.g. extractBasePrice(11800) → 10000
+ */
+export function extractBasePrice(inclPrice: number): number {
+  return Math.round(inclPrice / (1 + GST_RATE));
 }
 
 /**

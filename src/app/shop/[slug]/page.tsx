@@ -6,7 +6,7 @@ import type { Product, ProductCategory, ProductBrand, ProductImage } from '@/lib
 import ProductGallery from '@/components/shop/ProductGallery';
 import AddToCartSection from '@/components/shop/AddToCartSection';
 import ProductCard from '@/components/shop/ProductCard';
-import { formatPrice, getEffectivePrice, GST_PERCENTAGE } from '@/lib/utils';
+import { formatPrice, getEffectivePrice, extractGST, extractBasePrice, GST_PERCENTAGE } from '@/lib/utils';
 import { CheckCircle2, Package, ShieldCheck, Truck, Tag, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -118,8 +118,9 @@ export default async function ProductDetailPage({
   const discountPercent = hasDiscount
     ? Math.round(((product.price - effectivePrice) / product.price) * 100)
     : 0;
-  const gstAmount = Math.round(effectivePrice * (GST_PERCENTAGE / 100));
-  const priceWithGST = effectivePrice + gstAmount;
+  // Prices are GST-inclusive — extract components for billing display
+  const gstAmount = extractGST(effectivePrice);
+  const basePrice = extractBasePrice(effectivePrice);
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
   const isLowStock = product.track_inventory && product.stock_quantity > 0 && product.stock_quantity <= 5;
 
@@ -264,7 +265,7 @@ export default async function ProductDetailPage({
                 )}
               </div>
               <div className="text-xs text-slate-500 space-y-0.5">
-                <p>+ {formatPrice(gstAmount)} GST ({GST_PERCENTAGE}%) = <span className="font-semibold text-slate-700">{formatPrice(priceWithGST)} incl. GST</span></p>
+                <p>Incl. {GST_PERCENTAGE}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
                 {isLowStock && !isOutOfStock && (
                   <p className="text-amber-600 font-semibold">
                     ⚠ Only {product.stock_quantity} units remaining
@@ -310,6 +311,20 @@ export default async function ProductDetailPage({
                   {brand.website}
                 </a>
               </p>
+            )}
+
+            {/* Tags */}
+            {product.tags && product.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {product.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-1 rounded-full border border-slate-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
         </div>

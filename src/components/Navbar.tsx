@@ -32,8 +32,6 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
     { label: 'Solar', href: '/solar' },
     { label: 'Automation', href: '/automation' },
     { label: 'Projects', href: '/projects' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'About', href: '/about' },
   ];
 
   const navBgClass = isScrolled

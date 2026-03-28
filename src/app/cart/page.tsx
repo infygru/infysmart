@@ -288,11 +288,6 @@ export default function CartPage() {
                 )}
 
                 <div className="flex justify-between text-slate-600">
-                  <span>GST ({GST_PERCENTAGE}%)</span>
-                  <span>{formatPrice(totals.gst)}</span>
-                </div>
-
-                <div className="flex justify-between text-slate-600">
                   <span>Shipping</span>
                   <span className={totals.shipping === 0 ? 'text-green-600 font-semibold' : ''}>
                     {totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
@@ -312,7 +307,7 @@ export default function CartPage() {
               </div>
 
               <p className="text-[11px] text-slate-400 text-center">
-                Inclusive of all taxes. GST invoice provided.
+                Incl. of {GST_PERCENTAGE}% GST (₹{totals.gst.toLocaleString('en-IN')}). GST invoice provided.
               </p>
 
               <Link

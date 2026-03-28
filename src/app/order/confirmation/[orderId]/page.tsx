@@ -176,10 +176,6 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               </div>
             )}
             <div className="flex justify-between text-slate-600">
-              <span>GST ({GST_PERCENTAGE}%)</span>
-              <span>{formatPrice(order.tax_amount)}</span>
-            </div>
-            <div className="flex justify-between text-slate-600">
               <span>Shipping</span>
               <span className={order.shipping_amount === 0 ? 'text-green-600 font-medium' : ''}>
                 {order.shipping_amount === 0 ? 'FREE' : formatPrice(order.shipping_amount)}
@@ -190,8 +186,8 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               <span>{formatPrice(order.total_amount)}</span>
             </div>
             <p className="text-[10px] text-slate-400 text-right">
-              {isCOD ? 'Payable on delivery • ' : 'Paid via Razorpay • '}
-              GST invoice will be provided
+              Incl. {GST_PERCENTAGE}% GST (₹{order.tax_amount?.toLocaleString('en-IN') ?? '—'}) •{' '}
+              {isCOD ? 'Payable on delivery' : 'Paid via Razorpay'}
             </p>
           </div>
         </div>

@@ -191,10 +191,6 @@ export default function CartDrawer() {
                 </div>
               )}
               <div className="flex justify-between text-slate-600">
-                <span>GST (18%)</span>
-                <span>{formatPrice(totals.gst)}</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
                 <span>Shipping</span>
                 <span className={totals.shipping === 0 ? 'text-green-600 font-medium' : ''}>
                   {totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
@@ -206,6 +202,9 @@ export default function CartDrawer() {
               <span>Total</span>
               <span>{formatPrice(totals.total)}</span>
             </div>
+            <p className="text-[11px] text-slate-400 text-center">
+              Incl. of 18% GST (₹{totals.gst.toLocaleString('en-IN')})
+            </p>
 
             {/* CTAs */}
             <Link

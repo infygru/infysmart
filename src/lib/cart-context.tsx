@@ -8,7 +8,7 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
-import { getEffectivePrice, calculateGST, calculateShipping, applyDiscount } from './utils';
+import { getEffectivePrice, extractGST, calculateShipping, applyDiscount } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -39,12 +39,12 @@ export interface AppliedCoupon {
 }
 
 export interface CartTotals {
-  subtotal: number;       // Sum of (unit_price × qty)
-  discount: number;       // Coupon discount
-  taxable: number;        // subtotal - discount
-  gst: number;            // 18% on taxable
+  subtotal: number;       // Sum of (unit_price × qty), prices are GST-inclusive
+  discount: number;       // Coupon discount applied to subtotal
+  taxable: number;        // subtotal - discount (still GST-inclusive)
+  gst: number;            // GST extracted from taxable (18/118) — for invoice display only
   shipping: number;       // 0 if above threshold, else flat rate
-  total: number;          // taxable + gst + shipping
+  total: number;          // taxable + shipping (gst already included inside taxable)
   itemCount: number;      // Total units in cart
 }
 
@@ -225,9 +225,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       : 0;
 
     const taxable = Math.max(0, subtotal - discount);
-    const gst = calculateGST(taxable);
+    const gst = extractGST(taxable);          // extracted for invoice display only
     const shipping = calculateShipping(subtotal);
-    const total = taxable + gst + shipping;
+    const total = taxable + shipping;          // gst is already inside taxable
     const itemCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return { subtotal, discount, taxable, gst, shipping, total, itemCount };
