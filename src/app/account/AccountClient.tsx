@@ -10,7 +10,7 @@ import { formatPrice } from '@/lib/utils';
 
 const STATUS_COLORS: Record<string, string> = {
   pending:    'bg-yellow-500/20 text-yellow-400',
-  confirmed:  'bg-blue-500/20 text-blue-400',
+  confirmed:  'bg-[#16a34a]/10 text-blue-400',
   processing: 'bg-purple-500/20 text-purple-400',
   shipped:    'bg-indigo-500/20 text-indigo-400',
   delivered:  'bg-green-500/20 text-green-400',
@@ -56,7 +56,7 @@ export default function AccountClient({
     }
   };
 
-  const inputClass = 'w-full text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-colors';
+  const inputClass = 'w-full text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a] transition-colors';
 
   return (
     <main className="min-h-screen bg-[#020617]">
@@ -87,8 +87,8 @@ export default function AccountClient({
                 className="rounded-full object-cover border-2 border-slate-700"
               />
             ) : (
-              <div className="w-16 h-16 rounded-full bg-brand-blue/20 border border-brand-blue/30 flex items-center justify-center">
-                <User className="w-8 h-8 text-brand-blue" />
+              <div className="w-16 h-16 rounded-full bg-[#16a34a]/20 border border-[#16a34a]/30 flex items-center justify-center">
+                <User className="w-8 h-8 text-[#16a34a]" />
               </div>
             )}
             <div>
@@ -124,7 +124,7 @@ export default function AccountClient({
             <button
               onClick={handleSave}
               disabled={saving}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-brand-blue text-white text-sm font-bold rounded-lg hover:bg-blue-600 disabled:opacity-60 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[#16a34a] text-white text-sm font-bold rounded-lg hover:bg-[#15803d] disabled:opacity-60 transition-colors"
             >
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> :
                 saved ? <><CheckCircle2 className="w-4 h-4" /> Saved!</> :
@@ -149,7 +149,7 @@ export default function AccountClient({
         {/* Orders */}
         <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-6">
           <h2 className="flex items-center gap-2 font-bold text-white mb-5">
-            <Package className="w-5 h-5 text-brand-blue" />
+            <Package className="w-5 h-5 text-[#16a34a]" />
             Recent Orders
           </h2>
 
@@ -159,7 +159,7 @@ export default function AccountClient({
               <p className="text-slate-500 text-sm">No orders yet</p>
               <Link
                 href="/shop"
-                className="mt-3 inline-block text-sm text-brand-blue font-semibold hover:underline"
+                className="mt-3 inline-block text-sm text-[#16a34a] font-semibold hover:underline"
               >
                 Start Shopping →
               </Link>

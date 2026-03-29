@@ -256,7 +256,7 @@ export default function CheckoutPage() {
       notes: {
         shipping_address: `${form.shipping.line1}, ${form.shipping.city}, ${form.shipping.state} - ${form.shipping.pincode}`,
       },
-      theme: { color: '#2563eb' },
+      theme: { color: '#16a34a' },
       handler: async (response: {
         razorpay_order_id: string;
         razorpay_payment_id: string;
@@ -313,7 +313,7 @@ export default function CheckoutPage() {
       <section className="bg-[#0f172a] border-b border-slate-800 py-4 px-4">
         <div className="container mx-auto max-w-5xl flex items-center justify-between">
           <h1 className="text-lg font-extrabold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-brand-blue" /> Secure Checkout
+            <ShieldCheck className="w-5 h-5 text-[#16a34a]" /> Secure Checkout
           </h1>
           <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
             <ShieldCheck className="w-4 h-4 text-green-500" /> Secured by Razorpay
@@ -328,7 +328,7 @@ export default function CheckoutPage() {
           <div className="space-y-4">
 
             {/* Contact Info */}
-            <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-brand-blue" />}>
+            <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-[#16a34a]" />}>
               <FormRow>
                 <FormField label="Full Name *" error={errors.name}>
                   <input
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
             </FormSection>
 
             {/* Shipping Address */}
-            <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-brand-blue" />}>
+            <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-[#16a34a]" />}>
               <AddressFields
                 prefix="shipping"
                 address={form.shipping}
@@ -376,13 +376,13 @@ export default function CheckoutPage() {
             </FormSection>
 
             {/* Billing Address */}
-            <FormSection title="Billing Address" icon={<CreditCard className="w-5 h-5 text-brand-blue" />}>
+            <FormSection title="Billing Address" icon={<CreditCard className="w-5 h-5 text-[#16a34a]" />}>
               <label className="flex items-center gap-2.5 cursor-pointer mb-4">
                 <input
                   type="checkbox"
                   checked={form.billing_same}
                   onChange={(e) => setField('billing_same', e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-600 text-brand-blue accent-brand-blue"
+                  className="w-4 h-4 rounded border-slate-600 text-[#16a34a] accent-[#16a34a]"
                 />
                 <span className="text-sm font-medium text-slate-300">
                   Same as shipping address
@@ -400,12 +400,12 @@ export default function CheckoutPage() {
                 onChange={(e) => setField('notes', e.target.value)}
                 placeholder="Special instructions, preferred delivery time, site contact, etc."
                 rows={3}
-                className="w-full text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue resize-none transition-colors"
+                className="w-full text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a] resize-none transition-colors"
               />
             </FormSection>
 
             {/* Payment Method */}
-            <FormSection title="Payment Method" icon={<CreditCard className="w-5 h-5 text-brand-blue" />}>
+            <FormSection title="Payment Method" icon={<CreditCard className="w-5 h-5 text-[#16a34a]" />}>
               <div className="grid sm:grid-cols-2 gap-3">
                 <PaymentOption
                   id="razorpay"
@@ -448,7 +448,7 @@ export default function CheckoutPage() {
             >
               <span className="font-bold text-white">Order Summary</span>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-brand-blue">{formatPrice(totals.total)}</span>
+                <span className="font-bold text-[#16a34a]">{formatPrice(totals.total)}</span>
                 {summaryOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
               </div>
             </button>
@@ -476,7 +476,7 @@ export default function CheckoutPage() {
                               <div className="w-full h-full bg-slate-700" />
                             )}
                           </div>
-                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-brand-blue text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#16a34a] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                             {quantity}
                           </span>
                         </div>
@@ -519,7 +519,7 @@ export default function CheckoutPage() {
               <button
                 onClick={handlePlaceOrder}
                 disabled={loading || (serviceableStates.length > 0 && form.shipping.state !== '' && !serviceableStates.includes(form.shipping.state))}
-                className="w-full flex items-center justify-center gap-2.5 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-base"
+                className="w-full flex items-center justify-center gap-2.5 py-4 bg-[#16a34a] text-white font-bold rounded-xl hover:bg-[#15803d] disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-base"
               >
                 {loading ? (
                   <>
@@ -538,8 +538,8 @@ export default function CheckoutPage() {
 
               <p className="text-[11px] text-slate-500 text-center">
                 By placing an order you agree to our{' '}
-                <Link href="/terms" className="underline hover:text-brand-blue">Terms</Link> and{' '}
-                <Link href="/refund-policy" className="underline hover:text-brand-blue">Refund Policy</Link>.
+                <Link href="/terms" className="underline hover:text-[#16a34a]">Terms</Link> and{' '}
+                <Link href="/refund-policy" className="underline hover:text-[#16a34a]">Refund Policy</Link>.
               </p>
             </div>
           </div>
@@ -597,7 +597,7 @@ function inputClass(hasError: boolean) {
   return `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors text-white placeholder:text-slate-500 ${
     hasError
       ? 'border border-red-500 bg-red-500/10 focus:border-red-500 focus:ring-red-500/30'
-      : 'border border-slate-700 bg-slate-800/60 focus:border-brand-blue focus:ring-brand-blue'
+      : 'border border-slate-700 bg-slate-800/60 focus:border-[#16a34a] focus:ring-[#16a34a]'
   }`;
 }
 
@@ -620,7 +620,7 @@ function AddressFields({
     `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors text-white bg-slate-800 ${
       hasError
         ? 'border border-red-500 focus:border-red-500 focus:ring-red-500/30'
-        : 'border border-slate-700 focus:border-brand-blue focus:ring-brand-blue'
+        : 'border border-slate-700 focus:border-[#16a34a] focus:ring-[#16a34a]'
     }`;
 
   return (
@@ -723,14 +723,14 @@ function PaymentOption({
       onClick={onSelect}
       className={`relative flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
         selected
-          ? 'border-brand-blue bg-blue-500/10'
+          ? 'border-[#16a34a] bg-[#16a34a]/10'
           : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
       }`}
     >
       <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-        selected ? 'border-brand-blue' : 'border-slate-600'
+        selected ? 'border-[#16a34a]' : 'border-slate-600'
       }`}>
-        {selected && <div className="w-2 h-2 rounded-full bg-brand-blue" />}
+        {selected && <div className="w-2 h-2 rounded-full bg-[#16a34a]" />}
       </div>
       <div className="min-w-0">
         <p className="font-bold text-sm text-white flex items-center gap-1.5">

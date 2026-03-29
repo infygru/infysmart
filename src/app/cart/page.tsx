@@ -62,7 +62,7 @@ export default function CartPage() {
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 bg-brand-blue text-white px-7 py-3.5 rounded-xl font-bold hover:bg-blue-600 transition-colors"
+            className="inline-flex items-center gap-2 bg-[#16a34a] text-white px-7 py-3.5 rounded-xl font-bold hover:bg-[#15803d] transition-colors"
           >
             <ShoppingCart className="w-5 h-5" /> Browse Products
           </Link>
@@ -79,7 +79,7 @@ export default function CartPage() {
       <section className="bg-[#0f172a] border-b border-slate-800 py-5 px-4">
         <div className="container mx-auto max-w-7xl">
           <h1 className="text-xl font-extrabold text-white flex items-center gap-3">
-            <ShoppingCart className="w-6 h-6 text-brand-blue" />
+            <ShoppingCart className="w-6 h-6 text-[#16a34a]" />
             Shopping Cart
             <span className="text-base font-semibold text-slate-500">
               ({totals.itemCount} item{totals.itemCount !== 1 ? 's' : ''})
@@ -95,10 +95,10 @@ export default function CartPage() {
           <div className="space-y-4">
             {/* Free shipping nudge */}
             {shippingLeft > 0 && (
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex items-center gap-3 text-sm">
-                <Truck className="w-5 h-5 text-brand-blue shrink-0" />
+              <div className="bg-[#16a34a]/10 border border-[#16a34a]/20 rounded-xl p-4 flex items-center gap-3 text-sm">
+                <Truck className="w-5 h-5 text-[#16a34a] shrink-0" />
                 <span className="text-slate-300">
-                  Add <span className="font-bold text-brand-blue">{formatPrice(shippingLeft)}</span> more to get{' '}
+                  Add <span className="font-bold text-[#16a34a]">{formatPrice(shippingLeft)}</span> more to get{' '}
                   <span className="font-bold text-green-400">FREE shipping!</span>
                 </span>
               </div>
@@ -147,7 +147,7 @@ export default function CartPage() {
                       <div className="flex items-start justify-between gap-2">
                         <Link
                           href={`/shop/${product.slug}`}
-                          className="font-semibold text-white hover:text-brand-blue transition-colors leading-snug line-clamp-2 text-sm sm:text-base"
+                          className="font-semibold text-white hover:text-[#16a34a] transition-colors leading-snug line-clamp-2 text-sm sm:text-base"
                         >
                           {product.name}
                         </Link>
@@ -211,7 +211,7 @@ export default function CartPage() {
             {/* Continue shopping */}
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 text-sm text-brand-blue font-semibold hover:underline"
+              className="inline-flex items-center gap-2 text-sm text-[#16a34a] font-semibold hover:underline"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Continue Shopping
             </Link>
@@ -223,7 +223,7 @@ export default function CartPage() {
             {/* Coupon */}
             <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5">
               <h2 className="text-sm font-bold text-slate-300 flex items-center gap-2 mb-3">
-                <Tag className="w-4 h-4 text-brand-blue" /> Apply Coupon
+                <Tag className="w-4 h-4 text-[#16a34a]" /> Apply Coupon
               </h2>
 
               {coupon ? (
@@ -252,13 +252,13 @@ export default function CartPage() {
                     onChange={(e) => { setCouponInput(e.target.value.toUpperCase()); setCouponError(''); }}
                     onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                     placeholder="Enter coupon code"
-                    className="flex-1 text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-colors"
+                    className="flex-1 text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a] transition-colors"
                     disabled={couponLoading}
                   />
                   <button
                     onClick={handleApplyCoupon}
                     disabled={!couponInput.trim() || couponLoading}
-                    className="px-4 py-2 bg-brand-blue text-white text-sm font-bold rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-4 py-2 bg-[#16a34a] text-white text-sm font-bold rounded-lg hover:bg-[#15803d] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {couponLoading ? '...' : 'Apply'}
                   </button>
@@ -314,7 +314,7 @@ export default function CartPage() {
 
               <Link
                 href="/checkout"
-                className="flex items-center justify-center gap-2 w-full py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-4 bg-[#16a34a] text-white font-bold rounded-xl hover:bg-[#15803d] transition-colors"
               >
                 Proceed to Checkout <ArrowRight className="w-4 h-4" />
               </Link>
@@ -328,7 +328,7 @@ export default function CartPage() {
                 { icon: RotateCcw, text: 'Hassle-free returns & support' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-xs text-slate-500">
-                  <Icon className="w-4 h-4 text-brand-blue shrink-0" />
+                  <Icon className="w-4 h-4 text-[#16a34a] shrink-0" />
                   {text}
                 </div>
               ))}

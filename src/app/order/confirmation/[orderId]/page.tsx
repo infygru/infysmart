@@ -77,7 +77,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
 
           {/* Order number badge */}
           <div className="inline-flex items-center gap-2 mt-5 bg-slate-800 border border-slate-700 text-white px-5 py-2.5 rounded-full font-mono text-sm font-bold">
-            <Package className="w-4 h-4 text-brand-blue" />
+            <Package className="w-4 h-4 text-[#16a34a]" />
             {orderNumber}
           </div>
 
@@ -122,10 +122,10 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               <div key={label} className="flex-1 flex flex-col items-center">
                 <div className="flex items-center w-full">
                   {idx > 0 && (
-                    <div className={`flex-1 h-0.5 ${done ? 'bg-brand-blue' : 'bg-slate-700'}`} />
+                    <div className={`flex-1 h-0.5 ${done ? 'bg-[#16a34a]' : 'bg-slate-700'}`} />
                   )}
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 flex-shrink-0 ${
-                    done ? 'bg-brand-blue border-brand-blue' : 'bg-[#0f172a] border-slate-700'
+                    done ? 'bg-[#16a34a] border-[#16a34a]' : 'bg-[#0f172a] border-slate-700'
                   }`}>
                     {done ? (
                       <CheckCircle2 className="w-4 h-4 text-white" />
@@ -134,11 +134,11 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
                     )}
                   </div>
                   {idx < arr.length - 1 && (
-                    <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-brand-blue' : 'bg-slate-700'}`} />
+                    <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-[#16a34a]' : 'bg-slate-700'}`} />
                   )}
                 </div>
                 <span className={`text-[10px] font-semibold mt-1.5 text-center ${
-                  done ? 'text-brand-blue' : 'text-slate-600'
+                  done ? 'text-[#16a34a]' : 'text-slate-600'
                 }`}>
                   {label}
                 </span>
@@ -151,7 +151,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
         <div className="bg-[#0f172a] rounded-xl border border-slate-800 overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-800">
             <h2 className="font-bold text-white flex items-center gap-2 text-sm">
-              <Package className="w-4 h-4 text-brand-blue" />
+              <Package className="w-4 h-4 text-[#16a34a]" />
               Items Ordered ({items.length} product{items.length !== 1 ? 's' : ''})
             </h2>
           </div>
@@ -265,7 +265,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
           </a>
           <Link
             href="/shop"
-            className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#0f172a] border border-slate-700 text-slate-300 font-bold rounded-xl hover:border-brand-blue hover:text-brand-blue transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#0f172a] border border-slate-700 text-slate-300 font-bold rounded-xl hover:border-[#16a34a] hover:text-[#16a34a] transition-colors"
           >
             Continue Shopping <ArrowRight className="w-4 h-4" />
           </Link>
@@ -280,12 +280,12 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
         )}
 
         {/* Invoice note */}
-        <div className="flex items-center gap-2.5 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-xs text-slate-400">
-          <Download className="w-4 h-4 text-brand-blue shrink-0" />
+        <div className="flex items-center gap-2.5 bg-[#16a34a]/10 border border-[#16a34a]/20 rounded-xl p-4 text-xs text-slate-400">
+          <Download className="w-4 h-4 text-[#16a34a] shrink-0" />
           <span>
             A GST invoice will be emailed to <strong className="text-white">{order.customer_email}</strong> once your order is dispatched.
             For bulk/B2B invoicing, contact{' '}
-            <a href="mailto:info@infysmart.com" className="text-brand-blue underline">info@infysmart.com</a>.
+            <a href="mailto:info@infysmart.com" className="text-[#16a34a] underline">info@infysmart.com</a>.
           </span>
         </div>
 
