@@ -74,17 +74,15 @@ export default function CheckoutPage() {
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [serviceableStates, setServiceableStates] = useState<string[]>([]);
 
-  // Fetch serviceable states (shipping rules already fetched in cart context for charges)
   useEffect(() => {
     fetch('/api/shipping/rules')
       .then((r) => r.json())
       .then((data: { serviceable_states: string[] }) => {
         setServiceableStates(data.serviceable_states ?? []);
       })
-      .catch(() => { /* fail open — all states allowed */ });
+      .catch(() => { /* fail open */ });
   }, []);
 
-  // Load Razorpay SDK
   useEffect(() => {
     if (document.getElementById('razorpay-script')) return;
     const script = document.createElement('script');
@@ -94,7 +92,6 @@ export default function CheckoutPage() {
     document.body.appendChild(script);
   }, []);
 
-  // Redirect if cart empty
   useEffect(() => {
     if (items.length === 0) router.replace('/cart');
   }, [items, router]);
@@ -139,7 +136,7 @@ export default function CheckoutPage() {
     if (!addr.state) {
       e['shipping.state'] = 'State is required';
     } else if (serviceableStates.length > 0 && !serviceableStates.includes(addr.state)) {
-      e['shipping.state'] = `We don't deliver to ${addr.state} yet. Check our serviceable states.`;
+      e['shipping.state'] = `We don't deliver to ${addr.state} yet.`;
     }
     if (!addr.pincode || !isValidPincode(addr.pincode)) e['shipping.pincode'] = 'Valid 6-digit PIN required';
 
@@ -159,7 +156,6 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     if (!validate()) {
-      // Scroll to first error
       const firstError = document.querySelector('[data-error="true"]');
       firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -233,7 +229,6 @@ export default function CheckoutPage() {
   };
 
   const initiateRazorpay = async () => {
-    // Step 1: Create Razorpay order on server
     const rzpRes = await fetch('/api/payments/razorpay/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -245,7 +240,6 @@ export default function CheckoutPage() {
       order_id: string; amount: number; currency: string; key_id: string;
     };
 
-    // Step 2: Open Razorpay checkout
     const options = {
       key: key_id,
       amount,
@@ -269,7 +263,6 @@ export default function CheckoutPage() {
         razorpay_signature: string;
       }) => {
         setLoading(true);
-        // Step 3: Verify payment on server
         const verifyRes = await fetch('/api/payments/razorpay/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -315,24 +308,24 @@ export default function CheckoutPage() {
   // ─── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[#020617]">
       {/* Header */}
-      <section className="bg-white border-b border-slate-200 py-5 px-6">
+      <section className="bg-[#0f172a] border-b border-slate-800 py-4 px-4">
         <div className="container mx-auto max-w-5xl flex items-center justify-between">
-          <h1 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+          <h1 className="text-lg font-extrabold text-white flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-brand-blue" /> Secure Checkout
           </h1>
-          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-400">
+          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
             <ShieldCheck className="w-4 h-4 text-green-500" /> Secured by Razorpay
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto max-w-5xl px-6 py-8">
-        <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+      <div className="container mx-auto max-w-5xl px-4 py-6">
+        <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 
           {/* Left: Form */}
-          <div className="space-y-6">
+          <div className="space-y-4">
 
             {/* Contact Info */}
             <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-brand-blue" />}>
@@ -342,7 +335,7 @@ export default function CheckoutPage() {
                     type="text"
                     value={form.name}
                     onChange={(e) => setField('name', e.target.value)}
-                    placeholder="As per GST / business name"
+                    placeholder="Your full name"
                     className={inputClass(!!errors.name)}
                     autoComplete="name"
                   />
@@ -389,9 +382,9 @@ export default function CheckoutPage() {
                   type="checkbox"
                   checked={form.billing_same}
                   onChange={(e) => setField('billing_same', e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-300 text-brand-blue accent-brand-blue"
+                  className="w-4 h-4 rounded border-slate-600 text-brand-blue accent-brand-blue"
                 />
-                <span className="text-sm font-medium text-slate-700">
+                <span className="text-sm font-medium text-slate-300">
                   Same as shipping address
                 </span>
               </label>
@@ -407,7 +400,7 @@ export default function CheckoutPage() {
                 onChange={(e) => setField('notes', e.target.value)}
                 placeholder="Special instructions, preferred delivery time, site contact, etc."
                 rows={3}
-                className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue resize-none placeholder-slate-400"
+                className="w-full text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue resize-none transition-colors"
               />
             </FormSection>
 
@@ -434,7 +427,7 @@ export default function CheckoutPage() {
               </div>
 
               {form.payment_method === 'cod' && (
-                <div className="mt-3 flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-lg p-3 text-xs text-amber-700">
+                <div className="mt-3 flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-xs text-amber-400">
                   <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>
                     COD available only for orders up to {formatPrice(codMaxAmount)}. A sales executive will
@@ -450,21 +443,21 @@ export default function CheckoutPage() {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden flex items-center justify-between w-full bg-white border border-slate-200 rounded-xl p-4"
+              className="lg:hidden flex items-center justify-between w-full bg-[#0f172a] border border-slate-800 rounded-xl p-4"
               onClick={() => setSummaryOpen(!summaryOpen)}
             >
-              <span className="font-bold text-slate-900">Order Summary</span>
+              <span className="font-bold text-white">Order Summary</span>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-brand-blue">{formatPrice(totals.total)}</span>
-                {summaryOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {summaryOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
               </div>
             </button>
 
             <div className={`space-y-4 ${summaryOpen ? 'block' : 'hidden lg:block'}`}>
 
               {/* Items */}
-              <div className="bg-white rounded-xl border border-slate-200 p-5">
-                <h2 className="text-sm font-bold text-slate-700 mb-4">
+              <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5">
+                <h2 className="text-sm font-bold text-slate-300 mb-4">
                   Items ({totals.itemCount})
                 </h2>
                 <ul className="space-y-3">
@@ -476,22 +469,22 @@ export default function CheckoutPage() {
                     return (
                       <li key={product.id} className="flex gap-3 text-sm">
                         <div className="relative flex-shrink-0">
-                          <div className="w-14 h-14 bg-slate-100 rounded-lg overflow-hidden border border-slate-200">
+                          <div className="w-14 h-14 bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
                             {thumb ? (
                               <Image src={thumb} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
                             ) : (
-                              <div className="w-full h-full bg-slate-200" />
+                              <div className="w-full h-full bg-slate-700" />
                             )}
                           </div>
-                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-slate-700 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-brand-blue text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                             {quantity}
                           </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-slate-800 line-clamp-2 leading-snug">{product.name}</p>
-                          <p className="text-slate-400 text-xs mt-0.5">SKU: {product.sku}</p>
+                          <p className="font-medium text-white line-clamp-2 leading-snug">{product.name}</p>
+                          <p className="text-slate-500 text-xs mt-0.5">SKU: {product.sku}</p>
                         </div>
-                        <span className="font-semibold text-slate-900 whitespace-nowrap">
+                        <span className="font-semibold text-white whitespace-nowrap">
                           {formatPrice(price * quantity)}
                         </span>
                       </li>
@@ -501,23 +494,23 @@ export default function CheckoutPage() {
               </div>
 
               {/* Totals */}
-              <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-2.5">
+              <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5 space-y-2.5">
                 <div className="space-y-1.5 text-sm">
                   <Row label="Subtotal" value={formatPrice(totals.subtotal)} />
                   {totals.discount > 0 && (
-                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-green-600 font-semibold" />
+                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-green-400 font-semibold" />
                   )}
                   <Row
                     label="Shipping"
                     value={totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
-                    valueClass={totals.shipping === 0 ? 'text-green-600 font-semibold' : ''}
+                    valueClass={totals.shipping === 0 ? 'text-green-400 font-semibold' : ''}
                   />
                 </div>
-                <div className="border-t border-slate-100 pt-2.5 flex justify-between font-bold text-base text-slate-900">
+                <div className="border-t border-slate-800 pt-2.5 flex justify-between font-bold text-base text-white">
                   <span>Total</span>
                   <span>{formatPrice(totals.total)}</span>
                 </div>
-                <p className="text-[11px] text-slate-400 text-center">
+                <p className="text-[11px] text-slate-500 text-center">
                   Incl. of {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')})
                 </p>
               </div>
@@ -526,7 +519,7 @@ export default function CheckoutPage() {
               <button
                 onClick={handlePlaceOrder}
                 disabled={loading || (serviceableStates.length > 0 && form.shipping.state !== '' && !serviceableStates.includes(form.shipping.state))}
-                className="w-full flex items-center justify-center gap-2.5 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm shadow-brand-blue/30 text-base"
+                className="w-full flex items-center justify-center gap-2.5 py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-base"
               >
                 {loading ? (
                   <>
@@ -543,7 +536,7 @@ export default function CheckoutPage() {
                 )}
               </button>
 
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-[11px] text-slate-500 text-center">
                 By placing an order you agree to our{' '}
                 <Link href="/terms" className="underline hover:text-brand-blue">Terms</Link> and{' '}
                 <Link href="/refund-policy" className="underline hover:text-brand-blue">Refund Policy</Link>.
@@ -566,8 +559,8 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-6">
-      <h2 className="flex items-center gap-2.5 text-base font-bold text-slate-900 mb-5 pb-3 border-b border-slate-100">
+    <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5">
+      <h2 className="flex items-center gap-2.5 text-base font-bold text-white mb-4 pb-3 border-b border-slate-800">
         {icon}
         {title}
       </h2>
@@ -589,10 +582,10 @@ function FormField({
 }) {
   return (
     <div data-error={!!error || undefined}>
-      <label className="block text-sm font-semibold text-slate-700 mb-1.5">{label}</label>
+      <label className="block text-sm font-semibold text-slate-300 mb-1.5">{label}</label>
       {children}
       {error && (
-        <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+        <p className="mt-1 text-xs text-red-400 flex items-center gap-1">
           <AlertCircle className="w-3 h-3" /> {error}
         </p>
       )}
@@ -601,10 +594,10 @@ function FormField({
 }
 
 function inputClass(hasError: boolean) {
-  return `w-full text-sm border rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors placeholder-slate-400 ${
+  return `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors text-white placeholder:text-slate-500 ${
     hasError
-      ? 'border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-300'
-      : 'border-slate-200 focus:border-brand-blue focus:ring-brand-blue'
+      ? 'border border-red-500 bg-red-500/10 focus:border-red-500 focus:ring-red-500/30'
+      : 'border border-slate-700 bg-slate-800/60 focus:border-brand-blue focus:ring-brand-blue'
   }`;
 }
 
@@ -622,6 +615,13 @@ function AddressFields({
     serviceableStates.length > 0 &&
     address.state !== '' &&
     !serviceableStates.includes(address.state);
+
+  const selectClass = (hasError: boolean) =>
+    `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors text-white bg-slate-800 ${
+      hasError
+        ? 'border border-red-500 focus:border-red-500 focus:ring-red-500/30'
+        : 'border border-slate-700 focus:border-brand-blue focus:ring-brand-blue'
+    }`;
 
   return (
     <div className="space-y-4">
@@ -671,14 +671,15 @@ function AddressFields({
             <select
               value={address.state}
               onChange={(e) => setField(`${prefix}.state`, e.target.value)}
-              className={inputClass(!!errors[`${prefix}.state`] || stateNotServiceable)}
+              className={selectClass(!!errors[`${prefix}.state`] || stateNotServiceable)}
             >
-              <option value="">Select State</option>
+              <option value="" className="bg-slate-800">Select State</option>
               {INDIAN_STATES.map((s) => (
                 <option
                   key={s}
                   value={s}
                   disabled={serviceableStates.length > 0 && !serviceableStates.includes(s)}
+                  className="bg-slate-800"
                 >
                   {s}{serviceableStates.length > 0 && !serviceableStates.includes(s) ? ' (not serviceable)' : ''}
                 </option>
@@ -686,7 +687,7 @@ function AddressFields({
             </select>
           </FormField>
           {stateNotServiceable && !errors[`${prefix}.state`] && (
-            <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+            <p className="mt-1 text-xs text-red-400 flex items-center gap-1">
               <AlertCircle className="w-3 h-3" />
               We don&apos;t deliver to {address.state} yet.
             </p>
@@ -697,7 +698,7 @@ function AddressFields({
             type="text"
             value="India"
             disabled
-            className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 bg-slate-50 text-slate-500 cursor-not-allowed"
+            className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 bg-slate-800/30 text-slate-500 cursor-not-allowed"
           />
         </FormField>
       </div>
@@ -722,25 +723,25 @@ function PaymentOption({
       onClick={onSelect}
       className={`relative flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
         selected
-          ? 'border-brand-blue bg-blue-50'
-          : 'border-slate-200 bg-white hover:border-slate-300'
+          ? 'border-brand-blue bg-blue-500/10'
+          : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
       }`}
     >
       <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-        selected ? 'border-brand-blue' : 'border-slate-300'
+        selected ? 'border-brand-blue' : 'border-slate-600'
       }`}>
         {selected && <div className="w-2 h-2 rounded-full bg-brand-blue" />}
       </div>
       <div className="min-w-0">
-        <p className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+        <p className="font-bold text-sm text-white flex items-center gap-1.5">
           <span>{icon}</span> {title}
           {badge && (
-            <span className="text-[10px] bg-green-100 text-green-700 font-bold px-1.5 py-0.5 rounded">
+            <span className="text-[10px] bg-green-500/20 text-green-400 font-bold px-1.5 py-0.5 rounded">
               {badge}
             </span>
           )}
         </p>
-        <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{subtitle}</p>
+        <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{subtitle}</p>
       </div>
     </button>
   );
@@ -752,9 +753,9 @@ function Row({
   label: string; value: string; valueClass?: string;
 }) {
   return (
-    <div className="flex justify-between text-slate-600">
+    <div className="flex justify-between text-slate-400">
       <span>{label}</span>
-      <span className={valueClass || ''}>{value}</span>
+      <span className={valueClass || 'text-white'}>{value}</span>
     </div>
   );
 }

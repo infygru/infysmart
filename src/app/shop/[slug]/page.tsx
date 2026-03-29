@@ -292,15 +292,15 @@ export default async function ProductDetailPage({
             {/* Trust badges */}
             <div className="grid grid-cols-2 gap-3 pt-1">
               {[
-                { icon: ShieldCheck, label: 'Genuine Product', sub: 'Authorized dealer' },
+                { icon: ShieldCheck, label: 'Warranty Included', sub: 'Manufacturer warranty' },
                 { icon: Truck, label: 'Pan-India Delivery', sub: 'Insured shipment' },
                 { icon: Package, label: 'Secure Packaging', sub: 'Factory-sealed' },
                 { icon: CheckCircle2, label: 'GST Invoice', sub: 'For B2B billing' },
               ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex items-start gap-2.5 bg-white rounded-lg p-3 border border-slate-200">
+                <div key={label} className="flex items-start gap-2.5 bg-slate-800/60 rounded-lg p-3 border border-slate-700">
                   <Icon className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-xs font-semibold text-slate-800">{label}</p>
+                    <p className="text-xs font-semibold text-white">{label}</p>
                     <p className="text-[10px] text-slate-400">{sub}</p>
                   </div>
                 </div>

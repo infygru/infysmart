@@ -35,7 +35,6 @@ export default function LoginPage() {
   }, [countdown]);
 
   useEffect(() => {
-    // Reset when switching method
     setStep('input');
     setOtp('');
     setError('');
@@ -43,7 +42,7 @@ export default function LoginPage() {
 
   if (status === 'loading' || status === 'authenticated') {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <Loader2 className="w-6 h-6 animate-spin text-brand-blue" />
       </div>
     );
@@ -115,25 +114,27 @@ export default function LoginPage() {
     ? email
     : `+91 ${phone.replace(/\D/g, '').replace(/(\d{5})(\d{5})/, '$1 $2')}`;
 
+  const inputBase = 'w-full bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-colors';
+
   return (
-    <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
+    <main className="min-h-screen bg-[#020617] flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
 
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block text-2xl font-extrabold text-slate-900">
+          <Link href="/" className="inline-block text-2xl font-extrabold text-white">
             Infy<span className="text-brand-blue">Smart</span>
           </Link>
-          <p className="mt-2 text-slate-500 text-sm">Sign in or create your account</p>
+          <p className="mt-2 text-slate-400 text-sm">Sign in or create your account</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-6">
+        <div className="bg-[#0f172a] rounded-2xl border border-slate-800 shadow-xl p-8 space-y-6">
 
           {/* Google */}
           <button
             onClick={() => { setLoading(true); signIn('google', { callbackUrl }); }}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-slate-200 rounded-xl text-slate-700 font-semibold text-sm hover:border-slate-300 hover:bg-slate-50 transition-all disabled:opacity-60"
+            className="w-full flex items-center justify-center gap-3 py-3.5 px-4 border-2 border-slate-700 rounded-xl text-slate-200 font-semibold text-sm hover:border-slate-600 hover:bg-slate-800 transition-all disabled:opacity-60"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -145,21 +146,21 @@ export default function LoginPage() {
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="flex-1 border-t border-slate-200" />
-            <span className="text-xs text-slate-400 font-medium">OR</span>
-            <div className="flex-1 border-t border-slate-200" />
+            <div className="flex-1 border-t border-slate-700" />
+            <span className="text-xs text-slate-500 font-medium">OR</span>
+            <div className="flex-1 border-t border-slate-700" />
           </div>
 
           {/* Method toggle */}
-          <div className="flex rounded-xl border border-slate-200 p-1 gap-1">
+          <div className="flex rounded-xl border border-slate-700 p-1 gap-1 bg-slate-800/40">
             {(['email', 'phone'] as LoginMethod[]).map((m) => (
               <button
                 key={m}
                 onClick={() => setMethod(m)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                   method === m
                     ? 'bg-brand-blue text-white shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {m === 'email' ? <Mail className="w-4 h-4" /> : <Phone className="w-4 h-4" />}
@@ -173,9 +174,9 @@ export default function LoginPage() {
             <div className="space-y-4">
               {method === 'email' ? (
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email Address</label>
+                  <label className="block text-sm font-semibold text-slate-300 mb-1.5">Email Address</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <input
                       type="email"
                       value={email}
@@ -183,13 +184,13 @@ export default function LoginPage() {
                       onKeyDown={(e) => e.key === 'Enter' && handleSendOTP()}
                       placeholder="you@example.com"
                       autoComplete="email"
-                      className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                      className={`${inputBase} pl-10`}
                     />
                   </div>
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Mobile Number</label>
+                  <label className="block text-sm font-semibold text-slate-300 mb-1.5">Mobile Number</label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400 font-medium">+91</span>
                     <input
@@ -200,18 +201,18 @@ export default function LoginPage() {
                       placeholder="9876543210"
                       autoComplete="tel"
                       maxLength={10}
-                      className="w-full pl-12 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                      className={`${inputBase} pl-12`}
                     />
                   </div>
                 </div>
               )}
 
-              {error && <p className="text-xs text-red-500">{error}</p>}
+              {error && <p className="text-xs text-red-400">{error}</p>}
 
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-3.5 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 disabled:opacity-60 transition-colors"
               >
                 {loading
                   ? <Loader2 className="w-4 h-4 animate-spin" />
@@ -221,12 +222,12 @@ export default function LoginPage() {
           ) : (
             /* OTP step */
             <div className="space-y-4">
-              <div className={`rounded-xl p-3 text-sm ${method === 'email' ? 'bg-blue-50 border border-blue-100 text-blue-700' : 'bg-green-50 border border-green-100 text-green-700'}`}>
+              <div className={`rounded-xl p-3 text-sm ${method === 'email' ? 'bg-blue-500/10 border border-blue-500/30 text-blue-300' : 'bg-green-500/10 border border-green-500/30 text-green-300'}`}>
                 {method === 'email' ? '📧' : '📱'} Code sent to <strong>{maskedTarget}</strong>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">6-Digit Code</label>
+                <label className="block text-sm font-semibold text-slate-300 mb-1.5">6-Digit Code</label>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -237,38 +238,38 @@ export default function LoginPage() {
                   autoComplete="one-time-code"
                   maxLength={6}
                   autoFocus
-                  className="w-full px-4 py-3 text-center text-2xl font-bold tracking-[0.5em] border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                  className="w-full bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-600 rounded-xl px-4 py-4 text-center text-2xl font-bold tracking-[0.5em] focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-colors"
                 />
               </div>
 
-              {error && <p className="text-xs text-red-500">{error}</p>}
+              {error && <p className="text-xs text-red-400">{error}</p>}
 
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-3.5 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 disabled:opacity-60 transition-colors"
               >
                 {loading
                   ? <Loader2 className="w-4 h-4 animate-spin" />
-                  : <><ShieldCheck className="w-4 h-4" /><span>Verify & Sign In</span></>}
+                  : <><ShieldCheck className="w-4 h-4" /><span>Verify &amp; Sign In</span></>}
               </button>
 
               <div className="flex items-center justify-between text-sm">
                 <button
                   onClick={() => { setStep('input'); setOtp(''); setError(''); }}
-                  className="text-slate-500 hover:text-slate-700 flex items-center gap-1"
+                  className="text-slate-400 hover:text-slate-200 flex items-center gap-1 transition-colors"
                 >
                   <RotateCcw className="w-3 h-3" /> Change {method === 'email' ? 'email' : 'number'}
                 </button>
                 {countdown > 0
-                  ? <span className="text-slate-400">Resend in {countdown}s</span>
+                  ? <span className="text-slate-500">Resend in {countdown}s</span>
                   : <button onClick={handleSendOTP} disabled={loading} className="text-brand-blue hover:underline font-semibold">Resend code</button>}
               </div>
             </div>
           )}
         </div>
 
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="text-center text-xs text-slate-500 mt-6">
           By signing in you agree to our{' '}
           <Link href="/terms" className="underline hover:text-brand-blue">Terms</Link> and{' '}
           <Link href="/refund-policy" className="underline hover:text-brand-blue">Privacy Policy</Link>.

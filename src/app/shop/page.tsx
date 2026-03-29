@@ -178,7 +178,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
           <div className="flex items-center gap-3 mb-3">
             <ShoppingBag className="w-6 h-6 text-brand-blue" />
             <span className="text-blue-400 font-semibold text-sm uppercase tracking-widest">
-              Authorized Dealer
+              Security Products
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
@@ -302,14 +302,13 @@ export default async function ShopPage({ searchParams }: PageProps) {
       <section className="bg-white border-t border-slate-200 py-10 px-6">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-xl font-bold text-slate-900 mb-3">
-            Authorized Dealer for CCTV &amp; Security Products
+            CCTV &amp; Security Products — Pan-India Delivery
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed max-w-4xl">
-            Infysmart is an authorized dealer for Hikvision, Dahua, CP Plus, Honeywell, Essl, and
-            Matrix products in Tamil Nadu and Karnataka. All products are sourced directly from
-            authorized distributors and carry full manufacturer warranty. We supply to industrial
-            factories, government institutions, commercial complexes, and residential projects.
-            Every order is dispatched from our Hosur warehouse with insured shipping.
+            Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products
+            across Tamil Nadu and Karnataka. All products carry full manufacturer warranty. We supply
+            to industrial factories, government institutions, commercial complexes, and residential
+            projects. Every order is dispatched from our Hosur warehouse with insured shipping.
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (

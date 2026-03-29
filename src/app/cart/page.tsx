@@ -53,16 +53,16 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <main className="min-h-screen bg-slate-50 flex items-center justify-center px-6">
+      <main className="min-h-screen bg-[#020617] flex items-center justify-center px-6">
         <div className="text-center max-w-md">
-          <PackageOpen className="w-20 h-20 text-slate-200 mx-auto mb-6" />
-          <h1 className="text-2xl font-extrabold text-slate-900 mb-3">Your cart is empty</h1>
-          <p className="text-slate-500 mb-8">
+          <PackageOpen className="w-20 h-20 text-slate-700 mx-auto mb-6" />
+          <h1 className="text-2xl font-extrabold text-white mb-3">Your cart is empty</h1>
+          <p className="text-slate-400 mb-8">
             Add CCTV cameras, recorders, networking equipment and more from our store.
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 bg-brand-blue text-white px-7 py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 bg-brand-blue text-white px-7 py-3.5 rounded-xl font-bold hover:bg-blue-600 transition-colors"
           >
             <ShoppingCart className="w-5 h-5" /> Browse Products
           </Link>
@@ -74,46 +74,46 @@ export default function CartPage() {
   const shippingLeft = Math.max(0, FREE_SHIPPING_ABOVE - totals.subtotal);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[#020617]">
       {/* Header */}
-      <section className="bg-white border-b border-slate-200 py-6 px-6">
+      <section className="bg-[#0f172a] border-b border-slate-800 py-5 px-4">
         <div className="container mx-auto max-w-7xl">
-          <h1 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h1 className="text-xl font-extrabold text-white flex items-center gap-3">
             <ShoppingCart className="w-6 h-6 text-brand-blue" />
             Shopping Cart
-            <span className="text-base font-semibold text-slate-400">
+            <span className="text-base font-semibold text-slate-500">
               ({totals.itemCount} item{totals.itemCount !== 1 ? 's' : ''})
             </span>
           </h1>
         </div>
       </section>
 
-      <div className="container mx-auto max-w-7xl px-6 py-8">
-        <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-start">
+      <div className="container mx-auto max-w-7xl px-4 py-6">
+        <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
 
           {/* Left: Items */}
           <div className="space-y-4">
             {/* Free shipping nudge */}
             {shippingLeft > 0 && (
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-center gap-3 text-sm">
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 flex items-center gap-3 text-sm">
                 <Truck className="w-5 h-5 text-brand-blue shrink-0" />
-                <span className="text-slate-700">
+                <span className="text-slate-300">
                   Add <span className="font-bold text-brand-blue">{formatPrice(shippingLeft)}</span> more to get{' '}
-                  <span className="font-bold text-green-600">FREE shipping!</span>
+                  <span className="font-bold text-green-400">FREE shipping!</span>
                 </span>
               </div>
             )}
             {shippingLeft === 0 && (
-              <div className="bg-green-50 border border-green-100 rounded-xl p-4 flex items-center gap-3 text-sm">
-                <Truck className="w-5 h-5 text-green-600 shrink-0" />
-                <span className="text-green-700 font-semibold">
+              <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 flex items-center gap-3 text-sm">
+                <Truck className="w-5 h-5 text-green-400 shrink-0" />
+                <span className="text-green-400 font-semibold">
                   You&apos;ve unlocked FREE shipping!
                 </span>
               </div>
             )}
 
             {/* Cart Items */}
-            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
+            <div className="bg-[#0f172a] rounded-xl border border-slate-800 divide-y divide-slate-800">
               {items.map(({ product, quantity }) => {
                 const effectivePrice = getEffectivePrice(product.price, product.sale_price);
                 const hasDiscount = product.sale_price !== null && product.sale_price < product.price;
@@ -122,10 +122,10 @@ export default function CartPage() {
                   : null;
 
                 return (
-                  <div key={product.id} className="flex gap-4 p-5">
+                  <div key={product.id} className="flex gap-4 p-4 sm:p-5">
                     {/* Thumbnail */}
                     <Link href={`/shop/${product.slug}`} className="flex-shrink-0">
-                      <div className="w-24 h-24 bg-slate-100 rounded-lg overflow-hidden border border-slate-200">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
                         {thumbSrc ? (
                           <Image
                             src={thumbSrc}
@@ -136,7 +136,7 @@ export default function CartPage() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <ShoppingCart className="w-8 h-8 text-slate-300" />
+                            <ShoppingCart className="w-8 h-8 text-slate-600" />
                           </div>
                         )}
                       </div>
@@ -147,38 +147,38 @@ export default function CartPage() {
                       <div className="flex items-start justify-between gap-2">
                         <Link
                           href={`/shop/${product.slug}`}
-                          className="font-semibold text-slate-900 hover:text-brand-blue transition-colors leading-snug line-clamp-2"
+                          className="font-semibold text-white hover:text-brand-blue transition-colors leading-snug line-clamp-2 text-sm sm:text-base"
                         >
                           {product.name}
                         </Link>
                         <button
                           onClick={() => removeFromCart(product.id)}
-                          className="flex-shrink-0 p-1 text-slate-300 hover:text-red-500 transition-colors mt-0.5"
+                          className="flex-shrink-0 p-1.5 text-slate-600 hover:text-red-400 transition-colors mt-0.5"
                           aria-label={`Remove ${product.name}`}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
 
-                      <p className="text-xs text-slate-400 font-mono">SKU: {product.sku}</p>
+                      <p className="text-xs text-slate-500 font-mono">SKU: {product.sku}</p>
 
                       <div className="flex items-center justify-between gap-4 flex-wrap mt-auto pt-1">
                         {/* Quantity stepper */}
-                        <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden">
+                        <div className="flex items-center border border-slate-700 rounded-lg overflow-hidden">
                           <button
                             onClick={() => updateQuantity(product.id, quantity - 1)}
-                            className="px-2.5 py-2 hover:bg-slate-100 transition-colors text-slate-600"
+                            className="px-3 py-2.5 hover:bg-slate-800 transition-colors text-slate-400 hover:text-white min-w-[40px] flex items-center justify-center"
                             aria-label="Decrease quantity"
                           >
                             <Minus className="w-3.5 h-3.5" />
                           </button>
-                          <span className="px-3 py-2 font-bold text-slate-900 min-w-[2.5rem] text-center text-sm border-x border-slate-200">
+                          <span className="px-3 py-2 font-bold text-white min-w-[2.5rem] text-center text-sm border-x border-slate-700">
                             {quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(product.id, quantity + 1)}
                             disabled={product.track_inventory && quantity >= product.stock_quantity}
-                            className="px-2.5 py-2 hover:bg-slate-100 transition-colors text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed"
+                            className="px-3 py-2.5 hover:bg-slate-800 transition-colors text-slate-400 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed min-w-[40px] flex items-center justify-center"
                             aria-label="Increase quantity"
                           >
                             <Plus className="w-3.5 h-3.5" />
@@ -187,18 +187,18 @@ export default function CartPage() {
 
                         {/* Price */}
                         <div className="text-right">
-                          <p className="font-bold text-slate-900">
+                          <p className="font-bold text-white">
                             {formatPrice(effectivePrice * quantity)}
                           </p>
                           {hasDiscount ? (
-                            <p className="text-xs text-slate-400">
+                            <p className="text-xs text-slate-500">
                               <span className="line-through">{formatPrice(product.price)}</span>{' '}
                               <span className="text-brand-orange font-semibold">
                                 {formatPrice(effectivePrice)} each
                               </span>
                             </p>
                           ) : quantity > 1 ? (
-                            <p className="text-xs text-slate-400">{formatPrice(effectivePrice)} each</p>
+                            <p className="text-xs text-slate-500">{formatPrice(effectivePrice)} each</p>
                           ) : null}
                         </div>
                       </div>
@@ -221,16 +221,16 @@ export default function CartPage() {
           <div className="space-y-4 lg:sticky lg:top-24">
 
             {/* Coupon */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h2 className="text-sm font-bold text-slate-700 flex items-center gap-2 mb-3">
+            <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5">
+              <h2 className="text-sm font-bold text-slate-300 flex items-center gap-2 mb-3">
                 <Tag className="w-4 h-4 text-brand-blue" /> Apply Coupon
               </h2>
 
               {coupon ? (
-                <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+                <div className="flex items-center justify-between bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
                   <div>
-                    <p className="text-sm font-bold text-green-700">{coupon.code}</p>
-                    <p className="text-xs text-green-600">
+                    <p className="text-sm font-bold text-green-400">{coupon.code}</p>
+                    <p className="text-xs text-green-500">
                       {coupon.discount_type === 'percentage'
                         ? `${coupon.discount_value}% off`
                         : `${formatPrice(coupon.discount_value)} off`}
@@ -238,7 +238,7 @@ export default function CartPage() {
                   </div>
                   <button
                     onClick={removeCoupon}
-                    className="p-1 text-green-500 hover:text-red-500 transition-colors"
+                    className="p-1 text-green-500 hover:text-red-400 transition-colors"
                     aria-label="Remove coupon"
                   >
                     <X className="w-4 h-4" />
@@ -252,13 +252,13 @@ export default function CartPage() {
                     onChange={(e) => { setCouponInput(e.target.value.toUpperCase()); setCouponError(''); }}
                     onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                     placeholder="Enter coupon code"
-                    className="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                    className="flex-1 text-sm bg-slate-800/60 border border-slate-700 text-white placeholder:text-slate-500 rounded-lg px-3 py-2.5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-colors"
                     disabled={couponLoading}
                   />
                   <button
                     onClick={handleApplyCoupon}
                     disabled={!couponInput.trim() || couponLoading}
-                    className="px-4 py-2 bg-brand-blue text-white text-sm font-bold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-4 py-2 bg-brand-blue text-white text-sm font-bold rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {couponLoading ? '...' : 'Apply'}
                   </button>
@@ -266,62 +266,62 @@ export default function CartPage() {
               )}
 
               {couponError && (
-                <p className="text-xs text-red-500 mt-2">{couponError}</p>
+                <p className="text-xs text-red-400 mt-2">{couponError}</p>
               )}
             </div>
 
             {/* Totals */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-3">
-              <h2 className="text-base font-bold text-slate-900 pb-2 border-b border-slate-100">
+            <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5 space-y-3">
+              <h2 className="text-base font-bold text-white pb-2 border-b border-slate-800">
                 Order Summary
               </h2>
 
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-slate-400">
                   <span>Subtotal ({totals.itemCount} item{totals.itemCount !== 1 ? 's' : ''})</span>
-                  <span>{formatPrice(totals.subtotal)}</span>
+                  <span className="text-white">{formatPrice(totals.subtotal)}</span>
                 </div>
 
                 {totals.discount > 0 && (
-                  <div className="flex justify-between text-green-600 font-semibold">
+                  <div className="flex justify-between text-green-400 font-semibold">
                     <span>Coupon Discount</span>
                     <span>− {formatPrice(totals.discount)}</span>
                   </div>
                 )}
 
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-slate-400">
                   <span>Shipping</span>
-                  <span className={totals.shipping === 0 ? 'text-green-600 font-semibold' : ''}>
+                  <span className={totals.shipping === 0 ? 'text-green-400 font-semibold' : 'text-white'}>
                     {totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
                   </span>
                 </div>
 
                 {totals.shipping > 0 && (
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-500">
                     Free shipping on orders above {formatPrice(FREE_SHIPPING_ABOVE)}
                   </p>
                 )}
               </div>
 
-              <div className="border-t border-slate-100 pt-3 flex justify-between font-bold text-lg text-slate-900">
+              <div className="border-t border-slate-800 pt-3 flex justify-between font-bold text-lg text-white">
                 <span>Total</span>
                 <span>{formatPrice(totals.total)}</span>
               </div>
 
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-[11px] text-slate-500 text-center">
                 Incl. of {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')}). GST invoice provided.
               </p>
 
               <Link
                 href="/checkout"
-                className="flex items-center justify-center gap-2 w-full py-3.5 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm shadow-brand-blue/20"
+                className="flex items-center justify-center gap-2 w-full py-4 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-600 transition-colors"
               >
                 Proceed to Checkout <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             {/* Trust */}
-            <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-2.5">
+            <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-4 space-y-2.5">
               {[
                 { icon: ShieldCheck, text: 'Secure checkout with Razorpay' },
                 { icon: Truck, text: `Free shipping above ${formatPrice(FREE_SHIPPING_ABOVE)}` },
