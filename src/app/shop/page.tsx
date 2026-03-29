@@ -25,8 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-// ─── Server-side filter helpers ───────────────────────────────────────────────
-
 function buildProductFilter(params: URLSearchParams) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filter: Record<string, any> = { status: { _eq: 'published' } };
@@ -66,8 +64,6 @@ function buildProductSort(params: URLSearchParams): string[] {
     default:           return ['-is_featured', '-date_created'];
   }
 }
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -141,25 +137,25 @@ export default async function ShopPage({ searchParams }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-[#0c0c0c]">
+    <main className="min-h-screen bg-gray-50">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
       {/* Page Header */}
-      <section className="bg-[#111] border-b border-white/[0.06] py-12 px-6">
+      <section className="bg-white border-b border-gray-100 py-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center gap-2 mb-3">
             <ShoppingBag className="w-5 h-5 text-[#16a34a]" />
             <span className="text-[#16a34a] font-semibold text-xs uppercase tracking-widest">
               Security Products
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
             CCTV &amp; Networking Products
           </h1>
-          <p className="text-zinc-500 text-base max-w-2xl">
+          <p className="text-gray-500 text-base max-w-2xl">
             Hikvision, Dahua &amp; CP Plus cameras, recorders, PoE switches, access control
             devices and structured cabling. Pan-India delivery with warranty.
           </p>
@@ -172,17 +168,17 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </section>
 
       {/* Breadcrumb */}
-      <div className="border-b border-white/[0.05] bg-[#0c0c0c]">
+      <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto max-w-7xl px-6 py-3">
-          <nav className="text-xs text-zinc-600" aria-label="Breadcrumb">
+          <nav className="text-xs text-gray-400" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1.5">
-              <li><Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link></li>
-              <li className="text-zinc-800">/</li>
-              <li className="text-zinc-300 font-medium">Shop</li>
+              <li><Link href="/" className="hover:text-[#16a34a] transition-colors">Home</Link></li>
+              <li>/</li>
+              <li className="text-gray-700 font-medium">Shop</li>
               {params.get('category') && (
                 <>
-                  <li className="text-zinc-800">/</li>
-                  <li className="text-zinc-300 font-medium capitalize">
+                  <li>/</li>
+                  <li className="text-gray-700 font-medium capitalize">
                     {categories.find((c) => c.slug === params.get('category'))?.name ?? params.get('category')}
                   </li>
                 </>
@@ -196,57 +192,48 @@ export default async function ShopPage({ searchParams }: PageProps) {
       <div className="container mx-auto max-w-7xl px-6 py-8">
         <div className="flex gap-8">
 
-          {/* Sidebar — desktop */}
+          {/* Sidebar */}
           <aside className="hidden lg:block w-60 flex-shrink-0">
-            <div className="bg-[#111] rounded-xl border border-white/[0.06] p-4 sticky top-20">
+            <div className="bg-white rounded-2xl border border-gray-100 p-5 sticky top-20 shadow-sm">
               <Suspense>
-                <ShopFilters
-                  categories={categories}
-                  brands={brands}
-                  totalCount={totalCount}
-                />
+                <ShopFilters categories={categories} brands={brands} totalCount={totalCount} />
               </Suspense>
             </div>
           </aside>
 
           {/* Products area */}
           <div className="flex-1 min-w-0">
-            {/* Toolbar */}
             <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-              <p className="text-sm text-zinc-500">
+              <p className="text-sm text-gray-500">
                 Showing{' '}
-                <span className="font-semibold text-zinc-300">
+                <span className="font-semibold text-gray-800">
                   {Math.min(offset + 1, totalCount)}–{Math.min(offset + limit, totalCount)}
                 </span>{' '}
-                of <span className="font-semibold text-zinc-300">{totalCount}</span> products
+                of <span className="font-semibold text-gray-800">{totalCount}</span> products
                 {currentSearch && (
-                  <span className="text-zinc-600"> for &quot;{currentSearch}&quot;</span>
+                  <span className="text-gray-400"> for &quot;{currentSearch}&quot;</span>
                 )}
               </p>
 
-              {/* Mobile filter button */}
               <div className="lg:hidden">
                 <Suspense>
-                  <MobileFilterDrawer
-                    categories={categories}
-                    brands={brands}
-                    totalCount={totalCount}
-                  />
+                  <MobileFilterDrawer categories={categories} brands={brands} totalCount={totalCount} />
                 </Suspense>
               </div>
             </div>
 
-            {/* Products grid */}
             {products.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
-                <Search className="w-12 h-12 text-zinc-800" />
-                <p className="text-lg font-semibold text-zinc-400">No products found</p>
-                <p className="text-zinc-600 text-sm max-w-xs">
+                <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
+                  <Search className="w-8 h-8 text-gray-300" />
+                </div>
+                <p className="text-lg font-semibold text-gray-700">No products found</p>
+                <p className="text-gray-400 text-sm max-w-xs">
                   Try adjusting your filters or search query.
                 </p>
                 <Link
                   href="/shop"
-                  className="mt-2 inline-flex items-center gap-2 bg-[#16a34a] text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-[#15803d] transition-colors text-sm"
+                  className="mt-2 inline-flex items-center gap-2 bg-[#16a34a] text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-[#15803d] transition-colors text-sm"
                 >
                   <SlidersHorizontal className="w-4 h-4" /> Clear All Filters
                 </Link>
@@ -259,25 +246,20 @@ export default async function ShopPage({ searchParams }: PageProps) {
               </div>
             )}
 
-            {/* Pagination */}
             {totalPages > 1 && (
-              <Pagination
-                currentPage={pageNum}
-                totalPages={totalPages}
-                searchParams={params}
-              />
+              <Pagination currentPage={pageNum} totalPages={totalPages} searchParams={params} />
             )}
           </div>
         </div>
       </div>
 
-      {/* SEO content strip */}
-      <section className="bg-[#111] border-t border-white/[0.06] py-10 px-6">
+      {/* SEO strip */}
+      <section className="bg-white border-t border-gray-100 py-10 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-xl font-bold text-white mb-3">
+          <h2 className="text-xl font-bold text-gray-800 mb-3">
             CCTV &amp; Security Products — Pan-India Delivery
           </h2>
-          <p className="text-sm text-zinc-500 leading-relaxed max-w-4xl">
+          <p className="text-sm text-gray-500 leading-relaxed max-w-4xl">
             Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products
             across Tamil Nadu and Karnataka. All products carry full manufacturer warranty. We supply
             to industrial factories, government institutions, commercial complexes, and residential
@@ -285,7 +267,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (
-              <span key={b} className="bg-white/[0.04] text-zinc-500 text-xs font-semibold px-3 py-1 rounded-full border border-white/[0.06]">
+              <span key={b} className="bg-gray-100 text-gray-500 text-xs font-semibold px-3 py-1 rounded-full">
                 {b}
               </span>
             ))}
@@ -295,8 +277,6 @@ export default async function ShopPage({ searchParams }: PageProps) {
     </main>
   );
 }
-
-// ─── Pagination Component ─────────────────────────────────────────────────────
 
 function Pagination({
   currentPage,
@@ -330,7 +310,7 @@ function Pagination({
       {currentPage > 1 && (
         <a
           href={getPageUrl(currentPage - 1)}
-          className="px-3 py-2 text-sm font-medium rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 hover:border-[#16a34a]/50 hover:text-white transition-colors"
+          className="px-3 py-2 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-600 hover:border-[#16a34a] hover:text-[#16a34a] transition-colors"
         >
           ← Prev
         </a>
@@ -338,18 +318,16 @@ function Pagination({
 
       {withEllipsis.map((p, idx) =>
         p === '...' ? (
-          <span key={`ellipsis-${idx}`} className="px-2 py-2 text-zinc-600 text-sm">
-            …
-          </span>
+          <span key={`ellipsis-${idx}`} className="px-2 py-2 text-gray-400 text-sm">…</span>
         ) : (
           <a
             key={p}
             href={getPageUrl(p as number)}
             aria-current={p === currentPage ? 'page' : undefined}
-            className={`w-9 h-9 flex items-center justify-center text-sm font-medium rounded-lg border transition-colors ${
+            className={`w-9 h-9 flex items-center justify-center text-sm font-medium rounded-xl border transition-colors ${
               p === currentPage
                 ? 'bg-[#16a34a] text-white border-[#16a34a]'
-                : 'bg-white/[0.04] text-zinc-400 border-white/[0.08] hover:border-[#16a34a]/50 hover:text-white'
+                : 'bg-white text-gray-600 border-gray-200 hover:border-[#16a34a] hover:text-[#16a34a]'
             }`}
           >
             {p}
@@ -360,7 +338,7 @@ function Pagination({
       {currentPage < totalPages && (
         <a
           href={getPageUrl(currentPage + 1)}
-          className="px-3 py-2 text-sm font-medium rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 hover:border-[#16a34a]/50 hover:text-white transition-colors"
+          className="px-3 py-2 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-600 hover:border-[#16a34a] hover:text-[#16a34a] transition-colors"
         >
           Next →
         </a>

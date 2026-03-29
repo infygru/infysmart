@@ -63,19 +63,13 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
   const updateParams = useCallback(
     (updates: Record<string, string | string[] | null>) => {
       const params = new URLSearchParams(searchParams.toString());
-
       Object.entries(updates).forEach(([key, value]) => {
         params.delete(key);
         if (value === null) return;
-        if (Array.isArray(value)) {
-          value.forEach((v) => params.append(key, v));
-        } else if (value) {
-          params.set(key, value);
-        }
+        if (Array.isArray(value)) value.forEach((v) => params.append(key, v));
+        else if (value) params.set(key, value);
       });
-
       params.delete('page');
-
       startTransition(() => {
         router.push(`${pathname}?${params.toString()}`, { scroll: false });
       });
@@ -97,8 +91,8 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-zinc-400" />
-          <h2 className="font-bold text-white text-sm">Filters</h2>
+          <SlidersHorizontal className="w-4 h-4 text-gray-400" />
+          <h2 className="font-bold text-gray-800 text-sm">Filters</h2>
           {activeFilterCount > 0 && (
             <span className="bg-[#16a34a] text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
               {activeFilterCount}
@@ -108,7 +102,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         {activeFilterCount > 0 && (
           <button
             onClick={clearAllFilters}
-            className="flex items-center gap-1 text-xs text-zinc-500 hover:text-white font-semibold transition-colors"
+            className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-700 font-semibold transition-colors"
           >
             <X className="w-3 h-3" /> Clear All
           </button>
@@ -117,23 +111,23 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
 
       {/* Sort */}
       <div className="mb-5">
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wide mb-1.5">
+        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-1.5">
           Sort By
         </label>
         <select
           value={activeSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="w-full text-sm border border-white/[0.08] rounded-lg px-3 py-2 bg-white/[0.04] text-white focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a]"
+          className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-700 focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a]"
         >
           {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-[#111] text-white">
+            <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}
         </select>
       </div>
 
-      <div className="space-y-1 text-xs text-zinc-600 mb-5">
+      <div className="text-xs text-gray-400 mb-5">
         {totalCount} product{totalCount !== 1 ? 's' : ''} found
       </div>
 
@@ -143,14 +137,14 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         expanded={expandedSections.categories}
         onToggle={() => toggleSection('categories')}
       >
-        <ul className="space-y-1">
+        <ul className="space-y-0.5">
           <li>
             <button
               onClick={() => updateParams({ category: null })}
-              className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${
                 !activeCategory
-                  ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
-                  : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
+                  ? 'bg-green-50 text-[#16a34a] font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
               All Categories
@@ -160,10 +154,10 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             <li key={cat.id}>
               <button
                 onClick={() => updateParams({ category: activeCategory === cat.slug ? null : cat.slug })}
-                className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${
                   activeCategory === cat.slug
-                    ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
-                    : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
+                    ? 'bg-green-50 text-[#16a34a] font-semibold'
+                    : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 {cat.name}
@@ -195,9 +189,9 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                           : [...activeBrands, brand.slug];
                         updateParams({ brand: next.length > 0 ? next : null });
                       }}
-                      className="w-4 h-4 rounded border-zinc-700 accent-[#16a34a]"
+                      className="w-4 h-4 rounded border-gray-300 accent-[#16a34a]"
                     />
-                    <span className={`text-sm transition-colors ${checked ? 'text-[#4ade80] font-semibold' : 'text-zinc-400 group-hover:text-white'}`}>
+                    <span className={`text-sm transition-colors ${checked ? 'text-[#16a34a] font-semibold' : 'text-gray-600 group-hover:text-gray-900'}`}>
                       {brand.name}
                     </span>
                   </label>
@@ -214,14 +208,14 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         expanded={expandedSections.price}
         onToggle={() => toggleSection('price')}
       >
-        <ul className="space-y-1">
+        <ul className="space-y-0.5">
           <li>
             <button
               onClick={() => updateParams({ min_price: null, max_price: null })}
-              className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${
                 !activeMinPrice && !activeMaxPrice
-                  ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
-                  : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
+                  ? 'bg-green-50 text-[#16a34a] font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
               Any Price
@@ -229,8 +223,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
           </li>
           {PRICE_RANGES.map((range) => {
             const isActive =
-              activeMinPrice === String(range.min) &&
-              activeMaxPrice === String(range.max);
+              activeMinPrice === String(range.min) && activeMaxPrice === String(range.max);
             return (
               <li key={range.label}>
                 <button
@@ -240,10 +233,10 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                       max_price: isActive ? null : String(range.max),
                     })
                   }
-                  className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
+                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${
                     isActive
-                      ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
-                      : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
+                      ? 'bg-green-50 text-[#16a34a] font-semibold'
+                      : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   {range.label}
@@ -265,16 +258,16 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             type="checkbox"
             checked={inStockOnly}
             onChange={() => updateParams({ in_stock: inStockOnly ? null : '1' })}
-            className="w-4 h-4 rounded border-zinc-700 accent-[#16a34a]"
+            className="w-4 h-4 rounded border-gray-300 accent-[#16a34a]"
           />
-          <span className="text-sm text-zinc-400">In Stock Only</span>
+          <span className="text-sm text-gray-600">In Stock Only</span>
         </label>
       </FilterSection>
 
       {/* Active filter chips */}
       {activeFilterCount > 0 && (
-        <div className="mt-4 pt-4 border-t border-white/[0.06]">
-          <p className="text-xs font-bold text-zinc-600 uppercase tracking-wide mb-2">
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">
             Active Filters
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -288,9 +281,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
               <FilterChip
                 key={b}
                 label={brands.find((br) => br.slug === b)?.name ?? b}
-                onRemove={() =>
-                  updateParams({ brand: activeBrands.filter((ab) => ab !== b) })
-                }
+                onRemove={() => updateParams({ brand: activeBrands.filter((ab) => ab !== b) })}
               />
             ))}
             {activeMinPrice && (
@@ -321,18 +312,18 @@ function FilterSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-t border-white/[0.06] py-4">
+    <div className="border-t border-gray-100 py-4">
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full text-left mb-3 group"
       >
-        <span className="text-xs font-bold text-zinc-500 uppercase tracking-wide group-hover:text-white transition-colors">
+        <span className="text-xs font-bold text-gray-500 uppercase tracking-wide group-hover:text-gray-800 transition-colors">
           {title}
         </span>
         {expanded ? (
-          <ChevronUp className="w-3.5 h-3.5 text-zinc-600" />
+          <ChevronUp className="w-3.5 h-3.5 text-gray-400" />
         ) : (
-          <ChevronDown className="w-3.5 h-3.5 text-zinc-600" />
+          <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
         )}
       </button>
       {expanded && children}
@@ -342,9 +333,9 @@ function FilterSection({
 
 function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
-    <span className="inline-flex items-center gap-1 bg-[#16a34a]/20 text-[#4ade80] text-xs font-semibold px-2 py-1 rounded-full">
+    <span className="inline-flex items-center gap-1 bg-green-50 text-[#16a34a] text-xs font-semibold px-2 py-1 rounded-full border border-green-100">
       {label}
-      <button onClick={onRemove} className="hover:text-white transition-colors" aria-label={`Remove ${label} filter`}>
+      <button onClick={onRemove} className="hover:text-[#ea580c] transition-colors" aria-label={`Remove ${label} filter`}>
         <X className="w-3 h-3" />
       </button>
     </span>

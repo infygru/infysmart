@@ -57,9 +57,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-[#111] rounded-xl border border-white/[0.07] overflow-hidden hover:border-[#16a34a]/50 hover:shadow-lg hover:shadow-[#16a34a]/5 transition-all duration-200 flex flex-col">
+    <div className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-green-200 hover:shadow-xl hover:shadow-green-50 transition-all duration-200 flex flex-col">
       {/* Image */}
-      <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/3] bg-[#0c0c0c] overflow-hidden">
+      <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/3] bg-gray-50 overflow-hidden">
         {thumbnailSrc ? (
           <Image
             src={thumbnailSrc}
@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-zinc-700">
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-300">
             <ShoppingCart className="w-10 h-10" />
             <span className="text-xs font-medium">No Image</span>
           </div>
@@ -78,17 +78,17 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {hasDiscount && (
-            <span className="bg-[#ea580c] text-white text-xs font-bold px-2 py-0.5 rounded">
+            <span className="bg-[#ea580c] text-white text-xs font-bold px-2 py-0.5 rounded-md">
               -{discountPercent}%
             </span>
           )}
           {product.is_featured && (
-            <span className="bg-[#16a34a] text-white text-xs font-bold px-2 py-0.5 rounded">
+            <span className="bg-[#16a34a] text-white text-xs font-bold px-2 py-0.5 rounded-md">
               Featured
             </span>
           )}
           {isOutOfStock && (
-            <span className="bg-zinc-800 text-zinc-400 text-xs font-bold px-2 py-0.5 rounded">
+            <span className="bg-gray-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
               Out of Stock
             </span>
           )}
@@ -97,7 +97,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Category tag */}
         {categoryName && (
           <div className="absolute bottom-2 right-2">
-            <span className="bg-black/70 backdrop-blur-sm text-zinc-300 text-[10px] font-semibold px-2 py-0.5 rounded border border-white/10">
+            <span className="bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md border border-gray-200">
               {categoryName}
             </span>
           </div>
@@ -113,41 +113,41 @@ export default function ProductCard({ product }: ProductCardProps) {
               {brandName}
             </span>
           )}
-          <span className="text-[10px] text-zinc-600 ml-auto font-mono">
+          <span className="text-[10px] text-gray-400 ml-auto font-mono">
             {product.sku}
           </span>
         </div>
 
         {/* Name */}
         <Link href={`/shop/${product.slug}`} className="flex-1">
-          <h3 className="text-sm font-semibold text-white leading-snug line-clamp-2 hover:text-[#4ade80] transition-colors">
+          <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2 hover:text-[#16a34a] transition-colors">
             {product.name}
           </h3>
         </Link>
 
         {/* Short description */}
         {product.short_description && (
-          <p className="text-xs text-zinc-500 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
             {product.short_description}
           </p>
         )}
 
         {/* Price */}
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-white">
+          <span className="text-lg font-bold text-gray-900">
             {formatPrice(effectivePrice)}
           </span>
           {hasDiscount && (
-            <span className="text-sm text-zinc-600 line-through">
+            <span className="text-sm text-gray-400 line-through">
               {formatPrice(product.price)}
             </span>
           )}
         </div>
-        <p className="text-[10px] text-zinc-600 -mt-2">Incl. of all taxes</p>
+        <p className="text-[10px] text-gray-400 -mt-2">Incl. of all taxes</p>
 
         {/* Stock status */}
         {isLowStock && !isOutOfStock && (
-          <div className="flex items-center gap-1.5 text-amber-400 text-xs font-medium">
+          <div className="flex items-center gap-1.5 text-amber-600 text-xs font-medium">
             <AlertTriangle className="w-3.5 h-3.5" />
             Only {product.stock_quantity} left in stock
           </div>
@@ -157,12 +157,12 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           onClick={() => !isOutOfStock && addToCart(cartProduct)}
           disabled={isOutOfStock}
-          className={`mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-lg font-semibold text-sm transition-all ${
+          className={`mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-semibold text-sm transition-all ${
             isOutOfStock
-              ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed'
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : inCart
-              ? 'bg-[#16a34a]/20 text-[#4ade80] border border-[#16a34a]/40 hover:bg-[#16a34a]/30'
-              : 'bg-[#16a34a] text-white hover:bg-[#15803d]'
+              ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'
+              : 'bg-[#16a34a] text-white hover:bg-[#15803d] shadow-sm'
           }`}
         >
           {isOutOfStock ? (
@@ -182,7 +182,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <Link
           href={`/shop/${product.slug}`}
-          className="flex items-center justify-center gap-1.5 text-xs text-zinc-600 hover:text-zinc-300 transition-colors"
+          className="flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-[#16a34a] transition-colors"
         >
           <Tag className="w-3 h-3" />
           View Details

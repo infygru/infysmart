@@ -12,8 +12,6 @@ import Link from 'next/link';
 
 export const revalidate = 60;
 
-// ─── Static params ────────────────────────────────────────────────────────────
-
 export async function generateStaticParams() {
   try {
     const products = await directus.request(
@@ -28,8 +26,6 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
-// ─── Metadata ─────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
   params,
@@ -56,12 +52,10 @@ export async function generateMetadata({
       : '/og-image.png';
 
     return {
-      title,
-      description,
+      title, description,
       alternates: { canonical: `https://infysmart.com/shop/${slug}` },
       openGraph: {
-        title,
-        description,
+        title, description,
         url: `https://infysmart.com/shop/${slug}`,
         images: [{ url: imageUrl, width: 1200, height: 630 }],
         type: 'website',
@@ -71,8 +65,6 @@ export async function generateMetadata({
     return {};
   }
 }
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function ProductDetailPage({
   params,
@@ -165,203 +157,180 @@ export default async function ProductDetailPage({
       priceCurrency: 'INR',
       price: effectivePrice,
       priceValidUntil: new Date(new Date(product.date_created).getTime() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      availability: isOutOfStock
-        ? 'https://schema.org/OutOfStock'
-        : 'https://schema.org/InStock',
+      availability: isOutOfStock ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
       seller: { '@id': 'https://infysmart.com/#organization' },
       url: `https://infysmart.com/shop/${product.slug}`,
     },
   };
 
   return (
-    <main className="min-h-screen bg-[#0c0c0c]">
+    <main className="min-h-screen bg-gray-50">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
       {/* Breadcrumb */}
-      <div className="bg-[#111] border-b border-white/[0.06]">
+      <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto max-w-7xl px-6 py-3">
-          <nav className="text-xs text-zinc-600" aria-label="Breadcrumb">
+          <nav className="text-xs text-gray-400" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1 flex-wrap">
-              <li><Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link></li>
-              <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
-              <li><Link href="/shop" className="hover:text-zinc-300 transition-colors">Shop</Link></li>
+              <li><Link href="/" className="hover:text-[#16a34a] transition-colors">Home</Link></li>
+              <li><ChevronRight className="w-3 h-3 text-gray-300" /></li>
+              <li><Link href="/shop" className="hover:text-[#16a34a] transition-colors">Shop</Link></li>
               {category && (
                 <>
-                  <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
+                  <li><ChevronRight className="w-3 h-3 text-gray-300" /></li>
                   <li>
-                    <Link href={`/shop?category=${category.slug}`} className="hover:text-zinc-300 transition-colors">
+                    <Link href={`/shop?category=${category.slug}`} className="hover:text-[#16a34a] transition-colors">
                       {category.name}
                     </Link>
                   </li>
                 </>
               )}
-              <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
-              <li className="text-zinc-300 font-medium line-clamp-1 max-w-[180px]">
-                {product.name}
-              </li>
+              <li><ChevronRight className="w-3 h-3 text-gray-300" /></li>
+              <li className="text-gray-700 font-medium line-clamp-1 max-w-[180px]">{product.name}</li>
             </ol>
           </nav>
         </div>
       </div>
 
       {/* Product Section */}
-      <section className="container mx-auto max-w-7xl px-6 py-8">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
+      <section className="bg-white">
+        <div className="container mx-auto max-w-7xl px-6 py-10">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
-          {/* Gallery */}
-          <ProductGallery images={galleryImages} productName={product.name} />
+            <ProductGallery images={galleryImages} productName={product.name} />
 
-          {/* Info Panel */}
-          <div className="flex flex-col gap-5">
-            {/* Brand + Category */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {brand && (
-                <span className="text-xs font-bold text-[#4ade80] uppercase tracking-wider bg-[#16a34a]/10 px-2.5 py-1 rounded-full border border-[#16a34a]/20">
-                  {brand.name}
-                </span>
-              )}
-              {category && (
-                <Link
-                  href={`/shop?category=${category.slug}`}
-                  className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors flex items-center gap-1"
-                >
-                  <Tag className="w-3 h-3" /> {category.name}
-                </Link>
-              )}
-            </div>
-
-            {/* Name */}
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
-              {product.name}
-            </h1>
-
-            {/* SKU */}
-            <p className="text-xs text-zinc-600 font-mono -mt-2">
-              SKU: <span className="text-zinc-400 font-semibold">{product.sku}</span>
-            </p>
-
-            {/* Short description */}
-            {product.short_description && (
-              <p className="text-zinc-400 leading-relaxed border-l-4 border-[#16a34a]/40 pl-4 text-sm">
-                {product.short_description}
-              </p>
-            )}
-
-            {/* Price Block */}
-            <div className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.07] space-y-2">
-              <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-3xl font-extrabold text-white">
-                  {formatPrice(effectivePrice)}
-                </span>
-                {hasDiscount && (
-                  <>
-                    <span className="text-lg text-zinc-600 line-through">
-                      {formatPrice(product.price)}
-                    </span>
-                    <span className="bg-[#ea580c] text-white text-sm font-bold px-2 py-0.5 rounded">
-                      Save {discountPercent}%
-                    </span>
-                  </>
-                )}
-              </div>
-              <div className="text-xs text-zinc-500 space-y-0.5">
-                <p>Incl. {gstRate}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
-                {isLowStock && !isOutOfStock && (
-                  <p className="text-amber-400 font-semibold">
-                    ⚠ Only {product.stock_quantity} units remaining
-                  </p>
-                )}
-                {isOutOfStock && (
-                  <p className="text-zinc-500 font-semibold">Currently out of stock</p>
-                )}
-              </div>
-            </div>
-
-            {/* Add to Cart */}
-            <AddToCartSection product={product} />
-
-            {/* Trust badges */}
-            <div className="grid grid-cols-2 gap-3 pt-1">
-              {[
-                { icon: ShieldCheck, label: 'Warranty Included', sub: 'Manufacturer warranty' },
-                { icon: Truck, label: 'Pan-India Delivery', sub: 'Insured shipment' },
-                { icon: Package, label: 'Secure Packaging', sub: 'Factory-sealed' },
-                { icon: CheckCircle2, label: 'GST Invoice', sub: 'For B2B billing' },
-              ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex items-start gap-2.5 bg-white/[0.03] rounded-lg p-3 border border-white/[0.06]">
-                  <Icon className="w-4 h-4 text-[#16a34a] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-semibold text-white">{label}</p>
-                    <p className="text-[10px] text-zinc-500">{sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Brand link */}
-            {brand?.website && (
-              <p className="text-xs text-zinc-600">
-                Official brand:{' '}
-                <a
-                  href={brand.website}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="text-[#16a34a] hover:underline"
-                >
-                  {brand.website}
-                </a>
-              </p>
-            )}
-
-            {/* Tags */}
-            {product.tags && product.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {product.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-white/[0.04] text-zinc-400 text-xs font-medium px-2.5 py-1 rounded-full border border-white/[0.06]"
-                  >
-                    {tag}
+            <div className="flex flex-col gap-5">
+              {/* Brand + Category */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {brand && (
+                  <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wider bg-green-50 px-2.5 py-1 rounded-full border border-green-100">
+                    {brand.name}
                   </span>
+                )}
+                {category && (
+                  <Link
+                    href={`/shop?category=${category.slug}`}
+                    className="text-xs text-gray-400 hover:text-[#16a34a] transition-colors flex items-center gap-1"
+                  >
+                    <Tag className="w-3 h-3" /> {category.name}
+                  </Link>
+                )}
+              </div>
+
+              <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
+                {product.name}
+              </h1>
+
+              <p className="text-xs text-gray-400 font-mono -mt-2">
+                SKU: <span className="text-gray-600 font-semibold">{product.sku}</span>
+              </p>
+
+              {product.short_description && (
+                <p className="text-gray-500 leading-relaxed border-l-4 border-[#16a34a]/30 pl-4 text-sm">
+                  {product.short_description}
+                </p>
+              )}
+
+              {/* Price Block */}
+              <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100 space-y-2">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <span className="text-3xl font-extrabold text-gray-900">
+                    {formatPrice(effectivePrice)}
+                  </span>
+                  {hasDiscount && (
+                    <>
+                      <span className="text-lg text-gray-400 line-through">
+                        {formatPrice(product.price)}
+                      </span>
+                      <span className="bg-[#ea580c] text-white text-sm font-bold px-2 py-0.5 rounded-md">
+                        Save {discountPercent}%
+                      </span>
+                    </>
+                  )}
+                </div>
+                <div className="text-xs text-gray-400 space-y-0.5">
+                  <p>Incl. {gstRate}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
+                  {isLowStock && !isOutOfStock && (
+                    <p className="text-amber-500 font-semibold">⚠ Only {product.stock_quantity} units remaining</p>
+                  )}
+                  {isOutOfStock && (
+                    <p className="text-gray-400 font-semibold">Currently out of stock</p>
+                  )}
+                </div>
+              </div>
+
+              <AddToCartSection product={product} />
+
+              {/* Trust badges */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { icon: ShieldCheck, label: 'Warranty Included', sub: 'Manufacturer warranty' },
+                  { icon: Truck, label: 'Pan-India Delivery', sub: 'Insured shipment' },
+                  { icon: Package, label: 'Secure Packaging', sub: 'Factory-sealed' },
+                  { icon: CheckCircle2, label: 'GST Invoice', sub: 'For B2B billing' },
+                ].map(({ icon: Icon, label, sub }) => (
+                  <div key={label} className="flex items-start gap-2.5 bg-gray-50 rounded-xl p-3 border border-gray-100">
+                    <Icon className="w-4 h-4 text-[#16a34a] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-gray-700">{label}</p>
+                      <p className="text-[10px] text-gray-400">{sub}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
-            )}
+
+              {brand?.website && (
+                <p className="text-xs text-gray-400">
+                  Official brand:{' '}
+                  <a href={brand.website} target="_blank" rel="noopener noreferrer nofollow" className="text-[#16a34a] hover:underline">
+                    {brand.website}
+                  </a>
+                </p>
+              )}
+
+              {product.tags && product.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {product.tags.map((tag) => (
+                    <span key={tag} className="bg-gray-100 text-gray-500 text-xs font-medium px-2.5 py-1 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Description / Specifications / Features */}
-      <section className="container mx-auto max-w-7xl px-6 pb-12">
-        <div className="bg-[#111] rounded-xl border border-white/[0.06] overflow-hidden">
+      {/* Description / Specs / Features */}
+      <section className="container mx-auto max-w-7xl px-6 py-10">
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
 
           {product.description && (
-            <div className="p-6 border-b border-white/[0.05]">
-              <h2 className="text-lg font-bold text-white mb-4">Product Description</h2>
+            <div className="p-6 border-b border-gray-50">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Product Description</h2>
               <div
-                className="prose prose-sm prose-invert max-w-none text-zinc-400 leading-relaxed"
+                className="prose prose-sm prose-gray max-w-none text-gray-600 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </div>
           )}
 
           {product.specifications && product.specifications.length > 0 && (
-            <div className="p-6 border-b border-white/[0.05]">
-              <h2 className="text-lg font-bold text-white mb-4">Technical Specifications</h2>
+            <div className="p-6 border-b border-gray-50">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Technical Specifications</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
                   <tbody>
                     {product.specifications.map((spec, idx) => (
-                      <tr
-                        key={idx}
-                        className={idx % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'}
-                      >
-                        <td className="py-2.5 px-4 font-semibold text-zinc-300 w-1/3 border border-white/[0.05]">
+                      <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                        <td className="py-2.5 px-4 font-semibold text-gray-700 w-1/3 border border-gray-100">
                           {spec.label}
                         </td>
-                        <td className="py-2.5 px-4 text-zinc-500 border border-white/[0.05]">
+                        <td className="py-2.5 px-4 text-gray-500 border border-gray-100">
                           {spec.value}
                         </td>
                       </tr>
@@ -374,10 +343,10 @@ export default async function ProductDetailPage({
 
           {product.features && product.features.length > 0 && (
             <div className="p-6">
-              <h2 className="text-lg font-bold text-white mb-4">Key Features</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Key Features</h2>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {product.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-sm text-zinc-400">
+                  <li key={idx} className="flex items-start gap-2.5 text-sm text-gray-600">
                     <CheckCircle2 className="w-4 h-4 text-[#16a34a] shrink-0 mt-0.5" />
                     {feature}
                   </li>
@@ -387,17 +356,15 @@ export default async function ProductDetailPage({
           )}
 
           {(product.weight || product.dimensions) && (
-            <div className="p-6 border-t border-white/[0.05] bg-white/[0.02]">
-              <h3 className="text-sm font-bold text-zinc-300 mb-3">Shipping Information</h3>
-              <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
+            <div className="p-6 border-t border-gray-50 bg-gray-50">
+              <h3 className="text-sm font-bold text-gray-600 mb-3">Shipping Information</h3>
+              <div className="flex flex-wrap gap-4 text-sm text-gray-500">
                 {product.weight && (
-                  <span>
-                    <span className="font-semibold text-zinc-400">Weight:</span> {product.weight} kg
-                  </span>
+                  <span><span className="font-semibold text-gray-700">Weight:</span> {product.weight} kg</span>
                 )}
                 {product.dimensions && (
                   <span>
-                    <span className="font-semibold text-zinc-400">Dimensions:</span>{' '}
+                    <span className="font-semibold text-gray-700">Dimensions:</span>{' '}
                     {product.dimensions.length} × {product.dimensions.width} × {product.dimensions.height} cm
                   </span>
                 )}
@@ -411,7 +378,7 @@ export default async function ProductDetailPage({
       {relatedProducts.length > 0 && (
         <section className="container mx-auto max-w-7xl px-6 pb-14">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-xl font-bold text-white">Related Products</h2>
+            <h2 className="text-xl font-bold text-gray-900">Related Products</h2>
             {category && (
               <Link
                 href={`/shop?category=${category.slug}`}
