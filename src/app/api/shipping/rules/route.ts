@@ -13,12 +13,13 @@ export async function GET() {
       } as never)
     ) as GlobalSettings;
 
+    // Directus decimal fields return as strings — parse to number
     return NextResponse.json({
       serviceable_states: settings.serviceable_states ?? [],
-      shipping_charge: settings.shipping_charge ?? 299,
-      free_shipping_above: settings.free_shipping_above ?? 5000,
-      gst_rate: settings.gst_rate ?? 18,
-      cod_max_order_amount: settings.cod_max_order_amount ?? 50000,
+      shipping_charge: Number(settings.shipping_charge ?? 299),
+      free_shipping_above: Number(settings.free_shipping_above ?? 5000),
+      gst_rate: Number(settings.gst_rate ?? 18),
+      cod_max_order_amount: Number(settings.cod_max_order_amount ?? 50000),
     });
   } catch {
     // Fail open — return defaults so checkout always works

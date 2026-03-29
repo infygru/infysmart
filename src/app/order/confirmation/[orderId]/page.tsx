@@ -45,7 +45,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
     const settings = await directus.request(
       readSingleton('global_settings', { fields: ['gst_rate'] } as never)
     ) as GlobalSettings;
-    gstRate = settings.gst_rate ?? 18;
+    gstRate = Number(settings.gst_rate ?? 18);
   } catch { /* use default */ }
 
   const isCOD = method === 'cod' || order.payment_method === 'cod';

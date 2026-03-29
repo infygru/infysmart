@@ -78,7 +78,7 @@ export async function POST(request: Request) {
       const settings = await directus.request(
         readSingleton('global_settings', { fields: ['cod_max_order_amount'] } as never)
       ) as GlobalSettings;
-      codMaxAmount = settings.cod_max_order_amount ?? 50000;
+      codMaxAmount = Number(settings.cod_max_order_amount ?? 50000);
     } catch { /* use default */ }
 
     if (body.payment_method === 'cod' && body.total_amount > codMaxAmount) {
