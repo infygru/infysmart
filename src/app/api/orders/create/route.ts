@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { createDirectus, rest, staticToken, createItem } from '@directus/sdk';
+import { createDirectus, rest, staticToken, createItem, readSingleton } from '@directus/sdk';
 import { generateOrderNumber } from '@/lib/utils';
-import type { ShippingAddress } from '@/lib/directus';
+import type { ShippingAddress, GlobalSettings } from '@/lib/directus';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -70,12 +70,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid order total' }, { status: 400 });
     }
 
-    // COD limit guard
-    if (body.payment_method === 'cod' && body.total_amount > 50000) {
-      return NextResponse.json({ error: 'Cash on Delivery is only available for orders up to ₹50,000' }, { status: 400 });
-    }
-
     const directus = getAdminClient();
+
+    // COD limit guard — fetch limit from Directus, fall back to ₹50,000
+    let codMaxAmount = 50000;
+    try {
+      const settings = await directus.request(
+        readSingleton('global_settings', { fields: ['cod_max_order_amount'] } as never)
+      ) as GlobalSettings;
+      codMaxAmount = settings.cod_max_order_amount ?? 50000;
+    } catch { /* use default */ }
+
+    if (body.payment_method === 'cod' && body.total_amount > codMaxAmount) {
+      return NextResponse.json(
+        { error: `Cash on Delivery is only available for orders up to ₹${codMaxAmount.toLocaleString('en-IN')}` },
+        { status: 400 }
+      );
+    }
     const order_number = generateOrderNumber();
 
     // ── Create order ────────────────────────────────────────────────────────────

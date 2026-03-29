@@ -16,6 +16,9 @@ export interface GlobalSettings {
   serviceable_states: string[] | null;  // null/empty = all states allowed
   shipping_charge: number | null;       // flat rate (default ₹299)
   free_shipping_above: number | null;   // free shipping threshold (default ₹5000)
+  // Tax & payment config
+  gst_rate: number | null;              // GST percentage (default 18)
+  cod_max_order_amount: number | null;  // max COD order value (default ₹50,000)
 }
 
 export interface Service {

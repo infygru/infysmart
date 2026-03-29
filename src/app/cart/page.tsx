@@ -10,8 +10,7 @@ import {
 import { useCart } from '@/lib/cart-context';
 import type { AppliedCoupon } from '@/lib/cart-context';
 import {
-  formatPrice, getEffectivePrice, FREE_SHIPPING_ABOVE,
-  GST_PERCENTAGE
+  formatPrice, getEffectivePrice,
 } from '@/lib/utils';
 import { getAssetUrl } from '@/lib/directus';
 
@@ -20,7 +19,10 @@ export default function CartPage() {
     items, totals, coupon,
     removeFromCart, updateQuantity,
     applyCoupon, removeCoupon,
+    freeShippingAbove, gstRate,
   } = useCart();
+
+  const FREE_SHIPPING_ABOVE = freeShippingAbove;
 
   const [couponInput, setCouponInput] = useState('');
   const [couponError, setCouponError] = useState('');
@@ -307,7 +309,7 @@ export default function CartPage() {
               </div>
 
               <p className="text-[11px] text-slate-400 text-center">
-                Incl. of {GST_PERCENTAGE}% GST (₹{totals.gst.toLocaleString('en-IN')}). GST invoice provided.
+                Incl. of {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')}). GST invoice provided.
               </p>
 
               <Link

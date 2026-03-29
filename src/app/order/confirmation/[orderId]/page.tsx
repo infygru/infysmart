@@ -5,8 +5,10 @@ import {
   CheckCircle2, Package, Truck, Phone, Mail,
   MapPin, ArrowRight, Download, MessageCircle
 } from 'lucide-react';
-import { formatPrice, GST_PERCENTAGE } from '@/lib/utils';
-import type { Order, OrderItem, ShippingAddress } from '@/lib/directus';
+import { formatPrice } from '@/lib/utils';
+import { directus } from '@/lib/directus';
+import { readSingleton } from '@directus/sdk';
+import type { Order, OrderItem, ShippingAddress, GlobalSettings } from '@/lib/directus';
 
 export const metadata: Metadata = {
   title: 'Order Confirmed | Infysmart',
@@ -37,6 +39,14 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
 
   const order = await fetchOrder(orderId);
   if (!order) notFound();
+
+  let gstRate = 18;
+  try {
+    const settings = await directus.request(
+      readSingleton('global_settings', { fields: ['gst_rate'] } as never)
+    ) as GlobalSettings;
+    gstRate = settings.gst_rate ?? 18;
+  } catch { /* use default */ }
 
   const isCOD = method === 'cod' || order.payment_method === 'cod';
   const orderNumber = order.order_number ?? orderNumberFallback ?? orderId.slice(0, 8).toUpperCase();
@@ -186,7 +196,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               <span>{formatPrice(order.total_amount)}</span>
             </div>
             <p className="text-[10px] text-slate-400 text-right">
-              Incl. {GST_PERCENTAGE}% GST (₹{order.tax_amount?.toLocaleString('en-IN') ?? '—'}) •{' '}
+              Incl. {gstRate}% GST (₹{order.tax_amount?.toLocaleString('en-IN') ?? '—'}) •{' '}
               {isCOD ? 'Payable on delivery' : 'Paid via Razorpay'}
             </p>
           </div>

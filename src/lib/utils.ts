@@ -37,28 +37,23 @@ export function calculateGST(baseAmount: number): number {
 /**
  * Extract the GST component from a GST-inclusive price.
  * e.g. extractGST(11800) → 1800  (where rate is 18%)
+ * Pass ratePercent to override the default (e.g. from Directus).
  */
-export function extractGST(inclPrice: number): number {
-  return Math.round(inclPrice * GST_RATE / (1 + GST_RATE));
+export function extractGST(inclPrice: number, ratePercent = GST_RATE * 100): number {
+  const rate = ratePercent / 100;
+  return Math.round(inclPrice * rate / (1 + rate));
 }
 
 /**
  * Extract the base (ex-GST) price from a GST-inclusive price.
  * e.g. extractBasePrice(11800) → 10000
+ * Pass ratePercent to override the default (e.g. from Directus).
  */
-export function extractBasePrice(inclPrice: number): number {
-  return Math.round(inclPrice / (1 + GST_RATE));
+export function extractBasePrice(inclPrice: number, ratePercent = GST_RATE * 100): number {
+  const rate = ratePercent / 100;
+  return Math.round(inclPrice / (1 + rate));
 }
 
-/**
- * Calculate shipping cost based on subtotal (before GST).
- * Free above FREE_SHIPPING_THRESHOLD, else SHIPPING_CHARGE.
- */
-export function calculateShipping(subtotal: number): number {
-  return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_CHARGE;
-}
-
-export const FREE_SHIPPING_ABOVE = FREE_SHIPPING_THRESHOLD;
 export const GST_PERCENTAGE = Number(process.env.NEXT_PUBLIC_GST_RATE ?? 18);
 
 // ─── Order Number ─────────────────────────────────────────────────────────────

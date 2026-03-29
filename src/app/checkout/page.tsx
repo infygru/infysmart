@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import {
-  formatPrice, getEffectivePrice, GST_PERCENTAGE,
+  formatPrice, getEffectivePrice,
   isValidEmail, isValidPhone, isValidPincode
 } from '@/lib/utils';
 import { getAssetUrl } from '@/lib/directus';
@@ -58,7 +58,7 @@ declare global {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, totals, coupon, clearCart } = useCart();
+  const { items, totals, coupon, clearCart, gstRate, codMaxAmount } = useCart();
 
   const [form, setForm] = useState<CheckoutForm>({
     name: '', email: '', phone: '',
@@ -74,6 +74,16 @@ export default function CheckoutPage() {
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [serviceableStates, setServiceableStates] = useState<string[]>([]);
 
+  // Fetch serviceable states (shipping rules already fetched in cart context for charges)
+  useEffect(() => {
+    fetch('/api/shipping/rules')
+      .then((r) => r.json())
+      .then((data: { serviceable_states: string[] }) => {
+        setServiceableStates(data.serviceable_states ?? []);
+      })
+      .catch(() => { /* fail open — all states allowed */ });
+  }, []);
+
   // Load Razorpay SDK
   useEffect(() => {
     if (document.getElementById('razorpay-script')) return;
@@ -82,16 +92,6 @@ export default function CheckoutPage() {
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
     document.body.appendChild(script);
-  }, []);
-
-  // Fetch shipping rules (serviceable states)
-  useEffect(() => {
-    fetch('/api/shipping/rules')
-      .then((r) => r.json())
-      .then((data: { serviceable_states: string[] }) => {
-        setServiceableStates(data.serviceable_states ?? []);
-      })
-      .catch(() => { /* fail open — all states allowed */ });
   }, []);
 
   // Redirect if cart empty
@@ -437,7 +437,7 @@ export default function CheckoutPage() {
                 <div className="mt-3 flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-lg p-3 text-xs text-amber-700">
                   <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>
-                    COD available only for orders up to ₹50,000. A sales executive will
+                    COD available only for orders up to {formatPrice(codMaxAmount)}. A sales executive will
                     confirm your order within 1 business day before dispatch.
                   </span>
                 </div>
@@ -518,7 +518,7 @@ export default function CheckoutPage() {
                   <span>{formatPrice(totals.total)}</span>
                 </div>
                 <p className="text-[11px] text-slate-400 text-center">
-                  Incl. of {GST_PERCENTAGE}% GST (₹{totals.gst.toLocaleString('en-IN')})
+                  Incl. of {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')})
                 </p>
               </div>
 

@@ -7,8 +7,9 @@ import React, {
   useReducer,
   useCallback,
   useMemo,
+  useState,
 } from 'react';
-import { getEffectivePrice, extractGST, calculateShipping, applyDiscount } from './utils';
+import { getEffectivePrice, extractGST, applyDiscount } from './utils';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -164,6 +165,10 @@ interface CartContextValue {
   coupon: AppliedCoupon | null;
   totals: CartTotals;
   isDrawerOpen: boolean;
+  shippingCharge: number;
+  freeShippingAbove: number;
+  gstRate: number;
+  codMaxAmount: number;
   addToCart: (product: CartProduct, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -184,6 +189,23 @@ const CART_STORAGE_KEY = 'infysmart_cart_v1';
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [shippingCharge, setShippingCharge] = useState(299);
+  const [freeShippingAbove, setFreeShippingAbove] = useState(5000);
+  const [gstRate, setGstRate] = useState(18);
+  const [codMaxAmount, setCodMaxAmount] = useState(50000);
+
+  // Fetch all commerce settings from Directus on mount
+  useEffect(() => {
+    fetch('/api/shipping/rules')
+      .then((r) => r.json())
+      .then((data) => {
+        if (typeof data.shipping_charge === 'number') setShippingCharge(data.shipping_charge);
+        if (typeof data.free_shipping_above === 'number') setFreeShippingAbove(data.free_shipping_above);
+        if (typeof data.gst_rate === 'number') setGstRate(data.gst_rate);
+        if (typeof data.cod_max_order_amount === 'number') setCodMaxAmount(data.cod_max_order_amount);
+      })
+      .catch(() => { /* keep defaults on error */ });
+  }, []);
 
   // Hydrate from localStorage on mount
   useEffect(() => {
@@ -225,13 +247,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       : 0;
 
     const taxable = Math.max(0, subtotal - discount);
-    const gst = extractGST(taxable);          // extracted for invoice display only
-    const shipping = calculateShipping(subtotal);
-    const total = taxable + shipping;          // gst is already inside taxable
+    const gst = extractGST(taxable, gstRate);  // extracted for invoice display only
+    const shipping = subtotal >= freeShippingAbove ? 0 : shippingCharge;
+    const total = taxable + shipping;           // gst is already inside taxable
     const itemCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return { subtotal, discount, taxable, gst, shipping, total, itemCount };
-  }, [state.items, state.coupon]);
+  }, [state.items, state.coupon, shippingCharge, freeShippingAbove, gstRate]);
 
   const addToCart = useCallback((product: CartProduct, quantity = 1) => {
     dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
@@ -271,6 +293,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       coupon: state.coupon,
       totals,
       isDrawerOpen: state.isDrawerOpen,
+      shippingCharge,
+      freeShippingAbove,
+      gstRate,
+      codMaxAmount,
       addToCart,
       removeFromCart,
       updateQuantity,
@@ -287,6 +313,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       state.coupon,
       state.isDrawerOpen,
       totals,
+      shippingCharge,
+      freeShippingAbove,
+      gstRate,
+      codMaxAmount,
       addToCart,
       removeFromCart,
       updateQuantity,

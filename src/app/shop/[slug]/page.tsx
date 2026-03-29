@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { directus, getAssetUrl } from '@/lib/directus';
-import { readItems } from '@directus/sdk';
-import type { Product, ProductCategory, ProductBrand, ProductImage } from '@/lib/directus';
+import { readItems, readSingleton } from '@directus/sdk';
+import type { Product, ProductCategory, ProductBrand, ProductImage, GlobalSettings } from '@/lib/directus';
 import ProductGallery from '@/components/shop/ProductGallery';
 import AddToCartSection from '@/components/shop/AddToCartSection';
 import ProductCard from '@/components/shop/ProductCard';
-import { formatPrice, getEffectivePrice, extractGST, extractBasePrice, GST_PERCENTAGE } from '@/lib/utils';
+import { formatPrice, getEffectivePrice, extractGST, extractBasePrice } from '@/lib/utils';
 import { CheckCircle2, Package, ShieldCheck, Truck, Tag, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -101,6 +101,15 @@ export default async function ProductDetailPage({
   const product = products[0];
   if (!product) notFound();
 
+  // Fetch GST rate from global settings
+  let gstRate = 18;
+  try {
+    const settings = await directus.request(
+      readSingleton('global_settings', { fields: ['gst_rate'] } as never)
+    ) as GlobalSettings;
+    gstRate = settings.gst_rate ?? 18;
+  } catch { /* use default */ }
+
   const category = product.category as ProductCategory | null;
   const brand = product.brand as ProductBrand | null;
   const images = (product.images ?? []) as ProductImage[];
@@ -119,8 +128,8 @@ export default async function ProductDetailPage({
     ? Math.round(((product.price - effectivePrice) / product.price) * 100)
     : 0;
   // Prices are GST-inclusive — extract components for billing display
-  const gstAmount = extractGST(effectivePrice);
-  const basePrice = extractBasePrice(effectivePrice);
+  const gstAmount = extractGST(effectivePrice, gstRate);
+  const basePrice = extractBasePrice(effectivePrice, gstRate);
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
   const isLowStock = product.track_inventory && product.stock_quantity > 0 && product.stock_quantity <= 5;
 
@@ -265,7 +274,7 @@ export default async function ProductDetailPage({
                 )}
               </div>
               <div className="text-xs text-slate-500 space-y-0.5">
-                <p>Incl. {GST_PERCENTAGE}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
+                <p>Incl. {gstRate}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
                 {isLowStock && !isOutOfStock && (
                   <p className="text-amber-600 font-semibold">
                     ⚠ Only {product.stock_quantity} units remaining
