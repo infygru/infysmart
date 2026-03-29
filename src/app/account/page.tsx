@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { directusAdmin } from '@/lib/directus-admin';
-import { readItems, updateItem } from '@directus/sdk';
+import { readItems } from '@directus/sdk';
 import type { Customer, Order } from '@/lib/directus';
 import AccountClient from './AccountClient';
+import { Loader2 } from 'lucide-react';
 
 export default async function AccountPage() {
   const session = await auth();
@@ -30,10 +32,16 @@ export default async function AccountPage() {
   const customer = customers[0] ?? null;
 
   return (
-    <AccountClient
-      customer={customer}
-      orders={orders}
-      sessionEmail={session.user.email ?? ''}
-    />
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0c0c0c] flex items-center justify-center">
+        <Loader2 className="w-5 h-5 animate-spin text-zinc-600" />
+      </div>
+    }>
+      <AccountClient
+        customer={customer}
+        orders={orders}
+        sessionEmail={session.user.email ?? ''}
+      />
+    </Suspense>
   );
 }

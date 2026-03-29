@@ -166,6 +166,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
               if (existing.length) {
                 token.customerId = String(existing[0].id);
+                token.phone = existing[0].phone ?? null;
                 if (!existing[0].google_id) {
                   await directusAdmin.request(
                     updateItem('customers', existing[0].id, {
@@ -188,13 +189,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                   } as never)
                 ) as unknown as Customer;
                 token.customerId = String(newCustomer.id);
+                token.phone = null;
               }
             }
           } catch (err) {
             console.error('[jwt google callback]', err);
           }
         } else {
+          // Credentials (email-otp or phone-otp) — user.id is Directus customer ID
           token.customerId = user.id;
+          // Fetch phone from Directus to store in token
+          try {
+            const c = await directusAdmin.request(
+              readItems('customers', {
+                filter: { id: { _eq: Number(user.id) } },
+                fields: ['phone'],
+                limit: 1,
+              } as never)
+            ) as unknown as Pick<Customer, 'phone'>[];
+            token.phone = c[0]?.phone ?? null;
+          } catch {
+            token.phone = null;
+          }
         }
       }
       return token;
@@ -204,6 +220,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token.customerId) {
         session.user.id = token.customerId as string;
       }
+      session.user.phone = (token.phone as string | null) ?? null;
       return session;
     },
   },
