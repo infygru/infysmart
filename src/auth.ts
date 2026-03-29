@@ -7,11 +7,14 @@ import type { Customer, OtpCode } from '@/lib/directus';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
+  trustHost: true,
+
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
       clientSecret: process.env.AUTH_GOOGLE_SECRET!,
     }),
+
     Credentials({
       id: 'email-otp',
       name: 'Email OTP',
@@ -20,63 +23,65 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         otp: { label: 'OTP', type: 'text' },
       },
       async authorize(credentials) {
-        const email = (credentials?.email as string)?.toLowerCase().trim();
-        const otp = (credentials?.otp as string)?.trim();
-        if (!email || !otp) return null;
+        try {
+          const email = (credentials?.email as string)?.toLowerCase().trim();
+          const otp = (credentials?.otp as string)?.trim();
+          if (!email || !otp) return null;
 
-        // Find a valid, unused, non-expired OTP
-        const records = await directusAdmin.request(
-          readItems('otp_codes', {
-            filter: {
-              email: { _eq: email },
-              code: { _eq: otp },
-              used: { _eq: false },
-              expires_at: { _gt: new Date().toISOString() },
-            },
-            sort: ['-date_created'],
-            limit: 1,
-          } as never)
-        ) as unknown as OtpCode[];
-
-        if (!records.length) return null;
-
-        // Mark OTP as used
-        await directusAdmin.request(
-          updateItem('otp_codes', records[0].id, { used: true } as never)
-        );
-
-        // Find or create customer
-        const existing = await directusAdmin.request(
-          readItems('customers', {
-            filter: { email: { _eq: email } },
-            limit: 1,
-          } as never)
-        ) as unknown as Customer[];
-
-        let customer: Customer;
-        if (existing.length) {
-          customer = existing[0];
-          if (!customer.email_verified) {
-            await directusAdmin.request(
-              updateItem('customers', customer.id, { email_verified: true } as never)
-            );
-          }
-        } else {
-          customer = await directusAdmin.request(
-            createItem('customers', {
-              email,
-              email_verified: true,
-              status: 'active',
+          const records = await directusAdmin.request(
+            readItems('otp_codes', {
+              filter: {
+                email: { _eq: email },
+                code: { _eq: otp },
+                used: { _eq: false },
+                expires_at: { _gt: new Date().toISOString() },
+              },
+              sort: ['-date_created'],
+              limit: 1,
             } as never)
-          ) as unknown as Customer;
-        }
+          ) as unknown as OtpCode[];
 
-        return {
-          id: String(customer.id),
-          email: customer.email,
-          name: customer.name ?? null,
-          image: customer.avatar ?? null,
-        };
+          if (!records.length) return null;
+
+          await directusAdmin.request(
+            updateItem('otp_codes', records[0].id, { used: true } as never)
+          );
+
+          const existing = await directusAdmin.request(
+            readItems('customers', {
+              filter: { email: { _eq: email } },
+              limit: 1,
+            } as never)
+          ) as unknown as Customer[];
+
+          let customer: Customer;
+          if (existing.length) {
+            customer = existing[0];
+            if (!customer.email_verified) {
+              await directusAdmin.request(
+                updateItem('customers', customer.id, { email_verified: true } as never)
+              );
+            }
+          } else {
+            customer = await directusAdmin.request(
+              createItem('customers', {
+                email,
+                email_verified: true,
+                status: 'active',
+              } as never)
+            ) as unknown as Customer;
+          }
+
+          return {
+            id: String(customer.id),
+            email: customer.email,
+            name: customer.name ?? null,
+            image: customer.avatar ?? null,
+          };
+        } catch (err) {
+          console.error('[email-otp authorize]', err);
+          return null;
+        }
       },
     }),
 
@@ -88,101 +93,107 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         otp: { label: 'OTP', type: 'text' },
       },
       async authorize(credentials) {
-        const phone = (credentials?.phone as string)?.replace(/\D/g, '');
-        const otp = (credentials?.otp as string)?.trim();
-        if (!phone || phone.length !== 10 || !otp) return null;
+        try {
+          const phone = (credentials?.phone as string)?.replace(/\D/g, '');
+          const otp = (credentials?.otp as string)?.trim();
+          if (!phone || phone.length !== 10 || !otp) return null;
 
-        const records = await directusAdmin.request(
-          readItems('otp_codes', {
-            filter: {
-              phone: { _eq: phone },
-              code: { _eq: otp },
-              used: { _eq: false },
-              expires_at: { _gt: new Date().toISOString() },
-            },
-            sort: ['-date_created'],
-            limit: 1,
-          } as never)
-        ) as unknown as OtpCode[];
-
-        if (!records.length) return null;
-
-        await directusAdmin.request(
-          updateItem('otp_codes', records[0].id, { used: true } as never)
-        );
-
-        const existing = await directusAdmin.request(
-          readItems('customers', {
-            filter: { phone: { _eq: phone } },
-            limit: 1,
-          } as never)
-        ) as unknown as Customer[];
-
-        let customer: Customer;
-        if (existing.length) {
-          customer = existing[0];
-        } else {
-          customer = await directusAdmin.request(
-            createItem('customers', {
-              phone,
-              status: 'active',
+          const records = await directusAdmin.request(
+            readItems('otp_codes', {
+              filter: {
+                phone: { _eq: phone },
+                code: { _eq: otp },
+                used: { _eq: false },
+                expires_at: { _gt: new Date().toISOString() },
+              },
+              sort: ['-date_created'],
+              limit: 1,
             } as never)
-          ) as unknown as Customer;
-        }
+          ) as unknown as OtpCode[];
 
-        return {
-          id: String(customer.id),
-          email: customer.email ?? null,
-          name: customer.name ?? null,
-          image: customer.avatar ?? null,
-        };
+          if (!records.length) return null;
+
+          await directusAdmin.request(
+            updateItem('otp_codes', records[0].id, { used: true } as never)
+          );
+
+          const existing = await directusAdmin.request(
+            readItems('customers', {
+              filter: { phone: { _eq: phone } },
+              limit: 1,
+            } as never)
+          ) as unknown as Customer[];
+
+          let customer: Customer;
+          if (existing.length) {
+            customer = existing[0];
+          } else {
+            customer = await directusAdmin.request(
+              createItem('customers', {
+                phone,
+                status: 'active',
+              } as never)
+            ) as unknown as Customer;
+          }
+
+          return {
+            id: String(customer.id),
+            email: customer.email ?? null,
+            name: customer.name ?? null,
+            image: customer.avatar ?? null,
+          };
+        } catch (err) {
+          console.error('[phone-otp authorize]', err);
+          return null;
+        }
       },
     }),
   ],
 
   callbacks: {
     async jwt({ token, user, account }) {
-      // Only runs on initial sign-in (when account is present)
       if (account && user) {
         if (account.provider === 'google') {
-          const email = token.email?.toLowerCase();
-          if (email) {
-            const existing = await directusAdmin.request(
-              readItems('customers', {
-                filter: { email: { _eq: email } },
-                limit: 1,
-              } as never)
-            ) as unknown as Customer[];
-
-            if (existing.length) {
-              token.customerId = String(existing[0].id);
-              // Backfill google_id + avatar if first Google login
-              if (!existing[0].google_id) {
-                await directusAdmin.request(
-                  updateItem('customers', existing[0].id, {
-                    google_id: account.providerAccountId,
-                    avatar: user.image ?? undefined,
-                    email_verified: true,
-                    name: existing[0].name ?? user.name ?? undefined,
-                  } as never)
-                );
-              }
-            } else {
-              const newCustomer = await directusAdmin.request(
-                createItem('customers', {
-                  email,
-                  name: user.name ?? null,
-                  google_id: account.providerAccountId,
-                  avatar: user.image ?? null,
-                  email_verified: true,
-                  status: 'active',
+          try {
+            const email = token.email?.toLowerCase();
+            if (email) {
+              const existing = await directusAdmin.request(
+                readItems('customers', {
+                  filter: { email: { _eq: email } },
+                  limit: 1,
                 } as never)
-              ) as unknown as Customer;
-              token.customerId = String(newCustomer.id);
+              ) as unknown as Customer[];
+
+              if (existing.length) {
+                token.customerId = String(existing[0].id);
+                if (!existing[0].google_id) {
+                  await directusAdmin.request(
+                    updateItem('customers', existing[0].id, {
+                      google_id: account.providerAccountId,
+                      avatar: user.image ?? undefined,
+                      email_verified: true,
+                      name: existing[0].name ?? user.name ?? undefined,
+                    } as never)
+                  );
+                }
+              } else {
+                const newCustomer = await directusAdmin.request(
+                  createItem('customers', {
+                    email,
+                    name: user.name ?? null,
+                    google_id: account.providerAccountId,
+                    avatar: user.image ?? null,
+                    email_verified: true,
+                    status: 'active',
+                  } as never)
+                ) as unknown as Customer;
+                token.customerId = String(newCustomer.id);
+              }
             }
+          } catch (err) {
+            console.error('[jwt google callback]', err);
           }
         } else {
-          // Email OTP — user.id is already the Directus customer ID
           token.customerId = user.id;
         }
       }
