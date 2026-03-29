@@ -3,16 +3,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Menu, X, ShoppingCart } from 'lucide-react';
+import { Phone, Menu, X, ShoppingCart, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { getAssetUrl, GlobalSettings } from '@/lib/directus';
 import GetQuoteModal from '@/components/GetQuoteModal';
 import { useCart } from '@/lib/cart-context';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Navbar({ settings }: { settings: GlobalSettings | null }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { totals, openDrawer } = useCart();
+  const { data: session } = useSession();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -98,6 +101,56 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
                 </span>
               )}
             </button>
+
+            {/* Auth button */}
+            {session?.user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen((v) => !v)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                    isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  {session.user.image ? (
+                    <img src={session.user.image} alt="" className="w-7 h-7 rounded-full object-cover" />
+                  ) : (
+                    <User className="w-5 h-5" />
+                  )}
+                  <span className="text-sm font-semibold hidden lg:block max-w-[100px] truncate">
+                    {session.user.name?.split(' ')[0] ?? 'Account'}
+                  </span>
+                </button>
+                {userMenuOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+                    <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl border border-slate-200 shadow-lg z-50 py-1 overflow-hidden">
+                      <Link
+                        href="/account"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+                      >
+                        <LayoutDashboard className="w-4 h-4" /> My Account
+                      </Link>
+                      <button
+                        onClick={() => { setUserMenuOpen(false); signOut({ callbackUrl: '/' }); }}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4" /> Sign Out
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+                }`}
+              >
+                <User className="w-4 h-4" /> Login
+              </Link>
+            )}
 
             <button
               onClick={() => setIsQuoteOpen(true)}
@@ -185,6 +238,31 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
           ))}
 
           <div className="mt-4 pt-4 border-t border-slate-800 space-y-3">
+            {session?.user ? (
+              <>
+                <Link
+                  href="/account"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-colors"
+                >
+                  <User className="h-4 w-4" /> My Account
+                </Link>
+                <button
+                  onClick={() => { setIsMobileOpen(false); signOut({ callbackUrl: '/' }); }}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-slate-700 text-slate-300 font-bold rounded-lg hover:bg-slate-600 transition-colors"
+                >
+                  <LogOut className="h-4 w-4" /> Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsMobileOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-colors"
+              >
+                <User className="h-4 w-4" /> Login / Register
+              </Link>
+            )}
             <a
               href="tel:+919445675619"
               className="flex items-center justify-center gap-2 w-full py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-blue-700 transition-colors"

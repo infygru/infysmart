@@ -8,6 +8,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/lib/cart-context";
+import { SessionProvider } from "next-auth/react";
 import { directus } from "@/lib/directus";
 import { readSingleton } from "@directus/sdk";
 
@@ -284,6 +285,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
+        <SessionProvider>
         <CartProvider>
           {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
           <script
@@ -299,6 +301,7 @@ export default async function RootLayout({
           {/* Global Cart Drawer — rendered outside page stack for correct z-index */}
           <CartDrawer />
         </CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );

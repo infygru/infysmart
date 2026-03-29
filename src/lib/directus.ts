@@ -204,6 +204,27 @@ export interface Order {
   date_updated: string | null;
 }
 
+export interface Customer {
+  id: number;
+  name: string | null;
+  email: string;
+  phone: string | null;
+  email_verified: boolean;
+  google_id: string | null;
+  avatar: string | null;
+  status: 'active' | 'inactive';
+  date_created: string;
+}
+
+export interface OtpCode {
+  id: number;
+  email: string;
+  code: string;
+  expires_at: string;
+  used: boolean;
+  date_created: string;
+}
+
 export interface Coupon {
   id: number;
   code: string;
@@ -234,6 +255,8 @@ interface Schema {
   orders: Order[];
   order_items: OrderItem[];
   coupons: Coupon[];
+  customers: Customer[];
+  otp_codes: OtpCode[];
 }
 
 // ─── Client Init ──────────────────────────────────────────────────────────────

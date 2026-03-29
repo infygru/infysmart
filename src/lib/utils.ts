@@ -1,8 +1,6 @@
 // ─── Price & Tax ──────────────────────────────────────────────────────────────
 
-const GST_RATE = Number(process.env.NEXT_PUBLIC_GST_RATE ?? 18) / 100;
-const FREE_SHIPPING_THRESHOLD = Number(process.env.NEXT_PUBLIC_FREE_SHIPPING_THRESHOLD ?? 5000);
-const SHIPPING_CHARGE = Number(process.env.NEXT_PUBLIC_SHIPPING_CHARGE ?? 299);
+const GST_RATE = 0.18; // fallback only — actual rate comes from Directus global_settings
 
 /**
  * Format a number as Indian Rupees.
@@ -54,7 +52,7 @@ export function extractBasePrice(inclPrice: number, ratePercent = GST_RATE * 100
   return Math.round(inclPrice / (1 + rate));
 }
 
-export const GST_PERCENTAGE = Number(process.env.NEXT_PUBLIC_GST_RATE ?? 18);
+export const GST_PERCENTAGE = 18; // fallback only — actual rate comes from Directus global_settings
 
 // ─── Order Number ─────────────────────────────────────────────────────────────
 
