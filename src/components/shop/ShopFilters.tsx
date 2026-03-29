@@ -53,7 +53,6 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
   const inStockOnly = searchParams.get('in_stock') === '1';
   const activeSearch = searchParams.get('q') ?? '';
 
-  // Count active filters (excluding sort + search)
   const activeFilterCount = [
     activeCategory,
     ...activeBrands,
@@ -75,7 +74,6 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         }
       });
 
-      // Reset to page 1 on filter change
       params.delete('page');
 
       startTransition(() => {
@@ -99,10 +97,10 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-slate-600" />
-          <h2 className="font-bold text-slate-900 text-sm">Filters</h2>
+          <SlidersHorizontal className="w-4 h-4 text-zinc-400" />
+          <h2 className="font-bold text-white text-sm">Filters</h2>
           {activeFilterCount > 0 && (
-            <span className="bg-brand-blue text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            <span className="bg-[#16a34a] text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
               {activeFilterCount}
             </span>
           )}
@@ -110,32 +108,32 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         {activeFilterCount > 0 && (
           <button
             onClick={clearAllFilters}
-            className="flex items-center gap-1 text-xs text-red-500 hover:text-red-700 font-semibold transition-colors"
+            className="flex items-center gap-1 text-xs text-zinc-500 hover:text-white font-semibold transition-colors"
           >
             <X className="w-3 h-3" /> Clear All
           </button>
         )}
       </div>
 
-      {/* Sort (mobile-first, shown inline with results on desktop) */}
+      {/* Sort */}
       <div className="mb-5">
-        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
+        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wide mb-1.5">
           Sort By
         </label>
         <select
           value={activeSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-800 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+          className="w-full text-sm border border-white/[0.08] rounded-lg px-3 py-2 bg-white/[0.04] text-white focus:outline-none focus:border-[#16a34a] focus:ring-1 focus:ring-[#16a34a]"
         >
           {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
+            <option key={opt.value} value={opt.value} className="bg-[#111] text-white">
               {opt.label}
             </option>
           ))}
         </select>
       </div>
 
-      <div className="space-y-1 text-xs text-slate-400 mb-5">
+      <div className="space-y-1 text-xs text-zinc-600 mb-5">
         {totalCount} product{totalCount !== 1 ? 's' : ''} found
       </div>
 
@@ -151,8 +149,8 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
               onClick={() => updateParams({ category: null })}
               className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                 !activeCategory
-                  ? 'bg-brand-blue/10 text-brand-blue font-semibold'
-                  : 'text-slate-600 hover:bg-slate-100'
+                  ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
+                  : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
               }`}
             >
               All Categories
@@ -164,8 +162,8 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                 onClick={() => updateParams({ category: activeCategory === cat.slug ? null : cat.slug })}
                 className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                   activeCategory === cat.slug
-                    ? 'bg-brand-blue/10 text-brand-blue font-semibold'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
+                    : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 {cat.name}
@@ -197,9 +195,9 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                           : [...activeBrands, brand.slug];
                         updateParams({ brand: next.length > 0 ? next : null });
                       }}
-                      className="w-4 h-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue accent-brand-blue"
+                      className="w-4 h-4 rounded border-zinc-700 accent-[#16a34a]"
                     />
-                    <span className={`text-sm transition-colors ${checked ? 'text-brand-blue font-semibold' : 'text-slate-600 group-hover:text-slate-900'}`}>
+                    <span className={`text-sm transition-colors ${checked ? 'text-[#4ade80] font-semibold' : 'text-zinc-400 group-hover:text-white'}`}>
                       {brand.name}
                     </span>
                   </label>
@@ -222,8 +220,8 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
               onClick={() => updateParams({ min_price: null, max_price: null })}
               className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                 !activeMinPrice && !activeMaxPrice
-                  ? 'bg-brand-blue/10 text-brand-blue font-semibold'
-                  : 'text-slate-600 hover:bg-slate-100'
+                  ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
+                  : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
               }`}
             >
               Any Price
@@ -244,8 +242,8 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                   }
                   className={`w-full text-left px-2 py-1.5 rounded-lg text-sm transition-colors ${
                     isActive
-                      ? 'bg-brand-blue/10 text-brand-blue font-semibold'
-                      : 'text-slate-600 hover:bg-slate-100'
+                      ? 'bg-[#16a34a]/20 text-[#4ade80] font-semibold'
+                      : 'text-zinc-400 hover:bg-white/[0.04] hover:text-white'
                   }`}
                 >
                   {range.label}
@@ -267,16 +265,16 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             type="checkbox"
             checked={inStockOnly}
             onChange={() => updateParams({ in_stock: inStockOnly ? null : '1' })}
-            className="w-4 h-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue accent-brand-blue"
+            className="w-4 h-4 rounded border-zinc-700 accent-[#16a34a]"
           />
-          <span className="text-sm text-slate-600">In Stock Only</span>
+          <span className="text-sm text-zinc-400">In Stock Only</span>
         </label>
       </FilterSection>
 
       {/* Active filter chips */}
       {activeFilterCount > 0 && (
-        <div className="mt-4 pt-4 border-t border-slate-100">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">
+        <div className="mt-4 pt-4 border-t border-white/[0.06]">
+          <p className="text-xs font-bold text-zinc-600 uppercase tracking-wide mb-2">
             Active Filters
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -323,18 +321,18 @@ function FilterSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-t border-slate-100 py-4">
+    <div className="border-t border-white/[0.06] py-4">
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full text-left mb-3 group"
       >
-        <span className="text-xs font-bold text-slate-700 uppercase tracking-wide group-hover:text-brand-blue transition-colors">
+        <span className="text-xs font-bold text-zinc-500 uppercase tracking-wide group-hover:text-white transition-colors">
           {title}
         </span>
         {expanded ? (
-          <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronUp className="w-3.5 h-3.5 text-zinc-600" />
         ) : (
-          <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+          <ChevronDown className="w-3.5 h-3.5 text-zinc-600" />
         )}
       </button>
       {expanded && children}
@@ -344,9 +342,9 @@ function FilterSection({
 
 function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
-    <span className="inline-flex items-center gap-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold px-2 py-1 rounded-full">
+    <span className="inline-flex items-center gap-1 bg-[#16a34a]/20 text-[#4ade80] text-xs font-semibold px-2 py-1 rounded-full">
       {label}
-      <button onClick={onRemove} className="hover:text-red-500 transition-colors" aria-label={`Remove ${label} filter`}>
+      <button onClick={onRemove} className="hover:text-white transition-colors" aria-label={`Remove ${label} filter`}>
         <X className="w-3 h-3" />
       </button>
     </span>

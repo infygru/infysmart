@@ -15,11 +15,11 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Shop CCTV Cameras, NVR, DVR & Networking Products | Infysmart',
   description:
-    'Buy Hikvision, Dahua, CP Plus CCTV cameras, NVR, DVR, network switches, access control devices and security equipment online. Authorized dealer with pan-India delivery.',
+    'Buy Hikvision, Dahua, CP Plus CCTV cameras, NVR, DVR, network switches, access control devices and security equipment online. Pan-India delivery.',
   alternates: { canonical: 'https://infysmart.com/shop' },
   openGraph: {
     title: 'Shop CCTV & Networking Products | Infysmart',
-    description: 'Authorized dealer for Hikvision, Dahua, CP Plus. Buy security cameras, NVR, DVR, PoE switches and more.',
+    description: 'Buy security cameras, NVR, DVR, PoE switches and more with pan-India delivery.',
     url: 'https://infysmart.com/shop',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart Online Shop' }],
   },
@@ -32,30 +32,18 @@ function buildProductFilter(params: URLSearchParams) {
   const filter: Record<string, any> = { status: { _eq: 'published' } };
 
   const category = params.get('category');
-  if (category) {
-    filter['category'] = { slug: { _eq: category } };
-  }
+  if (category) filter['category'] = { slug: { _eq: category } };
 
   const brands = params.getAll('brand');
-  if (brands.length === 1) {
-    filter['brand'] = { slug: { _eq: brands[0] } };
-  } else if (brands.length > 1) {
-    filter['brand'] = { slug: { _in: brands } };
-  }
+  if (brands.length === 1) filter['brand'] = { slug: { _eq: brands[0] } };
+  else if (brands.length > 1) filter['brand'] = { slug: { _in: brands } };
 
   const minPrice = params.get('min_price');
   const maxPrice = params.get('max_price');
-  if (minPrice) {
-    filter['price'] = { ...filter['price'], _gte: Number(minPrice) };
-  }
-  if (maxPrice && maxPrice !== '0') {
-    filter['price'] = { ...filter['price'], _lte: Number(maxPrice) };
-  }
+  if (minPrice) filter['price'] = { ...filter['price'], _gte: Number(minPrice) };
+  if (maxPrice && maxPrice !== '0') filter['price'] = { ...filter['price'], _lte: Number(maxPrice) };
 
-  const inStock = params.get('in_stock');
-  if (inStock === '1') {
-    filter['stock_quantity'] = { _gt: 0 };
-  }
+  if (params.get('in_stock') === '1') filter['stock_quantity'] = { _gt: 0 };
 
   const q = params.get('q');
   if (q) {
@@ -70,14 +58,12 @@ function buildProductFilter(params: URLSearchParams) {
 }
 
 function buildProductSort(params: URLSearchParams): string[] {
-  const sort = params.get('sort') ?? 'featured';
-  switch (sort) {
-    case 'price_asc':    return ['price'];
-    case 'price_desc':   return ['-price'];
-    case 'newest':       return ['-date_created'];
-    case 'name_asc':     return ['name'];
-    case 'featured':
-    default:             return ['-is_featured', '-date_created'];
+  switch (params.get('sort') ?? 'featured') {
+    case 'price_asc':  return ['price'];
+    case 'price_desc': return ['-price'];
+    case 'newest':     return ['-date_created'];
+    case 'name_asc':   return ['name'];
+    default:           return ['-is_featured', '-date_created'];
   }
 }
 
@@ -91,11 +77,8 @@ export default async function ShopPage({ searchParams }: PageProps) {
   const resolvedParams = await searchParams;
   const params = new URLSearchParams();
   Object.entries(resolvedParams).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      value.forEach((v) => params.append(key, v));
-    } else if (value) {
-      params.set(key, value);
-    }
+    if (Array.isArray(value)) value.forEach((v) => params.append(key, v));
+    else if (value) params.set(key, value);
   });
 
   const pageNum = Math.max(1, Number(params.get('page') ?? 1));
@@ -105,14 +88,10 @@ export default async function ShopPage({ searchParams }: PageProps) {
   const filter = buildProductFilter(params);
   const sort = buildProductSort(params);
 
-  // Parallel data fetching
   const [products, totalResult, categories, brands] = await Promise.all([
     directus.request(
       readItems('products', {
-        filter,
-        sort,
-        limit,
-        offset,
+        filter, sort, limit, offset,
         fields: [
           'id', 'name', 'slug', 'sku', 'price', 'sale_price',
           'short_description', 'thumbnail', 'stock_quantity',
@@ -124,10 +103,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
     ) as unknown as Product[],
 
     directus.request(
-      readItems('products', {
-        filter,
-        aggregate: { count: ['id'] },
-      } as never)
+      readItems('products', { filter, aggregate: { count: ['id'] } } as never)
     ) as unknown as [{ count: { id: number } }],
 
     directus.request(
@@ -151,7 +127,6 @@ export default async function ShopPage({ searchParams }: PageProps) {
   const totalPages = Math.ceil(totalCount / limit);
   const currentSearch = params.get('q') ?? '';
 
-  // Schema.org ItemList
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -166,30 +141,28 @@ export default async function ShopPage({ searchParams }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[#0c0c0c]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
       {/* Page Header */}
-      <section className="bg-slate-900 py-14 px-6">
+      <section className="bg-[#111] border-b border-white/[0.06] py-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center gap-3 mb-3">
-            <ShoppingBag className="w-6 h-6 text-brand-blue" />
-            <span className="text-blue-400 font-semibold text-sm uppercase tracking-widest">
+            <ShoppingBag className="w-5 h-5 text-[#16a34a]" />
+            <span className="text-[#16a34a] font-semibold text-xs uppercase tracking-widest">
               Security Products
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
             CCTV &amp; Networking Products
           </h1>
-          <p className="text-slate-400 text-base max-w-2xl">
-            Genuine Hikvision, Dahua &amp; CP Plus cameras, recorders, PoE switches, access control
-            devices and structured cabling solutions. Pan-India delivery with warranty.
+          <p className="text-zinc-500 text-base max-w-2xl">
+            Hikvision, Dahua &amp; CP Plus cameras, recorders, PoE switches, access control
+            devices and structured cabling. Pan-India delivery with warranty.
           </p>
-
-          {/* Search bar */}
           <div className="mt-6 max-w-lg">
             <Suspense>
               <ShopSearchBar initialValue={currentSearch} />
@@ -199,17 +172,17 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </section>
 
       {/* Breadcrumb */}
-      <div className="border-b border-slate-200 bg-white">
+      <div className="border-b border-white/[0.05] bg-[#0c0c0c]">
         <div className="container mx-auto max-w-7xl px-6 py-3">
-          <nav className="text-xs text-slate-500" aria-label="Breadcrumb">
+          <nav className="text-xs text-zinc-600" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1.5">
-              <li><Link href="/" className="hover:text-brand-blue transition-colors">Home</Link></li>
-              <li className="text-slate-300">/</li>
-              <li className="text-slate-900 font-medium">Shop</li>
+              <li><Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link></li>
+              <li className="text-zinc-800">/</li>
+              <li className="text-zinc-300 font-medium">Shop</li>
               {params.get('category') && (
                 <>
-                  <li className="text-slate-300">/</li>
-                  <li className="text-slate-900 font-medium capitalize">
+                  <li className="text-zinc-800">/</li>
+                  <li className="text-zinc-300 font-medium capitalize">
                     {categories.find((c) => c.slug === params.get('category'))?.name ?? params.get('category')}
                   </li>
                 </>
@@ -225,7 +198,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
 
           {/* Sidebar — desktop */}
           <aside className="hidden lg:block w-60 flex-shrink-0">
-            <div className="bg-white rounded-xl border border-slate-200 p-4 sticky top-20">
+            <div className="bg-[#111] rounded-xl border border-white/[0.06] p-4 sticky top-20">
               <Suspense>
                 <ShopFilters
                   categories={categories}
@@ -240,14 +213,14 @@ export default async function ShopPage({ searchParams }: PageProps) {
           <div className="flex-1 min-w-0">
             {/* Toolbar */}
             <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-zinc-500">
                 Showing{' '}
-                <span className="font-semibold text-slate-900">
+                <span className="font-semibold text-zinc-300">
                   {Math.min(offset + 1, totalCount)}–{Math.min(offset + limit, totalCount)}
                 </span>{' '}
-                of <span className="font-semibold text-slate-900">{totalCount}</span> products
+                of <span className="font-semibold text-zinc-300">{totalCount}</span> products
                 {currentSearch && (
-                  <span className="text-slate-500"> for &quot;{currentSearch}&quot;</span>
+                  <span className="text-zinc-600"> for &quot;{currentSearch}&quot;</span>
                 )}
               </p>
 
@@ -266,14 +239,14 @@ export default async function ShopPage({ searchParams }: PageProps) {
             {/* Products grid */}
             {products.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
-                <Search className="w-12 h-12 text-slate-200" />
-                <p className="text-lg font-semibold text-slate-700">No products found</p>
-                <p className="text-slate-400 text-sm max-w-xs">
-                  Try adjusting your filters or search query, or browse all categories.
+                <Search className="w-12 h-12 text-zinc-800" />
+                <p className="text-lg font-semibold text-zinc-400">No products found</p>
+                <p className="text-zinc-600 text-sm max-w-xs">
+                  Try adjusting your filters or search query.
                 </p>
                 <Link
                   href="/shop"
-                  className="mt-2 inline-flex items-center gap-2 bg-brand-blue text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-sm"
+                  className="mt-2 inline-flex items-center gap-2 bg-[#16a34a] text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-[#15803d] transition-colors text-sm"
                 >
                   <SlidersHorizontal className="w-4 h-4" /> Clear All Filters
                 </Link>
@@ -299,12 +272,12 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </div>
 
       {/* SEO content strip */}
-      <section className="bg-white border-t border-slate-200 py-10 px-6">
+      <section className="bg-[#111] border-t border-white/[0.06] py-10 px-6">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-xl font-bold text-slate-900 mb-3">
+          <h2 className="text-xl font-bold text-white mb-3">
             CCTV &amp; Security Products — Pan-India Delivery
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed max-w-4xl">
+          <p className="text-sm text-zinc-500 leading-relaxed max-w-4xl">
             Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products
             across Tamil Nadu and Karnataka. All products carry full manufacturer warranty. We supply
             to industrial factories, government institutions, commercial complexes, and residential
@@ -312,7 +285,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (
-              <span key={b} className="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">
+              <span key={b} className="bg-white/[0.04] text-zinc-500 text-xs font-semibold px-3 py-1 rounded-full border border-white/[0.06]">
                 {b}
               </span>
             ))}
@@ -344,7 +317,6 @@ function Pagination({
     (p) => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2
   );
 
-  // Insert ellipsis
   const withEllipsis: (number | '...')[] = [];
   let prev = 0;
   for (const p of pages) {
@@ -358,7 +330,7 @@ function Pagination({
       {currentPage > 1 && (
         <a
           href={getPageUrl(currentPage - 1)}
-          className="px-3 py-2 text-sm font-medium rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-blue hover:text-brand-blue transition-colors"
+          className="px-3 py-2 text-sm font-medium rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 hover:border-[#16a34a]/50 hover:text-white transition-colors"
         >
           ← Prev
         </a>
@@ -366,7 +338,7 @@ function Pagination({
 
       {withEllipsis.map((p, idx) =>
         p === '...' ? (
-          <span key={`ellipsis-${idx}`} className="px-2 py-2 text-slate-400 text-sm">
+          <span key={`ellipsis-${idx}`} className="px-2 py-2 text-zinc-600 text-sm">
             …
           </span>
         ) : (
@@ -376,8 +348,8 @@ function Pagination({
             aria-current={p === currentPage ? 'page' : undefined}
             className={`w-9 h-9 flex items-center justify-center text-sm font-medium rounded-lg border transition-colors ${
               p === currentPage
-                ? 'bg-brand-blue text-white border-brand-blue'
-                : 'bg-white text-slate-700 border-slate-200 hover:border-brand-blue hover:text-brand-blue'
+                ? 'bg-[#16a34a] text-white border-[#16a34a]'
+                : 'bg-white/[0.04] text-zinc-400 border-white/[0.08] hover:border-[#16a34a]/50 hover:text-white'
             }`}
           >
             {p}
@@ -388,7 +360,7 @@ function Pagination({
       {currentPage < totalPages && (
         <a
           href={getPageUrl(currentPage + 1)}
-          className="px-3 py-2 text-sm font-medium rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-blue hover:text-brand-blue transition-colors"
+          className="px-3 py-2 text-sm font-medium rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 hover:border-[#16a34a]/50 hover:text-white transition-colors"
         >
           Next →
         </a>

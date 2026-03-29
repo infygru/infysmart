@@ -101,7 +101,6 @@ export default async function ProductDetailPage({
   const product = products[0];
   if (!product) notFound();
 
-  // Fetch GST rate from global settings
   let gstRate = 18;
   try {
     const settings = await directus.request(
@@ -113,8 +112,6 @@ export default async function ProductDetailPage({
   const category = product.category as ProductCategory | null;
   const brand = product.brand as ProductBrand | null;
   const images = (product.images ?? []) as ProductImage[];
-
-  // Sort images by sort field
   const sortedImages = [...images].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
 
   const galleryImages = [
@@ -127,13 +124,11 @@ export default async function ProductDetailPage({
   const discountPercent = hasDiscount
     ? Math.round(((product.price - effectivePrice) / product.price) * 100)
     : 0;
-  // Prices are GST-inclusive — extract components for billing display
   const gstAmount = extractGST(effectivePrice, gstRate);
   const basePrice = extractBasePrice(effectivePrice, gstRate);
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
   const isLowStock = product.track_inventory && product.stock_quantity > 0 && product.stock_quantity <= 5;
 
-  // Related products (same category, excluding current)
   const relatedProducts = category
     ? await directus.request(
         readItems('products', {
@@ -155,7 +150,6 @@ export default async function ProductDetailPage({
       ).catch(() => []) as unknown as Product[]
     : [];
 
-  // Schema.org Product
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -180,32 +174,32 @@ export default async function ProductDetailPage({
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-[#0c0c0c]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-[#111] border-b border-white/[0.06]">
         <div className="container mx-auto max-w-7xl px-6 py-3">
-          <nav className="text-xs text-slate-500" aria-label="Breadcrumb">
+          <nav className="text-xs text-zinc-600" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1 flex-wrap">
-              <li><Link href="/" className="hover:text-brand-blue transition-colors">Home</Link></li>
-              <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
-              <li><Link href="/shop" className="hover:text-brand-blue transition-colors">Shop</Link></li>
+              <li><Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link></li>
+              <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
+              <li><Link href="/shop" className="hover:text-zinc-300 transition-colors">Shop</Link></li>
               {category && (
                 <>
-                  <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
+                  <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
                   <li>
-                    <Link href={`/shop?category=${category.slug}`} className="hover:text-brand-blue transition-colors">
+                    <Link href={`/shop?category=${category.slug}`} className="hover:text-zinc-300 transition-colors">
                       {category.name}
                     </Link>
                   </li>
                 </>
               )}
-              <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
-              <li className="text-slate-900 font-medium line-clamp-1 max-w-[180px]">
+              <li><ChevronRight className="w-3 h-3 text-zinc-700" /></li>
+              <li className="text-zinc-300 font-medium line-clamp-1 max-w-[180px]">
                 {product.name}
               </li>
             </ol>
@@ -225,14 +219,14 @@ export default async function ProductDetailPage({
             {/* Brand + Category */}
             <div className="flex items-center gap-2 flex-wrap">
               {brand && (
-                <span className="text-xs font-bold text-brand-blue uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                <span className="text-xs font-bold text-[#4ade80] uppercase tracking-wider bg-[#16a34a]/10 px-2.5 py-1 rounded-full border border-[#16a34a]/20">
                   {brand.name}
                 </span>
               )}
               {category && (
                 <Link
                   href={`/shop?category=${category.slug}`}
-                  className="text-xs text-slate-500 hover:text-brand-blue transition-colors flex items-center gap-1"
+                  className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors flex items-center gap-1"
                 >
                   <Tag className="w-3 h-3" /> {category.name}
                 </Link>
@@ -240,48 +234,48 @@ export default async function ProductDetailPage({
             </div>
 
             {/* Name */}
-            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
               {product.name}
             </h1>
 
             {/* SKU */}
-            <p className="text-xs text-slate-400 font-mono -mt-2">
-              SKU: <span className="text-slate-600 font-semibold">{product.sku}</span>
+            <p className="text-xs text-zinc-600 font-mono -mt-2">
+              SKU: <span className="text-zinc-400 font-semibold">{product.sku}</span>
             </p>
 
             {/* Short description */}
             {product.short_description && (
-              <p className="text-slate-600 leading-relaxed border-l-4 border-brand-blue/30 pl-4 text-sm">
+              <p className="text-zinc-400 leading-relaxed border-l-4 border-[#16a34a]/40 pl-4 text-sm">
                 {product.short_description}
               </p>
             )}
 
             {/* Price Block */}
-            <div className="bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-2">
+            <div className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.07] space-y-2">
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-3xl font-extrabold text-slate-900">
+                <span className="text-3xl font-extrabold text-white">
                   {formatPrice(effectivePrice)}
                 </span>
                 {hasDiscount && (
                   <>
-                    <span className="text-lg text-slate-400 line-through">
+                    <span className="text-lg text-zinc-600 line-through">
                       {formatPrice(product.price)}
                     </span>
-                    <span className="bg-brand-orange text-white text-sm font-bold px-2 py-0.5 rounded">
+                    <span className="bg-[#ea580c] text-white text-sm font-bold px-2 py-0.5 rounded">
                       Save {discountPercent}%
                     </span>
                   </>
                 )}
               </div>
-              <div className="text-xs text-slate-500 space-y-0.5">
+              <div className="text-xs text-zinc-500 space-y-0.5">
                 <p>Incl. {gstRate}% GST — Base: {formatPrice(basePrice)} + Tax: {formatPrice(gstAmount)}</p>
                 {isLowStock && !isOutOfStock && (
-                  <p className="text-amber-600 font-semibold">
+                  <p className="text-amber-400 font-semibold">
                     ⚠ Only {product.stock_quantity} units remaining
                   </p>
                 )}
                 {isOutOfStock && (
-                  <p className="text-red-500 font-semibold">Currently out of stock</p>
+                  <p className="text-zinc-500 font-semibold">Currently out of stock</p>
                 )}
               </div>
             </div>
@@ -297,11 +291,11 @@ export default async function ProductDetailPage({
                 { icon: Package, label: 'Secure Packaging', sub: 'Factory-sealed' },
                 { icon: CheckCircle2, label: 'GST Invoice', sub: 'For B2B billing' },
               ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex items-start gap-2.5 bg-slate-800/60 rounded-lg p-3 border border-slate-700">
-                  <Icon className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
+                <div key={label} className="flex items-start gap-2.5 bg-white/[0.03] rounded-lg p-3 border border-white/[0.06]">
+                  <Icon className="w-4 h-4 text-[#16a34a] shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-semibold text-white">{label}</p>
-                    <p className="text-[10px] text-slate-400">{sub}</p>
+                    <p className="text-[10px] text-zinc-500">{sub}</p>
                   </div>
                 </div>
               ))}
@@ -309,13 +303,13 @@ export default async function ProductDetailPage({
 
             {/* Brand link */}
             {brand?.website && (
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-zinc-600">
                 Official brand:{' '}
                 <a
                   href={brand.website}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="text-brand-blue hover:underline"
+                  className="text-[#16a34a] hover:underline"
                 >
                   {brand.website}
                 </a>
@@ -328,7 +322,7 @@ export default async function ProductDetailPage({
                 {product.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-1 rounded-full border border-slate-200"
+                    className="bg-white/[0.04] text-zinc-400 text-xs font-medium px-2.5 py-1 rounded-full border border-white/[0.06]"
                   >
                     {tag}
                   </span>
@@ -339,37 +333,35 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      {/* Tabs: Description / Specifications / Features */}
+      {/* Description / Specifications / Features */}
       <section className="container mx-auto max-w-7xl px-6 pb-12">
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-[#111] rounded-xl border border-white/[0.06] overflow-hidden">
 
-          {/* Description */}
           {product.description && (
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Product Description</h2>
+            <div className="p-6 border-b border-white/[0.05]">
+              <h2 className="text-lg font-bold text-white mb-4">Product Description</h2>
               <div
-                className="prose prose-sm prose-slate max-w-none text-slate-600 leading-relaxed"
+                className="prose prose-sm prose-invert max-w-none text-zinc-400 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </div>
           )}
 
-          {/* Specifications */}
           {product.specifications && product.specifications.length > 0 && (
-            <div className="p-6 border-b border-slate-100">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Technical Specifications</h2>
+            <div className="p-6 border-b border-white/[0.05]">
+              <h2 className="text-lg font-bold text-white mb-4">Technical Specifications</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
                   <tbody>
                     {product.specifications.map((spec, idx) => (
                       <tr
                         key={idx}
-                        className={idx % 2 === 0 ? 'bg-slate-50' : 'bg-white'}
+                        className={idx % 2 === 0 ? 'bg-white/[0.02]' : 'bg-transparent'}
                       >
-                        <td className="py-2.5 px-4 font-semibold text-slate-700 w-1/3 border border-slate-100">
+                        <td className="py-2.5 px-4 font-semibold text-zinc-300 w-1/3 border border-white/[0.05]">
                           {spec.label}
                         </td>
-                        <td className="py-2.5 px-4 text-slate-600 border border-slate-100">
+                        <td className="py-2.5 px-4 text-zinc-500 border border-white/[0.05]">
                           {spec.value}
                         </td>
                       </tr>
@@ -380,14 +372,13 @@ export default async function ProductDetailPage({
             </div>
           )}
 
-          {/* Features */}
           {product.features && product.features.length > 0 && (
             <div className="p-6">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Key Features</h2>
+              <h2 className="text-lg font-bold text-white mb-4">Key Features</h2>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {product.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-600">
-                    <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                  <li key={idx} className="flex items-start gap-2.5 text-sm text-zinc-400">
+                    <CheckCircle2 className="w-4 h-4 text-[#16a34a] shrink-0 mt-0.5" />
                     {feature}
                   </li>
                 ))}
@@ -395,19 +386,18 @@ export default async function ProductDetailPage({
             </div>
           )}
 
-          {/* Physical attributes */}
           {(product.weight || product.dimensions) && (
-            <div className="p-6 border-t border-slate-100 bg-slate-50">
-              <h3 className="text-sm font-bold text-slate-700 mb-3">Shipping Information</h3>
-              <div className="flex flex-wrap gap-4 text-sm text-slate-600">
+            <div className="p-6 border-t border-white/[0.05] bg-white/[0.02]">
+              <h3 className="text-sm font-bold text-zinc-300 mb-3">Shipping Information</h3>
+              <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
                 {product.weight && (
                   <span>
-                    <span className="font-semibold">Weight:</span> {product.weight} kg
+                    <span className="font-semibold text-zinc-400">Weight:</span> {product.weight} kg
                   </span>
                 )}
                 {product.dimensions && (
                   <span>
-                    <span className="font-semibold">Dimensions:</span>{' '}
+                    <span className="font-semibold text-zinc-400">Dimensions:</span>{' '}
                     {product.dimensions.length} × {product.dimensions.width} × {product.dimensions.height} cm
                   </span>
                 )}
@@ -421,11 +411,11 @@ export default async function ProductDetailPage({
       {relatedProducts.length > 0 && (
         <section className="container mx-auto max-w-7xl px-6 pb-14">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-xl font-bold text-slate-900">Related Products</h2>
+            <h2 className="text-xl font-bold text-white">Related Products</h2>
             {category && (
               <Link
                 href={`/shop?category=${category.slug}`}
-                className="text-sm text-brand-blue font-semibold hover:underline flex items-center gap-1"
+                className="text-sm text-[#16a34a] font-semibold hover:underline flex items-center gap-1"
               >
                 View all {category.name} <ChevronRight className="w-4 h-4" />
               </Link>

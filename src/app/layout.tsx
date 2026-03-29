@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileStickyButton from "@/components/MobileStickyButton";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/lib/cart-context";
@@ -297,7 +296,6 @@ export default async function RootLayout({
           {children}
           <Footer settings={settings} />
           <MobileStickyButton />
-          <WhatsAppButton />
           {/* Global Cart Drawer — rendered outside page stack for correct z-index */}
           <CartDrawer />
         </CartProvider>
