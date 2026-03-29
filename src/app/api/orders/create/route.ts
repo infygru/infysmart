@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createDirectus, rest, staticToken, createItem, readSingleton } from '@directus/sdk';
 import { generateOrderNumber } from '@/lib/utils';
+import { sendOrderConfirmationSMS } from '@/lib/fast2sms';
 import type { ShippingAddress, GlobalSettings } from '@/lib/directus';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -133,6 +134,13 @@ export async function POST(request: Request) {
     );
 
     await Promise.all(itemPromises);
+
+    // ── Send SMS notification (fire and forget) ─────────────────────────────
+    const phone = body.customer_phone?.replace(/\D/g, '');
+    if (phone && phone.length === 10) {
+      sendOrderConfirmationSMS(phone, order_number, body.total_amount, body.payment_method)
+        .catch((err) => console.error('Order SMS failed:', err));
+    }
 
     return NextResponse.json({
       success: true,

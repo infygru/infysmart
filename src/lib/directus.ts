@@ -218,7 +218,8 @@ export interface Customer {
 
 export interface OtpCode {
   id: number;
-  email: string;
+  email: string | null;
+  phone: string | null;
   code: string;
   expires_at: string;
   used: boolean;

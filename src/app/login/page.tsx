@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, ArrowRight, Loader2, ShieldCheck, RotateCcw } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Loader2, ShieldCheck, RotateCcw } from 'lucide-react';
+
+type LoginMethod = 'email' | 'phone';
+type Step = 'input' | 'otp';
 
 export default function LoginPage() {
   const { status } = useSession();
@@ -12,24 +15,31 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/account';
 
+  const [method, setMethod] = useState<LoginMethod>('email');
+  const [step, setStep] = useState<Step>('input');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
-  const [step, setStep] = useState<'email' | 'otp'>('email');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(0);
 
-  // Redirect if already logged in
   useEffect(() => {
     if (status === 'authenticated') router.replace(callbackUrl);
   }, [status, router, callbackUrl]);
 
-  // Resend countdown timer
   useEffect(() => {
     if (countdown <= 0) return;
     const t = setTimeout(() => setCountdown((c) => c - 1), 1000);
     return () => clearTimeout(t);
   }, [countdown]);
+
+  useEffect(() => {
+    // Reset when switching method
+    setStep('input');
+    setOtp('');
+    setError('');
+  }, [method]);
 
   if (status === 'loading' || status === 'authenticated') {
     return (
@@ -41,22 +51,33 @@ export default function LoginPage() {
 
   const handleSendOTP = async () => {
     setError('');
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Enter a valid email address');
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase() }),
-      });
-      const data = await res.json() as { error?: string };
-      if (!res.ok) {
-        setError(data.error ?? 'Failed to send OTP');
+    if (method === 'email') {
+      if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError('Enter a valid email address');
         return;
       }
+    } else {
+      const cleaned = phone.replace(/\D/g, '');
+      if (cleaned.length !== 10) {
+        setError('Enter a valid 10-digit mobile number');
+        return;
+      }
+    }
+
+    setLoading(true);
+    try {
+      const endpoint = method === 'email' ? '/api/auth/send-otp' : '/api/auth/send-sms-otp';
+      const body = method === 'email'
+        ? { email: email.trim().toLowerCase() }
+        : { phone: phone.replace(/\D/g, '') };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json() as { error?: string };
+      if (!res.ok) { setError(data.error ?? 'Failed to send OTP'); return; }
       setStep('otp');
       setCountdown(60);
     } catch {
@@ -68,17 +89,15 @@ export default function LoginPage() {
 
   const handleVerifyOTP = async () => {
     setError('');
-    if (!otp.trim() || otp.length !== 6) {
-      setError('Enter the 6-digit code sent to your email');
-      return;
-    }
+    if (otp.length !== 6) { setError('Enter the 6-digit code'); return; }
     setLoading(true);
     try {
-      const result = await signIn('email-otp', {
-        email: email.trim().toLowerCase(),
-        otp: otp.trim(),
-        redirect: false,
-      });
+      const provider = method === 'email' ? 'email-otp' : 'phone-otp';
+      const credentials = method === 'email'
+        ? { email: email.trim().toLowerCase(), otp }
+        : { phone: phone.replace(/\D/g, ''), otp };
+
+      const result = await signIn(provider, { ...credentials, redirect: false });
       if (result?.error) {
         setError('Invalid or expired code. Please try again.');
         setOtp('');
@@ -92,10 +111,9 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    setLoading(true);
-    signIn('google', { callbackUrl });
-  };
+  const maskedTarget = method === 'email'
+    ? email
+    : `+91 ${phone.replace(/\D/g, '').replace(/(\d{5})(\d{5})/, '$1 $2')}`;
 
   return (
     <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
@@ -111,9 +129,9 @@ export default function LoginPage() {
 
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-6">
 
-          {/* Google Login */}
+          {/* Google */}
           <button
-            onClick={handleGoogleLogin}
+            onClick={() => { setLoading(true); signIn('google', { callbackUrl }); }}
             disabled={loading}
             className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-slate-200 rounded-xl text-slate-700 font-semibold text-sm hover:border-slate-300 hover:bg-slate-50 transition-all disabled:opacity-60"
           >
@@ -126,33 +144,67 @@ export default function LoginPage() {
             Continue with Google
           </button>
 
-          {/* Divider */}
           <div className="flex items-center gap-3">
             <div className="flex-1 border-t border-slate-200" />
             <span className="text-xs text-slate-400 font-medium">OR</span>
             <div className="flex-1 border-t border-slate-200" />
           </div>
 
-          {/* Email OTP */}
-          {step === 'email' ? (
+          {/* Method toggle */}
+          <div className="flex rounded-xl border border-slate-200 p-1 gap-1">
+            {(['email', 'phone'] as LoginMethod[]).map((m) => (
+              <button
+                key={m}
+                onClick={() => setMethod(m)}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  method === m
+                    ? 'bg-brand-blue text-white shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {m === 'email' ? <Mail className="w-4 h-4" /> : <Phone className="w-4 h-4" />}
+                {m === 'email' ? 'Email OTP' : 'Mobile OTP'}
+              </button>
+            ))}
+          </div>
+
+          {/* Input step */}
+          {step === 'input' ? (
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); setError(''); }}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSendOTP()}
-                    placeholder="you@example.com"
-                    autoComplete="email"
-                    className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
-                  />
+              {method === 'email' ? (
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSendOTP()}
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                      className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Mobile Number</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400 font-medium">+91</span>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => { setPhone(e.target.value.replace(/\D/g, '').slice(0, 10)); setError(''); }}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSendOTP()}
+                      placeholder="9876543210"
+                      autoComplete="tel"
+                      maxLength={10}
+                      className="w-full pl-12 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                    />
+                  </div>
+                </div>
+              )}
 
               {error && <p className="text-xs text-red-500">{error}</p>}
 
@@ -161,21 +213,20 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 transition-colors"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
-                  <><span>Send OTP</span><ArrowRight className="w-4 h-4" /></>
-                )}
+                {loading
+                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                  : <><span>Send OTP</span><ArrowRight className="w-4 h-4" /></>}
               </button>
             </div>
           ) : (
+            /* OTP step */
             <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 text-sm text-blue-700">
-                Code sent to <strong>{email}</strong>
+              <div className={`rounded-xl p-3 text-sm ${method === 'email' ? 'bg-blue-50 border border-blue-100 text-blue-700' : 'bg-green-50 border border-green-100 text-green-700'}`}>
+                {method === 'email' ? '📧' : '📱'} Code sent to <strong>{maskedTarget}</strong>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                  6-Digit Code
-                </label>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">6-Digit Code</label>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -184,9 +235,9 @@ export default function LoginPage() {
                   onKeyDown={(e) => e.key === 'Enter' && handleVerifyOTP()}
                   placeholder="_ _ _ _ _ _"
                   autoComplete="one-time-code"
-                  className="w-full px-4 py-3 text-center text-2xl font-bold tracking-[0.5em] border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
                   maxLength={6}
                   autoFocus
+                  className="w-full px-4 py-3 text-center text-2xl font-bold tracking-[0.5em] border border-slate-200 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
                 />
               </div>
 
@@ -197,29 +248,21 @@ export default function LoginPage() {
                 disabled={loading || otp.length !== 6}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-brand-blue text-white font-bold rounded-xl hover:bg-blue-700 disabled:opacity-60 transition-colors"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
-                  <><ShieldCheck className="w-4 h-4" /><span>Verify & Sign In</span></>
-                )}
+                {loading
+                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                  : <><ShieldCheck className="w-4 h-4" /><span>Verify & Sign In</span></>}
               </button>
 
               <div className="flex items-center justify-between text-sm">
                 <button
-                  onClick={() => { setStep('email'); setOtp(''); setError(''); }}
+                  onClick={() => { setStep('input'); setOtp(''); setError(''); }}
                   className="text-slate-500 hover:text-slate-700 flex items-center gap-1"
                 >
-                  <RotateCcw className="w-3 h-3" /> Change email
+                  <RotateCcw className="w-3 h-3" /> Change {method === 'email' ? 'email' : 'number'}
                 </button>
-                {countdown > 0 ? (
-                  <span className="text-slate-400">Resend in {countdown}s</span>
-                ) : (
-                  <button
-                    onClick={handleSendOTP}
-                    disabled={loading}
-                    className="text-brand-blue hover:underline font-semibold"
-                  >
-                    Resend code
-                  </button>
-                )}
+                {countdown > 0
+                  ? <span className="text-slate-400">Resend in {countdown}s</span>
+                  : <button onClick={handleSendOTP} disabled={loading} className="text-brand-blue hover:underline font-semibold">Resend code</button>}
               </div>
             </div>
           )}
