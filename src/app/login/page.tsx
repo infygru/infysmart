@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -9,7 +9,19 @@ import { Mail, Phone, ArrowRight, Loader2, ShieldCheck, RotateCcw } from 'lucide
 type LoginMethod = 'email' | 'phone';
 type Step = 'input' | 'otp';
 
-export default function LoginPage() {
+export default function LoginPageWrapper() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#020617] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-brand-blue border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <LoginPage />
+    </Suspense>
+  );
+}
+
+function LoginPage() {
   const { status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
