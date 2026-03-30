@@ -12,7 +12,7 @@ type Step = 'input' | 'otp';
 export default function LoginPageWrapper() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#020617] flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <Loader2 className="w-5 h-5 animate-spin text-slate-500" />
       </div>
     }>
@@ -52,7 +52,7 @@ function LoginPage() {
 
   if (status === 'loading' || status === 'authenticated') {
     return (
-      <div className="min-h-screen bg-[#020617] flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <Loader2 className="w-5 h-5 animate-spin text-slate-500" />
       </div>
     );
@@ -104,20 +104,19 @@ function LoginPage() {
     ? email
     : `+91 ${phone.replace(/\D/g, '').replace(/(\d{5})(\d{5})/, '$1 $2')}`;
 
-  const inputCls = 'w-full h-11 bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-zinc-600 rounded-lg px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white/[0.06] transition-all';
+  const inputCls = 'w-full h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-lg px-4 text-sm focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all';
 
   return (
-    <div className="min-h-screen flex bg-[#080c08]">
+    <div className="min-h-screen flex bg-slate-50">
 
       {/* ── Left brand panel ─────────────────────────── */}
-      <div className="hidden lg:flex lg:w-[460px] xl:w-[500px] flex-col justify-between p-12 relative overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #0a120a 0%, #0f1f0f 40%, #0d1a0d 100%)' }}>
+      <div className="hidden lg:flex lg:w-[460px] xl:w-[500px] flex-col justify-between p-12 relative overflow-hidden bg-gradient-to-br from-violet-800 via-violet-700 to-purple-700">
 
-        {/* Subtle green glow */}
+        {/* Subtle violet glow */}
         <div className="absolute top-0 left-0 w-96 h-96 rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #16a34a 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
+          style={{ background: 'radial-gradient(circle, #a78bfa 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
         <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #ea580c 0%, transparent 70%)', transform: 'translate(30%, 30%)' }} />
+          style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)', transform: 'translate(30%, 30%)' }} />
 
         {/* Dot grid */}
         <div className="absolute inset-0 opacity-[0.07]"
@@ -125,13 +124,13 @@ function LoginPage() {
 
         <div className="relative z-10">
           <Link href="/" className="inline-block">
-            <span className="text-xl font-black tracking-tight text-white">Infy<span className="text-[#16a34a]">Smart</span></span>
+            <span className="text-xl font-black tracking-tight text-white">Infy<span className="text-violet-300">Smart</span></span>
           </Link>
         </div>
 
         <div className="relative z-10 space-y-10">
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-[#16a34a] uppercase mb-4">Security Infrastructure</p>
+            <p className="text-[11px] font-semibold tracking-[0.2em] text-violet-300 uppercase mb-4">Security Infrastructure</p>
             <h2 className="text-[2rem] font-bold text-white leading-snug tracking-tight">
               Trusted by factories,<br />institutions &amp;<br />commercial projects.
             </h2>
@@ -145,33 +144,33 @@ function LoginPage() {
             ].map(({ n, label }) => (
               <div key={n} className="flex items-baseline gap-4">
                 <span className="text-2xl font-black text-white flex-shrink-0 w-16">{n}</span>
-                <span className="text-sm text-zinc-400 leading-snug" dangerouslySetInnerHTML={{ __html: label }} />
+                <span className="text-sm text-violet-200/70 leading-snug" dangerouslySetInnerHTML={{ __html: label }} />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 text-xs text-zinc-700">
+        <div className="relative z-10 text-xs text-violet-300/50">
           © {new Date().getFullYear()} Infysmart Technologies, Hosur
         </div>
       </div>
 
       {/* ── Right form panel ─────────────────────────── */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-[#0c0c0c]">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-white">
         <div className="w-full max-w-[360px]">
 
           {/* Mobile logo */}
           <div className="lg:hidden mb-10">
-            <Link href="/" className="text-xl font-black tracking-tight text-white">
-              Infy<span className="text-[#16a34a]">Smart</span>
+            <Link href="/" className="text-xl font-black tracking-tight text-slate-900">
+              Infy<span className="text-violet-600">Smart</span>
             </Link>
           </div>
 
           {step === 'input' ? (
             <>
               <div className="mb-8">
-                <h1 className="text-[1.6rem] font-bold text-white tracking-tight">Sign in</h1>
-                <p className="mt-1.5 text-sm text-zinc-500">No password needed. We&apos;ll send you a code.</p>
+                <h1 className="text-[1.6rem] font-bold text-slate-900 tracking-tight">Sign in</h1>
+                <p className="mt-1.5 text-sm text-slate-500">No password needed. We&apos;ll send you a code.</p>
               </div>
 
               {/* Google */}
@@ -190,21 +189,21 @@ function LoginPage() {
               </button>
 
               <div className="my-6 flex items-center gap-4">
-                <div className="flex-1 h-px bg-white/[0.06]" />
-                <span className="text-xs text-zinc-700 uppercase tracking-widest">or</span>
-                <div className="flex-1 h-px bg-white/[0.06]" />
+                <div className="flex-1 h-px bg-slate-200" />
+                <span className="text-xs text-slate-400 uppercase tracking-widest">or</span>
+                <div className="flex-1 h-px bg-slate-200" />
               </div>
 
               {/* Method tabs */}
-              <div className="flex gap-6 mb-6 border-b border-white/[0.06]">
+              <div className="flex gap-6 mb-6 border-b border-slate-200">
                 {(['email', 'phone'] as Method[]).map((m) => (
                   <button
                     key={m}
                     onClick={() => setMethod(m)}
                     className={`pb-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
                       method === m
-                        ? 'text-white border-[#16a34a]'
-                        : 'text-zinc-600 border-transparent hover:text-zinc-300'
+                        ? 'text-slate-900 border-violet-600'
+                        : 'text-slate-400 border-transparent hover:text-slate-700'
                     }`}
                   >
                     {m === 'email' ? 'Email' : 'Mobile'}
@@ -214,7 +213,7 @@ function LoginPage() {
 
               {method === 'email' ? (
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Email address</label>
+                  <label className="block text-[11px] font-semibold text-slate-500 mb-2 uppercase tracking-widest">Email address</label>
                   <input
                     type="email"
                     value={email}
@@ -228,9 +227,9 @@ function LoginPage() {
                 </div>
               ) : (
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Mobile number</label>
+                  <label className="block text-[11px] font-semibold text-slate-500 mb-2 uppercase tracking-widest">Mobile number</label>
                   <div className="flex">
-                    <span className="h-11 flex items-center px-3.5 bg-white/[0.04] border border-r-0 border-white/[0.08] rounded-l-lg text-sm text-zinc-500 font-medium select-none">
+                    <span className="h-11 flex items-center px-3.5 bg-slate-100 border border-r-0 border-slate-200 rounded-l-lg text-sm text-slate-500 font-medium select-none">
                       +91
                     </span>
                     <input
@@ -242,18 +241,18 @@ function LoginPage() {
                       autoComplete="tel"
                       autoFocus
                       maxLength={10}
-                      className="flex-1 h-11 bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-zinc-600 rounded-r-lg px-4 text-sm focus:outline-none focus:border-[#16a34a] focus:bg-white/[0.06] transition-all"
+                      className="flex-1 h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-r-lg px-4 text-sm focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all"
                     />
                   </div>
                 </div>
               )}
 
-              {error && <p className="mt-3 text-xs text-amber-500">{error}</p>}
+              {error && <p className="mt-3 text-xs text-red-500">{error}</p>}
 
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-colors"
+                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Continue <ArrowRight className="w-3.5 h-3.5" /></>}
               </button>
@@ -262,22 +261,22 @@ function LoginPage() {
             <>
               <button
                 onClick={() => { setStep('input'); setOtp(''); setError(''); }}
-                className="flex items-center gap-1.5 text-sm text-zinc-600 hover:text-zinc-300 transition-colors mb-8"
+                className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors mb-8"
               >
                 <ChevronLeft className="w-4 h-4" /> Back
               </button>
 
               <div className="mb-8">
-                <h1 className="text-[1.6rem] font-bold text-white tracking-tight">
+                <h1 className="text-[1.6rem] font-bold text-slate-900 tracking-tight">
                   Check your {method === 'email' ? 'inbox' : 'messages'}
                 </h1>
-                <p className="mt-1.5 text-sm text-zinc-500">
-                  Code sent to <span className="text-zinc-200 font-medium">{destination}</span>
+                <p className="mt-1.5 text-sm text-slate-500">
+                  Code sent to <span className="text-slate-800 font-medium">{destination}</span>
                 </p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Verification code</label>
+                <label className="block text-[11px] font-semibold text-slate-500 mb-2 uppercase tracking-widest">Verification code</label>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -288,34 +287,34 @@ function LoginPage() {
                   maxLength={6}
                   autoFocus
                   placeholder="——————"
-                  className="w-full h-14 bg-white/[0.04] border border-white/[0.08] text-white rounded-lg px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-[#16a34a] focus:bg-white/[0.06] transition-all placeholder:tracking-normal placeholder:text-zinc-700 placeholder:text-base"
+                  className="w-full h-14 bg-white border border-slate-200 text-slate-900 rounded-lg px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all placeholder:tracking-normal placeholder:text-slate-300 placeholder:text-base"
                 />
               </div>
 
-              {error && <p className="mt-3 text-xs text-amber-500">{error}</p>}
+              {error && <p className="mt-3 text-xs text-red-500">{error}</p>}
 
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-colors"
+                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify &amp; sign in'}
               </button>
 
               <div className="mt-5 text-center">
                 {countdown > 0
-                  ? <p className="text-xs text-zinc-700">Resend in {countdown}s</p>
-                  : <button onClick={handleSendOTP} disabled={loading} className="text-xs text-zinc-600 hover:text-zinc-300 underline underline-offset-2 transition-colors">Resend code</button>
+                  ? <p className="text-xs text-slate-400">Resend in {countdown}s</p>
+                  : <button onClick={handleSendOTP} disabled={loading} className="text-xs text-slate-500 hover:text-slate-800 underline underline-offset-2 transition-colors">Resend code</button>
                 }
               </div>
             </>
           )}
 
-          <p className="mt-10 text-center text-xs text-zinc-800">
+          <p className="mt-10 text-center text-xs text-slate-400">
             By continuing you agree to our{' '}
-            <Link href="/terms" className="text-zinc-600 hover:text-zinc-400 transition-colors">Terms</Link>
+            <Link href="/terms" className="text-slate-500 hover:text-slate-700 transition-colors">Terms</Link>
             {' '}&amp;{' '}
-            <Link href="/refund-policy" className="text-zinc-600 hover:text-zinc-400 transition-colors">Privacy Policy</Link>
+            <Link href="/refund-policy" className="text-slate-500 hover:text-slate-700 transition-colors">Privacy Policy</Link>
           </p>
         </div>
       </div>

@@ -57,9 +57,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-green-200 hover:shadow-xl hover:shadow-green-50 transition-all duration-200 flex flex-col">
+    <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-violet-300 hover:shadow-xl hover:shadow-violet-50/50 transition-all duration-200 flex flex-col">
       {/* Image */}
-      <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/3] bg-gray-50 overflow-hidden">
+      <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/3] bg-slate-100 overflow-hidden">
         {thumbnailSrc ? (
           <Image
             src={thumbnailSrc}
@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-300">
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-slate-300">
             <ShoppingCart className="w-10 h-10" />
             <span className="text-xs font-medium">No Image</span>
           </div>
@@ -78,26 +78,25 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {hasDiscount && (
-            <span className="bg-[#ea580c] text-white text-xs font-bold px-2 py-0.5 rounded-md">
+            <span className="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
               -{discountPercent}%
             </span>
           )}
           {product.is_featured && (
-            <span className="bg-[#16a34a] text-white text-xs font-bold px-2 py-0.5 rounded-md">
+            <span className="bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-md">
               Featured
             </span>
           )}
           {isOutOfStock && (
-            <span className="bg-gray-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
+            <span className="bg-slate-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
               Out of Stock
             </span>
           )}
         </div>
 
-        {/* Category tag */}
         {categoryName && (
           <div className="absolute bottom-2 right-2">
-            <span className="bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md border border-gray-200">
+            <span className="bg-white/90 backdrop-blur-sm text-slate-600 text-[10px] font-semibold px-2 py-0.5 rounded-md border border-slate-200">
               {categoryName}
             </span>
           </div>
@@ -106,46 +105,35 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-4 gap-3">
-        {/* Brand + SKU */}
         <div className="flex items-center justify-between gap-2">
           {brandName && (
-            <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wide">
+            <span className="text-xs font-bold text-violet-700 uppercase tracking-wide">
               {brandName}
             </span>
           )}
-          <span className="text-[10px] text-gray-400 ml-auto font-mono">
-            {product.sku}
-          </span>
+          <span className="text-[10px] text-slate-400 ml-auto font-mono">{product.sku}</span>
         </div>
 
-        {/* Name */}
         <Link href={`/shop/${product.slug}`} className="flex-1">
-          <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2 hover:text-[#16a34a] transition-colors">
+          <h3 className="text-sm font-semibold text-slate-900 leading-snug line-clamp-2 hover:text-violet-700 transition-colors">
             {product.name}
           </h3>
         </Link>
 
-        {/* Short description */}
         {product.short_description && (
-          <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
             {product.short_description}
           </p>
         )}
 
-        {/* Price */}
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-gray-900">
-            {formatPrice(effectivePrice)}
-          </span>
+          <span className="text-lg font-bold text-slate-900">{formatPrice(effectivePrice)}</span>
           {hasDiscount && (
-            <span className="text-sm text-gray-400 line-through">
-              {formatPrice(product.price)}
-            </span>
+            <span className="text-sm text-slate-400 line-through">{formatPrice(product.price)}</span>
           )}
         </div>
-        <p className="text-[10px] text-gray-400 -mt-2">Incl. of all taxes</p>
+        <p className="text-[10px] text-slate-400 -mt-2">Incl. of all taxes</p>
 
-        {/* Stock status */}
         {isLowStock && !isOutOfStock && (
           <div className="flex items-center gap-1.5 text-amber-600 text-xs font-medium">
             <AlertTriangle className="w-3.5 h-3.5" />
@@ -153,39 +141,31 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        {/* Add to Cart */}
         <button
           onClick={() => !isOutOfStock && addToCart(cartProduct)}
           disabled={isOutOfStock}
           className={`mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-semibold text-sm transition-all ${
             isOutOfStock
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
               : inCart
-              ? 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'
-              : 'bg-[#16a34a] text-white hover:bg-[#15803d] shadow-sm'
+              ? 'bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100'
+              : 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 shadow-sm shadow-violet-100'
           }`}
         >
           {isOutOfStock ? (
             'Out of Stock'
           ) : inCart ? (
-            <>
-              <CheckCircle className="w-4 h-4" />
-              In Cart ({qtyInCart})
-            </>
+            <><CheckCircle className="w-4 h-4" /> In Cart ({qtyInCart})</>
           ) : (
-            <>
-              <ShoppingCart className="w-4 h-4" />
-              Add to Cart
-            </>
+            <><ShoppingCart className="w-4 h-4" /> Add to Cart</>
           )}
         </button>
 
         <Link
           href={`/shop/${product.slug}`}
-          className="flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-[#16a34a] transition-colors"
+          className="flex items-center justify-center gap-1.5 text-xs text-slate-400 hover:text-violet-600 transition-colors"
         >
-          <Tag className="w-3 h-3" />
-          View Details
+          <Tag className="w-3 h-3" /> View Details
         </Link>
       </div>
     </div>
