@@ -6,7 +6,7 @@ import { readItems } from '@directus/sdk';
 import type { Product, ProductCategory, ProductBrand } from '@/lib/directus';
 import ProductCard from '@/components/shop/ProductCard';
 import ShopFilters from '@/components/shop/ShopFilters';
-import { Search, SlidersHorizontal, Zap, Shield, Truck, Award } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import ShopSearchBar from '@/components/shop/ShopSearchBar';
 import MobileFilterDrawer from '@/components/shop/MobileFilterDrawer';
 
@@ -70,6 +70,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
   const offset = (pageNum - 1) * limit;
   const filter = buildProductFilter(params);
   const sort = buildProductSort(params);
+  const activeCategory = params.get('category') ?? '';
 
   const [products, totalResult, categories, brands] = await Promise.all([
     directus.request(readItems('products', {
@@ -84,7 +85,6 @@ export default async function ShopPage({ searchParams }: PageProps) {
   const totalCount = totalResult[0]?.count?.id ?? products.length;
   const totalPages = Math.ceil(totalCount / limit);
   const currentSearch = params.get('q') ?? '';
-  const activeCategory = params.get('category') ?? '';
 
   const itemListSchema = {
     '@context': 'https://schema.org',
@@ -100,141 +100,66 @@ export default async function ShopPage({ searchParams }: PageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-      {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-950 border-b border-slate-800">
-        {/* Background glow blobs */}
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-orange-500/5 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 right-0 w-[400px] h-[400px] rounded-full bg-orange-600/8 blur-3xl pointer-events-none" />
-
-        {/* Subtle grid */}
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'linear-gradient(#FF4500 1px, transparent 1px), linear-gradient(90deg, #FF4500 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-
-        <div className="relative container mx-auto max-w-7xl px-6 py-16 md:py-20">
-          {/* Label */}
-          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 mb-6">
-            <Zap className="w-3.5 h-3.5 text-orange-400" />
-            <span className="text-orange-400 text-xs font-bold uppercase tracking-widest">Security Store</span>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-            Pro-Grade Security &amp;{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
-              Networking Gear
-            </span>
-          </h1>
-          <p className="text-slate-400 text-base md:text-lg max-w-2xl mb-8 leading-relaxed">
-            Hikvision · Dahua · CP Plus cameras, NVR, DVR, PoE switches &amp; access control.
-            Factory-direct pricing with pan-India delivery.
-          </p>
-
-          {/* Search */}
-          <div className="max-w-xl">
-            <Suspense>
-              <ShopSearchBar initialValue={currentSearch} />
-            </Suspense>
-          </div>
-
-          {/* Trust badges */}
-          <div className="flex flex-wrap gap-6 mt-8">
-            {[
-              { icon: Shield, label: 'Genuine Products' },
-              { icon: Truck,  label: 'Pan-India Shipping' },
-              { icon: Award,  label: 'Manufacturer Warranty' },
-              { icon: Zap,    label: 'Same-Day Dispatch' },
-            ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                <Icon className="w-4 h-4 text-orange-400" />
-                <span className="text-slate-400 text-xs font-medium">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CATEGORY CHIPS ───────────────────────────────── */}
-      {categories.length > 0 && (
-        <div className="bg-slate-900 border-b border-slate-800">
-          <div className="container mx-auto max-w-7xl px-6 py-3 overflow-x-auto">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <Link
-                href="/shop"
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  !activeCategory
-                    ? 'bg-[#FF4500] text-white shadow-md shadow-orange-500/20'
-                    : 'bg-slate-800 text-slate-400 hover:text-orange-400 hover:bg-slate-700 border border-slate-700'
-                }`}
-              >
-                All Products
-              </Link>
-              {categories.map((cat) => {
-                const catParams = new URLSearchParams(params.toString());
-                catParams.set('category', cat.slug);
-                catParams.delete('page');
-                return (
-                  <Link
-                    key={cat.id}
-                    href={`/shop?${catParams.toString()}`}
-                    className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                      activeCategory === cat.slug
-                        ? 'bg-[#FF4500] text-white shadow-md shadow-orange-500/20'
-                        : 'bg-slate-800 text-slate-400 hover:text-orange-400 hover:bg-slate-700 border border-slate-700'
-                    }`}
-                  >
-                    {cat.name}
-                  </Link>
-                );
-              })}
+      {/* ── PAGE HEADER ── */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="container mx-auto max-w-7xl px-6 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <nav className="text-xs text-gray-400 mb-1" aria-label="Breadcrumb">
+                <ol className="flex items-center gap-1.5">
+                  <li><Link href="/" className="hover:text-[#FF4500] transition-colors">Home</Link></li>
+                  <li>/</li>
+                  <li className="text-gray-600 font-medium">Shop</li>
+                  {activeCategory && (
+                    <>
+                      <li>/</li>
+                      <li className="text-[#FF4500] font-medium">
+                        {categories.find((c) => c.slug === activeCategory)?.name ?? activeCategory}
+                      </li>
+                    </>
+                  )}
+                </ol>
+              </nav>
+              <h1 className="text-2xl font-extrabold text-gray-900">
+                {activeCategory
+                  ? (categories.find((c) => c.slug === activeCategory)?.name ?? 'Products')
+                  : 'All Products'}
+              </h1>
+              <p className="text-sm text-gray-500 mt-0.5">{totalCount} products available</p>
+            </div>
+            <div className="w-full sm:w-72">
+              <Suspense>
+                <ShopSearchBar initialValue={currentSearch} />
+              </Suspense>
             </div>
           </div>
         </div>
-      )}
-
-      {/* ── BREADCRUMB ───────────────────────────────────── */}
-      <div className="bg-slate-900/50 border-b border-slate-800/50">
-        <div className="container mx-auto max-w-7xl px-6 py-2.5">
-          <nav className="text-xs text-slate-600" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-1.5">
-              <li><Link href="/" className="hover:text-orange-400 transition-colors">Home</Link></li>
-              <li className="text-slate-700">/</li>
-              <li className="text-slate-400 font-medium">Shop</li>
-              {activeCategory && (
-                <>
-                  <li className="text-slate-700">/</li>
-                  <li className="text-orange-400 font-medium capitalize">
-                    {categories.find((c) => c.slug === activeCategory)?.name ?? activeCategory}
-                  </li>
-                </>
-              )}
-            </ol>
-          </nav>
-        </div>
       </div>
 
-      {/* ── MAIN LAYOUT ──────────────────────────────────── */}
+      {/* ── MAIN LAYOUT ── */}
       <div className="container mx-auto max-w-7xl px-6 py-8">
         <div className="flex gap-8">
 
-          {/* Sidebar */}
-          <aside className="hidden lg:block w-60 flex-shrink-0">
-            <div className="bg-slate-900 rounded-2xl border border-slate-800 p-5 sticky top-20 shadow-xl shadow-slate-950/50">
+          {/* Sidebar filters */}
+          <aside className="hidden lg:block w-56 flex-shrink-0">
+            <div className="bg-white rounded-2xl border border-gray-200 p-5 sticky top-20">
               <Suspense>
                 <ShopFilters categories={categories} brands={brands} totalCount={totalCount} />
               </Suspense>
             </div>
           </aside>
 
-          {/* Product grid */}
+          {/* Products */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-              <p className="text-sm text-slate-500">
+            <div className="flex items-center justify-between gap-4 mb-5 flex-wrap">
+              <p className="text-sm text-gray-500">
                 Showing{' '}
-                <span className="font-semibold text-slate-300">{Math.min(offset + 1, totalCount)}–{Math.min(offset + limit, totalCount)}</span>{' '}
-                of <span className="font-semibold text-slate-300">{totalCount}</span> products
-                {currentSearch && <span className="text-slate-500"> for &quot;{currentSearch}&quot;</span>}
+                <span className="font-semibold text-gray-800">{Math.min(offset + 1, totalCount)}–{Math.min(offset + limit, totalCount)}</span>
+                {' '}of <span className="font-semibold text-gray-800">{totalCount}</span>
+                {currentSearch && <span className="text-gray-400"> for &quot;{currentSearch}&quot;</span>}
               </p>
               <div className="lg:hidden">
                 <Suspense>
@@ -244,19 +169,19 @@ export default async function ShopPage({ searchParams }: PageProps) {
             </div>
 
             {products.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-28 gap-5 text-center">
-                <div className="w-20 h-20 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center">
-                  <Search className="w-9 h-9 text-slate-700" />
+              <div className="flex flex-col items-center justify-center py-24 gap-4 text-center bg-white rounded-2xl border border-gray-200">
+                <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
+                  <Search className="w-7 h-7 text-gray-300" />
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-slate-300 mb-1">No products found</p>
-                  <p className="text-slate-500 text-sm max-w-xs">Try adjusting your filters or search query.</p>
+                  <p className="text-base font-bold text-gray-700 mb-1">No products found</p>
+                  <p className="text-sm text-gray-400">Try adjusting filters or search query.</p>
                 </div>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-orange-500/20 transition-all hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all"
                 >
-                  <SlidersHorizontal className="w-4 h-4" /> Clear All Filters
+                  <SlidersHorizontal className="w-4 h-4" /> Clear Filters
                 </Link>
               </div>
             ) : (
@@ -270,25 +195,21 @@ export default async function ShopPage({ searchParams }: PageProps) {
         </div>
       </div>
 
-      {/* ── SEO STRIP ────────────────────────────────────── */}
-      <section className="bg-slate-900 border-t border-slate-800 py-12 px-6 mt-4">
+      {/* ── SEO FOOTER ── */}
+      <div className="border-t border-gray-200 bg-white py-8 px-6 mt-4">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-lg font-bold text-slate-200 mb-3">CCTV &amp; Security Products — Pan-India Delivery</h2>
-          <p className="text-sm text-slate-500 leading-relaxed max-w-4xl">
-            Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products
-            across Tamil Nadu and Karnataka. All products carry full manufacturer warranty. We supply
-            to industrial factories, government institutions, commercial complexes, and residential
-            projects. Every order is dispatched from our Hosur warehouse with insured shipping.
+          <h2 className="text-base font-bold text-gray-700 mb-2">CCTV &amp; Security Products — Pan-India Delivery</h2>
+          <p className="text-sm text-gray-400 leading-relaxed max-w-4xl">
+            Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products across Tamil Nadu and Karnataka.
+            All products carry full manufacturer warranty. Dispatched from our Hosur warehouse with insured shipping.
           </p>
-          <div className="flex flex-wrap gap-2 mt-5">
+          <div className="flex flex-wrap gap-2 mt-4">
             {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (
-              <span key={b} className="bg-slate-800 text-slate-500 text-xs font-semibold px-3 py-1 rounded-full border border-slate-700">
-                {b}
-              </span>
+              <span key={b} className="bg-gray-100 text-gray-500 text-xs font-medium px-3 py-1 rounded-full">{b}</span>
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }
@@ -308,13 +229,13 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
     prev = p;
   }
   return (
-    <nav className="flex items-center justify-center gap-1.5 mt-12" aria-label="Pagination">
+    <nav className="flex items-center justify-center gap-1.5 mt-10" aria-label="Pagination">
       {currentPage > 1 && (
-        <a href={getPageUrl(currentPage - 1)} className="px-3 py-2 text-sm font-semibold rounded-xl border border-slate-700 bg-slate-900 text-slate-400 hover:border-orange-500/50 hover:text-orange-400 transition-colors">← Prev</a>
+        <a href={getPageUrl(currentPage - 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-600 hover:border-orange-300 hover:text-[#FF4500] transition-colors">← Prev</a>
       )}
       {withEllipsis.map((p, idx) =>
         p === '...' ? (
-          <span key={`ellipsis-${idx}`} className="px-2 py-2 text-slate-600 text-sm">…</span>
+          <span key={`ellipsis-${idx}`} className="px-2 text-gray-400 text-sm">…</span>
         ) : (
           <a
             key={p}
@@ -322,8 +243,8 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
             aria-current={p === currentPage ? 'page' : undefined}
             className={`w-9 h-9 flex items-center justify-center text-sm font-semibold rounded-xl border transition-colors ${
               p === currentPage
-                ? 'bg-[#FF4500] text-white border-[#FF4500] shadow-md shadow-orange-500/20'
-                : 'bg-slate-900 text-slate-400 border-slate-700 hover:border-orange-500/50 hover:text-orange-400'
+                ? 'bg-[#FF4500] text-white border-[#FF4500]'
+                : 'bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-[#FF4500]'
             }`}
           >
             {p}
@@ -331,7 +252,7 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
         )
       )}
       {currentPage < totalPages && (
-        <a href={getPageUrl(currentPage + 1)} className="px-3 py-2 text-sm font-semibold rounded-xl border border-slate-700 bg-slate-900 text-slate-400 hover:border-orange-500/50 hover:text-orange-400 transition-colors">Next →</a>
+        <a href={getPageUrl(currentPage + 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-gray-200 bg-white text-gray-600 hover:border-orange-300 hover:text-[#FF4500] transition-colors">Next →</a>
       )}
     </nav>
   );

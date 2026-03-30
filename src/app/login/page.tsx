@@ -5,7 +5,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Loader2, ArrowRight, ChevronLeft, ShieldCheck, Truck, Star } from 'lucide-react';
+import { Loader2, ArrowRight, ChevronLeft, ShieldCheck, Truck, Award } from 'lucide-react';
 
 type Method = 'email' | 'phone';
 type Step = 'input' | 'otp';
@@ -13,8 +13,8 @@ type Step = 'input' | 'otp';
 export default function LoginPageWrapper() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <Loader2 className="w-5 h-5 animate-spin text-zinc-500" />
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
       </div>
     }>
       <LoginPage />
@@ -53,8 +53,8 @@ function LoginPage() {
 
   if (status === 'loading' || status === 'authenticated') {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <Loader2 className="w-5 h-5 animate-spin text-zinc-500" />
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
       </div>
     );
   }
@@ -105,71 +105,68 @@ function LoginPage() {
     ? email
     : `+91 ${phone.replace(/\D/g, '').replace(/(\d{5})(\d{5})/, '$1 $2')}`;
 
-  const inputCls = 'w-full h-11 bg-zinc-800/60 border border-zinc-700 text-white placeholder:text-zinc-500 rounded-xl px-4 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/30 transition-all';
+  const inputCls = 'w-full h-11 bg-white border border-gray-300 text-gray-900 placeholder:text-gray-400 rounded-xl px-4 text-sm focus:outline-none focus:border-[#FF4500] focus:ring-2 focus:ring-orange-100 transition-all';
 
   return (
-    <div className="min-h-screen flex bg-zinc-950 relative overflow-hidden">
+    <div className="min-h-screen flex bg-white">
 
-      {/* ── Ambient background orbs ── */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-orange-500/8 blur-[120px]" />
-        <div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full bg-amber-500/6 blur-[100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:32px_32px]" />
-      </div>
+      {/* ── Left panel ── */}
+      <div className="hidden lg:flex lg:w-[420px] xl:w-[480px] flex-col bg-orange-50 border-r border-orange-100 p-12 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-30"
+          style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #FF4500 1px, transparent 1px), radial-gradient(circle at 80% 20%, #FF4500 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-      {/* ── Left brand panel (desktop) ── */}
-      <div className="hidden lg:flex lg:w-[480px] xl:w-[520px] flex-col justify-between p-14 relative z-10 border-r border-zinc-800/50">
-        <Link href="/" className="inline-block">
-          <Image src="/infysmart.webp" alt="Infysmart" width={140} height={40} className="h-10 w-auto object-contain" />
-        </Link>
+        <div className="relative z-10 flex flex-col h-full">
+          <Link href="/">
+            <Image src="/infysmart.webp" alt="Infysmart" width={140} height={40} className="h-10 w-auto object-contain" />
+          </Link>
 
-        <div className="space-y-10">
-          <div>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.2em] text-orange-400 uppercase mb-5 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-              Govt-Approved Vendor
-            </span>
-            <h2 className="text-3xl font-extrabold text-white leading-snug tracking-tight">
-              India&apos;s trusted<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">
-                security equipment
-              </span><br />
-              store.
-            </h2>
-            <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-xs">
-              Authorized Hikvision, Dahua & CP Plus dealer. GST invoices for all orders.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { icon: ShieldCheck, value: '500+', label: 'Projects' },
-              { icon: Truck, value: '3–7d', label: 'Delivery' },
-              { icon: Star, value: '4.9★', label: 'Rating' },
-            ].map(({ icon: Icon, value, label }) => (
-              <div key={label} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 text-center">
-                <Icon className="w-4 h-4 text-orange-400 mx-auto mb-2" />
-                <p className="text-white font-extrabold text-base">{value}</p>
-                <p className="text-zinc-500 text-[10px] mt-0.5">{label}</p>
+          <div className="flex-1 flex flex-col justify-center gap-10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 bg-orange-100 text-[#FF4500] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4500]" />
+                Govt-Approved Vendor
               </div>
-            ))}
+              <h2 className="text-3xl font-extrabold text-gray-900 leading-snug">
+                India&apos;s trusted<br />
+                <span className="text-[#FF4500]">security equipment</span><br />
+                store.
+              </h2>
+              <p className="mt-4 text-sm text-gray-500 leading-relaxed">
+                Authorized Hikvision, Dahua &amp; CP Plus dealer. GST invoices for all orders.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { icon: ShieldCheck, value: '500+', label: 'Projects' },
+                { icon: Truck, value: '3–7d', label: 'Delivery' },
+                { icon: Award, value: '4.9★', label: 'Rating' },
+              ].map(({ icon: Icon, value, label }) => (
+                <div key={label} className="bg-white rounded-2xl p-4 text-center shadow-sm border border-orange-100">
+                  <Icon className="w-4 h-4 text-[#FF4500] mx-auto mb-2" />
+                  <p className="text-gray-900 font-extrabold text-sm">{value}</p>
+                  <p className="text-gray-400 text-[10px] mt-0.5">{label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-2.5">
+              {['CCTV Cameras & NVR/DVR Systems', 'PoE Switches & Networking Gear', 'Access Control & Biometrics', 'Pan-India delivery with warranty'].map((item) => (
+                <div key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF4500] shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-2.5">
-            {['CCTV Cameras & NVR/DVR Systems', 'PoE Switches & Networking Gear', 'Access Control & Biometrics', 'Pan-India delivery with warranty'].map((item) => (
-              <div key={item} className="flex items-center gap-2.5 text-sm text-zinc-400">
-                <div className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0" />
-                {item}
-              </div>
-            ))}
-          </div>
+          <p className="text-xs text-gray-400 relative z-10">© {new Date().getFullYear()} Infysmart Technologies, Hosur</p>
         </div>
-
-        <p className="text-xs text-zinc-700">© {new Date().getFullYear()} Infysmart Technologies, Hosur</p>
       </div>
 
       {/* ── Right form panel ── */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-white">
         <div className="w-full max-w-[380px]">
 
           {/* Mobile logo */}
@@ -181,16 +178,16 @@ function LoginPage() {
 
           {step === 'input' ? (
             <>
-              <div className="mb-8">
-                <h1 className="text-2xl font-bold text-white tracking-tight">Sign in to your account</h1>
-                <p className="mt-1.5 text-sm text-zinc-400">No password needed — we&apos;ll send you a code.</p>
+              <div className="mb-7">
+                <h1 className="text-2xl font-extrabold text-gray-900">Sign in to your account</h1>
+                <p className="mt-1.5 text-sm text-gray-500">No password needed — we&apos;ll send you a code.</p>
               </div>
 
               {/* Google */}
               <button
                 onClick={() => { setLoading(true); signIn('google', { callbackUrl }); }}
                 disabled={loading}
-                className="w-full h-11 flex items-center justify-center gap-3 bg-white text-zinc-900 text-sm font-semibold rounded-xl hover:bg-zinc-100 disabled:opacity-50 transition-colors border border-zinc-200"
+                className="w-full h-11 flex items-center justify-center gap-3 bg-white text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 disabled:opacity-50 transition-colors border border-gray-300 shadow-sm"
               >
                 <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -202,21 +199,21 @@ function LoginPage() {
               </button>
 
               <div className="my-5 flex items-center gap-3">
-                <div className="flex-1 h-px bg-zinc-800" />
-                <span className="text-[11px] text-zinc-600 uppercase tracking-widest">or</span>
-                <div className="flex-1 h-px bg-zinc-800" />
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-[11px] text-gray-400 uppercase tracking-widest">or</span>
+                <div className="flex-1 h-px bg-gray-200" />
               </div>
 
               {/* Method tabs */}
-              <div className="flex gap-1 mb-5 bg-zinc-900 border border-zinc-800 rounded-xl p-1">
+              <div className="flex gap-1 mb-5 bg-gray-100 rounded-xl p-1">
                 {(['email', 'phone'] as Method[]).map((m) => (
                   <button
                     key={m}
                     onClick={() => setMethod(m)}
                     className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${
                       method === m
-                        ? 'bg-orange-500 text-white shadow-sm'
-                        : 'text-zinc-400 hover:text-zinc-200'
+                        ? 'bg-white text-gray-900 shadow-sm'
+                        : 'text-gray-500 hover:text-gray-700'
                     }`}
                   >
                     {m === 'email' ? '✉ Email' : '📱 Mobile'}
@@ -226,7 +223,7 @@ function LoginPage() {
 
               {method === 'email' ? (
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Email address</label>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1.5">Email address</label>
                   <input
                     type="email"
                     value={email}
@@ -240,9 +237,9 @@ function LoginPage() {
                 </div>
               ) : (
                 <div>
-                  <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Mobile number</label>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1.5">Mobile number</label>
                   <div className="flex">
-                    <span className="h-11 flex items-center px-3.5 bg-zinc-800/60 border border-r-0 border-zinc-700 rounded-l-xl text-sm text-zinc-400 font-medium select-none">
+                    <span className="h-11 flex items-center px-3.5 bg-gray-50 border border-r-0 border-gray-300 rounded-l-xl text-sm text-gray-500 font-medium select-none">
                       +91
                     </span>
                     <input
@@ -254,42 +251,42 @@ function LoginPage() {
                       autoComplete="tel"
                       autoFocus
                       maxLength={10}
-                      className="flex-1 h-11 bg-zinc-800/60 border border-zinc-700 text-white placeholder:text-zinc-500 rounded-r-xl px-4 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/30 transition-all"
+                      className="flex-1 h-11 bg-white border border-gray-300 text-gray-900 placeholder:text-gray-400 rounded-r-xl px-4 text-sm focus:outline-none focus:border-[#FF4500] focus:ring-2 focus:ring-orange-100 transition-all"
                     />
                   </div>
                 </div>
               )}
 
-              {error && <p className="mt-2.5 text-xs text-red-400">{error}</p>}
+              {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
 
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-lg shadow-orange-900/30"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-sm"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Get Code <ArrowRight className="w-3.5 h-3.5" /></>}
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Get OTP <ArrowRight className="w-3.5 h-3.5" /></>}
               </button>
             </>
           ) : (
             <>
               <button
                 onClick={() => { setStep('input'); setOtp(''); setError(''); }}
-                className="flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-200 transition-colors mb-8"
+                className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors mb-8"
               >
                 <ChevronLeft className="w-4 h-4" /> Back
               </button>
 
               <div className="mb-7">
-                <h1 className="text-2xl font-bold text-white tracking-tight">
+                <h1 className="text-2xl font-extrabold text-gray-900">
                   Check your {method === 'email' ? 'inbox' : 'messages'}
                 </h1>
-                <p className="mt-1.5 text-sm text-zinc-400">
+                <p className="mt-1.5 text-sm text-gray-500">
                   We sent a 6-digit code to{' '}
-                  <span className="text-zinc-200 font-semibold">{destination}</span>
+                  <span className="text-gray-800 font-semibold">{destination}</span>
                 </p>
               </div>
 
-              <label className="block text-[11px] font-semibold text-zinc-500 mb-2 uppercase tracking-widest">Verification code</label>
+              <label className="block text-xs font-semibold text-gray-600 mb-1.5">Verification code</label>
               <input
                 type="text"
                 inputMode="numeric"
@@ -300,33 +297,33 @@ function LoginPage() {
                 maxLength={6}
                 autoFocus
                 placeholder="• • • • • •"
-                className="w-full h-14 bg-zinc-800/60 border border-zinc-700 text-white rounded-xl px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500/30 transition-all placeholder:tracking-normal placeholder:text-zinc-700 placeholder:text-base"
+                className="w-full h-14 bg-white border border-gray-300 text-gray-900 rounded-xl px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-[#FF4500] focus:ring-2 focus:ring-orange-100 transition-all placeholder:tracking-normal placeholder:text-gray-300 placeholder:text-base"
               />
 
-              {error && <p className="mt-2.5 text-xs text-red-400">{error}</p>}
+              {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
 
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-lg shadow-orange-900/30"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-sm"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify & Sign in'}
               </button>
 
               <div className="mt-5 text-center">
                 {countdown > 0
-                  ? <p className="text-xs text-zinc-600">Resend in {countdown}s</p>
-                  : <button onClick={handleSendOTP} disabled={loading} className="text-xs text-zinc-500 hover:text-zinc-200 underline underline-offset-2 transition-colors">Resend code</button>
+                  ? <p className="text-xs text-gray-400">Resend in {countdown}s</p>
+                  : <button onClick={handleSendOTP} disabled={loading} className="text-xs text-gray-500 hover:text-[#FF4500] underline underline-offset-2 transition-colors">Resend code</button>
                 }
               </div>
             </>
           )}
 
-          <p className="mt-8 text-center text-xs text-zinc-700">
+          <p className="mt-8 text-center text-xs text-gray-400">
             By continuing you agree to our{' '}
-            <Link href="/terms" className="text-zinc-500 hover:text-zinc-400 transition-colors underline underline-offset-2">Terms</Link>
+            <Link href="/terms" className="text-gray-500 hover:text-[#FF4500] transition-colors underline underline-offset-2">Terms</Link>
             {' & '}
-            <Link href="/refund-policy" className="text-zinc-500 hover:text-zinc-400 transition-colors underline underline-offset-2">Privacy Policy</Link>
+            <Link href="/refund-policy" className="text-gray-500 hover:text-[#FF4500] transition-colors underline underline-offset-2">Privacy Policy</Link>
           </p>
         </div>
       </div>
