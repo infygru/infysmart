@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Package, ShoppingBag, ChevronRight } from 'lucide-react';
+import { Package, ShoppingBag, ChevronRight, User, ChevronLeft } from 'lucide-react';
 import type { Order, OrderItem } from '@/lib/directus';
 import { formatPrice } from '@/lib/utils';
-import AccountNav from '../AccountNav';
 import { useSession } from 'next-auth/react';
 
 const STATUS_COLORS: Record<string, string> = {
@@ -31,7 +30,26 @@ export default function OrdersListClient({
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <AccountNav name={name} email={sessionEmail} />
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="container mx-auto max-w-4xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center">
+              <User className="w-4 h-4 text-[#FF4500]" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900">{name || 'My Orders'}</p>
+              <p className="text-xs text-gray-400">{sessionEmail}</p>
+            </div>
+          </div>
+          <Link
+            href="/account"
+            className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-[#FF4500] transition-colors"
+          >
+            <ChevronLeft className="w-3 h-3" /> My Profile
+          </Link>
+        </div>
+      </div>
 
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="flex items-center justify-between mb-5">
@@ -121,8 +139,6 @@ export default function OrdersListClient({
                       {new Date(order.date_created).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                       {' · '}
                       {items.length} item{items.length !== 1 ? 's' : ''}
-                      {' · '}
-                      Paid Online
                     </p>
                   </div>
 

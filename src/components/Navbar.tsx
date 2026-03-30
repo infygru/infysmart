@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Phone, Menu, X, ShoppingCart, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Phone, Menu, X, ShoppingCart, User, LogOut, Package, Settings } from 'lucide-react';
 import { getAssetUrl, GlobalSettings } from '@/lib/directus';
 import GetQuoteModal from '@/components/GetQuoteModal';
 import { useCart } from '@/lib/cart-context';
@@ -120,20 +120,42 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
                 {userMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl border border-slate-200 shadow-lg z-50 py-1 overflow-hidden">
+                    <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl border border-slate-200 shadow-xl z-50 py-1.5 overflow-hidden">
+                      <div className="px-4 py-2 border-b border-gray-100 mb-1">
+                        <p className="text-xs font-semibold text-gray-900 truncate">{session.user.name ?? 'My Account'}</p>
+                        <p className="text-[11px] text-gray-400 truncate">{session.user.email}</p>
+                      </div>
                       <Link
                         href="/account"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-[#FF4500] transition-colors"
                       >
-                        <LayoutDashboard className="w-4 h-4" /> My Account
+                        <User className="w-4 h-4" /> My Profile
                       </Link>
-                      <button
-                        onClick={() => { setUserMenuOpen(false); signOut({ callbackUrl: '/' }); }}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 w-full text-left"
+                      <Link
+                        href="/account/orders"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-[#FF4500] transition-colors"
                       >
-                        <LogOut className="w-4 h-4" /> Sign Out
-                      </button>
+                        <Package className="w-4 h-4" /> My Orders
+                      </Link>
+                      {(session.user.email === 'infysmartbiz@gmail.com' || session.user.email === 'csenaren@gmail.com') && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-[#FF4500] transition-colors"
+                        >
+                          <Settings className="w-4 h-4" /> Admin Panel
+                        </Link>
+                      )}
+                      <div className="border-t border-gray-100 mt-1 pt-1">
+                        <button
+                          onClick={() => { setUserMenuOpen(false); signOut({ callbackUrl: '/' }); }}
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 w-full text-left transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" /> Sign Out
+                        </button>
+                      </div>
                     </div>
                   </>
                 )}
@@ -188,26 +210,31 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
           className="fixed inset-0 z-30 md:hidden"
           onClick={() => setIsMobileOpen(false)}
         >
-          <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
         </div>
       )}
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] z-40 bg-slate-950 border-l border-slate-800 shadow-2xl transform transition-transform duration-300 md:hidden ${
+        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] z-40 bg-white border-l border-gray-200 shadow-2xl transform transition-transform duration-300 md:hidden ${
           isMobileOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-5 border-b border-slate-800">
-          <span className="text-xl font-extrabold text-white">
-            Infy<span className="text-brand-blue">Smart</span>
-          </span>
-          <button onClick={() => setIsMobileOpen(false)} className="text-slate-400 hover:text-white p-1">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <span className="text-lg font-extrabold text-gray-900">Menu</span>
+          <button onClick={() => setIsMobileOpen(false)} className="text-gray-400 hover:text-gray-700 p-1">
             <X size={22} />
           </button>
         </div>
 
-        <nav className="flex flex-col p-5 gap-1">
+        {session?.user && (
+          <div className="px-5 py-3 bg-orange-50 border-b border-orange-100">
+            <p className="text-sm font-semibold text-gray-900">{session.user.name ?? 'My Account'}</p>
+            <p className="text-xs text-gray-500">{session.user.email}</p>
+          </div>
+        )}
+
+        <nav className="flex flex-col p-4 gap-0.5">
           {navItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
@@ -215,35 +242,37 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMobileOpen(false)}
-                className={`px-4 py-3 hover:text-white hover:bg-slate-800 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-3 rounded-lg font-medium transition-colors text-sm ${
                   isActive
-                    ? 'text-brand-orange font-bold'
-                    : 'text-slate-300'
+                    ? 'text-[#FF4500] bg-orange-50 font-bold'
+                    : 'text-gray-700 hover:bg-gray-50'
                 }`}
               >
                 {item.label}
-                {item.label === 'Shop' && (
-                  <span className="ml-2 text-xs bg-brand-orange text-white px-1.5 py-0.5 rounded font-bold">
-                    NEW
-                  </span>
-                )}
               </Link>
             );
           })}
 
-          <div className="mt-4 pt-4 border-t border-slate-800 space-y-3">
+          <div className="mt-3 pt-3 border-t border-gray-100 space-y-0.5">
             {session?.user ? (
               <>
                 <Link
                   href="/account"
                   onClick={() => setIsMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-colors"
+                  className="flex items-center gap-2.5 px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#FF4500] rounded-lg transition-colors"
                 >
-                  <User className="h-4 w-4" /> My Account
+                  <User className="h-4 w-4" /> My Profile
+                </Link>
+                <Link
+                  href="/account/orders"
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center gap-2.5 px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#FF4500] rounded-lg transition-colors"
+                >
+                  <Package className="h-4 w-4" /> My Orders
                 </Link>
                 <button
                   onClick={() => { setIsMobileOpen(false); signOut({ callbackUrl: '/' }); }}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-slate-700 text-slate-300 font-bold rounded-lg hover:bg-slate-600 transition-colors"
+                  className="flex items-center gap-2.5 px-4 py-3 text-sm text-red-500 hover:bg-red-50 rounded-lg w-full text-left transition-colors"
                 >
                   <LogOut className="h-4 w-4" /> Sign Out
                 </button>
@@ -252,20 +281,23 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
               <Link
                 href="/login"
                 onClick={() => setIsMobileOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-colors"
+                className="flex items-center gap-2.5 px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 rounded-lg transition-colors"
               >
                 <User className="h-4 w-4" /> Login / Register
               </Link>
             )}
+          </div>
+
+          <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
             <a
               href="tel:+919445675619"
-              className="flex items-center justify-center gap-2 w-full py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-2.5 bg-brand-blue text-white font-bold rounded-xl text-sm hover:bg-blue-700 transition-colors"
             >
               <Phone className="h-4 w-4" /> Call Now
             </a>
             <button
               onClick={() => { setIsMobileOpen(false); setIsQuoteOpen(true); }}
-              className="flex items-center justify-center gap-2 w-full py-3 bg-[#FF4500] text-white font-bold rounded-lg hover:bg-orange-600 transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl text-sm hover:from-amber-600 hover:to-orange-700 transition-all"
             >
               Get Free Quote
             </button>

@@ -69,16 +69,34 @@ export default function CheckoutPage() {
   const sessionEmail = session?.user?.email ?? '';
   const sessionPhone = session?.user?.phone ?? '';
 
-  // Pre-fill from session
+  // Pre-fill from session + saved address
   useEffect(() => {
-    if (session?.user) {
-      setForm((prev) => ({
-        ...prev,
-        name: prev.name || session.user.name || '',
-        email: session.user.email || prev.email,
-        phone: prev.phone || session.user.phone || '',
-      }));
-    }
+    if (!session?.user) return;
+    setForm((prev) => ({
+      ...prev,
+      name: prev.name || session.user.name || '',
+      email: session.user.email || prev.email,
+      phone: prev.phone || session.user.phone || '',
+    }));
+    // Fetch saved address from profile
+    fetch('/api/account/saved-address')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data: { address?: { line1: string; line2: string; city: string; state: string; pincode: string; country: string } } | null) => {
+        if (data?.address?.line1) {
+          setForm((prev) => ({
+            ...prev,
+            shipping: {
+              line1: data.address!.line1,
+              line2: data.address!.line2 ?? '',
+              city: data.address!.city,
+              state: data.address!.state,
+              pincode: data.address!.pincode,
+              country: data.address!.country ?? 'India',
+            },
+          }));
+        }
+      })
+      .catch(() => { /* ignore */ });
   }, [session]);
 
   const [errors, setErrors] = useState<FormErrors>({});

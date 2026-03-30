@@ -14,6 +14,7 @@ export default async function AccountPage() {
   const customers = await directusAdmin.request(
     readItems('customers', {
       filter: { id: { _eq: Number(session.user.id) } },
+      fields: ['id', 'name', 'email', 'phone', 'email_verified', 'google_id', 'avatar', 'status', 'date_created', 'saved_address'],
       limit: 1,
     } as never)
   ) as unknown as Customer[];

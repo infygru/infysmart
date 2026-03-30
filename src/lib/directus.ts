@@ -214,6 +214,7 @@ export interface Customer {
   avatar: string | null;
   status: 'active' | 'inactive';
   date_created: string;
+  saved_address?: ShippingAddress | null;
 }
 
 export interface OtpCode {
