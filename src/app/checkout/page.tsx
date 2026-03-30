@@ -101,7 +101,7 @@ export default function CheckoutPage() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
-  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(true);
   const [serviceableStates, setServiceableStates] = useState<string[]>([]);
   const [shippingCharge, setShippingCharge] = useState(299);
   const [freeShippingAbove, setFreeShippingAbove] = useState(5000);
@@ -297,20 +297,34 @@ export default function CheckoutPage() {
   const isServiceable = serviceableStates.length === 0 || !form.shipping.state || serviceableStates.includes(form.shipping.state);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 pb-24 lg:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 py-3.5 px-4">
+      <div className="bg-white border-b border-gray-200 py-3 px-4 sticky top-0 z-20">
         <div className="container mx-auto max-w-5xl flex items-center justify-between">
-          <h1 className="text-base font-extrabold text-gray-900 flex items-center gap-2">
+          <h1 className="text-sm font-extrabold text-gray-900 flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#FF4500]" /> Secure Checkout
           </h1>
-          <span className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400">
-            <ShieldCheck className="w-3.5 h-3.5 text-green-500" /> 256-bit SSL · Secured by Razorpay
+          <span className="flex items-center gap-1.5 text-xs text-gray-400">
+            <ShieldCheck className="w-3.5 h-3.5 text-green-500" /> SSL · Razorpay
           </span>
         </div>
       </div>
 
-      <div className="container mx-auto max-w-5xl px-4 py-6">
+      {/* Sticky mobile Pay button */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 px-4 py-3 shadow-2xl">
+        <button
+          onClick={handlePlaceOrder}
+          disabled={loading || !isServiceable}
+          className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all text-base shadow-lg shadow-orange-200 active:scale-95"
+        >
+          {loading
+            ? <><Loader2 className="w-5 h-5 animate-spin" /> Opening Payment…</>
+            : <><CheckCircle2 className="w-5 h-5" /> Pay {formatPrice(totals.total)}</>
+          }
+        </button>
+      </div>
+
+      <div className="container mx-auto max-w-5xl px-3 sm:px-4 py-4 sm:py-6">
         <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
 
           {/* ── LEFT: Form ── */}
@@ -460,12 +474,15 @@ export default function CheckoutPage() {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden flex items-center justify-between w-full bg-white border border-gray-200 shadow-sm rounded-xl p-4"
+              className="lg:hidden flex items-center justify-between w-full bg-white border border-orange-200 shadow-sm rounded-xl px-4 py-3.5"
               onClick={() => setSummaryOpen(!summaryOpen)}
             >
-              <span className="font-bold text-gray-900">Order Summary</span>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-[#FF4500]">{formatPrice(totals.total)}</span>
+                <span className="font-bold text-gray-900 text-sm">Order Summary</span>
+                <span className="bg-orange-100 text-[#FF4500] text-xs font-bold px-1.5 py-0.5 rounded-full">{totals.itemCount} item{totals.itemCount !== 1 ? 's' : ''}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-[#FF4500] text-sm">{formatPrice(totals.total)}</span>
                 {summaryOpen ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
               </div>
             </button>

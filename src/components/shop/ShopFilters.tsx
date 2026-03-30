@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useCallback, useTransition, useState } from 'react';
-import { SlidersHorizontal, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, ChevronDown, ChevronUp } from 'lucide-react';
 import type { ProductCategory, ProductBrand } from '@/lib/directus';
 import { formatPrice } from '@/lib/utils';
 
@@ -10,6 +10,7 @@ interface ShopFiltersProps {
   categories: ProductCategory[];
   brands: ProductBrand[];
   totalCount: number;
+  onApply?: () => void;
 }
 
 const PRICE_RANGES = [
@@ -28,7 +29,7 @@ const SORT_OPTIONS = [
   { label: 'Name: A–Z', value: 'name_asc' },
 ];
 
-export default function ShopFilters({ categories, brands, totalCount }: ShopFiltersProps) {
+export default function ShopFilters({ categories, brands, totalCount, onApply }: ShopFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -61,43 +62,49 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         else if (value) params.set(key, value);
       });
       params.delete('page');
-      startTransition(() => router.push(`${pathname}?${params.toString()}`, { scroll: false }));
+      startTransition(() => {
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+        onApply?.();
+      });
     },
-    [searchParams, pathname, router]
+    [searchParams, pathname, router, onApply]
   );
 
   const clearAllFilters = () => {
     const params = new URLSearchParams();
     if (activeSearch) params.set('q', activeSearch);
     if (activeSort !== 'featured') params.set('sort', activeSort);
-    startTransition(() => router.push(`${pathname}?${params.toString()}`, { scroll: false }));
+    startTransition(() => {
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      onApply?.();
+    });
   };
 
   return (
     <aside className="w-full">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-slate-400" />
-          <h2 className="font-bold text-slate-800 text-sm">Filters</h2>
+          <h2 className="font-bold text-gray-900 text-sm">Filters</h2>
           {activeFilterCount > 0 && (
-            <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            <span className="bg-[#FF4500] text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
               {activeFilterCount}
             </span>
           )}
         </div>
         {activeFilterCount > 0 && (
-          <button onClick={clearAllFilters} className="flex items-center gap-1 text-xs text-slate-400 hover:text-slate-700 font-semibold transition-colors">
+          <button onClick={clearAllFilters} className="flex items-center gap-1 text-xs text-gray-400 hover:text-[#FF4500] font-semibold transition-colors">
             <X className="w-3 h-3" /> Clear All
           </button>
         )}
       </div>
 
-      <div className="mb-5">
-        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Sort By</label>
+      {/* Sort */}
+      <div className="mb-4">
+        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">Sort By</label>
         <select
           value={activeSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-300"
+          className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-700 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-200"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -105,16 +112,15 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         </select>
       </div>
 
-      <div className="text-xs text-slate-400 mb-5">
-        {totalCount} product{totalCount !== 1 ? 's' : ''} found
-      </div>
+      <p className="text-xs text-gray-400 mb-4">{totalCount} product{totalCount !== 1 ? 's' : ''} found</p>
 
+      {/* Category */}
       <FilterSection title="Category" expanded={expandedSections.categories} onToggle={() => toggleSection('categories')}>
         <ul className="space-y-0.5">
           <li>
             <button
               onClick={() => updateParams({ category: null })}
-              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeCategory ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors font-medium ${!activeCategory ? 'bg-orange-50 text-[#FF4500] font-semibold border border-orange-200' : 'text-gray-600 hover:bg-gray-50'}`}
             >
               All Categories
             </button>
@@ -123,7 +129,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             <li key={cat.id}>
               <button
                 onClick={() => updateParams({ category: activeCategory === cat.slug ? null : cat.slug })}
-                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${activeCategory === cat.slug ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors font-medium ${activeCategory === cat.slug ? 'bg-orange-50 text-[#FF4500] font-semibold border border-orange-200' : 'text-gray-600 hover:bg-gray-50'}`}
               >
                 {cat.name}
               </button>
@@ -132,14 +138,22 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         </ul>
       </FilterSection>
 
+      {/* Brand */}
       {brands.length > 0 && (
         <FilterSection title="Brand" expanded={expandedSections.brands} onToggle={() => toggleSection('brands')}>
-          <ul className="space-y-1.5">
+          <ul className="space-y-1">
             {brands.map((brand) => {
               const checked = activeBrands.includes(brand.slug);
               return (
                 <li key={brand.id}>
-                  <label className="flex items-center gap-2.5 cursor-pointer group">
+                  <label className={`flex items-center gap-2.5 cursor-pointer px-2 py-1.5 rounded-lg transition-colors ${checked ? 'bg-orange-50' : 'hover:bg-gray-50'}`}>
+                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? 'bg-[#FF4500] border-[#FF4500]' : 'border-gray-300'}`}>
+                      {checked && (
+                        <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 10 10">
+                          <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </div>
                     <input
                       type="checkbox"
                       checked={checked}
@@ -147,9 +161,9 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                         const next = checked ? activeBrands.filter((b) => b !== brand.slug) : [...activeBrands, brand.slug];
                         updateParams({ brand: next.length > 0 ? next : null });
                       }}
-                      className="w-4 h-4 rounded border-slate-300 accent-blue-600"
+                      className="sr-only"
                     />
-                    <span className={`text-sm transition-colors ${checked ? 'text-blue-700 font-semibold' : 'text-slate-600 group-hover:text-slate-900'}`}>
+                    <span className={`text-sm transition-colors ${checked ? 'text-[#FF4500] font-semibold' : 'text-gray-600'}`}>
                       {brand.name}
                     </span>
                   </label>
@@ -160,12 +174,13 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         </FilterSection>
       )}
 
+      {/* Price Range */}
       <FilterSection title="Price Range" expanded={expandedSections.price} onToggle={() => toggleSection('price')}>
         <ul className="space-y-0.5">
           <li>
             <button
               onClick={() => updateParams({ min_price: null, max_price: null })}
-              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeMinPrice && !activeMaxPrice ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors font-medium ${!activeMinPrice && !activeMaxPrice ? 'bg-orange-50 text-[#FF4500] font-semibold border border-orange-200' : 'text-gray-600 hover:bg-gray-50'}`}
             >
               Any Price
             </button>
@@ -176,7 +191,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
               <li key={range.label}>
                 <button
                   onClick={() => updateParams({ min_price: isActive ? null : String(range.min), max_price: isActive ? null : String(range.max) })}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${isActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors font-medium ${isActive ? 'bg-orange-50 text-[#FF4500] font-semibold border border-orange-200' : 'text-gray-600 hover:bg-gray-50'}`}
                 >
                   {range.label}
                 </button>
@@ -186,21 +201,30 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         </ul>
       </FilterSection>
 
+      {/* Availability */}
       <FilterSection title="Availability" expanded={expandedSections.availability} onToggle={() => toggleSection('availability')}>
-        <label className="flex items-center gap-2.5 cursor-pointer">
+        <label className={`flex items-center gap-2.5 cursor-pointer px-2 py-1.5 rounded-lg transition-colors ${inStockOnly ? 'bg-orange-50' : 'hover:bg-gray-50'}`}>
+          <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${inStockOnly ? 'bg-[#FF4500] border-[#FF4500]' : 'border-gray-300'}`}>
+            {inStockOnly && (
+              <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 10 10">
+                <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            )}
+          </div>
           <input
             type="checkbox"
             checked={inStockOnly}
             onChange={() => updateParams({ in_stock: inStockOnly ? null : '1' })}
-            className="w-4 h-4 rounded border-slate-300 accent-blue-600"
+            className="sr-only"
           />
-          <span className="text-sm text-slate-600">In Stock Only</span>
+          <span className={`text-sm ${inStockOnly ? 'text-[#FF4500] font-semibold' : 'text-gray-600'}`}>In Stock Only</span>
         </label>
       </FilterSection>
 
+      {/* Active filter chips */}
       {activeFilterCount > 0 && (
-        <div className="mt-4 pt-4 border-t border-slate-100">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">Active Filters</p>
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Active Filters</p>
           <div className="flex flex-wrap gap-1.5">
             {activeCategory && (
               <FilterChip label={categories.find((c) => c.slug === activeCategory)?.name ?? activeCategory} onRemove={() => updateParams({ category: null })} />
@@ -224,10 +248,10 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
 
 function FilterSection({ title, expanded, onToggle, children }: { title: string; expanded: boolean; onToggle: () => void; children: React.ReactNode }) {
   return (
-    <div className="border-t border-slate-100 py-4">
-      <button onClick={onToggle} className="flex items-center justify-between w-full text-left mb-3 group">
-        <span className="text-xs font-bold text-slate-500 uppercase tracking-wide group-hover:text-slate-800 transition-colors">{title}</span>
-        {expanded ? <ChevronUp className="w-3.5 h-3.5 text-slate-400" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+    <div className="border-t border-gray-100 py-3">
+      <button onClick={onToggle} className="flex items-center justify-between w-full text-left mb-2 group">
+        <span className="text-xs font-bold text-gray-500 uppercase tracking-wide group-hover:text-gray-800 transition-colors">{title}</span>
+        {expanded ? <ChevronUp className="w-3.5 h-3.5 text-gray-400" /> : <ChevronDown className="w-3.5 h-3.5 text-gray-400" />}
       </button>
       {expanded && children}
     </div>
@@ -236,9 +260,9 @@ function FilterSection({ title, expanded, onToggle, children }: { title: string;
 
 function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
-    <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full border border-blue-200">
+    <span className="inline-flex items-center gap-1 bg-orange-50 text-[#FF4500] text-xs font-semibold px-2 py-1 rounded-full border border-orange-200">
       {label}
-      <button onClick={onRemove} className="hover:text-slate-700 transition-colors" aria-label={`Remove ${label} filter`}>
+      <button onClick={onRemove} className="hover:text-orange-700 transition-colors" aria-label={`Remove ${label} filter`}>
         <X className="w-3 h-3" />
       </button>
     </span>

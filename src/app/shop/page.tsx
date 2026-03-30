@@ -104,33 +104,18 @@ export default async function ShopPage({ searchParams }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
       {/* ── PAGE HEADER ── */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto max-w-7xl px-6 py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <nav className="text-xs text-gray-400 mb-1" aria-label="Breadcrumb">
-                <ol className="flex items-center gap-1.5">
-                  <li><Link href="/" className="hover:text-[#FF4500] transition-colors">Home</Link></li>
-                  <li>/</li>
-                  <li className="text-gray-600 font-medium">Shop</li>
-                  {activeCategory && (
-                    <>
-                      <li>/</li>
-                      <li className="text-[#FF4500] font-medium">
-                        {categories.find((c) => c.slug === activeCategory)?.name ?? activeCategory}
-                      </li>
-                    </>
-                  )}
-                </ol>
-              </nav>
-              <h1 className="text-2xl font-extrabold text-gray-900">
+      <div className="bg-white border-b border-gray-100">
+        <div className="container mx-auto max-w-7xl px-3 sm:px-6 py-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-xl font-extrabold text-gray-900 truncate">
                 {activeCategory
                   ? (categories.find((c) => c.slug === activeCategory)?.name ?? 'Products')
                   : 'All Products'}
               </h1>
-              <p className="text-sm text-gray-500 mt-0.5">{totalCount} products available</p>
+              <p className="text-xs text-gray-400 mt-0.5">{totalCount} products</p>
             </div>
-            <div className="w-full sm:w-72">
+            <div className="w-full max-w-[200px] sm:max-w-xs">
               <Suspense>
                 <ShopSearchBar initialValue={currentSearch} />
               </Suspense>
@@ -140,8 +125,8 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </div>
 
       {/* ── MAIN LAYOUT ── */}
-      <div className="container mx-auto max-w-7xl px-6 py-8">
-        <div className="flex gap-8">
+      <div className="container mx-auto max-w-7xl px-3 sm:px-6 py-4 sm:py-8">
+        <div className="flex gap-6">
 
           {/* Sidebar filters */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
@@ -154,12 +139,12 @@ export default async function ShopPage({ searchParams }: PageProps) {
 
           {/* Products */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-4 mb-5 flex-wrap">
-              <p className="text-sm text-gray-500">
-                Showing{' '}
+            {/* Mobile toolbar */}
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <p className="text-xs sm:text-sm text-gray-500 shrink-0">
                 <span className="font-semibold text-gray-800">{Math.min(offset + 1, totalCount)}–{Math.min(offset + limit, totalCount)}</span>
-                {' '}of <span className="font-semibold text-gray-800">{totalCount}</span>
-                {currentSearch && <span className="text-gray-400"> for &quot;{currentSearch}&quot;</span>}
+                {' '}<span className="hidden sm:inline">of </span><span className="font-semibold text-gray-800">{totalCount}</span>
+                {currentSearch && <span className="text-gray-400 hidden sm:inline"> for &quot;{currentSearch}&quot;</span>}
               </p>
               <div className="lg:hidden">
                 <Suspense>
@@ -169,23 +154,23 @@ export default async function ShopPage({ searchParams }: PageProps) {
             </div>
 
             {products.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-24 gap-4 text-center bg-white rounded-2xl border border-gray-200">
-                <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
-                  <Search className="w-7 h-7 text-gray-300" />
+              <div className="flex flex-col items-center justify-center py-20 gap-4 text-center bg-white rounded-2xl border border-gray-200">
+                <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center">
+                  <Search className="w-6 h-6 text-gray-300" />
                 </div>
                 <div>
-                  <p className="text-base font-bold text-gray-700 mb-1">No products found</p>
-                  <p className="text-sm text-gray-400">Try adjusting filters or search query.</p>
+                  <p className="text-sm font-bold text-gray-700 mb-1">No products found</p>
+                  <p className="text-xs text-gray-400">Try adjusting filters or search.</p>
                 </div>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all"
+                  className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white px-4 py-2 rounded-xl font-bold text-sm transition-all"
                 >
-                  <SlidersHorizontal className="w-4 h-4" /> Clear Filters
+                  <SlidersHorizontal className="w-3.5 h-3.5" /> Clear Filters
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-5">
                 {products.map((product) => <ProductCard key={product.id} product={product} />)}
               </div>
             )}
