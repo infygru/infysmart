@@ -63,8 +63,8 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
       {/* Hero — success banner */}
       <section className="bg-white border-b border-slate-200 py-10 px-4">
         <div className="container mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-violet-100 border border-violet-200 mb-5">
-            <CheckCircle2 className="w-9 h-9 text-violet-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 border border-blue-200 mb-5">
+            <CheckCircle2 className="w-9 h-9 text-blue-600" />
           </div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">
             {isCOD ? 'Order Placed Successfully!' : 'Payment Confirmed!'}
@@ -76,8 +76,8 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
           </p>
 
           {/* Order number badge */}
-          <div className="inline-flex items-center gap-2 mt-5 bg-violet-50 border border-violet-200 text-violet-900 px-5 py-2.5 rounded-full font-mono text-sm font-bold">
-            <Package className="w-4 h-4 text-violet-600" />
+          <div className="inline-flex items-center gap-2 mt-5 bg-blue-50 border border-blue-200 text-blue-900 px-5 py-2.5 rounded-full font-mono text-sm font-bold">
+            <Package className="w-4 h-4 text-blue-600" />
             {orderNumber}
           </div>
 
@@ -122,10 +122,10 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               <div key={label} className="flex-1 flex flex-col items-center">
                 <div className="flex items-center w-full">
                   {idx > 0 && (
-                    <div className={`flex-1 h-0.5 ${done ? 'bg-violet-600' : 'bg-slate-200'}`} />
+                    <div className={`flex-1 h-0.5 ${done ? 'bg-blue-600' : 'bg-slate-200'}`} />
                   )}
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 flex-shrink-0 ${
-                    done ? 'bg-violet-600 border-violet-600' : 'bg-white border-slate-200'
+                    done ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200'
                   }`}>
                     {done ? (
                       <CheckCircle2 className="w-4 h-4 text-white" />
@@ -134,11 +134,11 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
                     )}
                   </div>
                   {idx < arr.length - 1 && (
-                    <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-violet-600' : 'bg-slate-200'}`} />
+                    <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-blue-600' : 'bg-slate-200'}`} />
                   )}
                 </div>
                 <span className={`text-[10px] font-semibold mt-1.5 text-center ${
-                  done ? 'text-violet-600' : 'text-slate-400'
+                  done ? 'text-blue-600' : 'text-slate-400'
                 }`}>
                   {label}
                 </span>
@@ -151,7 +151,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
         <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-200">
             <h2 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
-              <Package className="w-4 h-4 text-violet-600" />
+              <Package className="w-4 h-4 text-blue-600" />
               Items Ordered ({items.length} product{items.length !== 1 ? 's' : ''})
             </h2>
           </div>
@@ -180,14 +180,14 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
               <span className="text-slate-900">{formatPrice(order.subtotal)}</span>
             </div>
             {order.discount_amount > 0 && (
-              <div className="flex justify-between text-violet-600 font-medium">
+              <div className="flex justify-between text-blue-600 font-medium">
                 <span>Discount</span>
                 <span>− {formatPrice(order.discount_amount)}</span>
               </div>
             )}
             <div className="flex justify-between text-slate-500">
               <span>Shipping</span>
-              <span className={order.shipping_amount === 0 ? 'text-violet-600 font-medium' : 'text-slate-900'}>
+              <span className={order.shipping_amount === 0 ? 'text-blue-600 font-medium' : 'text-slate-900'}>
                 {order.shipping_amount === 0 ? 'FREE' : formatPrice(order.shipping_amount)}
               </span>
             </div>
@@ -265,7 +265,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
           </a>
           <Link
             href="/shop"
-            className="flex-1 flex items-center justify-center gap-2 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:border-violet-400 hover:text-violet-600 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:border-blue-400 hover:text-blue-600 transition-colors"
           >
             Continue Shopping <ArrowRight className="w-4 h-4" />
           </Link>
@@ -280,12 +280,12 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
         )}
 
         {/* Invoice note */}
-        <div className="flex items-center gap-2.5 bg-violet-50 border border-violet-200 rounded-xl p-4 text-xs text-slate-600">
-          <Download className="w-4 h-4 text-violet-600 shrink-0" />
+        <div className="flex items-center gap-2.5 bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-slate-600">
+          <Download className="w-4 h-4 text-blue-600 shrink-0" />
           <span>
             A GST invoice will be emailed to <strong className="text-slate-900">{order.customer_email}</strong> once your order is dispatched.
             For bulk/B2B invoicing, contact{' '}
-            <a href="mailto:info@infysmart.com" className="text-violet-600 underline">info@infysmart.com</a>.
+            <a href="mailto:info@infysmart.com" className="text-blue-600 underline">info@infysmart.com</a>.
           </span>
         </div>
 

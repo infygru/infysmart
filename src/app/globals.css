@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color: #020617;
-  color: #e5e7eb;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 /* ===============================
    Global Form Styles (Quote Modal)
@@ -18,8 +18,8 @@ body {
          px-4 py-3 text-sm text-slate-900
          placeholder:text-slate-400
          focus:outline-none
-         focus:ring-2 focus:ring-emerald-500/30
-         focus:border-emerald-500
+         focus:ring-2 focus:ring-blue-500/30
+         focus:border-blue-500
          transition;
 }
 

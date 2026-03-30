@@ -105,7 +105,7 @@ export default function GetQuoteModal({
                   onClick={() => setService(s)}
                   className={`flex-1 py-3 rounded-xl border font-semibold transition ${
                     service === s
-                      ? 'bg-emerald-50 border-emerald-600 text-emerald-700'
+                      ? 'bg-blue-50 border-blue-600 text-blue-700'
                       : 'border-slate-300 hover:border-slate-400'
                   }`}
                 >
@@ -178,8 +178,8 @@ export default function GetQuoteModal({
             disabled={loading}
             className={`md:col-span-2 mt-4 py-4 rounded-xl text-white text-lg font-semibold transition ${
               loading
-                ? 'bg-emerald-400 cursor-not-allowed'
-                : 'bg-emerald-600 hover:bg-emerald-700'
+                ? 'bg-blue-400 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700'
             }`}
           >
             {loading ? 'Submitting…' : 'Get Free Quote'}

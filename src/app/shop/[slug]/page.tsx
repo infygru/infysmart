@@ -98,13 +98,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <div className="container mx-auto max-w-7xl px-6 py-3">
           <nav className="text-xs text-slate-400" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1 flex-wrap">
-              <li><Link href="/" className="hover:text-violet-600 transition-colors">Home</Link></li>
+              <li><Link href="/" className="hover:text-blue-600 transition-colors">Home</Link></li>
               <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
-              <li><Link href="/shop" className="hover:text-violet-600 transition-colors">Shop</Link></li>
+              <li><Link href="/shop" className="hover:text-blue-600 transition-colors">Shop</Link></li>
               {category && (
                 <>
                   <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
-                  <li><Link href={`/shop?category=${category.slug}`} className="hover:text-violet-600 transition-colors">{category.name}</Link></li>
+                  <li><Link href={`/shop?category=${category.slug}`} className="hover:text-blue-600 transition-colors">{category.name}</Link></li>
                 </>
               )}
               <li><ChevronRight className="w-3 h-3 text-slate-300" /></li>
@@ -123,12 +123,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="flex flex-col gap-5">
               <div className="flex items-center gap-2 flex-wrap">
                 {brand && (
-                  <span className="text-xs font-bold text-violet-700 uppercase tracking-wider bg-violet-50 px-2.5 py-1 rounded-full border border-violet-100">
+                  <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     {brand.name}
                   </span>
                 )}
                 {category && (
-                  <Link href={`/shop?category=${category.slug}`} className="text-xs text-slate-400 hover:text-violet-600 transition-colors flex items-center gap-1">
+                  <Link href={`/shop?category=${category.slug}`} className="text-xs text-slate-400 hover:text-blue-600 transition-colors flex items-center gap-1">
                     <Tag className="w-3 h-3" /> {category.name}
                   </Link>
                 )}
@@ -141,7 +141,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </p>
 
               {product.short_description && (
-                <p className="text-slate-500 leading-relaxed border-l-4 border-violet-400 pl-4 text-sm">
+                <p className="text-slate-500 leading-relaxed border-l-4 border-blue-400 pl-4 text-sm">
                   {product.short_description}
                 </p>
               )}
@@ -177,7 +177,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   { icon: CheckCircle2, label: 'GST Invoice', sub: 'For B2B billing' },
                 ].map(({ icon: Icon, label, sub }) => (
                   <div key={label} className="flex items-start gap-2.5 bg-slate-50 rounded-xl p-3 border border-slate-200">
-                    <Icon className="w-4 h-4 text-violet-600 shrink-0 mt-0.5" />
+                    <Icon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs font-semibold text-slate-700">{label}</p>
                       <p className="text-[10px] text-slate-400">{sub}</p>
@@ -189,7 +189,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               {brand?.website && (
                 <p className="text-xs text-slate-400">
                   Official brand:{' '}
-                  <a href={brand.website} target="_blank" rel="noopener noreferrer nofollow" className="text-violet-600 hover:underline">{brand.website}</a>
+                  <a href={brand.website} target="_blank" rel="noopener noreferrer nofollow" className="text-blue-600 hover:underline">{brand.website}</a>
                 </p>
               )}
 
@@ -240,7 +240,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <ul className="grid sm:grid-cols-2 gap-2">
                 {product.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-600">
-                    <CheckCircle2 className="w-4 h-4 text-violet-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                     {feature}
                   </li>
                 ))}
@@ -266,7 +266,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-bold text-slate-900">Related Products</h2>
             {category && (
-              <Link href={`/shop?category=${category.slug}`} className="text-sm text-violet-700 font-semibold hover:underline flex items-center gap-1">
+              <Link href={`/shop?category=${category.slug}`} className="text-sm text-blue-700 font-semibold hover:underline flex items-center gap-1">
                 View all {category.name} <ChevronRight className="w-4 h-4" />
               </Link>
             )}

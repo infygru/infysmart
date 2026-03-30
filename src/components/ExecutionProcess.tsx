@@ -54,7 +54,7 @@ export default function ExecutionProcess() {
           {steps.map((step) => (
             <div key={step.id} className="group bg-white p-8 rounded-2xl border border-slate-100 shadow-lg hover:-translate-y-2 transition-transform duration-300">
               {/* Icon Box */}
-              <div className="h-14 w-14 bg-teal-700 rounded-xl flex items-center justify-center mb-6 shadow-md shadow-teal-700/20 group-hover:scale-110 transition-transform">
+              <div className="h-14 w-14 bg-blue-700 rounded-xl flex items-center justify-center mb-6 shadow-md shadow-blue-700/20 group-hover:scale-110 transition-transform">
                 {step.icon}
               </div>
               

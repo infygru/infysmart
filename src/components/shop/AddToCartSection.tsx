@@ -76,8 +76,8 @@ export default function AddToCartSection({ product }: Props) {
             isOutOfStock
               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
               : inCart
-              ? 'bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100'
-              : 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 shadow-violet-100'
+              ? 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100'
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-blue-100'
           }`}
         >
           {isOutOfStock ? (
@@ -101,7 +101,7 @@ export default function AddToCartSection({ product }: Props) {
       </div>
 
       {inCart && (
-        <Link href="/cart" className="flex items-center justify-center gap-1.5 text-sm text-violet-600 hover:underline font-semibold">
+        <Link href="/cart" className="flex items-center justify-center gap-1.5 text-sm text-blue-600 hover:underline font-semibold">
           View Cart ({qtyInCart} item{qtyInCart !== 1 ? 's' : ''}) →
         </Link>
       )}

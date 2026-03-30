@@ -62,7 +62,7 @@ export default function CartPage() {
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-7 py-3.5 rounded-xl font-bold hover:from-violet-700 hover:to-purple-700 transition-all shadow-sm"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-7 py-3.5 rounded-xl font-bold hover:from-blue-700 hover:to-blue-800 transition-all shadow-sm"
           >
             <ShoppingCart className="w-5 h-5" /> Browse Products
           </Link>
@@ -76,10 +76,10 @@ export default function CartPage() {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Header */}
-      <section className="bg-gradient-to-r from-violet-700 to-purple-600 py-5 px-4">
+      <section className="bg-gradient-to-r from-blue-700 to-blue-600 py-5 px-4">
         <div className="container mx-auto max-w-7xl">
           <h1 className="text-xl font-extrabold text-white flex items-center gap-3">
-            <ShoppingCart className="w-6 h-6 text-violet-200" />
+            <ShoppingCart className="w-6 h-6 text-blue-200" />
             Shopping Cart
             <span className="text-base font-semibold text-white/80">
               ({totals.itemCount} item{totals.itemCount !== 1 ? 's' : ''})
@@ -94,18 +94,18 @@ export default function CartPage() {
           {/* Left: Items */}
           <div className="space-y-4">
             {shippingLeft > 0 && (
-              <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 flex items-center gap-3 text-sm">
-                <Truck className="w-5 h-5 text-violet-600 shrink-0" />
-                <span className="text-violet-700">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3 text-sm">
+                <Truck className="w-5 h-5 text-blue-600 shrink-0" />
+                <span className="text-blue-800">
                   Add <span className="font-bold">{formatPrice(shippingLeft)}</span> more to get{' '}
                   <span className="font-bold">FREE shipping!</span>
                 </span>
               </div>
             )}
             {shippingLeft === 0 && (
-              <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 flex items-center gap-3 text-sm">
-                <Truck className="w-5 h-5 text-violet-600 shrink-0" />
-                <span className="text-violet-700 font-semibold">You&apos;ve unlocked FREE shipping!</span>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3 text-sm">
+                <Truck className="w-5 h-5 text-blue-600 shrink-0" />
+                <span className="text-blue-800 font-semibold">You&apos;ve unlocked FREE shipping!</span>
               </div>
             )}
 
@@ -134,7 +134,7 @@ export default function CartPage() {
 
                     <div className="flex-1 min-w-0 flex flex-col gap-1.5">
                       <div className="flex items-start justify-between gap-2">
-                        <Link href={`/shop/${product.slug}`} className="font-semibold text-slate-900 hover:text-violet-600 transition-colors leading-snug line-clamp-2 text-sm sm:text-base">
+                        <Link href={`/shop/${product.slug}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors leading-snug line-clamp-2 text-sm sm:text-base">
                           {product.name}
                         </Link>
                         <button
@@ -166,7 +166,7 @@ export default function CartPage() {
                           {hasDiscount ? (
                             <p className="text-xs text-slate-400">
                               <span className="line-through">{formatPrice(product.price)}</span>{' '}
-                              <span className="text-violet-600 font-semibold">{formatPrice(effectivePrice)} each</span>
+                              <span className="text-blue-600 font-semibold">{formatPrice(effectivePrice)} each</span>
                             </p>
                           ) : quantity > 1 ? (
                             <p className="text-xs text-slate-400">{formatPrice(effectivePrice)} each</p>
@@ -179,7 +179,7 @@ export default function CartPage() {
               })}
             </div>
 
-            <Link href="/shop" className="inline-flex items-center gap-2 text-sm text-violet-600 font-semibold hover:underline">
+            <Link href="/shop" className="inline-flex items-center gap-2 text-sm text-blue-600 font-semibold hover:underline">
               <RotateCcw className="w-3.5 h-3.5" /> Continue Shopping
             </Link>
           </div>
@@ -190,18 +190,18 @@ export default function CartPage() {
             {/* Coupon */}
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
               <h2 className="text-sm font-bold text-slate-700 flex items-center gap-2 mb-3">
-                <Tag className="w-4 h-4 text-violet-500" /> Apply Coupon
+                <Tag className="w-4 h-4 text-orange-500" /> Apply Coupon
               </h2>
 
               {coupon ? (
-                <div className="flex items-center justify-between bg-violet-50 border border-violet-200 rounded-lg px-3 py-2">
+                <div className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-3 py-2">
                   <div>
-                    <p className="text-sm font-bold text-violet-700">{coupon.code}</p>
-                    <p className="text-xs text-violet-600">
+                    <p className="text-sm font-bold text-blue-800">{coupon.code}</p>
+                    <p className="text-xs text-blue-600">
                       {coupon.discount_type === 'percentage' ? `${coupon.discount_value}% off` : `${formatPrice(coupon.discount_value)} off`}
                     </p>
                   </div>
-                  <button onClick={removeCoupon} className="p-1 text-violet-400 hover:text-red-400 transition-colors" aria-label="Remove coupon">
+                  <button onClick={removeCoupon} className="p-1 text-blue-400 hover:text-red-400 transition-colors" aria-label="Remove coupon">
                     <X className="w-4 h-4" />
                   </button>
                 </div>
@@ -213,13 +213,13 @@ export default function CartPage() {
                     onChange={(e) => { setCouponInput(e.target.value.toUpperCase()); setCouponError(''); }}
                     onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                     placeholder="Enter coupon code"
-                    className="flex-1 text-sm bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-300 transition-colors"
+                    className="flex-1 text-sm bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-300 transition-colors"
                     disabled={couponLoading}
                   />
                   <button
                     onClick={handleApplyCoupon}
                     disabled={!couponInput.trim() || couponLoading}
-                    className="px-4 py-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-bold rounded-lg hover:from-violet-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-bold rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     {couponLoading ? '...' : 'Apply'}
                   </button>
@@ -239,14 +239,14 @@ export default function CartPage() {
                   <span className="text-slate-900">{formatPrice(totals.subtotal)}</span>
                 </div>
                 {totals.discount > 0 && (
-                  <div className="flex justify-between text-violet-600 font-semibold">
+                  <div className="flex justify-between text-blue-600 font-semibold">
                     <span>Coupon Discount</span>
                     <span>− {formatPrice(totals.discount)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-slate-500">
                   <span>Shipping</span>
-                  <span className={totals.shipping === 0 ? 'text-violet-600 font-semibold' : 'text-slate-900'}>
+                  <span className={totals.shipping === 0 ? 'text-blue-600 font-semibold' : 'text-slate-900'}>
                     {totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
                   </span>
                 </div>
@@ -266,7 +266,7 @@ export default function CartPage() {
 
               <Link
                 href="/checkout"
-                className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:from-violet-700 hover:to-purple-700 transition-all shadow-sm"
+                className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-sm"
               >
                 Proceed to Checkout <ArrowRight className="w-4 h-4" />
               </Link>
@@ -280,7 +280,7 @@ export default function CartPage() {
                 { icon: RotateCcw, text: 'Hassle-free returns & support' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-xs text-slate-500">
-                  <Icon className="w-4 h-4 text-violet-500 shrink-0" />
+                  <Icon className="w-4 h-4 text-orange-500 shrink-0" />
                   {text}
                 </div>
               ))}

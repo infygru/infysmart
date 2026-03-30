@@ -102,19 +102,19 @@ export default async function ShopPage({ searchParams }: PageProps) {
     <main className="min-h-screen bg-slate-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
 
-      {/* Page Header — violet gradient */}
-      <section className="bg-gradient-to-br from-violet-800 via-violet-700 to-purple-600 py-14 px-6">
+      {/* Page Header */}
+      <section className="bg-white border-b border-slate-200 py-14 px-6">
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center gap-2 mb-3">
-            <ShoppingBag className="w-5 h-5 text-violet-200" />
-            <span className="text-violet-200 font-semibold text-xs uppercase tracking-widest">
+            <ShoppingBag className="w-5 h-5 text-orange-400" />
+            <span className="text-orange-600 font-semibold text-xs uppercase tracking-widest">
               Security Products
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
             CCTV &amp; Networking Products
           </h1>
-          <p className="text-violet-100/80 text-base max-w-2xl">
+          <p className="text-slate-600 text-base max-w-2xl">
             Hikvision, Dahua &amp; CP Plus cameras, recorders, PoE switches, access control
             devices and structured cabling. Pan-India delivery with warranty.
           </p>
@@ -127,11 +127,11 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </section>
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-slate-100 border-b border-slate-200">
         <div className="container mx-auto max-w-7xl px-6 py-3">
-          <nav className="text-xs text-slate-400" aria-label="Breadcrumb">
+          <nav className="text-xs text-slate-500" aria-label="Breadcrumb">
             <ol className="flex items-center gap-1.5">
-              <li><Link href="/" className="hover:text-violet-600 transition-colors">Home</Link></li>
+              <li><Link href="/" className="hover:text-orange-400 transition-colors">Home</Link></li>
               <li>/</li>
               <li className="text-slate-700 font-medium">Shop</li>
               {params.get('category') && (
@@ -183,7 +183,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
                 <p className="text-slate-400 text-sm max-w-xs">Try adjusting your filters or search query.</p>
                 <Link
                   href="/shop"
-                  className="mt-2 inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:from-violet-700 hover:to-purple-700 transition-all text-sm shadow-sm"
+                  className="mt-2 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all text-sm shadow-sm"
                 >
                   <SlidersHorizontal className="w-4 h-4" /> Clear All Filters
                 </Link>
@@ -239,7 +239,7 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
   return (
     <nav className="flex items-center justify-center gap-1.5 mt-10" aria-label="Pagination">
       {currentPage > 1 && (
-        <a href={getPageUrl(currentPage - 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-violet-400 hover:text-violet-600 transition-colors">← Prev</a>
+        <a href={getPageUrl(currentPage - 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-blue-400 hover:text-blue-600 transition-colors">← Prev</a>
       )}
       {withEllipsis.map((p, idx) =>
         p === '...' ? (
@@ -251,8 +251,8 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
             aria-current={p === currentPage ? 'page' : undefined}
             className={`w-9 h-9 flex items-center justify-center text-sm font-medium rounded-xl border transition-colors ${
               p === currentPage
-                ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white border-violet-600'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-violet-400 hover:text-violet-600'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border-blue-600'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400 hover:text-blue-600'
             }`}
           >
             {p}
@@ -260,7 +260,7 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
         )
       )}
       {currentPage < totalPages && (
-        <a href={getPageUrl(currentPage + 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-violet-400 hover:text-violet-600 transition-colors">Next →</a>
+        <a href={getPageUrl(currentPage + 1)} className="px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-blue-400 hover:text-blue-600 transition-colors">Next →</a>
       )}
     </nav>
   );

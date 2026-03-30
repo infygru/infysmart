@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Phone, Menu, X, ShoppingCart, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { getAssetUrl, GlobalSettings } from '@/lib/directus';
@@ -16,6 +17,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
   const { totals, openDrawer } = useCart();
   const { data: session } = useSession();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -39,8 +41,8 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
 
   const navBgClass = isScrolled
     ? 'bg-white/95 backdrop-blur-md shadow-sm py-2'
-    : 'bg-transparent py-4';
-  const textColor = isScrolled ? 'text-slate-700' : 'text-white';
+    : 'bg-white/95 backdrop-blur-md shadow-sm py-4';
+  const textColor = 'text-slate-700';
 
   return (
     <>
@@ -70,28 +72,25 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex gap-4 lg:gap-6 items-center font-medium text-sm">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`whitespace-nowrap transition-colors hover:text-brand-blue ${textColor} ${
-                  item.label === 'Shop'
-                    ? isScrolled
-                      ? 'text-brand-blue font-bold'
-                      : 'text-yellow-300 font-bold'
-                    : ''
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`whitespace-nowrap transition-colors hover:text-brand-blue ${
+                    isActive ? 'text-brand-orange font-bold' : textColor
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
 
             {/* Cart icon with badge */}
             <button
               onClick={openDrawer}
-              className={`relative p-2 rounded-lg transition-colors ${
-                isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              }`}
+              className={`relative p-2 rounded-lg transition-colors text-slate-700 hover:bg-slate-100`}
               aria-label={`Cart (${totals.itemCount} items)`}
             >
               <ShoppingCart className="w-5 h-5" />
@@ -107,9 +106,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen((v) => !v)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                    isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-                  }`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-slate-700 hover:bg-slate-100`}
                 >
                   {session.user.image ? (
                     <img src={session.user.image} alt="" className="w-7 h-7 rounded-full object-cover" />
@@ -144,9 +141,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
             ) : (
               <Link
                 href="/login"
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                  isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-                }`}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors text-slate-700 hover:bg-slate-100`}
               >
                 <User className="w-4 h-4" /> Login
               </Link>
@@ -154,11 +149,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
 
             <button
               onClick={() => setIsQuoteOpen(true)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-all font-bold whitespace-nowrap ${
-                isScrolled
-                  ? 'bg-brand-blue text-white hover:bg-blue-700'
-                  : 'bg-white text-brand-blue hover:bg-gray-100'
-              }`}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-all font-bold whitespace-nowrap bg-brand-blue text-white hover:bg-blue-700`}
             >
               <Phone className="h-4 w-4" />
               Get Quote
@@ -217,25 +208,28 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
         </div>
 
         <nav className="flex flex-col p-5 gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsMobileOpen(false)}
-              className={`px-4 py-3 hover:text-white hover:bg-slate-800 rounded-lg font-medium transition-colors ${
-                item.label === 'Shop'
-                  ? 'text-yellow-300 font-bold'
-                  : 'text-slate-300'
-              }`}
-            >
-              {item.label}
-              {item.label === 'Shop' && (
-                <span className="ml-2 text-xs bg-brand-orange text-white px-1.5 py-0.5 rounded font-bold">
-                  NEW
-                </span>
-              )}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileOpen(false)}
+                className={`px-4 py-3 hover:text-white hover:bg-slate-800 rounded-lg font-medium transition-colors ${
+                  isActive
+                    ? 'text-brand-orange font-bold'
+                    : 'text-slate-300'
+                }`}
+              >
+                {item.label}
+                {item.label === 'Shop' && (
+                  <span className="ml-2 text-xs bg-brand-orange text-white px-1.5 py-0.5 rounded font-bold">
+                    NEW
+                  </span>
+                )}
+              </Link>
+            );
+          })}
 
           <div className="mt-4 pt-4 border-t border-slate-800 space-y-3">
             {session?.user ? (

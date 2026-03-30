@@ -57,7 +57,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-violet-300 hover:shadow-xl hover:shadow-violet-50/50 transition-all duration-200 flex flex-col">
+    <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 hover:shadow-xl hover:shadow-blue-50/50 transition-all duration-200 flex flex-col">
       {/* Image */}
       <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/3] bg-slate-100 overflow-hidden">
         {thumbnailSrc ? (
@@ -83,7 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
           {product.is_featured && (
-            <span className="bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-md">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold px-2 py-0.5 rounded-md">
               Featured
             </span>
           )}
@@ -107,7 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="flex flex-col flex-1 p-4 gap-3">
         <div className="flex items-center justify-between gap-2">
           {brandName && (
-            <span className="text-xs font-bold text-violet-700 uppercase tracking-wide">
+            <span className="text-xs font-bold text-blue-700 uppercase tracking-wide">
               {brandName}
             </span>
           )}
@@ -115,7 +115,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <Link href={`/shop/${product.slug}`} className="flex-1">
-          <h3 className="text-sm font-semibold text-slate-900 leading-snug line-clamp-2 hover:text-violet-700 transition-colors">
+          <h3 className="text-sm font-semibold text-slate-900 leading-snug line-clamp-2 hover:text-blue-700 transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -148,8 +148,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             isOutOfStock
               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
               : inCart
-              ? 'bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100'
-              : 'bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 shadow-sm shadow-violet-100'
+              ? 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100'
+              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-sm shadow-blue-100'
           }`}
         >
           {isOutOfStock ? (
@@ -163,7 +163,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <Link
           href={`/shop/${product.slug}`}
-          className="flex items-center justify-center gap-1.5 text-xs text-slate-400 hover:text-violet-600 transition-colors"
+          className="flex items-center justify-center gap-1.5 text-xs text-slate-400 hover:text-blue-600 transition-colors"
         >
           <Tag className="w-3 h-3" /> View Details
         </Link>

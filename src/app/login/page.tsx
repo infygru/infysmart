@@ -104,19 +104,19 @@ function LoginPage() {
     ? email
     : `+91 ${phone.replace(/\D/g, '').replace(/(\d{5})(\d{5})/, '$1 $2')}`;
 
-  const inputCls = 'w-full h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-lg px-4 text-sm focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all';
+  const inputCls = 'w-full h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-lg px-4 text-sm focus:outline-none focus:border-blue-500 focus:bg-slate-50 transition-all';
 
   return (
     <div className="min-h-screen flex bg-slate-50">
 
       {/* ── Left brand panel ─────────────────────────── */}
-      <div className="hidden lg:flex lg:w-[460px] xl:w-[500px] flex-col justify-between p-12 relative overflow-hidden bg-gradient-to-br from-violet-800 via-violet-700 to-purple-700">
+      <div className="hidden lg:flex lg:w-[460px] xl:w-[500px] flex-col justify-between p-12 relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
 
         {/* Subtle violet glow */}
         <div className="absolute top-0 left-0 w-96 h-96 rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #a78bfa 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
+          style={{ background: 'radial-gradient(circle, #2dd4bf 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
         <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)', transform: 'translate(30%, 30%)' }} />
+          style={{ background: 'radial-gradient(circle, #0d9488 0%, transparent 70%)', transform: 'translate(30%, 30%)' }} />
 
         {/* Dot grid */}
         <div className="absolute inset-0 opacity-[0.07]"
@@ -124,13 +124,13 @@ function LoginPage() {
 
         <div className="relative z-10">
           <Link href="/" className="inline-block">
-            <span className="text-xl font-black tracking-tight text-white">Infy<span className="text-violet-300">Smart</span></span>
+            <span className="text-xl font-black tracking-tight text-white">Infy<span className="text-blue-300">Smart</span></span>
           </Link>
         </div>
 
         <div className="relative z-10 space-y-10">
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-violet-300 uppercase mb-4">Security Infrastructure</p>
+            <p className="text-[11px] font-semibold tracking-[0.2em] text-blue-300 uppercase mb-4">Security Infrastructure</p>
             <h2 className="text-[2rem] font-bold text-white leading-snug tracking-tight">
               Trusted by factories,<br />institutions &amp;<br />commercial projects.
             </h2>
@@ -144,13 +144,13 @@ function LoginPage() {
             ].map(({ n, label }) => (
               <div key={n} className="flex items-baseline gap-4">
                 <span className="text-2xl font-black text-white flex-shrink-0 w-16">{n}</span>
-                <span className="text-sm text-violet-200/70 leading-snug" dangerouslySetInnerHTML={{ __html: label }} />
+                <span className="text-sm text-blue-200/70 leading-snug" dangerouslySetInnerHTML={{ __html: label }} />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 text-xs text-violet-300/50">
+        <div className="relative z-10 text-xs text-blue-300/50">
           © {new Date().getFullYear()} Infysmart Technologies, Hosur
         </div>
       </div>
@@ -162,7 +162,7 @@ function LoginPage() {
           {/* Mobile logo */}
           <div className="lg:hidden mb-10">
             <Link href="/" className="text-xl font-black tracking-tight text-slate-900">
-              Infy<span className="text-violet-600">Smart</span>
+              Infy<span className="text-blue-600">Smart</span>
             </Link>
           </div>
 
@@ -202,7 +202,7 @@ function LoginPage() {
                     onClick={() => setMethod(m)}
                     className={`pb-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
                       method === m
-                        ? 'text-slate-900 border-violet-600'
+                        ? 'text-slate-900 border-blue-600'
                         : 'text-slate-400 border-transparent hover:text-slate-700'
                     }`}
                   >
@@ -241,7 +241,7 @@ function LoginPage() {
                       autoComplete="tel"
                       autoFocus
                       maxLength={10}
-                      className="flex-1 h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-r-lg px-4 text-sm focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all"
+                      className="flex-1 h-11 bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 rounded-r-lg px-4 text-sm focus:outline-none focus:border-blue-500 focus:bg-slate-50 transition-all"
                     />
                   </div>
                 </div>
@@ -252,7 +252,7 @@ function LoginPage() {
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
+                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Continue <ArrowRight className="w-3.5 h-3.5" /></>}
               </button>
@@ -287,7 +287,7 @@ function LoginPage() {
                   maxLength={6}
                   autoFocus
                   placeholder="——————"
-                  className="w-full h-14 bg-white border border-slate-200 text-slate-900 rounded-lg px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-violet-500 focus:bg-slate-50 transition-all placeholder:tracking-normal placeholder:text-slate-300 placeholder:text-base"
+                  className="w-full h-14 bg-white border border-slate-200 text-slate-900 rounded-lg px-4 text-2xl font-bold tracking-[0.5em] text-center focus:outline-none focus:border-blue-500 focus:bg-slate-50 transition-all placeholder:tracking-normal placeholder:text-slate-300 placeholder:text-base"
                 />
               </div>
 
@@ -296,7 +296,7 @@ function LoginPage() {
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
+                className="mt-5 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify &amp; sign in'}
               </button>

@@ -7,7 +7,7 @@ export default function StatsStrip() {
           {/* 1 */}
           <div className="text-center md:px-6">
             <p className="text-4xl font-bold text-yellow-400">10+</p>
-            <p className="mt-2 text-sm tracking-widest text-teal-200">
+            <p className="mt-2 text-sm tracking-widest text-blue-200">
               YEARS EXPERIENCE
             </p>
           </div>
@@ -15,7 +15,7 @@ export default function StatsStrip() {
           {/* 2 */}
           <div className="text-center md:px-6">
             <p className="text-4xl font-bold text-yellow-400">500+</p>
-            <p className="mt-2 text-sm tracking-widest text-teal-200">
+            <p className="mt-2 text-sm tracking-widest text-blue-200">
               PROJECTS DONE
             </p>
           </div>
@@ -23,7 +23,7 @@ export default function StatsStrip() {
           {/* 3 */}
           <div className="text-center md:px-6">
             <p className="text-4xl font-bold text-yellow-400">38</p>
-            <p className="mt-2 text-sm tracking-widest text-teal-200">
+            <p className="mt-2 text-sm tracking-widest text-blue-200">
               TN DISTRICTS
             </p>
           </div>
@@ -31,7 +31,7 @@ export default function StatsStrip() {
           {/* 4 */}
           <div className="text-center md:px-6">
             <p className="text-4xl font-bold text-yellow-400">24/7</p>
-            <p className="mt-2 text-sm tracking-widest text-teal-200">
+            <p className="mt-2 text-sm tracking-widest text-blue-200">
               SUPPORT TEAM
             </p>
           </div>

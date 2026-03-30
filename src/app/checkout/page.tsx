@@ -256,7 +256,7 @@ export default function CheckoutPage() {
       notes: {
         shipping_address: `${form.shipping.line1}, ${form.shipping.city}, ${form.shipping.state} - ${form.shipping.pincode}`,
       },
-      theme: { color: '#7c3aed' },
+      theme: { color: '#0d9488' },
       handler: async (response: {
         razorpay_order_id: string;
         razorpay_payment_id: string;
@@ -310,13 +310,13 @@ export default function CheckoutPage() {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Header */}
-      <section className="bg-gradient-to-r from-violet-700 to-purple-600 py-4 px-4">
+      <section className="bg-gradient-to-r from-blue-700 to-blue-600 py-4 px-4">
         <div className="container mx-auto max-w-5xl flex items-center justify-between">
           <h1 className="text-lg font-extrabold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-violet-200" /> Secure Checkout
+            <ShieldCheck className="w-5 h-5 text-blue-200" /> Secure Checkout
           </h1>
-          <div className="hidden sm:flex items-center gap-2 text-xs text-violet-200">
-            <ShieldCheck className="w-4 h-4 text-violet-200" /> Secured by Razorpay
+          <div className="hidden sm:flex items-center gap-2 text-xs text-blue-200">
+            <ShieldCheck className="w-4 h-4 text-blue-200" /> Secured by Razorpay
           </div>
         </div>
       </section>
@@ -328,7 +328,7 @@ export default function CheckoutPage() {
           <div className="space-y-4">
 
             {/* Contact Info */}
-            <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-violet-500" />}>
+            <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-orange-500" />}>
               <FormRow>
                 <FormField label="Full Name *" error={errors.name}>
                   <input
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
             </FormSection>
 
             {/* Shipping Address */}
-            <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-violet-500" />}>
+            <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-orange-500" />}>
               <AddressFields
                 prefix="shipping"
                 address={form.shipping}
@@ -376,13 +376,13 @@ export default function CheckoutPage() {
             </FormSection>
 
             {/* Billing Address */}
-            <FormSection title="Billing Address" icon={<CreditCard className="w-5 h-5 text-violet-500" />}>
+            <FormSection title="Billing Address" icon={<CreditCard className="w-5 h-5 text-orange-500" />}>
               <label className="flex items-center gap-2.5 cursor-pointer mb-4">
                 <input
                   type="checkbox"
                   checked={form.billing_same}
                   onChange={(e) => setField('billing_same', e.target.checked)}
-                  className="w-4 h-4 rounded border-gray-300 accent-violet-600"
+                  className="w-4 h-4 rounded border-gray-300 accent-blue-600"
                 />
                 <span className="text-sm font-medium text-gray-700">
                   Same as shipping address
@@ -400,12 +400,12 @@ export default function CheckoutPage() {
                 onChange={(e) => setField('notes', e.target.value)}
                 placeholder="Special instructions, preferred delivery time, site contact, etc."
                 rows={3}
-                className="w-full text-sm bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-300 resize-none transition-colors"
+                className="w-full text-sm bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-300 resize-none transition-colors"
               />
             </FormSection>
 
             {/* Payment Method */}
-            <FormSection title="Payment Method" icon={<CreditCard className="w-5 h-5 text-violet-500" />}>
+            <FormSection title="Payment Method" icon={<CreditCard className="w-5 h-5 text-orange-500" />}>
               <div className="grid sm:grid-cols-2 gap-3">
                 <PaymentOption
                   id="razorpay"
@@ -448,7 +448,7 @@ export default function CheckoutPage() {
             >
               <span className="font-bold text-gray-900">Order Summary</span>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-violet-600">{formatPrice(totals.total)}</span>
+                <span className="font-bold text-blue-600">{formatPrice(totals.total)}</span>
                 {summaryOpen ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
               </div>
             </button>
@@ -469,14 +469,14 @@ export default function CheckoutPage() {
                     return (
                       <li key={product.id} className="flex gap-3 text-sm">
                         <div className="relative flex-shrink-0">
-                          <div className="w-14 h-14 bg-violet-50 rounded-lg overflow-hidden border border-violet-100">
+                          <div className="w-14 h-14 bg-blue-50 rounded-lg overflow-hidden border border-blue-100">
                             {thumb ? (
                               <Image src={thumb} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
                             ) : (
-                              <div className="w-full h-full bg-violet-50" />
+                              <div className="w-full h-full bg-blue-50" />
                             )}
                           </div>
-                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                             {quantity}
                           </span>
                         </div>
@@ -498,7 +498,7 @@ export default function CheckoutPage() {
                 <div className="space-y-1.5 text-sm">
                   <Row label="Subtotal" value={formatPrice(totals.subtotal)} />
                   {totals.discount > 0 && (
-                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-violet-600 font-semibold" />
+                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-blue-600 font-semibold" />
                   )}
                   <Row
                     label="Shipping"
@@ -506,7 +506,7 @@ export default function CheckoutPage() {
                     valueClass={totals.shipping === 0 ? 'text-amber-600 font-semibold' : ''}
                   />
                 </div>
-                <div className="border-t border-violet-100 pt-2.5 flex justify-between font-bold text-base text-gray-900">
+                <div className="border-t border-blue-100 pt-2.5 flex justify-between font-bold text-base text-gray-900">
                   <span>Total</span>
                   <span>{formatPrice(totals.total)}</span>
                 </div>
@@ -519,7 +519,7 @@ export default function CheckoutPage() {
               <button
                 onClick={handlePlaceOrder}
                 disabled={loading || (serviceableStates.length > 0 && form.shipping.state !== '' && !serviceableStates.includes(form.shipping.state))}
-                className="w-full flex items-center justify-center gap-2.5 py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:from-violet-700 hover:to-purple-700 disabled:opacity-60 disabled:cursor-not-allowed transition-all text-base"
+                className="w-full flex items-center justify-center gap-2.5 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-60 disabled:cursor-not-allowed transition-all text-base"
               >
                 {loading ? (
                   <>
@@ -538,8 +538,8 @@ export default function CheckoutPage() {
 
               <p className="text-[11px] text-gray-400 text-center">
                 By placing an order you agree to our{' '}
-                <Link href="/terms" className="underline hover:text-violet-600">Terms</Link> and{' '}
-                <Link href="/refund-policy" className="underline hover:text-violet-600">Refund Policy</Link>.
+                <Link href="/terms" className="underline hover:text-blue-600">Terms</Link> and{' '}
+                <Link href="/refund-policy" className="underline hover:text-blue-600">Refund Policy</Link>.
               </p>
             </div>
           </div>
@@ -597,7 +597,7 @@ function inputClass(hasError: boolean) {
   return `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors ${
     hasError
       ? 'border border-red-400 bg-red-50 text-gray-900 placeholder:text-gray-400 focus:border-red-400 focus:ring-red-300'
-      : 'border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-violet-400 focus:ring-violet-300'
+      : 'border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-300'
   }`;
 }
 
@@ -620,7 +620,7 @@ function AddressFields({
     `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors bg-white ${
       hasError
         ? 'border border-red-400 text-gray-700 focus:border-red-400 focus:ring-red-300'
-        : 'border border-gray-200 text-gray-700 focus:border-violet-400 focus:ring-violet-300'
+        : 'border border-gray-200 text-gray-700 focus:border-blue-400 focus:ring-blue-300'
     }`;
 
   return (
@@ -722,20 +722,20 @@ function PaymentOption({
       onClick={onSelect}
       className={`relative flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
         selected
-          ? 'border-violet-600 bg-violet-50'
-          : 'border-gray-200 bg-white hover:border-violet-300'
+          ? 'border-blue-600 bg-blue-50'
+          : 'border-gray-200 bg-white hover:border-blue-300'
       }`}
     >
       <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-        selected ? 'border-violet-600' : 'border-gray-300'
+        selected ? 'border-blue-600' : 'border-gray-300'
       }`}>
-        {selected && <div className="w-2 h-2 rounded-full bg-violet-600" />}
+        {selected && <div className="w-2 h-2 rounded-full bg-blue-600" />}
       </div>
       <div className="min-w-0">
         <p className="font-bold text-sm text-gray-900 flex items-center gap-1.5">
           <span>{icon}</span> {title}
           {badge && (
-            <span className="text-[10px] bg-violet-100 text-violet-600 font-bold px-1.5 py-0.5 rounded">
+            <span className="text-[10px] bg-blue-100 text-blue-600 font-bold px-1.5 py-0.5 rounded">
               {badge}
             </span>
           )}

@@ -11,10 +11,10 @@ const config: Config = {
       colors: {
         // Unified Brand Colors
         brand: {
-          blue: '#2563eb',   // Primary Brand Color (Blue-600)
-          dark: '#1e3a8a',   // Darker shade for accents (Blue-900)
-          orange: '#ea580c', // Secondary Action Color (Orange-600)
-          light: '#eff6ff',  // Light Blue Background (Blue-50)
+          blue: '#1e40af',   // blue-800 — authoritative navy replaces the old teal
+          dark: '#1e3a8a',   // blue-900
+          orange: '#ea580c', // keep orange as secondary
+          light: '#eff6ff',  // blue-50
         },
         // Matches the "Smart" green
         accent: {
@@ -27,7 +27,7 @@ const config: Config = {
         }
       },
       backgroundImage: {
-        'hero-gradient': 'linear-gradient(to right bottom, #020617, #0f172a, #14532d)', // Dark to Green fade
+        'hero-gradient': 'linear-gradient(to right bottom, #1e3a8a, #1d4ed8, #2563eb)',
       },
       boxShadow: {
         modal: '0 20px 60px rgba(0,0,0,0.35)',

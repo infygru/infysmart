@@ -80,7 +80,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
           <SlidersHorizontal className="w-4 h-4 text-slate-400" />
           <h2 className="font-bold text-slate-800 text-sm">Filters</h2>
           {activeFilterCount > 0 && (
-            <span className="bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
               {activeFilterCount}
             </span>
           )}
@@ -97,7 +97,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
         <select
           value={activeSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-300"
+          className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-300"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -114,7 +114,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
           <li>
             <button
               onClick={() => updateParams({ category: null })}
-              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeCategory ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeCategory ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
             >
               All Categories
             </button>
@@ -123,7 +123,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             <li key={cat.id}>
               <button
                 onClick={() => updateParams({ category: activeCategory === cat.slug ? null : cat.slug })}
-                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${activeCategory === cat.slug ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${activeCategory === cat.slug ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
               >
                 {cat.name}
               </button>
@@ -147,9 +147,9 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
                         const next = checked ? activeBrands.filter((b) => b !== brand.slug) : [...activeBrands, brand.slug];
                         updateParams({ brand: next.length > 0 ? next : null });
                       }}
-                      className="w-4 h-4 rounded border-slate-300 accent-violet-600"
+                      className="w-4 h-4 rounded border-slate-300 accent-blue-600"
                     />
-                    <span className={`text-sm transition-colors ${checked ? 'text-violet-700 font-semibold' : 'text-slate-600 group-hover:text-slate-900'}`}>
+                    <span className={`text-sm transition-colors ${checked ? 'text-blue-700 font-semibold' : 'text-slate-600 group-hover:text-slate-900'}`}>
                       {brand.name}
                     </span>
                   </label>
@@ -165,7 +165,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
           <li>
             <button
               onClick={() => updateParams({ min_price: null, max_price: null })}
-              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeMinPrice && !activeMaxPrice ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${!activeMinPrice && !activeMaxPrice ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
             >
               Any Price
             </button>
@@ -176,7 +176,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
               <li key={range.label}>
                 <button
                   onClick={() => updateParams({ min_price: isActive ? null : String(range.min), max_price: isActive ? null : String(range.max) })}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${isActive ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
+                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-sm transition-colors ${isActive ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-50'}`}
                 >
                   {range.label}
                 </button>
@@ -192,7 +192,7 @@ export default function ShopFilters({ categories, brands, totalCount }: ShopFilt
             type="checkbox"
             checked={inStockOnly}
             onChange={() => updateParams({ in_stock: inStockOnly ? null : '1' })}
-            className="w-4 h-4 rounded border-slate-300 accent-violet-600"
+            className="w-4 h-4 rounded border-slate-300 accent-blue-600"
           />
           <span className="text-sm text-slate-600">In Stock Only</span>
         </label>
@@ -236,7 +236,7 @@ function FilterSection({ title, expanded, onToggle, children }: { title: string;
 
 function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
-    <span className="inline-flex items-center gap-1 bg-violet-50 text-violet-700 text-xs font-semibold px-2 py-1 rounded-full border border-violet-200">
+    <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full border border-blue-200">
       {label}
       <button onClick={onRemove} className="hover:text-slate-700 transition-colors" aria-label={`Remove ${label} filter`}>
         <X className="w-3 h-3" />
