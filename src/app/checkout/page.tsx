@@ -7,7 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   ShieldCheck, CreditCard, Truck, Smartphone,
-  ChevronDown, ChevronUp, AlertCircle, Loader2, CheckCircle2
+  ChevronDown, ChevronUp, AlertCircle, Loader2, CheckCircle2,
+  Lock, Zap, Info
 } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import {
@@ -17,8 +18,6 @@ import {
 import { getAssetUrl } from '@/lib/directus';
 import type { ShippingAddress } from '@/lib/directus';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface CheckoutForm {
   name: string;
   email: string;
@@ -26,7 +25,6 @@ interface CheckoutForm {
   shipping: ShippingAddress;
   billing_same: boolean;
   billing: ShippingAddress;
-  payment_method: 'razorpay' | 'cod';
   notes: string;
 }
 
@@ -46,7 +44,7 @@ const INDIAN_STATES = [
   'Ladakh', 'Lakshadweep', 'Puducherry',
 ];
 
-// ─── Razorpay type ────────────────────────────────────────────────────────────
+const SAMEDAY_CITIES = ['Chennai', 'Coimbatore'];
 
 declare global {
   interface Window {
@@ -55,29 +53,29 @@ declare global {
   }
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
-
 export default function CheckoutPage() {
   const router = useRouter();
   const { data: session } = useSession();
-  const { items, totals, coupon, clearCart, gstRate, codMaxAmount } = useCart();
+  const { items, totals, coupon, clearCart, gstRate } = useCart();
 
   const [form, setForm] = useState<CheckoutForm>({
     name: '', email: '', phone: '',
     shipping: { ...EMPTY_ADDRESS },
     billing_same: true,
     billing: { ...EMPTY_ADDRESS },
-    payment_method: 'razorpay',
     notes: '',
   });
 
-  // Pre-fill contact info from session
+  const sessionEmail = session?.user?.email ?? '';
+  const sessionPhone = session?.user?.phone ?? '';
+
+  // Pre-fill from session
   useEffect(() => {
     if (session?.user) {
       setForm((prev) => ({
         ...prev,
         name: prev.name || session.user.name || '',
-        email: prev.email || session.user.email || '',
+        email: session.user.email || prev.email,
         phone: prev.phone || session.user.phone || '',
       }));
     }
@@ -87,12 +85,16 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [serviceableStates, setServiceableStates] = useState<string[]>([]);
+  const [shippingCharge, setShippingCharge] = useState(299);
+  const [freeShippingAbove, setFreeShippingAbove] = useState(5000);
 
   useEffect(() => {
     fetch('/api/shipping/rules')
       .then((r) => r.json())
-      .then((data: { serviceable_states: string[] }) => {
+      .then((data: { serviceable_states: string[]; shipping_charge: number; free_shipping_above: number }) => {
         setServiceableStates(data.serviceable_states ?? []);
+        setShippingCharge(data.shipping_charge ?? 299);
+        setFreeShippingAbove(data.free_shipping_above ?? 5000);
       })
       .catch(() => { /* fail open */ });
   }, []);
@@ -112,31 +114,21 @@ export default function CheckoutPage() {
 
   if (items.length === 0) return null;
 
-  // ─── Field helpers ──────────────────────────────────────────────────────────
-
   const setField = (path: string, value: string | boolean) => {
     setErrors((prev) => {
       const next = { ...prev };
       delete next[path];
       return next;
     });
-
     setForm((prev) => {
       const keys = path.split('.');
-      if (keys.length === 1) {
-        return { ...prev, [path]: value };
-      }
+      if (keys.length === 1) return { ...prev, [path]: value };
       if (keys[0] === 'shipping' || keys[0] === 'billing') {
-        return {
-          ...prev,
-          [keys[0]]: { ...prev[keys[0]], [keys[1]]: value },
-        };
+        return { ...prev, [keys[0]]: { ...prev[keys[0]], [keys[1]]: value } };
       }
       return prev;
     });
   };
-
-  // ─── Validation ─────────────────────────────────────────────────────────────
 
   const validate = (): boolean => {
     const e: FormErrors = {};
@@ -147,9 +139,8 @@ export default function CheckoutPage() {
     const addr = form.shipping;
     if (!addr.line1.trim()) e['shipping.line1'] = 'Address line 1 is required';
     if (!addr.city.trim()) e['shipping.city'] = 'City is required';
-    if (!addr.state) {
-      e['shipping.state'] = 'State is required';
-    } else if (serviceableStates.length > 0 && !serviceableStates.includes(addr.state)) {
+    if (!addr.state) e['shipping.state'] = 'State is required';
+    else if (serviceableStates.length > 0 && !serviceableStates.includes(addr.state)) {
       e['shipping.state'] = `We don't deliver to ${addr.state} yet.`;
     }
     if (!addr.pincode || !isValidPincode(addr.pincode)) e['shipping.pincode'] = 'Valid 6-digit PIN required';
@@ -166,23 +157,15 @@ export default function CheckoutPage() {
     return Object.keys(e).length === 0;
   };
 
-  // ─── Payment flow ───────────────────────────────────────────────────────────
-
   const handlePlaceOrder = async () => {
     if (!validate()) {
       const firstError = document.querySelector('[data-error="true"]');
       firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
-
     setLoading(true);
-
     try {
-      if (form.payment_method === 'cod') {
-        await placeCODOrder();
-      } else {
-        await initiateRazorpay();
-      }
+      await initiateRazorpay();
     } catch (err) {
       console.error('Order placement failed:', err);
       alert('Something went wrong. Please try again.');
@@ -198,7 +181,7 @@ export default function CheckoutPage() {
     shipping_address: form.shipping,
     billing_same_as_shipping: form.billing_same,
     billing_address: form.billing_same ? null : form.billing,
-    payment_method: form.payment_method,
+    payment_method: 'razorpay',
     coupon_code: coupon?.code ?? null,
     notes: form.notes || null,
     subtotal: totals.subtotal,
@@ -225,30 +208,12 @@ export default function CheckoutPage() {
     ...extras,
   });
 
-  const placeCODOrder = async () => {
-    const res = await fetch('/api/orders/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(buildOrderPayload({
-        payment_status: 'pending',
-        status: 'confirmed',
-      })),
-    });
-
-    if (!res.ok) throw new Error('Order creation failed');
-    const data = await res.json() as { order_number: string; id: string };
-
-    clearCart();
-    router.push(`/order/confirmation/${data.id}?method=cod&order=${data.order_number}`);
-  };
-
   const initiateRazorpay = async () => {
     const rzpRes = await fetch('/api/payments/razorpay/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: totals.total }),
     });
-
     if (!rzpRes.ok) throw new Error('Failed to create payment order');
     const { order_id, amount, currency, key_id } = await rzpRes.json() as {
       order_id: string; amount: number; currency: string; key_id: string;
@@ -262,15 +227,11 @@ export default function CheckoutPage() {
       name: 'Infysmart',
       description: `Order — ${items.length} item${items.length !== 1 ? 's' : ''}`,
       image: 'https://infysmart.com/logo.png',
-      prefill: {
-        name: form.name,
-        email: form.email,
-        contact: form.phone,
-      },
+      prefill: { name: form.name, email: form.email, contact: form.phone },
       notes: {
         shipping_address: `${form.shipping.line1}, ${form.shipping.city}, ${form.shipping.state} - ${form.shipping.pincode}`,
       },
-      theme: { color: '#0d9488' },
+      theme: { color: '#FF4500' },
       handler: async (response: {
         razorpay_order_id: string;
         razorpay_payment_id: string;
@@ -291,26 +252,19 @@ export default function CheckoutPage() {
             }),
           }),
         });
-
         if (!verifyRes.ok) {
           alert('Payment verification failed. Please contact support with your payment reference.');
           setLoading(false);
           return;
         }
-
         const { id, order_number } = await verifyRes.json() as { id: string; order_number: string };
         clearCart();
         router.push(`/order/confirmation/${id}?method=razorpay&order=${order_number}`);
       },
-      modal: {
-        ondismiss: () => setLoading(false),
-      },
+      modal: { ondismiss: () => setLoading(false) },
     };
 
-    if (!window.Razorpay) {
-      throw new Error('Razorpay SDK not loaded. Please refresh and try again.');
-    }
-
+    if (!window.Razorpay) throw new Error('Razorpay SDK not loaded. Please refresh and try again.');
     const rzp = new window.Razorpay(options);
     rzp.on('payment.failed', (response: { error: { description: string } }) => {
       alert(`Payment failed: ${response.error.description}`);
@@ -319,67 +273,114 @@ export default function CheckoutPage() {
     rzp.open();
   };
 
-  // ─── Render ─────────────────────────────────────────────────────────────────
+  const isSameDayCity = SAMEDAY_CITIES.some(
+    (c) => form.shipping.city.trim().toLowerCase() === c.toLowerCase()
+  );
+  const isServiceable = serviceableStates.length === 0 || !form.shipping.state || serviceableStates.includes(form.shipping.state);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-gray-50">
       {/* Header */}
-      <section className="bg-gradient-to-r from-blue-700 to-blue-600 py-4 px-4">
+      <div className="bg-white border-b border-gray-200 py-3.5 px-4">
         <div className="container mx-auto max-w-5xl flex items-center justify-between">
-          <h1 className="text-lg font-extrabold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-blue-200" /> Secure Checkout
+          <h1 className="text-base font-extrabold text-gray-900 flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-[#FF4500]" /> Secure Checkout
           </h1>
-          <div className="hidden sm:flex items-center gap-2 text-xs text-blue-200">
-            <ShieldCheck className="w-4 h-4 text-blue-200" /> Secured by Razorpay
-          </div>
+          <span className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400">
+            <ShieldCheck className="w-3.5 h-3.5 text-green-500" /> 256-bit SSL · Secured by Razorpay
+          </span>
         </div>
-      </section>
+      </div>
 
       <div className="container mx-auto max-w-5xl px-4 py-6">
-        <div className="grid lg:grid-cols-[1fr_360px] gap-6 items-start">
+        <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
 
-          {/* Left: Form */}
+          {/* ── LEFT: Form ── */}
           <div className="space-y-4">
 
-            {/* Contact Info */}
-            <FormSection title="Contact Information" icon={<Smartphone className="w-5 h-5 text-orange-500" />}>
+            {/* Delivery info banner */}
+            <div className="bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-[#FF4500] shrink-0" />
+                <span className="font-semibold text-orange-800">Same-day delivery</span>
+                <span className="text-orange-700">in Chennai &amp; Coimbatore (orders before 2 PM)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Truck className="w-4 h-4 text-gray-500 shrink-0" />
+                <span className="text-gray-600">Standard delivery 3–7 days · Free above {formatPrice(freeShippingAbove)} · Otherwise {formatPrice(shippingCharge)}</span>
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <FormSection title="Contact Information" icon={<Smartphone className="w-4 h-4 text-[#FF4500]" />}>
+              {/* Ordering for someone else note */}
+              <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2.5 text-xs text-blue-700">
+                <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                <span>
+                  Ordering for a client or project site? Enter the <strong>delivery contact&apos;s name and phone</strong> below — order confirmation will go to your account email.
+                </span>
+              </div>
+
               <FormRow>
                 <FormField label="Full Name *" error={errors.name}>
                   <input
                     type="text"
                     value={form.name}
                     onChange={(e) => setField('name', e.target.value)}
-                    placeholder="Your full name"
-                    className={inputClass(!!errors.name)}
+                    placeholder="Delivery contact name"
+                    className={inputCls(!!errors.name)}
                     autoComplete="name"
                   />
                 </FormField>
                 <FormField label="Mobile Number *" error={errors.phone}>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => setField('phone', e.target.value)}
-                    placeholder="10-digit mobile number"
-                    className={inputClass(!!errors.phone)}
-                    autoComplete="tel"
-                    maxLength={10}
-                  />
+                  {sessionPhone ? (
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        value={form.phone}
+                        onChange={(e) => setField('phone', e.target.value)}
+                        placeholder="10-digit mobile number"
+                        className={inputCls(!!errors.phone)}
+                        autoComplete="tel"
+                        maxLength={10}
+                      />
+                    </div>
+                  ) : (
+                    <input
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) => setField('phone', e.target.value)}
+                      placeholder="10-digit mobile number"
+                      className={inputCls(!!errors.phone)}
+                      autoComplete="tel"
+                      maxLength={10}
+                    />
+                  )}
                 </FormField>
               </FormRow>
-              <FormField label="Email Address *" error={errors.email}>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setField('email', e.target.value)}
-                  placeholder="Order confirmation will be sent here"
-                  className={inputClass(!!errors.email)}
-                  autoComplete="email"
-                />
+
+              {/* Email — locked to session */}
+              <FormField label="Account Email" error={errors.email}>
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={sessionEmail || form.email}
+                    readOnly
+                    className="w-full text-sm rounded-lg px-3 py-2.5 pr-10 border border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
+                  />
+                  <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                </div>
+                <p className="text-[11px] text-gray-400 mt-1">Order confirmation &amp; invoice will be sent here</p>
               </FormField>
             </FormSection>
 
             {/* Shipping Address */}
-            <FormSection title="Shipping Address" icon={<Truck className="w-5 h-5 text-orange-500" />}>
+            <FormSection title="Shipping Address" icon={<Truck className="w-4 h-4 text-[#FF4500]" />}>
+              {isSameDayCity && (
+                <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-xs text-green-700 font-semibold">
+                  <Zap className="w-3.5 h-3.5" /> Same-day delivery available for {form.shipping.city}!
+                </div>
+              )}
               <AddressFields
                 prefix="shipping"
                 address={form.shipping}
@@ -390,79 +391,63 @@ export default function CheckoutPage() {
             </FormSection>
 
             {/* Billing Address */}
-            <FormSection title="Billing Address" icon={<CreditCard className="w-5 h-5 text-orange-500" />}>
-              <label className="flex items-center gap-2.5 cursor-pointer mb-4">
+            <FormSection title="Billing Address" icon={<CreditCard className="w-4 h-4 text-[#FF4500]" />}>
+              <label className="flex items-center gap-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={form.billing_same}
                   onChange={(e) => setField('billing_same', e.target.checked)}
-                  className="w-4 h-4 rounded border-gray-300 accent-blue-600"
+                  className="w-4 h-4 rounded border-gray-300 accent-orange-500"
                 />
-                <span className="text-sm font-medium text-gray-700">
-                  Same as shipping address
-                </span>
+                <span className="text-sm font-medium text-gray-700">Same as shipping address</span>
               </label>
               {!form.billing_same && (
-                <AddressFields prefix="billing" address={form.billing} errors={errors} setField={setField} serviceableStates={[]} />
+                <div className="mt-4">
+                  <AddressFields prefix="billing" address={form.billing} errors={errors} setField={setField} serviceableStates={[]} />
+                </div>
               )}
             </FormSection>
 
             {/* Order Notes */}
-            <FormSection title="Additional Notes" icon={null}>
+            <FormSection title="Delivery Notes" icon={null}>
               <textarea
                 value={form.notes}
                 onChange={(e) => setField('notes', e.target.value)}
-                placeholder="Special instructions, preferred delivery time, site contact, etc."
+                placeholder="Site address details, preferred delivery time, security gate instructions, contact person at site, etc."
                 rows={3}
-                className="w-full text-sm bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-300 resize-none transition-colors"
+                className="w-full text-sm bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400 rounded-lg px-3 py-2.5 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-200 resize-none transition-colors"
               />
             </FormSection>
 
-            {/* Payment Method */}
-            <FormSection title="Payment Method" icon={<CreditCard className="w-5 h-5 text-orange-500" />}>
-              <div className="grid sm:grid-cols-2 gap-3">
-                <PaymentOption
-                  id="razorpay"
-                  selected={form.payment_method === 'razorpay'}
-                  onSelect={() => setField('payment_method', 'razorpay')}
-                  icon="💳"
-                  title="Pay Online"
-                  subtitle="UPI, Cards, Net Banking, Wallets via Razorpay"
-                  badge="Recommended"
-                />
-                <PaymentOption
-                  id="cod"
-                  selected={form.payment_method === 'cod'}
-                  onSelect={() => setField('payment_method', 'cod')}
-                  icon="🏠"
-                  title="Cash on Delivery"
-                  subtitle="Pay when product is delivered to your address"
-                />
-              </div>
-
-              {form.payment_method === 'cod' && (
-                <div className="mt-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-700">
-                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                  <span>
-                    COD available only for orders up to {formatPrice(codMaxAmount)}. A sales executive will
-                    confirm your order within 1 business day before dispatch.
-                  </span>
+            {/* Payment — online only */}
+            <FormSection title="Payment" icon={<CreditCard className="w-4 h-4 text-[#FF4500]" />}>
+              <div className="flex items-start gap-3 p-4 rounded-xl border-2 border-orange-400 bg-orange-50">
+                <div className="mt-0.5 w-4 h-4 rounded-full border-2 border-orange-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-2 h-2 rounded-full bg-orange-500" />
                 </div>
-              )}
+                <div>
+                  <p className="font-bold text-sm text-gray-900">💳 Pay Online via Razorpay</p>
+                  <p className="text-xs text-gray-500 mt-0.5">UPI · Credit/Debit Card · Net Banking · Wallets</p>
+                </div>
+              </div>
+              <p className="text-[11px] text-gray-400 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
+                Your payment is secured by Razorpay — PCI DSS Level 1 certified
+              </p>
             </FormSection>
           </div>
 
-          {/* Right: Order Summary */}
-          <div className="space-y-4 lg:sticky lg:top-24">
+          {/* ── RIGHT: Order Summary ── */}
+          <div className="space-y-4 lg:sticky lg:top-20">
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden flex items-center justify-between w-full bg-white border border-slate-200 shadow-sm rounded-xl p-4"
+              className="lg:hidden flex items-center justify-between w-full bg-white border border-gray-200 shadow-sm rounded-xl p-4"
               onClick={() => setSummaryOpen(!summaryOpen)}
             >
               <span className="font-bold text-gray-900">Order Summary</span>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-blue-600">{formatPrice(totals.total)}</span>
+                <span className="font-bold text-[#FF4500]">{formatPrice(totals.total)}</span>
                 {summaryOpen ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
               </div>
             </button>
@@ -470,10 +455,8 @@ export default function CheckoutPage() {
             <div className={`space-y-4 ${summaryOpen ? 'block' : 'hidden lg:block'}`}>
 
               {/* Items */}
-              <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-                <h2 className="text-sm font-bold text-gray-700 mb-4">
-                  Items ({totals.itemCount})
-                </h2>
+              <div className="bg-white rounded-xl border border-gray-200 p-5">
+                <h2 className="text-sm font-bold text-gray-700 mb-4">Items ({totals.itemCount})</h2>
                 <ul className="space-y-3">
                   {items.map(({ product, quantity }) => {
                     const price = getEffectivePrice(product.price, product.sale_price);
@@ -483,24 +466,21 @@ export default function CheckoutPage() {
                     return (
                       <li key={product.id} className="flex gap-3 text-sm">
                         <div className="relative flex-shrink-0">
-                          <div className="w-14 h-14 bg-blue-50 rounded-lg overflow-hidden border border-blue-100">
-                            {thumb ? (
-                              <Image src={thumb} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
-                            ) : (
-                              <div className="w-full h-full bg-blue-50" />
-                            )}
+                          <div className="w-14 h-14 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+                            {thumb
+                              ? <Image src={thumb} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
+                              : <div className="w-full h-full bg-gray-100" />
+                            }
                           </div>
-                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                             {quantity}
                           </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-gray-900 line-clamp-2 leading-snug">{product.name}</p>
-                          <p className="text-gray-400 text-xs mt-0.5">SKU: {product.sku}</p>
+                          <p className="font-medium text-gray-900 line-clamp-2 leading-snug text-xs">{product.name}</p>
+                          <p className="text-gray-400 text-[10px] mt-0.5">SKU: {product.sku}</p>
                         </div>
-                        <span className="font-semibold text-gray-900 whitespace-nowrap">
-                          {formatPrice(price * quantity)}
-                        </span>
+                        <span className="font-semibold text-gray-900 text-xs whitespace-nowrap">{formatPrice(price * quantity)}</span>
                       </li>
                     );
                   })}
@@ -508,75 +488,60 @@ export default function CheckoutPage() {
               </div>
 
               {/* Totals */}
-              <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-2.5">
+              <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-2">
                 <div className="space-y-1.5 text-sm">
                   <Row label="Subtotal" value={formatPrice(totals.subtotal)} />
                   {totals.discount > 0 && (
-                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-blue-600 font-semibold" />
+                    <Row label="Discount" value={`− ${formatPrice(totals.discount)}`} valueClass="text-green-600 font-semibold" />
                   )}
                   <Row
                     label="Shipping"
                     value={totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}
-                    valueClass={totals.shipping === 0 ? 'text-amber-600 font-semibold' : ''}
+                    valueClass={totals.shipping === 0 ? 'text-green-600 font-semibold' : ''}
                   />
                 </div>
-                <div className="border-t border-blue-100 pt-2.5 flex justify-between font-bold text-base text-gray-900">
+                <div className="border-t border-gray-100 pt-2.5 flex justify-between font-extrabold text-base text-gray-900">
                   <span>Total</span>
                   <span>{formatPrice(totals.total)}</span>
                 </div>
                 <p className="text-[11px] text-gray-400 text-center">
-                  Incl. of {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')})
+                  Incl. {gstRate}% GST (₹{totals.gst.toLocaleString('en-IN')})
                 </p>
               </div>
 
               {/* Place Order */}
               <button
                 onClick={handlePlaceOrder}
-                disabled={loading || (serviceableStates.length > 0 && form.shipping.state !== '' && !serviceableStates.includes(form.shipping.state))}
-                className="w-full flex items-center justify-center gap-2.5 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-60 disabled:cursor-not-allowed transition-all text-base"
+                disabled={loading || !isServiceable}
+                className="w-full flex items-center justify-center gap-2.5 py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all text-base shadow-lg shadow-orange-200"
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    {form.payment_method === 'razorpay' ? 'Opening Payment…' : 'Placing Order…'}
-                  </>
-                ) : (
-                  <>
-                    <CheckCircle2 className="w-5 h-5" />
-                    {form.payment_method === 'razorpay'
-                      ? `Pay ${formatPrice(totals.total)}`
-                      : `Place Order — ${formatPrice(totals.total)}`}
-                  </>
-                )}
+                {loading
+                  ? <><Loader2 className="w-5 h-5 animate-spin" /> Opening Payment…</>
+                  : <><CheckCircle2 className="w-5 h-5" /> Pay {formatPrice(totals.total)}</>
+                }
               </button>
 
               <p className="text-[11px] text-gray-400 text-center">
                 By placing an order you agree to our{' '}
-                <Link href="/terms" className="underline hover:text-blue-600">Terms</Link> and{' '}
-                <Link href="/refund-policy" className="underline hover:text-blue-600">Refund Policy</Link>.
+                <Link href="/terms" className="underline hover:text-[#FF4500]">Terms</Link> and{' '}
+                <Link href="/refund-policy" className="underline hover:text-[#FF4500]">Refund Policy</Link>.
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </main>
   );
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components ────────────────────────────────────────────────────────────
 
-function FormSection({
-  title, icon, children,
-}: {
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function FormSection({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-      <h2 className="flex items-center gap-2.5 text-base font-bold text-gray-900 mb-4 pb-3 border-b border-slate-200">
-        {icon}
-        {title}
+    <div className="bg-white rounded-xl border border-gray-200 p-5">
+      <h2 className="flex items-center gap-2 text-sm font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">
+        {icon}{title}
       </h2>
       <div className="space-y-4">{children}</div>
     </div>
@@ -587,16 +552,10 @@ function FormRow({ children }: { children: React.ReactNode }) {
   return <div className="grid sm:grid-cols-2 gap-4">{children}</div>;
 }
 
-function FormField({
-  label, error, children,
-}: {
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
+function FormField({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <div data-error={!!error || undefined}>
-      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{label}</label>
+      <label className="block text-xs font-semibold text-gray-600 mb-1.5">{label}</label>
       {children}
       {error && (
         <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -607,11 +566,11 @@ function FormField({
   );
 }
 
-function inputClass(hasError: boolean) {
+function inputCls(hasError: boolean) {
   return `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors ${
     hasError
-      ? 'border border-red-400 bg-red-50 text-gray-900 placeholder:text-gray-400 focus:border-red-400 focus:ring-red-300'
-      : 'border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-300'
+      ? 'border border-red-400 bg-red-50 text-gray-900 placeholder:text-gray-400 focus:border-red-400 focus:ring-red-200'
+      : 'border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-100'
   }`;
 }
 
@@ -630,70 +589,41 @@ function AddressFields({
     address.state !== '' &&
     !serviceableStates.includes(address.state);
 
-  const selectClass = (hasError: boolean) =>
+  const selCls = (hasError: boolean) =>
     `w-full text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 transition-colors bg-white ${
       hasError
-        ? 'border border-red-400 text-gray-700 focus:border-red-400 focus:ring-red-300'
-        : 'border border-gray-200 text-gray-700 focus:border-blue-400 focus:ring-blue-300'
+        ? 'border border-red-400 text-gray-700 focus:border-red-400 focus:ring-red-200'
+        : 'border border-gray-200 text-gray-700 focus:border-orange-400 focus:ring-orange-100'
     }`;
 
   return (
     <div className="space-y-4">
       <FormField label="Address Line 1 *" error={errors[`${prefix}.line1`]}>
-        <input
-          type="text"
-          value={address.line1}
-          onChange={(e) => setField(`${prefix}.line1`, e.target.value)}
-          placeholder="Plot/Door no., Street name"
-          className={inputClass(!!errors[`${prefix}.line1`])}
-          autoComplete={prefix === 'shipping' ? 'shipping address-line1' : 'billing address-line1'}
-        />
+        <input type="text" value={address.line1} onChange={(e) => setField(`${prefix}.line1`, e.target.value)}
+          placeholder="Plot/Door no., Street name" className={inputCls(!!errors[`${prefix}.line1`])} />
       </FormField>
-      <FormField label="Address Line 2" error={errors[`${prefix}.line2`]}>
-        <input
-          type="text"
-          value={address.line2}
-          onChange={(e) => setField(`${prefix}.line2`, e.target.value)}
-          placeholder="Area, Landmark (optional)"
-          className={inputClass(false)}
-        />
+      <FormField label="Address Line 2" error={undefined}>
+        <input type="text" value={address.line2} onChange={(e) => setField(`${prefix}.line2`, e.target.value)}
+          placeholder="Area, Landmark (optional)" className={inputCls(false)} />
       </FormField>
       <div className="grid sm:grid-cols-2 gap-4">
         <FormField label="City *" error={errors[`${prefix}.city`]}>
-          <input
-            type="text"
-            value={address.city}
-            onChange={(e) => setField(`${prefix}.city`, e.target.value)}
-            placeholder="City / District"
-            className={inputClass(!!errors[`${prefix}.city`])}
-          />
+          <input type="text" value={address.city} onChange={(e) => setField(`${prefix}.city`, e.target.value)}
+            placeholder="City / District" className={inputCls(!!errors[`${prefix}.city`])} />
         </FormField>
         <FormField label="PIN Code *" error={errors[`${prefix}.pincode`]}>
-          <input
-            type="text"
-            value={address.pincode}
-            onChange={(e) => setField(`${prefix}.pincode`, e.target.value)}
-            placeholder="6-digit PIN"
-            className={inputClass(!!errors[`${prefix}.pincode`])}
-            maxLength={6}
-          />
+          <input type="text" value={address.pincode} onChange={(e) => setField(`${prefix}.pincode`, e.target.value)}
+            placeholder="6-digit PIN" className={inputCls(!!errors[`${prefix}.pincode`])} maxLength={6} />
         </FormField>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <FormField label="State *" error={errors[`${prefix}.state`]}>
-            <select
-              value={address.state}
-              onChange={(e) => setField(`${prefix}.state`, e.target.value)}
-              className={selectClass(!!errors[`${prefix}.state`] || stateNotServiceable)}
-            >
+            <select value={address.state} onChange={(e) => setField(`${prefix}.state`, e.target.value)}
+              className={selCls(!!errors[`${prefix}.state`] || stateNotServiceable)}>
               <option value="">Select State</option>
               {INDIAN_STATES.map((s) => (
-                <option
-                  key={s}
-                  value={s}
-                  disabled={serviceableStates.length > 0 && !serviceableStates.includes(s)}
-                >
+                <option key={s} value={s} disabled={serviceableStates.length > 0 && !serviceableStates.includes(s)}>
                   {s}{serviceableStates.length > 0 && !serviceableStates.includes(s) ? ' (not serviceable)' : ''}
                 </option>
               ))}
@@ -701,72 +631,22 @@ function AddressFields({
           </FormField>
           {stateNotServiceable && !errors[`${prefix}.state`] && (
             <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
-              <AlertCircle className="w-3 h-3" />
-              We don&apos;t deliver to {address.state} yet.
+              <AlertCircle className="w-3 h-3" /> We don&apos;t deliver to {address.state} yet.
             </p>
           )}
         </div>
         <FormField label="Country" error={undefined}>
-          <input
-            type="text"
-            value="India"
-            disabled
-            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50 text-gray-400 cursor-not-allowed"
-          />
+          <input type="text" value="India" disabled
+            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50 text-gray-400 cursor-not-allowed" />
         </FormField>
       </div>
     </div>
   );
 }
 
-function PaymentOption({
-  selected, onSelect, icon, title, subtitle, badge,
-}: {
-  id?: string;
-  selected: boolean;
-  onSelect: () => void;
-  icon: string;
-  title: string;
-  subtitle: string;
-  badge?: string;
-}) {
+function Row({ label, value, valueClass = '' }: { label: string; value: string; valueClass?: string }) {
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`relative flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
-        selected
-          ? 'border-blue-600 bg-blue-50'
-          : 'border-gray-200 bg-white hover:border-blue-300'
-      }`}
-    >
-      <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-        selected ? 'border-blue-600' : 'border-gray-300'
-      }`}>
-        {selected && <div className="w-2 h-2 rounded-full bg-blue-600" />}
-      </div>
-      <div className="min-w-0">
-        <p className="font-bold text-sm text-gray-900 flex items-center gap-1.5">
-          <span>{icon}</span> {title}
-          {badge && (
-            <span className="text-[10px] bg-blue-100 text-blue-600 font-bold px-1.5 py-0.5 rounded">
-              {badge}
-            </span>
-          )}
-        </p>
-        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{subtitle}</p>
-      </div>
-    </button>
-  );
-}
-
-function Row({
-  label, value, valueClass = '',
-}: {
-  label: string; value: string; valueClass?: string;
-}) {
-  return (
-    <div className="flex justify-between text-gray-500">
+    <div className="flex justify-between text-gray-500 text-sm">
       <span>{label}</span>
       <span className={valueClass || 'text-gray-900'}>{value}</span>
     </div>
