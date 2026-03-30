@@ -162,7 +162,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   {hasDiscount && (
                     <>
                       <span className="text-lg text-gray-400 line-through">{formatPrice(product.price)}</span>
-                      <span className="bg-[#FF4500] text-white text-sm font-bold px-2.5 py-0.5 rounded-lg">
+                      <span className="bg-gradient-to-r from-[#FF4500] to-orange-600 text-white text-sm font-bold px-2.5 py-0.5 rounded-lg">
                         {discountPercent}% OFF
                       </span>
                     </>

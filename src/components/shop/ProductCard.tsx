@@ -120,7 +120,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={`flex-1 py-2.5 rounded-xl text-sm font-bold text-center transition-all ${
               isOutOfStock
                 ? 'bg-gray-100 text-gray-400 pointer-events-none'
-                : 'bg-[#FF4500] hover:bg-orange-600 text-white shadow-sm shadow-orange-200'
+                : 'bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-md shadow-orange-200/50'
             }`}
           >
             {isOutOfStock ? 'Unavailable' : 'Buy Now'}

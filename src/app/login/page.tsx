@@ -111,57 +111,66 @@ function LoginPage() {
     <div className="min-h-screen flex bg-white">
 
       {/* ── Left panel ── */}
-      <div className="hidden lg:flex lg:w-[420px] xl:w-[480px] flex-col bg-orange-50 border-r border-orange-100 p-12 relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-30"
-          style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #FF4500 1px, transparent 1px), radial-gradient(circle at 80% 20%, #FF4500 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div className="hidden lg:flex lg:w-[460px] xl:w-[500px] flex-col bg-slate-950 border-r border-slate-800 p-12 relative overflow-hidden shadow-2xl">
+        
+        {/* Glows */}
+        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#FF4500]/10 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
+
+        {/* Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 flex flex-col h-full">
           <Link href="/">
-            <Image src="/infysmart.webp" alt="Infysmart" width={140} height={40} className="h-10 w-auto object-contain" />
+            <div className="text-2xl font-extrabold tracking-tight text-white mb-8">
+              Infy<span className="text-[#FF4500]">Smart</span>
+            </div>
           </Link>
 
           <div className="flex-1 flex flex-col justify-center gap-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 bg-orange-100 text-[#FF4500] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4500]" />
+              <div className="inline-flex items-center gap-1.5 bg-orange-500/10 border border-orange-500/20 text-[#FF4500] text-xs font-bold px-3 py-1.5 rounded-full mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4500] animate-pulse" />
                 Govt-Approved Vendor
               </div>
-              <h2 className="text-3xl font-extrabold text-gray-900 leading-snug">
+              <h2 className="text-4xl font-extrabold text-white leading-tight tracking-tight">
                 India&apos;s trusted<br />
-                <span className="text-[#FF4500]">security equipment</span><br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4500] to-orange-400">security equipment</span><br />
                 store.
               </h2>
-              <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-                Authorized Hikvision, Dahua &amp; CP Plus dealer. GST invoices for all orders.
+              <p className="mt-5 text-sm text-slate-400 leading-relaxed max-w-sm">
+                Authorized Hikvision, Dahua &amp; CP Plus dealer. GST invoices for all B2B orders.
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-4">
               {[
                 { icon: ShieldCheck, value: '500+', label: 'Projects' },
                 { icon: Truck, value: '3–7d', label: 'Delivery' },
                 { icon: Award, value: '4.9★', label: 'Rating' },
               ].map(({ icon: Icon, value, label }) => (
-                <div key={label} className="bg-white rounded-2xl p-4 text-center shadow-sm border border-orange-100">
-                  <Icon className="w-4 h-4 text-[#FF4500] mx-auto mb-2" />
-                  <p className="text-gray-900 font-extrabold text-sm">{value}</p>
-                  <p className="text-gray-400 text-[10px] mt-0.5">{label}</p>
+                <div key={label} className="bg-slate-900/50 backdrop-blur-md rounded-2xl p-4 text-center border border-slate-800">
+                  <Icon className="w-5 h-5 text-[#FF4500] mx-auto mb-2" />
+                  <p className="text-white font-extrabold text-lg">{value}</p>
+                  <p className="text-slate-500 text-[10px] mt-0.5 tracking-wider uppercase font-semibold">{label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-2.5">
+            <div className="space-y-3.5">
               {['CCTV Cameras & NVR/DVR Systems', 'PoE Switches & Networking Gear', 'Access Control & Biometrics', 'Pan-India delivery with warranty'].map((item) => (
-                <div key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF4500] shrink-0" />
+                <div key={item} className="flex items-center gap-3 text-sm text-slate-300 font-medium">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF4500] shrink-0 shadow-[0_0_8px_rgba(255,69,0,0.6)]" />
                   {item}
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="text-xs text-gray-400 relative z-10">© {new Date().getFullYear()} Infysmart Technologies, Hosur</p>
+          <p className="text-xs text-slate-600 relative z-10 mt-10">
+            © {new Date().getFullYear()} Infysmart Technologies, Hosur
+          </p>
         </div>
       </div>
 
@@ -262,7 +271,7 @@ function LoginPage() {
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-sm"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Get OTP <ArrowRight className="w-3.5 h-3.5" /></>}
               </button>
@@ -305,7 +314,7 @@ function LoginPage() {
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-colors shadow-sm"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify & Sign in'}
               </button>

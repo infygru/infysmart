@@ -40,30 +40,30 @@ export default function AddToCartSection({ product }: Props) {
     <div className="space-y-3">
       {!isOutOfStock && (
         <div className="flex items-center gap-4">
-          <span className="text-sm font-semibold text-slate-700">Quantity:</span>
-          <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden">
+          <span className="text-sm font-semibold text-gray-700">Quantity:</span>
+          <div className="flex items-center border border-gray-200 bg-white rounded-xl overflow-hidden">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               disabled={quantity <= 1}
-              className="px-3 py-2.5 hover:bg-slate-50 transition-colors text-slate-600 disabled:opacity-40"
+              className="px-3 py-2.5 hover:bg-gray-50 transition-colors text-gray-600 disabled:opacity-40"
               aria-label="Decrease"
             >
               <Minus className="w-4 h-4" />
             </button>
-            <span className="px-4 py-2.5 font-bold text-slate-900 min-w-[3rem] text-center border-x border-slate-200">
+            <span className="px-4 py-2.5 font-bold text-gray-900 min-w-[3rem] text-center border-x border-gray-200">
               {quantity}
             </span>
             <button
               onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
               disabled={quantity >= maxQty}
-              className="px-3 py-2.5 hover:bg-slate-50 transition-colors text-slate-600 disabled:opacity-40"
+              className="px-3 py-2.5 hover:bg-gray-50 transition-colors text-gray-600 disabled:opacity-40"
               aria-label="Increase"
             >
               <Plus className="w-4 h-4" />
             </button>
           </div>
           {product.track_inventory && (
-            <span className="text-xs text-slate-400">{product.stock_quantity} available</span>
+            <span className="text-xs text-gray-400">{product.stock_quantity} available</span>
           )}
         </div>
       )}
@@ -74,10 +74,10 @@ export default function AddToCartSection({ product }: Props) {
           disabled={isOutOfStock}
           className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm ${
             isOutOfStock
-              ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : inCart
-              ? 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100'
-              : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-blue-100'
+              ? 'bg-orange-50 text-[#FF4500] border border-orange-200 hover:bg-orange-100'
+              : 'bg-white text-gray-700 border border-gray-200 hover:border-orange-300 hover:text-[#FF4500]'
           }`}
         >
           {isOutOfStock ? (
@@ -93,7 +93,7 @@ export default function AddToCartSection({ product }: Props) {
           <Link
             href="/checkout"
             onClick={() => addToCart(cartProduct, quantity)}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 transition-all shadow-sm shadow-amber-100"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#FF4500] to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all shadow-md shadow-orange-200/50"
           >
             Buy Now <ArrowRight className="w-4 h-4" />
           </Link>
@@ -101,7 +101,7 @@ export default function AddToCartSection({ product }: Props) {
       </div>
 
       {inCart && (
-        <Link href="/cart" className="flex items-center justify-center gap-1.5 text-sm text-blue-600 hover:underline font-semibold">
+        <Link href="/cart" className="flex items-center justify-center gap-1.5 text-sm text-[#FF4500] hover:underline font-semibold">
           View Cart ({qtyInCart} item{qtyInCart !== 1 ? 's' : ''}) →
         </Link>
       )}
