@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ShieldCheck, Phone, Star, CheckCircle, Camera, Sun, Fingerprint, Zap } from 'lucide-react';
+import { ArrowRight, ShieldCheck, ShoppingBag, Star, CheckCircle, Camera, Sun, Fingerprint, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface HeroProps {
@@ -123,13 +123,13 @@ export default function Hero({ heroImage }: HeroProps) {
                 Get Free Site Survey
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
-              <a
-                href="tel:+919445675619"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/5 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-white/20 transition-all text-sm"
+              <Link
+                href="/shop"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/5 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
               >
-                <Phone className="w-4 h-4" />
-                +91 94456 75619
-              </a>
+                <ShoppingBag className="w-4 h-4" />
+                Shop Now
+              </Link>
             </motion.div>
 
             {/* Stats */}

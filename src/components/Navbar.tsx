@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Phone, Menu, X, ShoppingCart, User, LogOut, Package, Settings } from 'lucide-react';
+import { Phone, Menu, X, ShoppingCart, User, LogOut, Package, Settings, ShoppingBag } from 'lucide-react';
 import { getAssetUrl, GlobalSettings } from '@/lib/directus';
 import GetQuoteModal from '@/components/GetQuoteModal';
 import { useCart } from '@/lib/cart-context';
@@ -71,15 +71,26 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-4 lg:gap-6 items-center font-medium text-sm">
-            {navItems.map((item) => {
+          <nav className="hidden md:flex gap-1 lg:gap-2 items-center font-medium text-sm">
+            {/* Shop — highlighted pill */}
+            <Link
+              href="/shop"
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold whitespace-nowrap transition-all ${
+                pathname.startsWith('/shop')
+                  ? 'bg-[#FF4500] text-white shadow-md shadow-orange-200'
+                  : 'bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 shadow-sm shadow-orange-200'
+              }`}
+            >
+              <ShoppingBag className="w-3.5 h-3.5" /> Shop
+            </Link>
+            {navItems.filter(i => i.label !== 'Shop').map((item) => {
               const isActive = pathname.startsWith(item.href);
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`whitespace-nowrap transition-colors hover:text-brand-blue ${
-                    isActive ? 'text-brand-orange font-bold' : textColor
+                  className={`px-3 py-2 rounded-lg whitespace-nowrap transition-colors ${
+                    isActive ? 'text-[#FF4500] font-bold bg-orange-50' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
                   {item.label}
@@ -235,7 +246,19 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
         )}
 
         <nav className="flex flex-col p-4 gap-0.5">
-          {navItems.map((item) => {
+          {/* Shop — highlighted in mobile too */}
+          <Link
+            href="/shop"
+            onClick={() => setIsMobileOpen(false)}
+            className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
+              pathname.startsWith('/shop')
+                ? 'bg-[#FF4500] text-white'
+                : 'bg-gradient-to-r from-amber-500 to-orange-600 text-white'
+            }`}
+          >
+            <ShoppingBag className="w-4 h-4" /> Shop Now
+          </Link>
+          {navItems.filter(i => i.label !== 'Shop').map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
               <Link
