@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     await directusAdmin.request(
       createItem('otp_codes', {
         phone: cleaned,
+        email: '',
         code,
         expires_at,
         used: false,
