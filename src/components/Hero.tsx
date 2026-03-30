@@ -36,33 +36,32 @@ export default function Hero({ heroImage }: HeroProps) {
 
       {/* ── Background ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        {/* Gradient orbs */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[140px] -translate-y-1/3 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-orange-500/8 rounded-full blur-[120px] translate-y-1/4 -translate-x-1/4" />
-        {/* Subtle dot grid */}
         <div className="absolute inset-0 bg-[radial-gradient(rgba(148,163,184,0.04)_1px,transparent_1px)] [background-size:28px_28px]" />
-        {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-14 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-12 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-20 items-center">
 
           {/* ─────────── LEFT COLUMN ─────────── */}
           <div>
 
-            {/* Gov badge */}
+            {/* Gov badge — truncated on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/25 bg-orange-500/8 text-orange-400 text-xs font-bold uppercase tracking-wider mb-3 sm:mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/25 bg-orange-500/8 text-orange-400 font-bold uppercase tracking-wider mb-3 sm:mb-5"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
               </span>
-              Govt-Approved Vendor · Tamil Nadu &amp; Karnataka
+              {/* Short on mobile, full on sm+ */}
+              <span className="text-[10px] sm:hidden">Govt-Approved · TN &amp; KA</span>
+              <span className="hidden sm:inline text-xs">Govt-Approved Vendor · Tamil Nadu &amp; Karnataka</span>
             </motion.div>
 
             {/* Headline */}
@@ -70,36 +69,23 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' as const }}
-              className="text-[1.7rem] sm:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold text-white leading-[1.12] mb-3 sm:mb-5"
+              className="text-[1.85rem] sm:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold text-white leading-[1.1] mb-3 sm:mb-5"
             >
               #1 CCTV &amp; Security
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-300 mt-1">
                 System Installer
               </span>
-              <span className="block text-slate-300 text-xl sm:text-2xl font-semibold mt-2">
+              <span className="block text-slate-300 text-lg sm:text-2xl font-semibold mt-1.5">
                 in Tamil Nadu &amp; Bangalore
               </span>
             </motion.h1>
 
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' as const }}
-              className="text-slate-400 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 max-w-lg hidden sm:block lg:block"
-            >
-              Authorized <strong className="text-slate-200">Hikvision, Dahua &amp; CP Plus</strong> dealer.
-              Full-stack CCTV, Solar 4G cameras, biometric access control &amp; gate automation for
-              factories, government offices, apartments and campuses across{' '}
-              <strong className="text-slate-200">Chennai, Hosur, Coimbatore &amp; Bangalore</strong>.
-            </motion.p>
-
-            {/* Trust checklist */}
+            {/* Trust checklist — 2-col on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.28, ease: 'easeOut' as const }}
-              className="grid grid-cols-2 gap-x-4 gap-y-1.5 mb-4 sm:mb-7"
+              transition={{ duration: 0.5, delay: 0.22, ease: 'easeOut' as const }}
+              className="grid grid-cols-2 gap-x-3 gap-y-2 mb-5 sm:mb-7"
             >
               {TRUST.map((t) => (
                 <span key={t} className="flex items-center gap-1.5 text-xs text-slate-400">
@@ -109,46 +95,46 @@ export default function Hero({ heroImage }: HeroProps) {
               ))}
             </motion.div>
 
-            {/* CTAs */}
+            {/* CTAs — stacked on mobile, row on sm+ */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.36, ease: 'easeOut' as const }}
-              className="flex flex-wrap gap-2.5 mb-5 sm:mb-8"
+              transition={{ duration: 0.5, delay: 0.32, ease: 'easeOut' as const }}
+              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mb-6 sm:mb-8"
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 bg-[#FF4500] text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 hover:shadow-orange-600/40 transition-all text-sm"
+                className="group inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#FF4500] text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 transition-all text-sm"
               >
                 Get Free Site Survey
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 bg-white/5 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white/5 border border-white/15 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Shop Now
               </Link>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats — 4-col on mobile with dividers */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.44, ease: 'easeOut' as const }}
-              className="flex gap-5 sm:gap-8 border-t border-slate-800/70 pt-4 sm:pt-6"
+              transition={{ duration: 0.5, delay: 0.42, ease: 'easeOut' as const }}
+              className="grid grid-cols-4 gap-0 border-t border-slate-800/70 pt-4 sm:pt-6"
             >
-              {STATS.map((s) => (
-                <div key={s.label}>
-                  <p className="text-xl sm:text-2xl font-extrabold text-white">{s.value}</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{s.label}</p>
+              {STATS.map((s, i) => (
+                <div key={s.label} className={`text-center sm:text-left ${i > 0 ? 'border-l border-slate-800/70 pl-3 sm:pl-0 sm:border-0' : ''}`}>
+                  <p className="text-lg sm:text-2xl font-extrabold text-white">{s.value}</p>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">{s.label}</p>
                 </div>
               ))}
             </motion.div>
           </div>
 
-          {/* ─────────── RIGHT COLUMN ─────────── */}
+          {/* ─────────── RIGHT COLUMN (desktop only) ─────────── */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -171,10 +157,7 @@ export default function Hero({ heroImage }: HeroProps) {
                   <ShieldCheck size={120} strokeWidth={0.4} className="text-slate-700" />
                 </div>
               )}
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-
-              {/* Scan line animation */}
               <motion.div
                 initial={{ y: '0%' }}
                 animate={{ y: ['0%', '100%', '0%'] }}
@@ -182,8 +165,6 @@ export default function Hero({ heroImage }: HeroProps) {
                 className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"
                 aria-hidden
               />
-
-              {/* Bottom label */}
               <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
                 <div>
                   <p className="text-[9px] text-slate-500 font-mono uppercase tracking-[0.2em]">Live Surveillance</p>
@@ -244,18 +225,18 @@ export default function Hero({ heroImage }: HeroProps) {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.45 }}
-          className="mt-5 sm:mt-10 lg:mt-12 pt-4 sm:pt-6 lg:pt-7 border-t border-slate-800/50"
+          transition={{ delay: 0.52, duration: 0.45 }}
+          className="mt-6 sm:mt-10 lg:mt-12 pt-5 sm:pt-6 lg:pt-7 border-t border-slate-800/50"
         >
-          <p className="text-[10px] text-slate-600 uppercase font-bold tracking-[0.2em] mb-4 text-center lg:text-left">
+          <p className="text-[10px] text-slate-600 uppercase font-bold tracking-[0.2em] mb-3 text-center lg:text-left">
             Services We Provide
           </p>
-          <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 lg:justify-start">
             {SERVICES.map(({ icon: Icon, label, href, color }) => (
               <Link
                 key={href}
                 href={href}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 hover:border-slate-600 rounded-full text-sm text-slate-300 hover:text-white transition-all"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 hover:border-slate-600 rounded-xl sm:rounded-full text-xs sm:text-sm text-slate-300 hover:text-white transition-all justify-center sm:justify-start"
               >
                 <Icon className={`w-3.5 h-3.5 shrink-0 ${color}`} />
                 {label}
@@ -263,7 +244,7 @@ export default function Hero({ heroImage }: HeroProps) {
             ))}
             <Link
               href="/amc"
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 hover:border-slate-600 rounded-full text-sm text-slate-300 hover:text-white transition-all"
+              className="col-span-2 sm:col-span-1 flex items-center gap-2 px-3 sm:px-4 py-2 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 hover:border-slate-600 rounded-xl sm:rounded-full text-xs sm:text-sm text-slate-300 hover:text-white transition-all justify-center sm:justify-start"
             >
               <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-blue-400" />
               CCTV AMC
