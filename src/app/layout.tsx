@@ -9,6 +9,7 @@ import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/lib/cart-context";
 import { SessionProvider } from "next-auth/react";
 import { directus } from "@/lib/directus";
+import type { NotificationBar } from "@/lib/directus";
 import { readSingleton } from "@directus/sdk";
 
 const inter = Inter({
@@ -281,6 +282,13 @@ export default async function RootLayout({
     settings = null;
   }
 
+  let notificationBar: NotificationBar | null = null;
+  try {
+    notificationBar = await directus.request(readSingleton("notification_bar")) as NotificationBar;
+  } catch {
+    notificationBar = null;
+  }
+
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
@@ -291,7 +299,7 @@ export default async function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
           />
-          <AnnouncementBar />
+          <AnnouncementBar bar={notificationBar} />
           <Navbar settings={settings} />
           {children}
           <Footer settings={settings} />

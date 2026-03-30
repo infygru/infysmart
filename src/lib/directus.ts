@@ -259,6 +259,16 @@ interface Schema {
   coupons: Coupon[];
   customers: Customer[];
   otp_codes: OtpCode[];
+  notification_bar: NotificationBar;
+}
+
+export interface NotificationBar {
+  id: number;
+  enabled: boolean;
+  bg_color: 'orange' | 'blue' | 'green' | 'red' | 'dark';
+  message: string | null;
+  cta_label: string | null;
+  cta_url: string | null;
 }
 
 // ─── Client Init ──────────────────────────────────────────────────────────────
