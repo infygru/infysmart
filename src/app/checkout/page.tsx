@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -58,6 +59,7 @@ declare global {
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const { items, totals, coupon, clearCart, gstRate, codMaxAmount } = useCart();
 
   const [form, setForm] = useState<CheckoutForm>({
@@ -68,6 +70,18 @@ export default function CheckoutPage() {
     payment_method: 'razorpay',
     notes: '',
   });
+
+  // Pre-fill contact info from session
+  useEffect(() => {
+    if (session?.user) {
+      setForm((prev) => ({
+        ...prev,
+        name: prev.name || session.user.name || '',
+        email: prev.email || session.user.email || '',
+        phone: prev.phone || session.user.phone || '',
+      }));
+    }
+  }, [session]);
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);

@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 import { directusAdmin } from '@/lib/directus-admin';
-import { readItem, readSingleton } from '@directus/sdk';
+import { readItems, readSingleton } from '@directus/sdk';
 import type { Order, OrderItem, ShippingAddress, GlobalSettings } from '@/lib/directus';
 
 export const metadata: Metadata = {
@@ -17,8 +17,11 @@ export const metadata: Metadata = {
 
 async function fetchOrder(id: string): Promise<Order | null> {
   try {
+    // Use readItems + filter instead of readItem to avoid Directus row-level FORBIDDEN errors
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const order = await directusAdmin.request(readItem('orders' as any, id, {
+    const results = await directusAdmin.request(readItems('orders' as any, {
+      filter: { id: { _eq: Number(id) } } as never,
+      limit: 1,
       fields: [
         'id', 'order_number', 'status', 'payment_status', 'payment_method',
         'razorpay_payment_id',
@@ -31,7 +34,8 @@ async function fetchOrder(id: string): Promise<Order | null> {
         'items.product_snapshot',
       ],
     } as never));
-    return order as unknown as Order;
+    const list = results as unknown as Order[];
+    return list[0] ?? null;
   } catch {
     return null;
   }

@@ -21,7 +21,12 @@ export default async function AccountPage() {
 
     directusAdmin.request(
       readItems('orders', {
-        filter: { customer_email: { _eq: session.user.email } },
+        filter: {
+          _or: [
+            { customer_email: { _eq: session.user.email } },
+            ...(session.user.phone ? [{ customer_phone: { _eq: session.user.phone } }] : []),
+          ],
+        } as never,
         sort: ['-date_created'],
         limit: 20,
         fields: [
