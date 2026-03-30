@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { createDirectus, rest, staticToken, createItem, readSingleton } from '@directus/sdk';
+import { Resend } from 'resend';
 import { generateOrderNumber } from '@/lib/utils';
 import { sendOrderConfirmationSMS } from '@/lib/fast2sms';
 import type { ShippingAddress, GlobalSettings } from '@/lib/directus';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -140,6 +143,81 @@ export async function POST(request: Request) {
     if (phone && phone.length === 10) {
       sendOrderConfirmationSMS(phone, order_number, body.total_amount, body.payment_method)
         .catch((err) => console.error('Order SMS failed:', err));
+    }
+
+    // ── Send email confirmation via Resend (fire and forget) ─────────────────
+    if (body.customer_email) {
+      const addr = body.shipping_address;
+      const addrStr = [addr.line1, addr.line2, `${addr.city}, ${addr.state} - ${addr.pincode}`]
+        .filter(Boolean).join(', ');
+      const itemRows = body.items.map((item) =>
+        `<tr style="border-bottom:1px solid #f1f5f9">
+          <td style="padding:10px 0;font-size:13px;color:#334155">${item.product_name}</td>
+          <td style="padding:10px 0;text-align:center;font-size:13px;color:#64748b">${item.quantity}</td>
+          <td style="padding:10px 0;text-align:right;font-size:13px;color:#334155;font-weight:600">₹${(item.total_price).toLocaleString('en-IN')}</td>
+        </tr>`
+      ).join('');
+      const payLabel = body.payment_method === 'cod' ? 'Cash on Delivery' : 'Paid via Razorpay';
+      const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#f8fafc;font-family:'Segoe UI',Arial,sans-serif">
+<div style="max-width:600px;margin:40px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+  <div style="background:#0f172a;padding:28px 32px;text-align:center">
+    <h1 style="color:#fff;margin:0;font-size:22px;letter-spacing:-0.5px">Infy<span style="color:#FF4500">Smart</span></h1>
+    <p style="color:#94a3b8;margin:6px 0 0;font-size:13px">Security Equipment Store</p>
+  </div>
+  <div style="padding:32px">
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="display:inline-flex;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px">
+        <span style="color:#16a34a;font-size:18px;margin-right:8px">✓</span>
+        <span style="color:#15803d;font-weight:700;font-size:15px">${body.payment_method === 'cod' ? 'Order Placed!' : 'Payment Confirmed!'}</span>
+      </div>
+      <p style="color:#64748b;font-size:13px;margin:12px 0 0">Hi ${body.customer_name}, your order has been received.</p>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:16px 20px;margin-bottom:24px;text-align:center">
+      <p style="margin:0;font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px">Order Number</p>
+      <p style="margin:6px 0 0;font-size:20px;font-weight:800;color:#0f172a;font-family:monospace">${order_number}</p>
+    </div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px">
+      <thead>
+        <tr style="border-bottom:2px solid #e2e8f0">
+          <th style="padding:8px 0;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8">Product</th>
+          <th style="padding:8px 0;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8">Qty</th>
+          <th style="padding:8px 0;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8">Total</th>
+        </tr>
+      </thead>
+      <tbody>${itemRows}</tbody>
+    </table>
+    <div style="background:#f8fafc;border-radius:8px;padding:16px 20px;margin-bottom:24px">
+      ${body.discount_amount > 0 ? `<div style="display:flex;justify-content:space-between;font-size:13px;color:#64748b;margin-bottom:6px"><span>Discount</span><span style="color:#2563eb">− ₹${body.discount_amount.toLocaleString('en-IN')}</span></div>` : ''}
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:#64748b;margin-bottom:6px"><span>Shipping</span><span>${body.shipping_amount === 0 ? '<span style="color:#16a34a">FREE</span>' : `₹${body.shipping_amount.toLocaleString('en-IN')}`}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:#0f172a;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:6px"><span>Total ${body.payment_method === 'cod' ? '(Payable on delivery)' : 'Paid'}</span><span>₹${body.total_amount.toLocaleString('en-IN')}</span></div>
+      <p style="margin:8px 0 0;font-size:11px;color:#94a3b8;text-align:right">Incl. 18% GST • ${payLabel}</p>
+    </div>
+    <div style="margin-bottom:24px">
+      <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;margin:0 0 8px">Delivery Address</p>
+      <p style="font-size:13px;color:#334155;margin:0;line-height:1.6">${addrStr}</p>
+    </div>
+    ${body.payment_method === 'cod' ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;margin-bottom:24px">
+      <p style="font-size:13px;color:#92400e;margin:0;font-weight:600">📞 COD Order — Call Confirmation</p>
+      <p style="font-size:12px;color:#b45309;margin:6px 0 0">A sales representative will call you on <strong>${body.customer_phone}</strong> within 1 business day to confirm your order before dispatch.</p>
+    </div>` : ''}
+    <p style="font-size:12px;color:#94a3b8;text-align:center">For queries, contact <a href="mailto:info@infysmart.com" style="color:#FF4500">info@infysmart.com</a> or WhatsApp <a href="https://wa.me/919445675619" style="color:#FF4500">+91 94456 75619</a></p>
+  </div>
+  <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:16px 32px;text-align:center">
+    <p style="font-size:11px;color:#94a3b8;margin:0">© ${new Date().getFullYear()} Infysmart Technologies, Hosur. All rights reserved.</p>
+  </div>
+</div>
+</body>
+</html>`;
+
+      resend.emails.send({
+        from: 'Infysmart Orders <noreply@infysmart.com>',
+        to: body.customer_email,
+        subject: `Order Confirmed: ${order_number} | Infysmart`,
+        html,
+      }).catch((err) => console.error('Order email failed:', err));
     }
 
     return NextResponse.json({

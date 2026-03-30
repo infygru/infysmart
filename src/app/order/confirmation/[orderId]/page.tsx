@@ -6,8 +6,8 @@ import {
   MapPin, ArrowRight, Download, MessageCircle
 } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
-import { directus } from '@/lib/directus';
-import { readSingleton } from '@directus/sdk';
+import { directusAdmin } from '@/lib/directus-admin';
+import { readItem, readSingleton } from '@directus/sdk';
 import type { Order, OrderItem, ShippingAddress, GlobalSettings } from '@/lib/directus';
 
 export const metadata: Metadata = {
@@ -17,12 +17,21 @@ export const metadata: Metadata = {
 
 async function fetchOrder(id: string): Promise<Order | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://infysmart.com';
-    const res = await fetch(`${baseUrl}/api/orders/${id}`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return null;
-    return await res.json() as Order;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const order = await directusAdmin.request(readItem('orders' as any, id, {
+      fields: [
+        'id', 'order_number', 'status', 'payment_status', 'payment_method',
+        'razorpay_payment_id',
+        'customer_name', 'customer_email', 'customer_phone',
+        'shipping_address', 'billing_same_as_shipping', 'billing_address',
+        'subtotal', 'tax_amount', 'shipping_amount', 'discount_amount', 'total_amount',
+        'coupon_code', 'notes', 'date_created',
+        'items.id', 'items.product_name', 'items.product_sku',
+        'items.quantity', 'items.unit_price', 'items.total_price',
+        'items.product_snapshot',
+      ],
+    } as never));
+    return order as unknown as Order;
   } catch {
     return null;
   }
@@ -42,8 +51,8 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
 
   let gstRate = 18;
   try {
-    const settings = await directus.request(
-      readSingleton('global_settings', { fields: ['gst_rate'] } as never)
+    const settings = await directusAdmin.request(
+      readSingleton('global_settings' as never, { fields: ['gst_rate'] } as never)
     ) as GlobalSettings;
     gstRate = Number(settings.gst_rate ?? 18);
   } catch { /* use default */ }
