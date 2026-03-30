@@ -151,7 +151,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
 
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
+      if (trigger === 'update' && session?.phone) {
+        token.phone = session.phone;
+      }
       if (account && user) {
         if (account.provider === 'google') {
           try {

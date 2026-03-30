@@ -103,15 +103,16 @@ export default function AccountClient({
     setVerifyLoading(true);
     setVerifyError('');
     try {
+      const cleanPhone = verifyPhone.replace(/\D/g, '');
       const res = await fetch('/api/account/verify-phone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: verifyPhone.replace(/\D/g, ''), otp: verifyOtp }),
+        body: JSON.stringify({ phone: cleanPhone, otp: verifyOtp }),
       });
       const data = await res.json() as { error?: string };
       if (!res.ok) { setVerifyError(data.error ?? 'Verification failed'); return; }
       // Refresh session so token.phone is updated
-      await updateSession();
+      await updateSession({ phone: cleanPhone });
       router.push(nextUrl);
     } catch { setVerifyError('Something went wrong.'); }
     finally { setVerifyLoading(false); }
