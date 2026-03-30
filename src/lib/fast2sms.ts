@@ -36,12 +36,12 @@ export async function sendOrderConfirmationSMS(
   phone: string,
   orderNumber: string,
   totalAmount: number,
-  paymentMethod: 'razorpay' | 'cod'
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _paymentMethod?: string
 ): Promise<boolean> {
   const amountStr = `Rs.${Math.round(totalAmount).toLocaleString('en-IN')}`;
-  const paymentStr = paymentMethod === 'cod' ? 'Cash on Delivery' : 'Paid Online';
   return sendSMS(
     phone,
-    `Order confirmed! ${orderNumber} | ${amountStr} | ${paymentStr}. Our team will contact you shortly. - Infysmart`
+    `Payment confirmed! Order ${orderNumber} | ${amountStr} | Paid Online. Our team will dispatch shortly. - Infysmart`
   );
 }

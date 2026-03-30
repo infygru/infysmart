@@ -32,7 +32,7 @@ const TRUST = [
 
 export default function Hero({ heroImage }: HeroProps) {
   return (
-    <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-slate-950">
+    <section className="relative lg:min-h-[100svh] flex flex-col justify-center overflow-hidden bg-slate-950">
 
       {/* ── Background ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
@@ -45,7 +45,7 @@ export default function Hero({ heroImage }: HeroProps) {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-24 pb-16">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-14 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
           {/* ─────────── LEFT COLUMN ─────────── */}
@@ -56,7 +56,7 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/25 bg-orange-500/8 text-orange-400 text-xs font-bold uppercase tracking-wider mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/25 bg-orange-500/8 text-orange-400 text-xs font-bold uppercase tracking-wider mb-3 sm:mb-6"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
@@ -70,7 +70,7 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' as const }}
-              className="text-[2.1rem] sm:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold text-white leading-[1.12] mb-5"
+              className="text-[1.7rem] sm:text-4xl lg:text-[2.65rem] xl:text-5xl font-extrabold text-white leading-[1.12] mb-3 sm:mb-5"
             >
               #1 CCTV &amp; Security
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-300 mt-1">
@@ -86,7 +86,7 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' as const }}
-              className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6 max-w-lg"
+              className="text-slate-400 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 max-w-lg hidden sm:block lg:block"
             >
               Authorized <strong className="text-slate-200">Hikvision, Dahua &amp; CP Plus</strong> dealer.
               Full-stack CCTV, Solar 4G cameras, biometric access control &amp; gate automation for
@@ -99,7 +99,7 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28, ease: 'easeOut' as const }}
-              className="grid grid-cols-2 gap-x-4 gap-y-2 mb-7"
+              className="grid grid-cols-2 gap-x-4 gap-y-1.5 mb-4 sm:mb-7"
             >
               {TRUST.map((t) => (
                 <span key={t} className="flex items-center gap-1.5 text-xs text-slate-400">
@@ -114,18 +114,18 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.36, ease: 'easeOut' as const }}
-              className="flex flex-wrap gap-3 mb-8"
+              className="flex flex-wrap gap-2.5 mb-5 sm:mb-8"
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 px-6 py-3.5 bg-[#FF4500] text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 hover:shadow-orange-600/40 transition-all text-sm"
+                className="group inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 bg-[#FF4500] text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 hover:shadow-orange-600/40 transition-all text-sm"
               >
                 Get Free Site Survey
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/5 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
+                className="inline-flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 bg-white/5 border border-white/10 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Shop Now
@@ -137,7 +137,7 @@ export default function Hero({ heroImage }: HeroProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.44, ease: 'easeOut' as const }}
-              className="flex gap-6 sm:gap-8 border-t border-slate-800/70 pt-6"
+              className="flex gap-5 sm:gap-8 border-t border-slate-800/70 pt-4 sm:pt-6"
             >
               {STATS.map((s) => (
                 <div key={s.label}>
@@ -245,7 +245,7 @@ export default function Hero({ heroImage }: HeroProps) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 0.45 }}
-          className="mt-12 pt-7 border-t border-slate-800/50"
+          className="mt-5 sm:mt-10 lg:mt-12 pt-4 sm:pt-6 lg:pt-7 border-t border-slate-800/50"
         >
           <p className="text-[10px] text-slate-600 uppercase font-bold tracking-[0.2em] mb-4 text-center lg:text-left">
             Services We Provide

@@ -168,7 +168,6 @@ interface CartContextValue {
   shippingCharge: number;
   freeShippingAbove: number;
   gstRate: number;
-  codMaxAmount: number;
   addToCart: (product: CartProduct, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -192,7 +191,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [shippingCharge, setShippingCharge] = useState(299);
   const [freeShippingAbove, setFreeShippingAbove] = useState(5000);
   const [gstRate, setGstRate] = useState(18);
-  const [codMaxAmount, setCodMaxAmount] = useState(50000);
 
   // Fetch all commerce settings from Directus on mount
   useEffect(() => {
@@ -202,7 +200,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         if (typeof data.shipping_charge === 'number') setShippingCharge(data.shipping_charge);
         if (typeof data.free_shipping_above === 'number') setFreeShippingAbove(data.free_shipping_above);
         if (typeof data.gst_rate === 'number') setGstRate(data.gst_rate);
-        if (typeof data.cod_max_order_amount === 'number') setCodMaxAmount(data.cod_max_order_amount);
       })
       .catch(() => { /* keep defaults on error */ });
   }, []);
@@ -296,7 +293,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       shippingCharge,
       freeShippingAbove,
       gstRate,
-      codMaxAmount,
       addToCart,
       removeFromCart,
       updateQuantity,
@@ -316,7 +312,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       shippingCharge,
       freeShippingAbove,
       gstRate,
-      codMaxAmount,
       addToCart,
       removeFromCart,
       updateQuantity,
