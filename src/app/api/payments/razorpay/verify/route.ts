@@ -172,6 +172,28 @@ export async function POST(request: Request) {
         subject: `Payment Confirmed: ${order_number} | Infysmart`,
         html,
       }).catch((err) => console.error('Order email failed:', err));
+
+      // ── Admin notification ──────────────────────────────────────────────────
+      const adminHtml = `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px">
+  <h2 style="color:#111;margin:0 0 16px">💳 New PAID Order — ${order_number}</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:14px">
+    <tr><td style="padding:6px 0;color:#666;width:140px">Customer</td><td style="padding:6px 0;font-weight:600">${p.customer_name}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Email</td><td style="padding:6px 0">${p.customer_email}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Phone</td><td style="padding:6px 0">${p.customer_phone}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Payment</td><td style="padding:6px 0;font-weight:700;color:#16a34a">✓ PAID via Razorpay</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Payment ID</td><td style="padding:6px 0;font-family:monospace;font-size:12px">${razorpay_payment_id}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Total</td><td style="padding:6px 0;font-size:18px;font-weight:800;color:#FF4500">₹${(p.total_amount as number).toLocaleString('en-IN')}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Items</td><td style="padding:6px 0">${items.map(i => `${i.product_name} × ${i.quantity}`).join('<br/>')}</td></tr>
+    <tr><td style="padding:6px 0;color:#666">Ship to</td><td style="padding:6px 0">${[addrStr].join('')}</td></tr>
+  </table>
+  <a href="https://infysmart.com/admin/orders" style="display:inline-block;margin-top:20px;background:#FF4500;color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none">View in Admin →</a>
+</div>`;
+      resend.emails.send({
+        from: 'Infysmart Orders <noreply@infysmart.com>',
+        to: ['infysmartbiz@gmail.com', 'csenaren@gmail.com'],
+        subject: `💳 PAID Order: ${order_number} — ₹${(p.total_amount as number).toLocaleString('en-IN')}`,
+        html: adminHtml,
+      }).catch((err) => console.error('Admin notification email failed:', err));
     }
 
     return NextResponse.json({
