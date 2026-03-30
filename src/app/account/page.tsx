@@ -23,8 +23,11 @@ export default async function AccountPage() {
       readItems('orders', {
         filter: { customer_email: { _eq: session.user.email } },
         sort: ['-date_created'],
-        limit: 10,
-        fields: ['id', 'order_number', 'total_amount', 'status', 'payment_method', 'date_created'],
+        limit: 20,
+        fields: [
+          'id', 'order_number', 'total_amount', 'status', 'payment_method',
+          'date_created', 'items.id', 'items.product_name', 'items.product_snapshot',
+        ],
       } as never)
     ) as unknown as Promise<Order[]>,
   ]);
@@ -33,7 +36,7 @@ export default async function AccountPage() {
 
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0c0c0c] flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <Loader2 className="w-5 h-5 animate-spin text-zinc-600" />
       </div>
     }>
