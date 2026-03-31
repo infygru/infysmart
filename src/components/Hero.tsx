@@ -104,14 +104,14 @@ export default function Hero({ heroImage }: HeroProps) {
             >
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#FF4500] text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 transition-all text-sm"
+                className="group inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white/5 border border-white/15 sm:bg-[#FF4500] sm:border-0 text-white font-bold rounded-xl shadow-lg shadow-orange-700/25 hover:bg-orange-600 transition-all text-sm"
               >
                 Get Free Site Survey
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white/5 border border-white/15 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#FF4500] sm:bg-white/5 sm:border sm:border-white/15 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-orange-400/30 hover:text-orange-300 transition-all text-sm"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Shop Now
