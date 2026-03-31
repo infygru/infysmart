@@ -102,27 +102,27 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
             <h4 className="text-white font-bold mb-5 text-sm uppercase tracking-wide">Areas We Serve</h4>
             <ul className="space-y-2 text-xs text-slate-500">
               <li className="font-semibold text-slate-400 text-xs">Tamil Nadu</li>
-              <li>Chennai &amp; Suburbs</li>
-              <li>Hosur, Krishnagiri Dt.</li>
-              <li>Coimbatore</li>
-              <li>Dharmapuri</li>
-              <li>Karaikudi, Sivaganga Dt.</li>
-              <li>Puducherry</li>
-              <li>Cuddalore</li>
-              <li>Madurai</li>
-              <li>Salem</li>
-              <li>Trichy</li>
-              <li>Vellore</li>
+              <li><Link href="/cctv-installation/chennai" className="hover:text-brand-blue transition-colors">Chennai &amp; Suburbs</Link></li>
+              <li><Link href="/cctv-installation/hosur-krishnagiri" className="hover:text-brand-blue transition-colors">Hosur, Krishnagiri Dt.</Link></li>
+              <li><Link href="/cctv-installation/coimbatore" className="hover:text-brand-blue transition-colors">Coimbatore</Link></li>
+              <li><Link href="/cctv-installation/dharmapuri" className="hover:text-brand-blue transition-colors">Dharmapuri</Link></li>
+              <li><Link href="/cctv-installation/karaikudi" className="hover:text-brand-blue transition-colors">Karaikudi, Sivaganga Dt.</Link></li>
+              <li><Link href="/cctv-installation/puducherry" className="hover:text-brand-blue transition-colors">Puducherry</Link></li>
+              <li><Link href="/cctv-installation/cuddalore" className="hover:text-brand-blue transition-colors">Cuddalore</Link></li>
+              <li><Link href="/cctv-installation/madurai" className="hover:text-brand-blue transition-colors">Madurai</Link></li>
+              <li><Link href="/cctv-installation/salem" className="hover:text-brand-blue transition-colors">Salem</Link></li>
+              <li><Link href="/cctv-installation/trichy" className="hover:text-brand-blue transition-colors">Trichy</Link></li>
+              <li><Link href="/cctv-installation/vellore" className="hover:text-brand-blue transition-colors">Vellore</Link></li>
               <li className="font-semibold text-slate-400 text-xs pt-2">Industrial Zones</li>
-              <li>Ambattur Industrial Estate</li>
-              <li>Guindy Industrial Estate</li>
-              <li>Sriperumbudur &amp; Oragadam</li>
-              <li>SIPCOT (Irungattukottai)</li>
-              <li>SIPCOT Siruseri</li>
-              <li>Kanchipuram &amp; Vallam</li>
+              <li><Link href="/cctv-installation/ambattur-industrial-estate" className="hover:text-brand-blue transition-colors">Ambattur Industrial Estate</Link></li>
+              <li><Link href="/cctv-installation/guindy-industrial-estate" className="hover:text-brand-blue transition-colors">Guindy Industrial Estate</Link></li>
+              <li><Link href="/cctv-installation/sriperumbudur-oragadam" className="hover:text-brand-blue transition-colors">Sriperumbudur &amp; Oragadam</Link></li>
+              <li><Link href="/cctv-installation/sipcot-irungattukottai" className="hover:text-brand-blue transition-colors">SIPCOT (Irungattukottai)</Link></li>
+              <li><Link href="/cctv-installation/sipcot-siruseri" className="hover:text-brand-blue transition-colors">SIPCOT Siruseri</Link></li>
+              <li><Link href="/cctv-installation/kanchipuram-vallam" className="hover:text-brand-blue transition-colors">Kanchipuram &amp; Vallam</Link></li>
               <li className="font-semibold text-slate-400 text-xs pt-2">Karnataka</li>
-              <li>Bengaluru (Bangalore)</li>
-              <li>Hosapete &amp; Tumkur</li>
+              <li><Link href="/cctv-installation/bangalore" className="hover:text-brand-blue transition-colors">Bengaluru (Bangalore)</Link></li>
+              <li><Link href="/cctv-installation/hosapete-tumkur" className="hover:text-brand-blue transition-colors">Hosapete &amp; Tumkur</Link></li>
             </ul>
           </div>
 

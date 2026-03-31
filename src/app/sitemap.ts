@@ -97,6 +97,19 @@ const staticPages: MetadataRoute.Sitemap = [
     changeFrequency: 'monthly',
     priority: 0.9,
   },
+  // Dynamic location CCTV pages
+  ...([
+    'chennai', 'hosur-krishnagiri', 'coimbatore', 'dharmapuri', 'karaikudi',
+    'puducherry', 'cuddalore', 'madurai', 'salem', 'trichy', 'vellore',
+    'ambattur-industrial-estate', 'guindy-industrial-estate', 'sriperumbudur-oragadam',
+    'sipcot-irungattukottai', 'sipcot-siruseri', 'kanchipuram-vallam',
+    'karnataka', 'bangalore', 'hosapete-tumkur',
+  ].map((slug) => ({
+    url: `${BASE_URL}/cctv-installation/${slug}`,
+    lastModified: new Date('2026-03-31'),
+    changeFrequency: 'monthly' as const,
+    priority: 0.88,
+  }))),
   // High-value informational pages
   {
     url: `${BASE_URL}/cctv-camera-price`,
