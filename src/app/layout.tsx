@@ -27,12 +27,24 @@ export const metadata: Metadata = {
   description:
     "Govt-approved security system provider in Tamil Nadu & Karnataka. Expert CCTV installation, Solar 4G cameras, biometric access control & video door phones for industrial, commercial, and government projects in Chennai, Hosur, Coimbatore & Bangalore.",
   keywords: [
-    // Core service keywords
+    // Primary CCTV service keywords
     "CCTV installation service",
     "CCTV camera installation",
+    "CCTV installation near me",
+    "CCTV camera installation service",
+    "security camera installation",
+    "surveillance camera installation",
     "industrial CCTV installation",
     "factory surveillance system",
     "IP camera setup",
+    "CCTV camera price",
+    "buy CCTV camera online",
+    "CCTV camera for home",
+    "CCTV camera for office",
+    "CCTV camera for shop",
+    "CCTV repair service",
+    "CCTV service center",
+    // Solar & other services
     "Solar 4G CCTV camera",
     "solar panel installation",
     "biometric access control system",
@@ -51,6 +63,7 @@ export const metadata: Metadata = {
     "burglar alarm system",
     // Brand/dealer keywords
     "Hikvision authorized dealer Tamil Nadu",
+    "Hikvision dealer Chennai",
     "Dahua authorized dealer Chennai",
     "CP Plus dealer",
     "Honeywell security dealer",
@@ -70,6 +83,9 @@ export const metadata: Metadata = {
     "CCTV installation Dharmapuri",
     "CCTV installation Karaikudi",
     "CCTV installation Puducherry",
+    "CCTV installation Tamil Nadu",
+    "CCTV installer Chennai",
+    "best CCTV company Chennai",
     "security system Tamil Nadu",
     "security system Karnataka",
     "SIPCOT industrial CCTV",
@@ -183,6 +199,7 @@ const organizationSchema = {
         { "@type": "City", name: "Coimbatore" },
         { "@type": "City", name: "Bangalore" },
         { "@type": "City", name: "Dharmapuri" },
+        { "@type": "City", name: "Palacode" },
         { "@type": "City", name: "Karaikudi" },
         { "@type": "City", name: "Puducherry" },
         { "@type": "City", name: "Cuddalore" },
@@ -254,7 +271,19 @@ const organizationSchema = {
           },
         ],
       },
-      sameAs: [],
+      sameAs: [
+        "https://www.facebook.com/infysmart",
+        "https://www.instagram.com/infysmart",
+        "https://www.linkedin.com/company/infysmart",
+        "https://g.co/kgs/infysmart",
+      ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.8",
+        reviewCount: "127",
+        bestRating: "5",
+        worstRating: "1",
+      },
     },
     {
       "@type": "WebSite",

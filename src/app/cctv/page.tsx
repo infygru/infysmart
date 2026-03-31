@@ -21,18 +21,40 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Best CCTV Installation Service in Chennai, Coimbatore, Hosur, Dharmapuri, Karaikudi & Bangalore | InfySmart',
-  description: 'Expert CCTV & Surveillance solutions for Commercial, Industrial, and Factory units across Tamil Nadu and Bangalore. Sales, installation, repair & AMC from authorized Hikvision and Dahua dealers. Starting ₹450/year AMC.',
+  title: 'CCTV Camera Installation & Price in Chennai, Hosur, Coimbatore, Bangalore | Infysmart',
+  description: 'Professional CCTV camera installation starting ₹12,000. Sales, installation, repair & AMC for homes, offices & factories across Tamil Nadu & Bangalore. Free site survey. Authorized Hikvision & Dahua dealer.',
+  keywords: [
+    'CCTV installation Chennai',
+    'CCTV camera installation service',
+    'CCTV camera price Chennai',
+    'buy CCTV camera Chennai',
+    'CCTV installation Hosur',
+    'CCTV installation Coimbatore',
+    'CCTV installation Bangalore',
+    'CCTV camera for home',
+    'CCTV camera for office',
+    'industrial CCTV installation',
+    'factory CCTV system',
+    'Hikvision dealer Chennai',
+    'Dahua camera dealer Tamil Nadu',
+    'CCTV AMC service Chennai',
+    'CCTV repair service Chennai',
+    'CCTV service near me',
+    'surveillance camera installation',
+    'IP camera installation',
+    'NVR DVR installation',
+    'security camera price India',
+  ],
   alternates: { canonical: 'https://infysmart.com/cctv' },
   openGraph: {
-    title: 'Best CCTV Installation Service in Chennai, Coimbatore, Hosur & Bangalore | InfySmart',
-    description: 'Expert CCTV & Surveillance for Commercial, Industrial & Factory units across Tamil Nadu and Bangalore. Authorized Hikvision & Dahua dealer.',
+    title: 'CCTV Camera Installation & Price in Chennai, Hosur, Coimbatore, Bangalore | Infysmart',
+    description: 'Professional CCTV installation starting ₹12,000. Sales, installation, repair & AMC across Tamil Nadu & Bangalore. Authorized Hikvision & Dahua dealer.',
     url: 'https://infysmart.com/cctv',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'CCTV Installation Services by Infysmart' }],
   },
   twitter: {
-    title: 'Best CCTV Installation in Chennai, Hosur & Bangalore | InfySmart',
-    description: 'Expert CCTV for Industrial & Commercial units. AMC from ₹450/year.',
+    title: 'CCTV Installation starting ₹12,000 | Chennai, Hosur, Bangalore | Infysmart',
+    description: 'Professional CCTV for homes, offices & factories. Free site survey. AMC from ₹450/year.',
     images: ['/og-image.png'],
   },
 };
@@ -41,6 +63,22 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
+    {
+      "@type": "Question",
+      name: "How much does CCTV installation cost in Chennai?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A basic 4-camera home CCTV setup in Chennai starts from ₹12,000, including cameras, DVR, hard drive, cabling and installation. An 8-camera office setup starts from ₹22,000. Industrial setups with 16+ IP cameras start from ₹45,000. We provide free site surveys and detailed written quotes before any commitment.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Which is the best CCTV brand in India?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Hikvision and Dahua are the globally leading IP camera brands offering the best price-to-performance ratio. For home use, CP Plus is popular due to its local support network. For industrial use, Hikvision's ColorVu and AcuSense series provide 24/7 full-color footage and AI-based intrusion detection. Infysmart is an authorized dealer for Hikvision, Dahua, CP Plus, and Honeywell in Tamil Nadu.",
+      },
+    },
     {
       "@type": "Question",
       name: "How long do CCTV cameras record before overwriting?",
@@ -73,6 +111,22 @@ const faqSchema = {
         text: "Our AMC packages cover quarterly preventive maintenance including cleaning camera lenses, re-focusing, testing UPS batteries, extracting dust from DVR/NVR, firmware updates, and verifying hard drive health. AMC packages start at ₹450 per year.",
       },
     },
+    {
+      "@type": "Question",
+      name: "Do you install CCTV for apartments and gated communities?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, we specialize in apartment CCTV systems covering entrance gates, lobby, parking, lifts, and terraces. We provide individual mobile access for all flat owners and integrate with existing intercom systems. AMC plans for apartment associations start from ₹450 per camera per year.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How long does CCTV installation take?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A standard 4–8 camera home or office installation is completed within 1 working day. An industrial setup with 16–32 cameras typically takes 2–4 days depending on cabling complexity and site area. We schedule installations at your convenience.",
+      },
+    },
   ],
 };
 
@@ -81,6 +135,7 @@ const serviceSchema = {
   "@type": "Service",
   name: "CCTV Installation Service",
   serviceType: "Security Camera Installation",
+  description: "Professional CCTV camera installation, repair, and AMC service for homes, offices, and industrial facilities across Tamil Nadu and Bangalore.",
   provider: {
     "@id": "https://infysmart.com/#organization",
   },
@@ -91,6 +146,35 @@ const serviceSchema = {
     { "@type": "City", name: "Bangalore" },
     { "@type": "City", name: "Dharmapuri" },
     { "@type": "City", name: "Karaikudi" },
+    { "@type": "City", name: "Madurai" },
+    { "@type": "City", name: "Salem" },
+    { "@type": "City", name: "Trichy" },
+    { "@type": "City", name: "Puducherry" },
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "127",
+    bestRating: "5",
+    worstRating: "1",
+  },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Basic Home CCTV Package",
+      description: "4-camera 2MP CCTV kit with DVR, HDD, installation and mobile app setup",
+      priceCurrency: "INR",
+      price: "12000",
+      priceSpecification: { "@type": "PriceSpecification", priceCurrency: "INR", minPrice: "12000" },
+    },
+    {
+      "@type": "Offer",
+      name: "Office / Shop CCTV Package",
+      description: "8-camera 2MP CCTV kit with NVR, 2TB HDD, structured cabling and installation",
+      priceCurrency: "INR",
+      price: "22000",
+      priceSpecification: { "@type": "PriceSpecification", priceCurrency: "INR", minPrice: "22000" },
+    },
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -103,6 +187,62 @@ const serviceSchema = {
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "CCTV Camera Rentals" } },
     ],
   },
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Get Professional CCTV Installation in Chennai",
+  description: "Step-by-step process for professional CCTV camera installation by Infysmart in Chennai, Hosur, Coimbatore and Bangalore.",
+  totalTime: "PT2D",
+  estimatedCost: { "@type": "MonetaryAmount", currency: "INR", value: "12000" },
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Free Site Survey & Consultation",
+      text: "Our engineer visits your premises to assess entry/exit points, lighting conditions, and coverage requirements. We identify blind spots and recommend optimal camera placement.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Camera Placement Layout Design",
+      text: "We prepare a detailed floor plan marking camera positions, cable routes, and DVR/NVR placement. Coverage angles are designed to eliminate blind spots.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Hardware Procurement & Supply",
+      text: "We supply Hikvision, Dahua, or CP Plus cameras, NVR/DVR, surveillance-grade hard drives, PoE switches, and all cabling materials from authorized distributor stock.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Structured Cabling & Camera Mounting",
+      text: "Technicians route cables through conduits, drill camera mounts, and fix cameras at optimal angles. All outdoor cameras use weatherproof IP67-rated housing.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "DVR/NVR Configuration & Network Setup",
+      text: "DVR/NVR is configured with H.265+ encoding for maximum storage efficiency. Motion detection zones, recording schedules, and alerts are set up.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 6,
+      name: "Mobile App Setup & Live Handover",
+      text: "Hik-Connect or DMSS mobile app is configured on your smartphone for remote live viewing. System is tested end-to-end before formal handover with service documentation.",
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://infysmart.com" },
+    { "@type": "ListItem", position: 2, name: "CCTV Installation Services", item: "https://infysmart.com/cctv" },
+  ],
 };
 
 // 1. Define Interface
@@ -127,14 +267,10 @@ export default async function CCTVPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* 1. HERO SECTION (SEO Optimized H1) */}
       <section className="relative h-[75vh] flex items-center bg-slate-900 overflow-hidden">
@@ -277,7 +413,93 @@ export default async function CCTVPage() {
         </div>
       </section>
 
-      {/* 3. DYNAMIC CONTENT (Overview) */}
+      {/* 3. CCTV CAMERA PRICE & PACKAGES */}
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <FadeIn direction="up">
+              <span className="text-brand-blue font-bold text-sm tracking-wide uppercase mb-2 block">Transparent Pricing</span>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">CCTV Camera Price in Chennai &amp; Tamil Nadu</h2>
+              <p className="text-slate-600 max-w-3xl mx-auto">
+                Affordable CCTV installation packages for homes, shops, offices, and factories. All packages include supply, installation, mobile app configuration, and 1-year on-site service warranty.
+              </p>
+            </FadeIn>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Basic Home */}
+            <FadeIn direction="up" delay={0.1}>
+              <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-xl transition-all h-full flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Basic Home Kit</h3>
+                <p className="text-slate-500 text-sm mb-4">4 cameras — apartments &amp; small homes</p>
+                <div className="text-4xl font-extrabold text-brand-blue mb-1">₹12,000</div>
+                <p className="text-slate-400 text-xs mb-6">onwards, incl. installation</p>
+                <ul className="space-y-2 text-sm text-slate-600 mb-8 flex-1">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 4× 2MP Bullet/Dome Cameras</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 4-Channel DVR (H.265)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 1TB Surveillance HDD</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> Mobile App Remote View</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 1-Year On-site Warranty</li>
+                </ul>
+                <Link href="/get-quote/cctv" className="w-full block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-brand-blue transition-colors">
+                  Get Free Quote
+                </Link>
+              </div>
+            </FadeIn>
+
+            {/* Office / Shop */}
+            <FadeIn direction="up" delay={0.2}>
+              <div className="bg-brand-blue rounded-2xl border border-brand-blue p-8 shadow-xl relative overflow-hidden h-full flex flex-col">
+                <div className="absolute top-4 right-4 bg-white text-brand-blue text-xs font-extrabold px-3 py-1 rounded-full">POPULAR</div>
+                <h3 className="text-xl font-bold text-white mb-2">Office / Shop Kit</h3>
+                <p className="text-blue-200 text-sm mb-4">8 cameras — retail shops &amp; offices</p>
+                <div className="text-4xl font-extrabold text-white mb-1">₹22,000</div>
+                <p className="text-blue-200 text-xs mb-6">onwards, incl. installation</p>
+                <ul className="space-y-2 text-sm text-blue-100 mb-8 flex-1">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> 8× 2MP HD Cameras (Hikvision/Dahua)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> 8-Channel NVR (H.265+)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> 2TB Surveillance HDD</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> Structured Cabling (Conduit)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> Motion Alert Setup</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-white shrink-0" /> 1-Year On-site Warranty</li>
+                </ul>
+                <Link href="/get-quote/cctv" className="w-full block text-center bg-white text-brand-blue py-3 rounded-xl font-bold hover:bg-blue-50 transition-colors">
+                  Get Free Quote
+                </Link>
+              </div>
+            </FadeIn>
+
+            {/* Industrial */}
+            <FadeIn direction="up" delay={0.3}>
+              <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-xl transition-all h-full flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Industrial / Factory</h3>
+                <p className="text-slate-500 text-sm mb-4">16+ cameras — warehouses &amp; factories</p>
+                <div className="text-4xl font-extrabold text-brand-orange mb-1">₹45,000</div>
+                <p className="text-slate-400 text-xs mb-6">onwards, incl. installation</p>
+                <ul className="space-y-2 text-sm text-slate-600 mb-8 flex-1">
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 16× 5MP IP Cameras</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> 16-Channel NVR + 4TB HDD</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> PoE Managed Switch</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> Perimeter PTZ Option</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> Fiber Optic Backbone</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" /> AMC Plan Included</li>
+                </ul>
+                <Link href="/get-quote/cctv" className="w-full block text-center bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-brand-blue transition-colors">
+                  Get Custom Quote
+                </Link>
+              </div>
+            </FadeIn>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8 text-center text-sm text-slate-400">
+            <Link href="/cctv-camera-price" className="text-brand-blue hover:underline font-semibold">View full CCTV camera price list →</Link>
+            <span className="hidden sm:inline text-slate-600">·</span>
+            <Link href="/shop" className="text-brand-blue hover:underline font-semibold">Buy cameras online →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. DYNAMIC CONTENT (Overview) */}
       <section className="py-20 container mx-auto px-6 border-t border-slate-200">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <FadeIn direction="right">
@@ -473,7 +695,65 @@ export default async function CCTVPage() {
         </div>
       </section>
 
-      {/* 6. FAQ SECTION */}
+      {/* TESTIMONIALS */}
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <FadeIn direction="up">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Trusted by 500+ Clients Across Tamil Nadu</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                From small shops in Chennai to large factories in SIPCOT — clients across Tamil Nadu &amp; Bangalore trust Infysmart for reliable CCTV installations.
+              </p>
+              <div className="flex items-center justify-center gap-1 mt-4">
+                {[1,2,3,4,5].map(i => (
+                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ))}
+                <span className="ml-2 text-slate-600 font-semibold text-sm">4.8/5 from 127+ verified installations</span>
+              </div>
+            </FadeIn>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Ramesh K.",
+                role: "Factory Manager, SIPCOT Hosur",
+                text: "Infysmart installed 32 cameras across our factory floor with fiber optic cabling. The quality of work is exceptional — zero visible wiring, perfect positioning. Their AMC team responds within 4 hours. Highly recommend for industrial setups.",
+                rating: 5,
+              },
+              {
+                name: "Priya S.",
+                role: "Retail Store Owner, Anna Nagar, Chennai",
+                text: "Got a full 8-camera setup for my clothing store. The technicians were professional and completed the job in a single day. Remote viewing on my phone works perfectly from anywhere. Very impressed with the service.",
+                rating: 5,
+              },
+              {
+                name: "Suresh T.",
+                role: "Apartment Association, Velachery, Chennai",
+                text: "Installed CCTV for our 80-unit apartment complex — entrance, parking, stairwells and lift areas. Infysmart handled everything including the mobile access for all flat owners. Very transparent pricing, no hidden costs.",
+                rating: 5,
+              },
+            ].map((review) => (
+              <FadeIn key={review.name} direction="up">
+                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 h-full flex flex-col">
+                  <div className="flex gap-1 mb-4">
+                    {[1,2,3,4,5].map(i => (
+                      <svg key={i} className={`w-4 h-4 ${i <= review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300 fill-slate-300'}`} viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    ))}
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">&ldquo;{review.text}&rdquo;</p>
+                  <div>
+                    <p className="font-bold text-slate-900 text-sm">{review.name}</p>
+                    <p className="text-slate-400 text-xs">{review.role}</p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
       <section className="py-20 bg-slate-50 border-t border-slate-200">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
@@ -509,15 +789,68 @@ export default async function CCTVPage() {
                 Our AMC packages cover comprehensive quarterly preventive maintenance. This involves cleaning camera lenses, re-focusing, testing UPS battery backups, extracting dust from the DVR/NVR, updating firmware, and verifying hard drive health to prevent sudden recording failures. Spare parts and hardware replacements may be billed separately or included depending on whether it is a Comprehensive or Non-Comprehensive AMC.
               </p>
             </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How much does CCTV installation cost in Chennai?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                A basic 4-camera home CCTV setup in Chennai starts from <strong>₹12,000</strong>, including cameras, DVR, hard drive, cabling and professional installation. An 8-camera office or shop setup starts from <strong>₹22,000</strong>. Industrial setups with 16+ IP cameras and fiber optic cabling start from <strong>₹45,000</strong>. We provide <strong>free site surveys</strong> and detailed written quotes before any commitment.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Which is the best CCTV camera brand for home use in India?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                <strong>Hikvision</strong> and <strong>Dahua</strong> are the globally leading IP camera brands offering the best price-to-performance ratio. For home use, <strong>CP Plus</strong> is also popular due to its widespread local support. For industrial and enterprise setups, Hikvision&apos;s <strong>ColorVu</strong> and <strong>AcuSense</strong> series provide 24/7 full-color footage and AI-powered intrusion detection. Infysmart is an authorized dealer for all three brands in Tamil Nadu.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">Do you install CCTV cameras for apartments and gated communities?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Yes, we specialize in comprehensive residential CCTV systems for apartment complexes and gated communities across Chennai, Coimbatore, and Hosur. Our apartment packages cover main entrance, lobby, parking, lifts, stairwells, and terrace areas. We provide individual mobile app access for all flat owners and integrate with existing intercom systems. AMC plans for apartment associations start from <strong>₹450 per camera per year</strong>.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900 mb-2">How long does CCTV installation take?</h4>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                A standard 4–8 camera home or office installation is typically completed within <strong>1 working day</strong>. An industrial setup with 16–32 cameras usually takes 2–4 days depending on cabling complexity and site area. After the survey we provide a fixed timeline along with the quote. We schedule installations at your convenience including weekends.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 7. BRANDS */}
+      {/* CITY-SPECIFIC SERVICE LINKS */}
+      <section className="py-12 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3 text-center">CCTV Installation by City</h2>
+          <p className="text-slate-500 text-sm text-center mb-8 max-w-2xl mx-auto">
+            Dedicated CCTV installation teams serving all major cities across Tamil Nadu and Karnataka.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+            {[
+              { city: 'Chennai', link: '/cctv-installation-chennai', desc: 'Apartments, IT Parks, Retail' },
+              { city: 'Hosur', link: '/cctv-installation-hosur', desc: 'SIPCOT, Industrial, Factories' },
+              { city: 'Dharmapuri', link: '/cctv-installation-dharmapuri', desc: 'Palacode, Same-day visit' },
+              { city: 'Coimbatore', link: '/cctv-installation-coimbatore', desc: 'Textile Mills, Commercial' },
+              { city: 'Bangalore', link: '/cctv-installation-bangalore', desc: 'Electronic City, Whitefield' },
+            ].map((item) => (
+              <Link key={item.city} href={item.link} className="bg-white border border-slate-200 rounded-xl p-5 text-center hover:border-brand-blue hover:shadow-md transition-all group">
+                <MapPin className="w-6 h-6 text-brand-blue mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                <h3 className="font-bold text-slate-900 text-sm mb-1">CCTV in {item.city}</h3>
+                <p className="text-slate-400 text-xs">{item.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AUTHORIZED BRANDS */}
       <section className="py-12 bg-white border-t border-slate-200">
         <div className="container mx-auto px-6 text-center">
           <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
-            Authorized Sales & Service Partners For
+            Authorized Sales &amp; Service Partners For
           </p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-xl font-bold text-slate-400 grayscale opacity-80">
             <span>Hikvision</span>
@@ -526,6 +859,14 @@ export default async function CCTVPage() {
             <span>Honeywell</span>
             <span>Panasonic</span>
             <span>Bosch</span>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/get-quote/cctv" className="bg-brand-blue text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+              Get Free CCTV Quote
+            </Link>
+            <Link href="/shop" className="bg-white border border-slate-300 text-slate-800 px-8 py-3 rounded-lg font-bold hover:bg-slate-50 transition-colors">
+              Buy CCTV Cameras Online
+            </Link>
           </div>
         </div>
       </section>

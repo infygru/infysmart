@@ -89,9 +89,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infysmart.com' },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: 'https://infysmart.com/shop' },
+      ...(category ? [{ '@type': 'ListItem', position: 3, name: category.name, item: `https://infysmart.com/shop?category=${category.slug}` }] : []),
+      { '@type': 'ListItem', position: category ? 4 : 3, name: product.name, item: `https://infysmart.com/shop/${product.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200">

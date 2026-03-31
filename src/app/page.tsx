@@ -12,20 +12,39 @@ import PriceGuideCTA from '@/components/PriceGuideCTA';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Best CCTV Installation Service & Solar Power in Chennai, Hosur, Coimbatore, Bangalore | InfySmart',
-  description: 'Govt-approved CCTV installation, Solar 4G cameras, biometric access control & building automation for industrial, corporate, and government clients across Tamil Nadu & Karnataka. Authorized Hikvision, Dahua & CP Plus dealer.',
+  title: 'CCTV Installation Service & Buy CCTV Cameras Online | Chennai, Hosur, Coimbatore, Bangalore | Infysmart',
+  description: 'Govt-approved CCTV installation starting ₹12,000. Buy Hikvision, Dahua & CP Plus cameras online with pan-India delivery. Expert installation for homes, offices & factories across Tamil Nadu & Karnataka.',
+  keywords: [
+    'CCTV installation service',
+    'buy CCTV camera online',
+    'CCTV camera price India',
+    'CCTV installation Chennai',
+    'CCTV installation Hosur',
+    'CCTV installation Coimbatore',
+    'CCTV installation Bangalore',
+    'Hikvision camera price',
+    'Dahua camera dealer',
+    'CP Plus camera online',
+    'CCTV camera for home',
+    'CCTV camera for office',
+    'security camera installation',
+    'CCTV AMC service',
+    'solar CCTV camera',
+    'biometric access control',
+    'CCTV service near me',
+  ],
   alternates: {
     canonical: 'https://infysmart.com/',
   },
   openGraph: {
-    title: 'Best CCTV Installation Service & Solar Power in Chennai, Hosur, Coimbatore, Bangalore | InfySmart',
-    description: 'Govt-approved CCTV, Solar & Security System provider across Tamil Nadu & Karnataka. Serving TNPL, ACCET and leading industrial clients.',
+    title: 'CCTV Installation & Buy CCTV Cameras Online | Infysmart',
+    description: 'Govt-approved CCTV installation from ₹12,000. Buy Hikvision, Dahua & CP Plus cameras online. Pan-India delivery. Expert installation across Tamil Nadu & Karnataka.',
     url: 'https://infysmart.com/',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart — Security & Technology Solutions' }],
   },
   twitter: {
-    title: 'Best CCTV Installation & Solar Power | InfySmart',
-    description: 'Govt-approved CCTV, Solar 4G cameras & biometric systems across Tamil Nadu & Karnataka.',
+    title: 'CCTV Installation ₹12,000 | Buy CCTV Cameras Online | Infysmart',
+    description: 'Govt-approved CCTV installation & online shop. Hikvision, Dahua, CP Plus cameras. Pan-India delivery.',
     images: ['/og-image.png'],
   },
 };
@@ -154,20 +173,44 @@ export default async function HomePage() {
             ))}
           </div>
 
-          {/* City keyword grid */}
+          {/* City-specific CCTV page links */}
+          <div className="border-t border-slate-800 pt-8 mb-8">
+            <h3 className="text-slate-400 text-sm font-bold mb-6 text-center">
+              CCTV Installation by City — Dedicated Service Pages
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-3xl mx-auto">
+              {[
+                { city: 'Chennai', link: '/cctv-installation-chennai' },
+                { city: 'Hosur', link: '/cctv-installation-hosur' },
+                { city: 'Dharmapuri', link: '/cctv-installation-dharmapuri' },
+                { city: 'Coimbatore', link: '/cctv-installation-coimbatore' },
+                { city: 'Bangalore', link: '/cctv-installation-bangalore' },
+              ].map((item) => (
+                <a key={item.city} href={item.link} className="text-center bg-slate-800/60 border border-slate-700/50 rounded-xl py-3 px-4 hover:border-brand-blue hover:bg-slate-800 transition-all group">
+                  <div className="text-slate-300 text-sm font-bold group-hover:text-white">CCTV {item.city}</div>
+                  <div className="text-slate-600 text-xs mt-1">Installation →</div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* SEO keyword tags */}
           <div className="border-t border-slate-800 pt-8">
             <h3 className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4 text-center">
-              CCTV &amp; Security System Installation Locations
+              CCTV &amp; Security System Services Across South India
             </h3>
             <div className="flex flex-wrap justify-center gap-2 text-xs text-slate-600">
               {[
                 'CCTV Installation Chennai', 'CCTV Installation Hosur', 'CCTV Installation Coimbatore',
-                'CCTV Installation Bangalore', 'CCTV Installation Dharmapuri', 'CCTV Installation Karaikudi',
-                'CCTV Installation Puducherry', 'CCTV Installation Cuddalore', 'CCTV Installation Madurai',
+                'CCTV Installation Bangalore', 'CCTV Camera Price Chennai', 'Buy CCTV Camera Online',
+                'Hikvision Dealer Tamil Nadu', 'Dahua Camera Dealer Chennai',
+                'CCTV Installation Dharmapuri', 'CCTV Installation Karaikudi',
+                'CCTV Installation Puducherry', 'CCTV Installation Madurai',
                 'CCTV Installation Salem', 'CCTV Installation Trichy', 'CCTV Installation Vellore',
                 'Solar Panel Installation Tamil Nadu', 'Biometric System Chennai',
                 'Video Door Phone Chennai', 'Gate Automation Hosur', 'CCTV AMC Chennai',
                 'Industrial CCTV Ambattur', 'Factory CCTV Sriperumbudur', 'SIPCOT CCTV Installation',
+                'CCTV Service Near Me', 'CCTV Repair Chennai', 'Security Camera for Home',
               ].map((kw) => (
                 <span key={kw} className="px-3 py-1 bg-slate-800/50 rounded-full border border-slate-700/40">
                   {kw}

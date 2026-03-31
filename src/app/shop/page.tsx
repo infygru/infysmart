@@ -13,15 +13,38 @@ import MobileFilterDrawer from '@/components/shop/MobileFilterDrawer';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Shop CCTV Cameras, NVR, DVR & Networking Products | Infysmart',
+  title: 'Buy CCTV Cameras Online | Hikvision, Dahua, CP Plus — Best Price | Infysmart',
   description:
-    'Buy Hikvision, Dahua, CP Plus CCTV cameras, NVR, DVR, network switches, access control devices and security equipment online. Pan-India delivery.',
+    'Buy Hikvision, Dahua, CP Plus CCTV cameras, NVR, DVR, PoE switches & access control products online at best prices. Authorized dealer, GST invoice, 1-year warranty, pan-India delivery from Hosur.',
+  keywords: [
+    'buy CCTV camera online',
+    'CCTV camera price India',
+    'Hikvision camera price',
+    'Dahua camera buy online',
+    'CP Plus camera online',
+    'NVR buy online India',
+    'DVR buy online India',
+    'CCTV camera for home',
+    'IP camera price India',
+    'dome camera price',
+    'bullet camera price',
+    'PTZ camera price India',
+    'PoE switch buy India',
+    'security camera online shopping',
+    'CCTV camera Chennai',
+    'surveillance camera price',
+  ],
   alternates: { canonical: 'https://infysmart.com/shop' },
   openGraph: {
-    title: 'Shop CCTV & Networking Products | Infysmart',
-    description: 'Buy security cameras, NVR, DVR, PoE switches and more with pan-India delivery.',
+    title: 'Buy CCTV Cameras Online | Hikvision, Dahua, CP Plus | Infysmart',
+    description: 'Best price on Hikvision, Dahua, CP Plus CCTV cameras, NVR, DVR. Authorized dealer. GST invoice. Pan-India delivery.',
     url: 'https://infysmart.com/shop',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Infysmart Online Shop' }],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Buy CCTV Cameras Online — Infysmart Shop' }],
+  },
+  twitter: {
+    title: 'Buy CCTV Cameras Online | Best Price | Infysmart',
+    description: 'Hikvision, Dahua, CP Plus cameras at best prices. Authorized dealer. Pan-India delivery.',
+    images: ['/og-image.png'],
   },
 };
 
@@ -111,9 +134,9 @@ export default async function ShopPage({ searchParams }: PageProps) {
               <h1 className="text-base sm:text-xl font-extrabold text-gray-900 truncate">
                 {activeCategory
                   ? (categories.find((c) => c.slug === activeCategory)?.name ?? 'Products')
-                  : 'All Products'}
+                  : 'Buy CCTV Cameras, NVR & Security Equipment Online'}
               </h1>
-              <p className="text-xs text-gray-400 mt-0.5">{totalCount} products</p>
+              <p className="text-xs text-gray-400 mt-0.5">{totalCount} products · Authorized dealer · Pan-India delivery</p>
             </div>
             <div className="w-full max-w-[200px] sm:max-w-xs">
               <Suspense>
@@ -181,17 +204,48 @@ export default async function ShopPage({ searchParams }: PageProps) {
       </div>
 
       {/* ── SEO FOOTER ── */}
-      <div className="border-t border-gray-200 bg-white py-8 px-6 mt-4">
+      <div className="border-t border-gray-200 bg-white py-10 px-6 mt-4">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-base font-bold text-gray-700 mb-2">CCTV &amp; Security Products — Pan-India Delivery</h2>
-          <p className="text-sm text-gray-400 leading-relaxed max-w-4xl">
-            Infysmart supplies Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products across Tamil Nadu and Karnataka.
-            All products carry full manufacturer warranty. Dispatched from our Hosur warehouse with insured shipping.
+          <h2 className="text-lg font-bold text-gray-800 mb-2">Buy CCTV Cameras Online — Authorized Dealer, Best Prices</h2>
+          <p className="text-sm text-gray-400 leading-relaxed max-w-4xl mb-4">
+            Infysmart is an authorized dealer for Hikvision, Dahua, CP Plus, Honeywell, Essl, and Matrix products across India.
+            All products carry full manufacturer warranty and are dispatched from our Hosur warehouse with insured shipping and GST invoice.
+            We supply to installers, system integrators, enterprises, and individual buyers across Tamil Nadu, Karnataka, and all major cities in India.
           </p>
-          <div className="flex flex-wrap gap-2 mt-4">
-            {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (
-              <span key={b} className="bg-gray-100 text-gray-500 text-xs font-medium px-3 py-1 rounded-full">{b}</span>
-            ))}
+
+          <div className="grid md:grid-cols-3 gap-6 mt-6 mb-6">
+            <div>
+              <h3 className="text-sm font-bold text-gray-700 mb-2">CCTV Camera Brands</h3>
+              <div className="flex flex-wrap gap-2">
+                {['Hikvision', 'Dahua', 'CP Plus', 'Honeywell', 'Panasonic', 'Bosch'].map((b) => (
+                  <span key={b} className="bg-gray-100 text-gray-500 text-xs font-medium px-3 py-1 rounded-full">{b}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-gray-700 mb-2">Networking & Access Control</h3>
+              <div className="flex flex-wrap gap-2">
+                {['Essl', 'Matrix', 'D-Link', 'TP-Link', 'Netgear', 'Moxa'].map((b) => (
+                  <span key={b} className="bg-gray-100 text-gray-500 text-xs font-medium px-3 py-1 rounded-full">{b}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-gray-700 mb-2">Need Professional Installation?</h3>
+              <p className="text-xs text-gray-400 mb-2">We install what we sell. Get professional CCTV installation from ₹12,000 across Tamil Nadu & Karnataka.</p>
+              <a href="/get-quote/cctv" className="inline-block text-xs font-bold text-[#FF4500] hover:underline">Get Free Installation Quote →</a>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-gray-100">
+            <p className="text-xs text-gray-400">
+              <strong className="text-gray-600">Popular searches:</strong>{' '}
+              {[
+                'Hikvision 2MP dome camera price', 'Dahua 5MP bullet camera', 'CP Plus 8 camera DVR kit',
+                'Hikvision ColorVu camera', '4K security camera price', 'solar CCTV camera 4G',
+                'PTZ camera price India', 'NVR 16 channel price', 'PoE switch 8 port',
+              ].join(' · ')}
+            </p>
           </div>
         </div>
       </div>
