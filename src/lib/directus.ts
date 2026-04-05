@@ -130,6 +130,8 @@ export interface Product {
   dimensions: { length: number; width: number; height: number } | null;
   meta_title: string | null;
   meta_description: string | null;
+  meta_keywords: string | null;      // Comma-separated keywords for <meta keywords> & structured data
+  og_image: string | null;           // Optional OG image override (Directus file UUID)
   date_created: string;
   date_updated: string | null;
 }

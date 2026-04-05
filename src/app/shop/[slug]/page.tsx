@@ -22,13 +22,41 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   try {
-    const products = await directus.request(readItems('products', { filter: { slug: { _eq: slug }, status: { _eq: 'published' } }, fields: ['name','short_description','meta_title','meta_description','thumbnail','sku'], limit: 1 } as never)) as unknown as Product[];
+    const products = await directus.request(readItems('products', { filter: { slug: { _eq: slug }, status: { _eq: 'published' } }, fields: ['name','short_description','meta_title','meta_description','meta_keywords','og_image','thumbnail','sku','tags','brand.name','category.name'], limit: 1 } as never)) as unknown as Product[];
     const p = products[0];
     if (!p) return {};
-    const title = p.meta_title ?? `${p.name} | Infysmart Shop`;
+    const title = p.meta_title ?? `${p.name} — Buy Online | Infysmart`;
     const description = p.meta_description ?? p.short_description;
-    const imageUrl = p.thumbnail ? getAssetUrl(p.thumbnail, { width: '1200', height: '630', fit: 'cover' }) : '/og-image.png';
-    return { title, description, alternates: { canonical: `https://infysmart.com/shop/${slug}` }, openGraph: { title, description, url: `https://infysmart.com/shop/${slug}`, images: [{ url: imageUrl, width: 1200, height: 630 }], type: 'website' } };
+    // OG image: prefer dedicated og_image field, then thumbnail, then site default
+    const ogImageUrl = p.og_image
+      ? getAssetUrl(p.og_image, { width: '1200', height: '630', fit: 'cover' })
+      : p.thumbnail
+        ? getAssetUrl(p.thumbnail, { width: '1200', height: '630', fit: 'cover' })
+        : '/og-image.png';
+    // Keywords: prefer meta_keywords field, fall back to tags array
+    const keywords = p.meta_keywords
+      ? p.meta_keywords.split(',').map((k) => k.trim()).filter(Boolean)
+      : (p.tags ?? undefined);
+    const canonicalUrl = `https://infysmart.com/shop/${slug}`;
+    return {
+      title,
+      description,
+      keywords,
+      alternates: { canonical: canonicalUrl },
+      openGraph: {
+        title,
+        description,
+        url: canonicalUrl,
+        type: 'website',
+        images: [{ url: ogImageUrl, width: 1200, height: 630, alt: title }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [ogImageUrl],
+      },
+    };
   } catch { return {}; }
 }
 
@@ -37,7 +65,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const products = await directus.request(readItems('products', {
     filter: { slug: { _eq: slug }, status: { _eq: 'published' } },
-    fields: ['id','name','slug','sku','price','sale_price','short_description','description','specifications','features','thumbnail','stock_quantity','track_inventory','is_featured','status','weight','dimensions','tags','meta_title','meta_description','date_created','category.id','category.name','category.slug','brand.id','brand.name','brand.slug','brand.website','images.id','images.image','images.alt_text','images.sort'],
+    fields: ['id','name','slug','sku','price','sale_price','short_description','description','specifications','features','thumbnail','og_image','stock_quantity','track_inventory','is_featured','status','weight','dimensions','tags','meta_title','meta_description','meta_keywords','date_created','date_updated','category.id','category.name','category.slug','brand.id','brand.name','brand.slug','brand.website','images.id','images.image','images.alt_text','images.sort'],
     limit: 1,
   } as never)) as unknown as Product[];
 
@@ -75,17 +103,54 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       } as never)).catch(() => []) as unknown as Product[]
     : [];
 
+  // Strip HTML tags from rich description for schema
+  const plainDescription = product.description
+    ? product.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+    : product.short_description;
+
+  // priceValidUntil = 1 year from today (not from date_created)
+  const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
   const productSchema = {
-    '@context': 'https://schema.org', '@type': 'Product',
-    name: product.name, description: product.short_description, sku: product.sku,
-    brand: brand ? { '@type': 'Brand', name: brand.name } : undefined,
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `https://infysmart.com/shop/${product.slug}`,
+    name: product.name,
+    description: plainDescription,
+    sku: product.sku,
+    mpn: product.sku,
+    brand: brand ? { '@type': 'Brand', name: brand.name, url: brand.website ?? undefined } : undefined,
+    category: category?.name ?? undefined,
     image: galleryImages.slice(0, 5).map((img) => getAssetUrl(img.image, { width: '800', height: '600', fit: 'cover' })),
+    url: `https://infysmart.com/shop/${product.slug}`,
+    ...(product.weight ? { weight: { '@type': 'QuantitativeValue', value: product.weight, unitCode: 'KGM' } } : {}),
+    ...(product.tags?.length ? { keywords: product.tags.join(', ') } : {}),
     offers: {
-      '@type': 'Offer', priceCurrency: 'INR', price: effectivePrice,
-      priceValidUntil: new Date(new Date(product.date_created).getTime() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      '@type': 'Offer',
+      priceCurrency: 'INR',
+      price: effectivePrice,
+      priceValidUntil,
+      itemCondition: 'https://schema.org/NewCondition',
       availability: isOutOfStock ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
       seller: { '@id': 'https://infysmart.com/#organization' },
       url: `https://infysmart.com/shop/${product.slug}`,
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'IN',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 7,
+        returnMethod: 'https://schema.org/ReturnByMail',
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: { '@type': 'MonetaryAmount', currency: 'INR', value: 0 },
+        shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'IN' },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 1, unitCode: 'DAY' },
+          transitTime: { '@type': 'QuantitativeValue', minValue: 2, maxValue: 5, unitCode: 'DAY' },
+        },
+      },
     },
   };
 
