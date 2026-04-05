@@ -5,8 +5,8 @@ import { CheckCircle2, Clock, Award, Users } from 'lucide-react';
 const features = [
   {
     icon: <Award className="h-6 w-6 text-orange-500" />,
-    title: "Authorized Partner",
-    description: "Official dealer for Hikvision & Dahua. We guarantee 100% genuine products with manufacturer warranty."
+    title: "Authorized Channel Partner",
+    description: "Authorized channel partner for CP Plus, Prama & Matrix. We guarantee 100% genuine products with manufacturer warranty."
   },
   {
     icon: <Users className="h-6 w-6 text-blue-500" />,

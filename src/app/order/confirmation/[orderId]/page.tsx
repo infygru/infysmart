@@ -110,13 +110,13 @@ export default async function OrderConfirmationPage({ params, searchParams }: Pa
             ].map(({ label, done }, idx, arr) => (
               <div key={label} className="flex-1 flex flex-col items-center">
                 <div className="flex items-center w-full">
-                  {idx > 0 && <div className={`flex-1 h-0.5 ${done ? 'bg-[#FF4500]' : 'bg-gray-200'}`} />}
+                  {idx > 0 && <div className={`flex-1 h-0.5 ${done ? 'bg-gradient-to-r from-[#FF4500] to-orange-500' : 'bg-gray-200'}`} />}
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 flex-shrink-0 ${
-                    done ? 'bg-[#FF4500] border-[#FF4500]' : 'bg-white border-gray-200'
+                    done ? 'bg-gradient-to-br from-[#FF4500] to-orange-500 border-[#FF4500]' : 'bg-white border-gray-200'
                   }`}>
                     {done ? <CheckCircle2 className="w-4 h-4 text-white" /> : <div className="w-2 h-2 rounded-full bg-gray-300" />}
                   </div>
-                  {idx < arr.length - 1 && <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-[#FF4500]' : 'bg-gray-200'}`} />}
+                  {idx < arr.length - 1 && <div className={`flex-1 h-0.5 ${done && arr[idx + 1]?.done ? 'bg-gradient-to-r from-[#FF4500] to-orange-500' : 'bg-gray-200'}`} />}
                 </div>
                 <span className={`text-[10px] font-semibold mt-1.5 text-center ${done ? 'text-[#FF4500]' : 'text-gray-400'}`}>
                   {label}

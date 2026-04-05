@@ -181,7 +181,7 @@ export default function AccountClient({
                   <button
                     onClick={handleSendVerifyOTP}
                     disabled={verifyLoading}
-                    className="w-full h-10 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-semibold rounded-lg disabled:opacity-50 transition-colors"
+                    className="w-full h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-semibold rounded-lg disabled:opacity-50 transition-all"
                   >
                     {verifyLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Send OTP <ArrowRight className="w-3.5 h-3.5" /></>}
                   </button>
@@ -204,7 +204,7 @@ export default function AccountClient({
                   <button
                     onClick={handleConfirmPhone}
                     disabled={verifyLoading || verifyOtp.length !== 6}
-                    className="w-full h-10 flex items-center justify-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-colors"
+                    className="w-full h-10 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
                   >
                     {verifyLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify & Continue'}
                   </button>
@@ -265,7 +265,7 @@ export default function AccountClient({
               <button
                 onClick={handleSave}
                 disabled={saving || !customer?.phone}
-                className="w-full flex items-center justify-center gap-2 h-10 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-colors"
+                className="w-full flex items-center justify-center gap-2 h-10 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-semibold rounded-lg disabled:opacity-40 transition-all"
               >
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> :
                   saved ? <><CheckCircle2 className="w-4 h-4" /> Saved</> :
@@ -320,7 +320,7 @@ export default function AccountClient({
               </p>
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all"
               >
                 <ShoppingBag className="w-4 h-4" /> Browse Products
               </Link>

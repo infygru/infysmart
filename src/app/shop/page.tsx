@@ -187,7 +187,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
                 </div>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-2 bg-[#FF4500] hover:bg-orange-600 text-white px-4 py-2 rounded-xl font-bold text-sm transition-all"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white px-4 py-2 rounded-xl font-bold text-sm transition-all"
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" /> Clear Filters
                 </Link>
@@ -282,7 +282,7 @@ function Pagination({ currentPage, totalPages, searchParams }: { currentPage: nu
             aria-current={p === currentPage ? 'page' : undefined}
             className={`w-9 h-9 flex items-center justify-center text-sm font-semibold rounded-xl border transition-colors ${
               p === currentPage
-                ? 'bg-[#FF4500] text-white border-[#FF4500]'
+                ? 'bg-gradient-to-r from-[#FF4500] to-orange-500 text-white border-[#FF4500]'
                 : 'bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-[#FF4500]'
             }`}
           >

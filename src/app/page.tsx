@@ -9,6 +9,9 @@ import ExecutionProcess from '@/components/ExecutionProcess';
 import CurrentProjects from '@/components/CurrentProjects';
 import FadeIn from '@/components/animations/FadeIn';
 import PriceGuideCTA from '@/components/PriceGuideCTA';
+import HomeShopBanner from '@/components/shop/HomeShopBanner';
+import ShopCategoriesStrip from '@/components/shop/ShopCategoriesStrip';
+import HomeFeaturedProducts from '@/components/shop/HomeFeaturedProducts';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -52,11 +55,23 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [settings, services, clients, projects] = await Promise.all([
+  const [settings, services, clients, projects, featuredProducts] = await Promise.all([
     directus.request(readSingleton('global_settings')),
     directus.request(readItems('services')),
     directus.request(readItems('clients')),
-    directus.request(readItems('projects'))
+    directus.request(readItems('projects')),
+    directus.request(readItems('products', {
+      filter: { status: { _eq: 'published' }, is_featured: { _eq: true } },
+      sort: ['-date_created'],
+      limit: 8,
+      fields: [
+        'id', 'name', 'slug', 'sku', 'price', 'sale_price',
+        'short_description', 'thumbnail', 'stock_quantity',
+        'track_inventory', 'is_featured', 'status',
+        'category.id', 'category.name', 'category.slug',
+        'brand.id', 'brand.name', 'brand.slug',
+      ],
+    } as never)).catch(() => []),
   ]);
 
   // Transform services content to match new government-focused messaging
@@ -96,6 +111,15 @@ export default async function HomePage() {
     <main className="min-h-screen bg-slate-50 overflow-x-hidden">
       <Hero heroImage={heroImageUrl} />
 
+      {/* ── Ecommerce sections — right after hero ── */}
+      <FadeIn direction="up">
+        <ShopCategoriesStrip />
+      </FadeIn>
+
+      <FadeIn direction="up">
+        <HomeFeaturedProducts products={(featuredProducts as never) ?? []} />
+      </FadeIn>
+
       <FadeIn direction="up" delay={0.2}>
         <ClientStrip clients={clients} />
       </FadeIn>
@@ -103,6 +127,8 @@ export default async function HomePage() {
       <FadeIn direction="up">
         <AuthorizedBrands />
       </FadeIn>
+
+      <HomeShopBanner />
 
       <FadeIn direction="up">
         {/* Pass transformedServices instead of raw services */}

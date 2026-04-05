@@ -77,7 +77,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
               href="/shop"
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold whitespace-nowrap transition-all ${
                 pathname.startsWith('/shop')
-                  ? 'bg-[#FF4500] text-white shadow-md shadow-orange-200'
+                  ? 'bg-gradient-to-r from-[#FF4500] to-orange-500 text-white shadow-md shadow-orange-200'
                   : 'bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 shadow-sm shadow-orange-200'
               }`}
             >
@@ -106,7 +106,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
             >
               <ShoppingCart className="w-5 h-5" />
               {totals.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-brand-orange text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-gradient-to-br from-[#FF4500] to-orange-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">
                   {totals.itemCount > 99 ? '99+' : totals.itemCount}
                 </span>
               )}
@@ -198,7 +198,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
             >
               <ShoppingCart className="w-5 h-5" />
               {totals.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-brand-orange text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-gradient-to-br from-[#FF4500] to-orange-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">
                   {totals.itemCount > 99 ? '99+' : totals.itemCount}
                 </span>
               )}
@@ -252,8 +252,8 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
             onClick={() => setIsMobileOpen(false)}
             className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
               pathname.startsWith('/shop')
-                ? 'bg-[#FF4500] text-white'
-                : 'bg-gradient-to-r from-amber-500 to-orange-600 text-white'
+                ? 'bg-gradient-to-r from-[#FF4500] to-orange-500 text-white'
+                : 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
             }`}
           >
             <ShoppingBag className="w-4 h-4" /> Shop Now

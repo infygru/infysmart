@@ -108,7 +108,7 @@ export default function PriceGuideCTA() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-[#FF4500] hover:bg-orange-600 disabled:opacity-60 text-white font-bold rounded-lg shadow-lg shadow-orange-600/25 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 disabled:opacity-60 text-white font-bold rounded-lg shadow-lg shadow-orange-600/25 transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
                   >
                     {loading ? 'Sending…' : <><Download size={20} /> Download Now</>}
                   </button>

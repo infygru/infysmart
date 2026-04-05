@@ -93,7 +93,7 @@ export default function AddToCartSection({ product }: Props) {
           <Link
             href="/checkout"
             onClick={() => addToCart(cartProduct, quantity)}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#FF4500] to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all shadow-md shadow-orange-200/50"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#FF4500] to-orange-500 text-white hover:from-orange-600 hover:to-orange-400 transition-all shadow-md shadow-orange-200/50"
           >
             Buy Now <ArrowRight className="w-4 h-4" />
           </Link>

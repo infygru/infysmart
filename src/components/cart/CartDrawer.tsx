@@ -54,7 +54,7 @@ export default function CartDrawer() {
             </div>
             <h2 className="text-base font-bold text-gray-900">Your Cart</h2>
             {totals.itemCount > 0 && (
-              <span className="bg-[#FF4500] text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
+              <span className="bg-gradient-to-r from-[#FF4500] to-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
                 {totals.itemCount}
               </span>
             )}

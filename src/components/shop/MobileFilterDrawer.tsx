@@ -32,7 +32,7 @@ export default function MobileFilterDrawer({ categories, brands, totalCount }: P
         <SlidersHorizontal className="w-4 h-4" />
         Filters &amp; Sort
         {activeFilterCount > 0 && (
-          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#FF4500] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-br from-[#FF4500] to-orange-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
             {activeFilterCount}
           </span>
         )}
@@ -57,7 +57,7 @@ export default function MobileFilterDrawer({ categories, brands, totalCount }: P
           <div className="flex items-center gap-2">
             <h2 className="font-bold text-gray-900">Filters &amp; Sort</h2>
             {activeFilterCount > 0 && (
-              <span className="bg-[#FF4500] text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
+              <span className="bg-gradient-to-r from-[#FF4500] to-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
                 {activeFilterCount}
               </span>
             )}

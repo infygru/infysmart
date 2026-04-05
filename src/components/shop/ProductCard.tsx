@@ -71,7 +71,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         {hasDiscount && !isOutOfStock && (
-          <span className="absolute top-2 left-2 bg-[#FF4500] text-white text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-md">
+          <span className="absolute top-2 left-2 bg-gradient-to-r from-[#FF4500] to-orange-500 text-white text-[10px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-md">
             -{discountPercent}%
           </span>
         )}
@@ -120,7 +120,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={`flex-1 py-2.5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold text-center transition-all active:scale-95 ${
               isOutOfStock
                 ? 'bg-gray-100 text-gray-400 pointer-events-none'
-                : 'bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-sm shadow-orange-200/60'
+                : 'bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white shadow-sm shadow-orange-200/60'
             }`}
           >
             {isOutOfStock ? 'Sold Out' : 'Buy Now'}

@@ -272,7 +272,7 @@ function LoginPage() {
               <button
                 onClick={handleSendOTP}
                 disabled={loading}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Get OTP <ArrowRight className="w-3.5 h-3.5" /></>}
               </button>
@@ -315,7 +315,7 @@ function LoginPage() {
               <button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.length !== 6}
-                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
+                className="mt-4 w-full h-11 flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF4500] to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white text-sm font-bold rounded-xl disabled:opacity-40 transition-all shadow-md shadow-orange-200/50"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify & Sign in'}
               </button>

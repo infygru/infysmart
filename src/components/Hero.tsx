@@ -26,7 +26,7 @@ const STATS = [
 const TRUST = [
   'TNPL & ACCET Empanelled',
   'GST & MSME Registered',
-  'Hikvision & Dahua Authorized',
+  'CP Plus, Prama & Matrix Partner',
   'Free Site Survey',
 ];
 

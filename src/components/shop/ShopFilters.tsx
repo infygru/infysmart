@@ -86,7 +86,7 @@ export default function ShopFilters({ categories, brands, totalCount, onApply }:
         <div className="flex items-center gap-2">
           <h2 className="font-bold text-gray-900 text-sm">Filters</h2>
           {activeFilterCount > 0 && (
-            <span className="bg-[#FF4500] text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
+            <span className="bg-gradient-to-r from-[#FF4500] to-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
               {activeFilterCount}
             </span>
           )}
@@ -147,7 +147,7 @@ export default function ShopFilters({ categories, brands, totalCount, onApply }:
               return (
                 <li key={brand.id}>
                   <label className={`flex items-center gap-2.5 cursor-pointer px-2 py-1.5 rounded-lg transition-colors ${checked ? 'bg-orange-50' : 'hover:bg-gray-50'}`}>
-                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? 'bg-[#FF4500] border-[#FF4500]' : 'border-gray-300'}`}>
+                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${checked ? 'bg-gradient-to-br from-[#FF4500] to-orange-500 border-[#FF4500]' : 'border-gray-300'}`}>
                       {checked && (
                         <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 10 10">
                           <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -204,7 +204,7 @@ export default function ShopFilters({ categories, brands, totalCount, onApply }:
       {/* Availability */}
       <FilterSection title="Availability" expanded={expandedSections.availability} onToggle={() => toggleSection('availability')}>
         <label className={`flex items-center gap-2.5 cursor-pointer px-2 py-1.5 rounded-lg transition-colors ${inStockOnly ? 'bg-orange-50' : 'hover:bg-gray-50'}`}>
-          <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${inStockOnly ? 'bg-[#FF4500] border-[#FF4500]' : 'border-gray-300'}`}>
+          <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${inStockOnly ? 'bg-gradient-to-br from-[#FF4500] to-orange-500 border-[#FF4500]' : 'border-gray-300'}`}>
             {inStockOnly && (
               <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 10 10">
                 <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
