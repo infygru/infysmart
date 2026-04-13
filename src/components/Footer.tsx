@@ -75,6 +75,7 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
               <li><Link href="/services/video-door-phones" className="hover:text-brand-blue transition-colors">Video Door Phones</Link></li>
               <li><Link href="/amc" className="hover:text-brand-blue transition-colors">CCTV AMC Services</Link></li>
               <li><Link href="/amc" className="hover:text-brand-blue transition-colors">Solar AMC Services</Link></li>
+              <li><Link href="/cctv-rental" className="hover:text-brand-blue transition-colors">CCTV Rental for Events</Link></li>
             </ul>
           </div>
 
@@ -91,6 +92,7 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
               <li><Link href="/cctv" className="hover:text-brand-blue transition-colors">Apartment Complexes</Link></li>
               <li><Link href="/cctv" className="hover:text-brand-blue transition-colors">Retail &amp; Showrooms</Link></li>
               <li><Link href="/cctv" className="hover:text-brand-blue transition-colors">Bank &amp; ATM Security</Link></li>
+              <li><Link href="/cctv-rental" className="hover:text-brand-blue transition-colors">Events &amp; Concerts (Rental)</Link></li>
               <li><Link href="/solar" className="hover:text-brand-blue transition-colors">Rooftop Solar (Commercial)</Link></li>
               <li><Link href="/solar" className="hover:text-brand-blue transition-colors">Off-Grid Solar Solutions</Link></li>
               <li><Link href="/projects" className="hover:text-brand-blue transition-colors">View All Projects</Link></li>
