@@ -37,7 +37,7 @@ export default function AuthorizedBrands({ brands }: Props) {
           {scrollingBrands.map((brand, index) => (
             <div
               key={`${brand.id}-${index}`}
-              className="relative h-10 w-32 shrink-0 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="relative h-10 w-32 shrink-0 flex items-center justify-center opacity-80 hover:opacity-100 transition-all duration-300"
             >
               {brand.logo ? (
                 <Image
