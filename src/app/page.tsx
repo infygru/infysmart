@@ -1,4 +1,4 @@
-import { directus, getAssetUrl, Service } from '@/lib/directus';
+import { directus, getAssetUrl, Service, ProductBrand } from '@/lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
 import Hero from '@/components/Hero';
 import ClientStrip from '@/components/ClientStrip';
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [settings, services, clients, projects, featuredProducts] = await Promise.all([
+  const [settings, services, clients, projects, featuredProducts, brands] = await Promise.all([
     directus.request(readSingleton('global_settings')),
     directus.request(readItems('services')),
     directus.request(readItems('clients')),
@@ -72,6 +72,12 @@ export default async function HomePage() {
         'brand.id', 'brand.name', 'brand.slug',
       ],
     } as never)).catch(() => []),
+    directus.request(readItems('product_brands', {
+      filter: { status: { _eq: 'published' } },
+      fields: ['id', 'name', 'slug', 'logo'],
+      sort: ['name'],
+      limit: 50,
+    } as never)).catch(() => []) as unknown as ProductBrand[],
   ]);
 
   // Transform services content to match new government-focused messaging
@@ -125,7 +131,7 @@ export default async function HomePage() {
       </FadeIn>
 
       <FadeIn direction="up">
-        <AuthorizedBrands />
+        <AuthorizedBrands brands={brands} />
       </FadeIn>
 
       <HomeShopBanner />
