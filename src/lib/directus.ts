@@ -136,6 +136,17 @@ export interface Product {
   date_updated: string | null;
 }
 
+export interface ProductReview {
+  id: number;
+  product: number | Product;        // FK -> products
+  customer: number | Customer;      // FK -> customers
+  rating: number;                   // 1-5
+  title: string | null;
+  content: string;
+  status: 'pending' | 'published' | 'rejected';
+  date_created: string;
+}
+
 // ─── Order Types ───────────────────────────────────────────────────────────────
 
 export type OrderStatus =
@@ -256,6 +267,7 @@ interface Schema {
   product_brands: ProductBrand[];
   products: Product[];
   product_images: ProductImage[];
+  product_reviews: ProductReview[];
   orders: Order[];
   order_items: OrderItem[];
   coupons: Coupon[];

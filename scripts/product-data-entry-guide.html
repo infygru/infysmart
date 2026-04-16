@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infysmart — AI Product Data Entry Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --orange: #f97316;
+    --orange-dark: #ea580c;
+    --orange-light: #fff7ed;
+    --orange-border: #fed7aa;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray-800);
+    background: white;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* ── COVER PAGE ─────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+    color: white;
+    padding: 80px 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(249,115,22,0.2);
+    border: 1px solid rgba(249,115,22,0.4);
+    color: var(--orange);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+  .cover h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 span { color: var(--orange); }
+  .cover .subtitle {
+    font-size: 18px;
+    color: #9ca3af;
+    max-width: 500px;
+    margin-bottom: 48px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+  }
+  .cover-logo {
+    position: absolute;
+    top: 48px;
+    right: 60px;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+  }
+  .cover-logo span { color: var(--orange); }
+
+  /* ── PAGE STRUCTURE ─────────────────────────────────── */
+  .page {
+    padding: 48px 60px;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ── SECTION HEADERS ────────────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+  .section-number {
+    width: 40px;
+    height: 40px;
+    background: var(--orange);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .section-title h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .section-title p {
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+
+  /* ── CALLOUT BOXES ──────────────────────────────────── */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .callout-content strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .callout-content p, .callout-content li {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--gray-700);
+  }
+  .callout-content ul { padding-left: 16px; margin-top: 4px; }
+  .callout-content li { margin-bottom: 2px; }
+  .callout.orange { background: var(--orange-light); border: 1px solid var(--orange-border); }
+  .callout.blue   { background: var(--blue-light);   border: 1px solid #bfdbfe; }
+  .callout.green  { background: var(--green-light);  border: 1px solid #bbf7d0; }
+  .callout.red    { background: var(--red-light);    border: 1px solid #fecaca; }
+  .callout.purple { background: var(--purple-light); border: 1px solid #ddd6fe; }
+
+  /* ── FIELD TABLE ────────────────────────────────────── */
+  .field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 28px;
+    font-size: 12.5px;
+  }
+  .field-table thead tr {
+    background: var(--gray-900);
+    color: white;
+  }
+  .field-table thead th {
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: left;
+  }
+  .field-table thead th:first-child { border-radius: 8px 0 0 0; }
+  .field-table thead th:last-child  { border-radius: 0 8px 0 0; }
+  .field-table tbody tr { border-bottom: 1px solid var(--gray-100); }
+  .field-table tbody tr:nth-child(even) { background: var(--gray-50); }
+  .field-table tbody tr:hover { background: var(--orange-light); }
+  .field-table td { padding: 10px 14px; vertical-align: top; }
+  .field-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--orange-dark);
+  }
+
+  /* ── BADGES ─────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge.required { background: #fee2e2; color: var(--red); }
+  .badge.optional { background: var(--gray-100); color: var(--gray-600); }
+  .badge.auto     { background: #e0e7ff; color: #4338ca; }
+  .badge.type-string  { background: #dbeafe; color: #1d4ed8; }
+  .badge.type-number  { background: #d1fae5; color: #065f46; }
+  .badge.type-boolean { background: #fce7f3; color: #9d174d; }
+  .badge.type-json    { background: #fef3c7; color: #92400e; }
+  .badge.type-file    { background: #f3e8ff; color: #6d28d9; }
+
+  /* ── JSON FORMAT DISPLAY ────────────────────────────── */
+  .code-block {
+    background: var(--gray-900);
+    color: #e5e7eb;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    overflow-x: auto;
+  }
+  .code-block .key    { color: #93c5fd; }
+  .code-block .str    { color: #86efac; }
+  .code-block .num    { color: #fca5a5; }
+  .code-block .bool   { color: #f9a8d4; }
+  .code-block .comment { color: #6b7280; font-style: italic; }
+
+  /* ── STEP LIST ───────────────────────────────────────── */
+  .step-list { list-style: none; padding: 0; margin-bottom: 20px; }
+  .step-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    background: var(--orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text strong { display: block; font-size: 13px; margin-bottom: 2px; }
+  .step-text span { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+  /* ── COLLECTION BADGE ───────────────────────────────── */
+  .collection-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray-900);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .collection-tag .dot {
+    width: 7px; height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+  }
+
+  /* ── TWO-COL GRID ───────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+  /* ── FIELD DETAIL CARD ──────────────────────────────── */
+  .field-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .field-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .field-card-header .fname {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-dark);
+  }
+  .field-card p { font-size: 12.5px; color: var(--gray-700); line-height: 1.5; }
+  .field-card .example {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-700);
+    margin-top: 8px;
+  }
+  .field-card .example .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-400);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── PRINT ──────────────────────────────────────────── */
+  @media print {
+    body { max-width: 100%; }
+    .cover { min-height: 100vh; }
+    .page { page-break-inside: avoid; }
+  }
+
+  h3 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin: 24px 0 12px; }
+  h4 { font-size: 13px; font-weight: 600; color: var(--gray-700); margin: 16px 0 8px; }
+  p  { margin-bottom: 12px; color: var(--gray-700); font-size: 13px; line-height: 1.6; }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 4px; font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+  strong { color: var(--gray-900); }
+  hr { border: none; border-top: 2px solid var(--gray-100); margin: 28px 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  COVER PAGE                                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">Infy<span>smart</span></div>
+  <div class="cover-badge">Internal AI Reference</div>
+  <h1>AI Product<br>Data Entry <span>Guide</span></h1>
+  <p class="subtitle">A complete reference for AI assistants to generate accurate, SEO-optimized product data for the Infysmart e-commerce catalog.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Platform</label>
+      <span>Directus CMS</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Website</label>
+      <span>infysmart.com</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Business</label>
+      <span>CCTV, Security & Automation</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Version</label>
+      <span>1.0 — 2025</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 1 — OVERVIEW & HOW TO USE                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">1</div>
+    <div class="section-title">
+      <h2>Overview & How to Use This Guide</h2>
+      <p>Read this first before generating any product data</p>
+    </div>
+  </div>
+
+  <div class="callout orange">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-content">
+      <strong>Your Job as an AI Assistant</strong>
+      <p>You will be given a <strong>product reference</strong> (image, URL, or description) by the user. Using that reference + this guide, generate a complete, structured data payload ready to be copy-pasted into the Infysmart Directus admin panel at <strong>api.infysmart.com/admin</strong>.</p>
+    </div>
+  </div>
+
+  <h3>About Infysmart</h3>
+  <p>Infysmart is an Indian security technology company based in Coimbatore selling CCTV cameras, NVRs, DVRs, access control systems, solar products, and automation equipment. Products are sold across South India. The target audience is home owners, small businesses, and institutions.</p>
+
+  <h3>Collections You Will Fill Data For</h3>
+  <p>The Directus CMS has three product-related collections you may need to populate:</p>
+
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-card-header">
+        <div class="collection-tag"><div class="dot"></div>product_categories</div>
+      </div>
+      <p>Product categories like "IP Cameras", "DVR / NVR", "Solar Products". <strong>Only create if the category doesn't already exist.</strong></p>
+    </div>
+    <div class="field-card">
+      <div class="field-card-header">
+        <div class="collection-tag"><div class="dot"></div>product_brands</div>
+      </div>
+      <p>Brand records like "CP Plus", "Hikvision", "Dahua". <strong>Only create if the brand doesn't already exist.</strong></p>
+    </div>
+  </div>
+  <div class="field-card">
+    <div class="field-card-header">
+      <div class="collection-tag"><div class="dot"></div>products</div>
+    </div>
+    <p>The main product record — this is what you'll fill most of the time. Contains name, pricing, SEO, description, specifications, features, dimensions, weight etc.</p>
+  </div>
+
+  <h3>Output Format</h3>
+  <p>Always output data as <strong>clearly labelled sections</strong> like the example below. The user will manually copy each value into the correct Directus field.</p>
+
+  <div class="callout blue">
+    <div class="callout-icon">💡</div>
+    <div class="callout-content">
+      <strong>Output Rule</strong>
+      <p>Use <code>FIELD NAME: value</code> for simple text fields. For JSON fields (specifications, features, dimensions), output valid JSON. Always include every required field. If you cannot determine a value from the reference, make a sensible assumption and note it.</p>
+    </div>
+  </div>
+
+  <h3>Step-by-Step Workflow</h3>
+  <ul class="step-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <strong>Receive the product reference</strong>
+        <span>This could be an image, product URL, Amazon/Flipkart link, or a brand model number.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <strong>Identify or suggest category &amp; brand</strong>
+        <span>Tell the user which category and brand to select (or create if new).</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <strong>Generate the full products record</strong>
+        <span>Fill every field listed in Section 4 of this guide using information from the reference.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">4</div>
+      <div class="step-text">
+        <strong>Generate SEO metadata</strong>
+        <span>meta_title, meta_description, meta_keywords — optimized for Indian search queries.</span>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">5</div>
+      <div class="step-text">
+        <strong>Note what images are needed</strong>
+        <span>List the types of product images the user should upload (front view, side view, box, spec sheet, etc.).</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 2 — PRODUCT CATEGORIES                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <div class="section-title">
+      <h2>Collection: product_categories</h2>
+      <p>Only create a new category if the right one doesn't exist yet</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-icon">✅</div>
+    <div class="callout-content">
+      <strong>Check First</strong>
+      <p>Before generating a new category, check with the user if a suitable category already exists. Common existing categories include: <em>IP Cameras, CCTV Cameras, DVR / NVR Systems, Access Control, Solar Products, Cables & Accessories, Network Switches, Automation</em>.</p>
+    </div>
+  </div>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description &amp; Rules</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>Human-readable category name. e.g. <em>"IP Cameras"</em>, <em>"DVR / NVR Systems"</em>. Use Title Case.</td>
+      </tr>
+      <tr>
+        <td>slug</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>URL-safe version of name. Lowercase, hyphens only. e.g. <em>"ip-cameras"</em>, <em>"dvr-nvr-systems"</em>. No spaces, no special chars.</td>
+      </tr>
+      <tr>
+        <td>description</td>
+        <td><span class="badge type-string">long text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>2–4 sentence description of the category. Used for SEO category pages.</td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Always set to <strong>"published"</strong> for new categories.</td>
+      </tr>
+      <tr>
+        <td>meta_title</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>SEO page title. Max 60 chars. e.g. <em>"Buy IP Cameras Online | Infysmart"</em></td>
+      </tr>
+      <tr>
+        <td>meta_description</td>
+        <td><span class="badge type-string">long text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>SEO meta description. 140–160 characters. Include location keywords (India, Coimbatore).</td>
+      </tr>
+      <tr>
+        <td>parent_category</td>
+        <td><span class="badge type-number">number</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>ID of parent category if this is a sub-category. Leave empty for top-level categories.</td>
+      </tr>
+      <tr>
+        <td>image</td>
+        <td><span class="badge type-file">file</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Category banner/icon image. User uploads this manually — just note what image is appropriate.</td>
+      </tr>
+      <tr>
+        <td>sort</td>
+        <td><span class="badge type-number">number</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Display order. Lower number = shown first. e.g. 10, 20, 30.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Example Category Output</h3>
+  <div class="code-block">
+<span class="comment">── CATEGORY (only if new) ──────────────────────</span>
+<span class="key">name:</span>            <span class="str">IP Cameras</span>
+<span class="key">slug:</span>            <span class="str">ip-cameras</span>
+<span class="key">description:</span>     <span class="str">IP cameras use network technology to transmit high-definition video
+                 footage over the internet or LAN. Ideal for homes, offices,
+                 and warehouses requiring remote monitoring.</span>
+<span class="key">status:</span>          <span class="str">published</span>
+<span class="key">meta_title:</span>      <span class="str">Buy IP Cameras Online in India | Infysmart</span>
+<span class="key">meta_description:</span> <span class="str">Shop IP cameras in India. Hikvision, CP Plus & Dahua IP cameras
+                 with HD/4K resolution, IR night vision & PoE support.</span>
+<span class="key">sort:</span>            <span class="num">10</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 3 — PRODUCT BRANDS                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">3</div>
+    <div class="section-title">
+      <h2>Collection: product_brands</h2>
+      <p>Only create a new brand if it doesn't already exist</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-icon">✅</div>
+    <div class="callout-content">
+      <strong>Common Brands Already in System</strong>
+      <p>These brands likely already exist: <em>CP Plus, Hikvision, Dahua, Bosch, Honeywell, Godrej, Samsung, Axis, Uniview, TVT, Reolink</em>. Confirm with the user before creating a duplicate.</p>
+    </div>
+  </div>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description &amp; Rules</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>Official brand name exactly as written. e.g. <em>"CP Plus"</em>, <em>"Hikvision"</em>, <em>"Dahua"</em>.</td>
+      </tr>
+      <tr>
+        <td>slug</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>URL-safe brand name. Lowercase, hyphens. e.g. <em>"cp-plus"</em>, <em>"hikvision"</em>.</td>
+      </tr>
+      <tr>
+        <td>website</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Brand's official website URL. e.g. <em>"https://www.cpplusworld.com"</em></td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Always <strong>"published"</strong> for active brands.</td>
+      </tr>
+      <tr>
+        <td>logo</td>
+        <td><span class="badge type-file">file</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Brand logo image. User uploads manually. Note: should be SVG or PNG with transparent background.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Example Brand Output</h3>
+  <div class="code-block">
+<span class="comment">── BRAND (only if new) ─────────────────────────</span>
+<span class="key">name:</span>     <span class="str">CP Plus</span>
+<span class="key">slug:</span>     <span class="str">cp-plus</span>
+<span class="key">website:</span>  <span class="str">https://www.cpplusworld.com</span>
+<span class="key">status:</span>   <span class="str">published</span>
+<span class="comment">logo: [User to upload brand logo PNG/SVG]</span>
+  </div>
+
+  <hr>
+
+  <div class="callout blue">
+    <div class="callout-icon">📋</div>
+    <div class="callout-content">
+      <strong>How to Add in Directus Admin</strong>
+      <ul>
+        <li>Go to <strong>api.infysmart.com/admin</strong> → Login</li>
+        <li>In left sidebar click <strong>"product_brands"</strong> → click <strong>"+ Create Item"</strong></li>
+        <li>Fill in the fields and click <strong>Save</strong></li>
+        <li>Note the brand ID shown in the URL — you'll need it when creating the product</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 4 — PRODUCTS MAIN FIELDS                        -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">4</div>
+    <div class="section-title">
+      <h2>Collection: products — Core Fields</h2>
+      <p>The primary product record. Fill all required fields, try to fill optional ones too.</p>
+    </div>
+  </div>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th style="width:150px">Field Name</th>
+        <th style="width:80px">Type</th>
+        <th style="width:80px">Required</th>
+        <th>Description &amp; Rules</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>Full product name including brand, model number, key specs. <strong>Be descriptive — this is the SEO title.</strong><br>
+        e.g. <em>"CP Plus 2MP Full HD IP Outdoor Bullet Camera | Model: CP-UNC-TA21L3C | IR Night Vision | IP67"</em></td>
+      </tr>
+      <tr>
+        <td>slug</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>URL slug — lowercase, hyphens only, no special chars. Derived from product name but shorter.<br>
+        e.g. <em>"cp-plus-2mp-ip-outdoor-bullet-camera-cp-unc-ta21l3c"</em></td>
+      </tr>
+      <tr>
+        <td>sku</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>Stock Keeping Unit. Use the brand's official model number if available.<br>
+        e.g. <em>"CP-UNC-TA21L3C-LQ"</em> or generate as <em>"ISS-{BRAND}-{3-digit-num}"</em></td>
+      </tr>
+      <tr>
+        <td>category</td>
+        <td><span class="badge type-number">relation</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Select from existing categories. Just name the category — user will select it from the dropdown.</td>
+      </tr>
+      <tr>
+        <td>brand</td>
+        <td><span class="badge type-number">relation</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Select from existing brands. Just name the brand — user will select from the dropdown.</td>
+      </tr>
+      <tr>
+        <td>short_description</td>
+        <td><span class="badge type-string">long text</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>2–4 sentences. Used in product listing cards and meta fallback. Plain text only, no HTML.<br>
+        Mention: resolution, key feature, use case, warranty/STQC if applicable.</td>
+      </tr>
+      <tr>
+        <td>description</td>
+        <td><span class="badge type-string">rich text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Full product description in HTML. Include: overview paragraph, technology explained, use cases, what's in the box. Min 200 words recommended for SEO.</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td><span class="badge type-number">decimal</span></td>
+        <td><span class="badge required">Required</span></td>
+        <td>MRP / selling price in <strong>Indian Rupees (INR)</strong>. Include GST in the price. Numbers only, no ₹ symbol.<br>
+        e.g. <em>3499</em> or <em>12500.00</em></td>
+      </tr>
+      <tr>
+        <td>sale_price</td>
+        <td><span class="badge type-number">decimal</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Discounted price if applicable. Must be less than <code>price</code>. Leave empty if no discount.</td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td><span class="badge type-string">text</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Set to <strong>"published"</strong> to make product live on the website.</td>
+      </tr>
+      <tr>
+        <td>is_featured</td>
+        <td><span class="badge type-boolean">boolean</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Set to <strong>true</strong> for premium/popular products to show on homepage. Default: false.</td>
+      </tr>
+      <tr>
+        <td>stock_quantity</td>
+        <td><span class="badge type-number">number</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Current stock count. Default to <strong>100</strong> if unknown and inventory isn't tracked.</td>
+      </tr>
+      <tr>
+        <td>track_inventory</td>
+        <td><span class="badge type-boolean">boolean</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Set to <strong>false</strong> unless specific stock management is needed. Default: false.</td>
+      </tr>
+      <tr>
+        <td>weight</td>
+        <td><span class="badge type-number">decimal</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Product weight in <strong>kilograms (kg)</strong>. e.g. <em>0.35</em> for 350g. Used for shipping calculations.</td>
+      </tr>
+      <tr>
+        <td>tags</td>
+        <td><span class="badge type-json">JSON array</span></td>
+        <td><span class="badge optional">Optional</span></td>
+        <td>Array of search tags. Use brand name, model, key features, use case keywords.<br>
+        e.g. <em>["cp plus", "bullet camera", "2mp", "ip camera", "outdoor cctv", "night vision"]</em></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 5 — SPECIFICATIONS & FEATURES                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <div class="section-title">
+      <h2>JSON Fields: specifications, features, dimensions</h2>
+      <p>These must be valid JSON — copy exactly as shown, filling in your values</p>
+    </div>
+  </div>
+
+  <h3>specifications — JSON Array of Objects</h3>
+  <p>Technical specifications shown in a table on the product page. Each item has a <code>label</code> and a <code>value</code>.</p>
+  <p><strong>For CCTV cameras, include:</strong> Image Sensor, Resolution, Lens, IR Distance, Night Vision, Compression, Frame Rate, IP Rating, Power, Operating Temp, Dimensions.</p>
+
+  <div class="code-block">
+<span class="comment">── specifications field (JSON Array) ───────────</span>
+[
+  { <span class="key">"label"</span>: <span class="str">"Image Sensor"</span>,      <span class="key">"value"</span>: <span class="str">"1/2.8\" Sony STARVIS CMOS"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Resolution"</span>,         <span class="key">"value"</span>: <span class="str">"2MP (1920×1080)"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Lens"</span>,                <span class="key">"value"</span>: <span class="str">"3.6mm Fixed Lens"</span> },
+  { <span class="key">"label"</span>: <span class="str">"IR Night Vision"</span>,    <span class="key">"value"</span>: <span class="str">"Up to 30 metres"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Color Night Vision"</span>, <span class="key">"value"</span>: <span class="str">"Yes (F1.6 Aperture)"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Video Compression"</span>,  <span class="key">"value"</span>: <span class="str">"H.265+ / H.264+"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Max Frame Rate"</span>,     <span class="key">"value"</span>: <span class="str">"25fps @ 1080p"</span> },
+  { <span class="key">"label"</span>: <span class="str">"IP Rating"</span>,          <span class="key">"value"</span>: <span class="str">"IP67 (Weatherproof)"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Power Supply"</span>,       <span class="key">"value"</span>: <span class="str">"12V DC / PoE (IEEE 802.3af)"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Operating Temp"</span>,     <span class="key">"value"</span>: <span class="str">"-30°C to +60°C"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Built-in Mic"</span>,       <span class="key">"value"</span>: <span class="str">"Yes"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Certifications"</span>,     <span class="key">"value"</span>: <span class="str">"STQC Certified, CE, FCC"</span> },
+  { <span class="key">"label"</span>: <span class="str">"Warranty"</span>,           <span class="key">"value"</span>: <span class="str">"2 Years"</span> }
+]
+  </div>
+
+  <h3>features — JSON Array of Strings</h3>
+  <p>Bullet-point product features displayed prominently on the product page. Keep each feature short (max 10 words), benefit-focused.</p>
+
+  <div class="code-block">
+<span class="comment">── features field (JSON Array of strings) ───────</span>
+[
+  <span class="str">"Full HD 1080p Color Night Vision"</span>,
+  <span class="str">"IP67 Weatherproof — Works in Heavy Rain"</span>,
+  <span class="str">"STQC Government Certified — Made for India"</span>,
+  <span class="str">"Built-in Microphone for Audio Recording"</span>,
+  <span class="str">"H.265+ Compression — Saves 50% Storage"</span>,
+  <span class="str">"PoE Support — Single Cable for Power & Data"</span>,
+  <span class="str">"Wide Temperature Range -30°C to +60°C"</span>,
+  <span class="str">"Compatible with CP Plus NVR & Third-party NVRs"</span>
+]
+  </div>
+
+  <h3>dimensions — JSON Object</h3>
+  <p>Physical product dimensions in <strong>millimetres (mm)</strong>.</p>
+
+  <div class="code-block">
+<span class="comment">── dimensions field (JSON Object) ───────────────</span>
+{
+  <span class="key">"length"</span>: <span class="num">172</span>,   <span class="comment">// mm</span>
+  <span class="key">"width"</span>:  <span class="num">72</span>,    <span class="comment">// mm</span>
+  <span class="key">"height"</span>: <span class="num">72</span>     <span class="comment">// mm</span>
+}
+  </div>
+
+  <div class="callout orange">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-content">
+      <strong>JSON Rules — Critical</strong>
+      <ul>
+        <li>All keys must be in <strong>double quotes</strong> — <code>"label"</code> not <code>label</code></li>
+        <li>String values in double quotes, numbers without quotes</li>
+        <li>No trailing commas after the last item</li>
+        <li>Arrays start with <code>[</code> and end with <code>]</code></li>
+        <li>Objects start with <code>{`{`}</code> and end with <code>}</code></li>
+        <li>Test your JSON at <strong>jsonlint.com</strong> if unsure</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 6 — SEO FIELDS                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">6</div>
+    <div class="section-title">
+      <h2>SEO Fields</h2>
+      <p>Critical for Google rankings — fill all of these carefully</p>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-icon">🔍</div>
+    <div class="callout-content">
+      <strong>SEO Context for India</strong>
+      <p>Infysmart targets customers in <strong>Tamil Nadu, Karnataka, and South India</strong>. Primary cities: Coimbatore, Chennai, Bangalore, Salem, Erode, Hosur. Include location-based keywords where natural. Focus on <em>"buy online"</em>, <em>"price in India"</em>, <em>"with installation"</em> queries.</p>
+    </div>
+  </div>
+
+  <div class="field-card">
+    <div class="field-card-header">
+      <div class="fname">meta_title</div>
+      <span class="badge required">Required</span>
+    </div>
+    <p>Page title shown in Google search results. <strong>Max 60 characters.</strong> Include: primary keyword (product type + brand), action word (Buy), location (India/Online), brand (Infysmart).</p>
+    <div class="example">
+      <span class="label">Format</span>
+      {Product Type} {Brand} {Model} — Buy Online | Infysmart
+    </div>
+    <div class="example" style="margin-top:6px;">
+      <span class="label">Example</span>
+      CP Plus 2MP IP Bullet Camera CP-UNC-TA21L3C — Buy Online | Infysmart
+    </div>
+  </div>
+
+  <div class="field-card">
+    <div class="field-card-header">
+      <div class="fname">meta_description</div>
+      <span class="badge required">Required</span>
+    </div>
+    <p>Search snippet shown below the title. <strong>140–160 characters</strong>. Include: key specs, benefits, call to action, location. Must be compelling to encourage clicks.</p>
+    <div class="example">
+      <span class="label">Example (154 chars)</span>
+      Buy CP Plus 2MP IP66 outdoor bullet camera with color night vision & built-in mic. STQC certified. Best price in India. Free shipping. Shop now at Infysmart.
+    </div>
+  </div>
+
+  <div class="field-card">
+    <div class="field-card-header">
+      <div class="fname">meta_keywords</div>
+      <span class="badge optional">Optional</span>
+    </div>
+    <p>Comma-separated keywords. Include: brand + model, generic product type, use case, location variants. Aim for 8–15 keywords.</p>
+    <div class="example">
+      <span class="label">Example</span>
+      cp plus ip camera, 2mp bullet camera, cp-unc-ta21l3c, outdoor cctv camera, color night vision camera, ip camera price india, cctv camera coimbatore, stqc cctv camera, buy ip camera online
+    </div>
+  </div>
+
+  <div class="field-card">
+    <div class="field-card-header">
+      <div class="fname">og_image</div>
+      <span class="badge optional">Optional (file upload)</span>
+    </div>
+    <p>Open Graph image used when the product is shared on WhatsApp, Facebook, Twitter. Ideal size: <strong>1200×630px</strong>. Should show product clearly on a clean background. User uploads this image manually — just note that it's needed.</p>
+  </div>
+
+  <h3>SEO Keywords Strategy by Product Type</h3>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>Product Category</th>
+        <th>Must-include Keywords</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CCTV / IP Cameras</td>
+        <td>cctv camera price india, buy cctv camera online, [brand] camera, [resolution]mp camera, night vision camera, outdoor cctv</td>
+      </tr>
+      <tr>
+        <td>DVR / NVR Systems</td>
+        <td>dvr price india, 4/8/16 channel dvr, h.265 dvr, cctv dvr system, buy dvr online india</td>
+      </tr>
+      <tr>
+        <td>Access Control</td>
+        <td>biometric attendance machine, fingerprint door lock, access control system india, rfid access control</td>
+      </tr>
+      <tr>
+        <td>Solar Products</td>
+        <td>solar panel price india, solar camera, solar cctv, off-grid solar system</td>
+      </tr>
+      <tr>
+        <td>Cables & Accessories</td>
+        <td>cctv cable price, coaxial cable, power supply cctv, camera accessories india</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 7 — IMAGES & FULL EXAMPLE OUTPUT                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">7</div>
+    <div class="section-title">
+      <h2>Images &amp; Complete Output Example</h2>
+      <p>How to handle images and what your final output should look like</p>
+    </div>
+  </div>
+
+  <h3>Product Images (thumbnail + gallery)</h3>
+  <p>Images are uploaded manually in Directus — the AI cannot upload them. However, you should <strong>tell the user exactly what images to gather</strong>.</p>
+
+  <div class="callout purple">
+    <div class="callout-icon">📸</div>
+    <div class="callout-content">
+      <strong>Image Checklist — Tell the User to Gather:</strong>
+      <ul>
+        <li><strong>thumbnail</strong> — Main product image, front view, white/clean background, minimum 800×800px. This is the primary image shown in product cards.</li>
+        <li><strong>gallery image 1</strong> — Front 3/4 angle view</li>
+        <li><strong>gallery image 2</strong> — Side profile view</li>
+        <li><strong>gallery image 3</strong> — Rear/connector view</li>
+        <li><strong>gallery image 4</strong> — In-use/installation example</li>
+        <li><strong>gallery image 5</strong> — Box/packaging shot</li>
+        <li><strong>gallery image 6</strong> — Specification sheet / data sheet screenshot</li>
+        <li><strong>og_image</strong> — Lifestyle/banner image at 1200×630px for social sharing</li>
+      </ul>
+      <p style="margin-top:8px">Images can be sourced from: brand's official website, Amazon listing, Flipkart listing, or photographed.</p>
+    </div>
+  </div>
+
+  <h3>How to Upload Images in Directus</h3>
+  <ol>
+    <li>Open the product → scroll to <strong>Thumbnail</strong> field → click to upload the main image</li>
+    <li>Scroll to <strong>Images</strong> field → click <strong>"+"</strong> to upload gallery images one by one</li>
+    <li>Drag images to reorder (first = primary in gallery)</li>
+    <li>For <strong>og_image</strong> → scroll to the SEO section → upload 1200×630px image</li>
+  </ol>
+
+  <hr>
+
+  <h3>Complete Product Output Template</h3>
+  <p>When generating data, use exactly this format so the user can easily copy-paste each value:</p>
+
+  <div class="code-block" style="font-size:11px;">
+<span class="comment">╔══════════════════════════════════════════════════════╗</span>
+<span class="comment">║         INFYSMART PRODUCT DATA — [PRODUCT NAME]      ║</span>
+<span class="comment">╚══════════════════════════════════════════════════════╝</span>
+
+<span class="comment">── CATEGORY ────────────────────────────────────────────</span>
+<span class="comment">Select existing: "IP Cameras"  (or create new — see above)</span>
+
+<span class="comment">── BRAND ───────────────────────────────────────────────</span>
+<span class="comment">Select existing: "CP Plus"  (or create new — see above)</span>
+
+<span class="comment">── CORE FIELDS ─────────────────────────────────────────</span>
+<span class="key">name:</span>             <span class="str">CP Plus 2MP Full HD IP Outdoor Bullet Camera | STQC | Model: CP-UNC-TA21L3C-LQ | Color Night Vision | IR Night Vision | 3.6mm Lens | Built-in Mic | IP67</span>
+<span class="key">slug:</span>             <span class="str">cp-plus-2mp-ip-outdoor-bullet-camera-cp-unc-ta21l3c-lq</span>
+<span class="key">sku:</span>              <span class="str">CP-UNC-TA21L3C-LQ</span>
+<span class="key">status:</span>           <span class="str">published</span>
+<span class="key">is_featured:</span>      <span class="bool">false</span>
+<span class="key">price:</span>            <span class="num">3499</span>
+<span class="key">sale_price:</span>       <span class="num">2999</span>
+<span class="key">stock_quantity:</span>   <span class="num">100</span>
+<span class="key">track_inventory:</span>  <span class="bool">false</span>
+<span class="key">weight:</span>           <span class="num">0.35</span>
+
+<span class="comment">── SHORT DESCRIPTION ───────────────────────────────────</span>
+<span class="str">CP Plus 2MP Full HD IP outdoor bullet camera with Sony STARVIS sensor
+delivering crystal-clear colour footage even at night. STQC certified
+and IP67 rated for all-weather outdoor use. Supports PoE for simple
+single-cable installation. Ideal for homes, shops, and offices.</span>
+
+<span class="comment">── DESCRIPTION (HTML) ──────────────────────────────────</span>
+<span class="str">&lt;h2&gt;CP Plus 2MP STQC Certified IP Outdoor Bullet Camera&lt;/h2&gt;
+&lt;p&gt;The CP Plus CP-UNC-TA21L3C-LQ is a professional-grade 2MP Full HD
+IP camera built for demanding outdoor environments...&lt;/p&gt;
+&lt;h3&gt;Key Technologies&lt;/h3&gt;...</span>
+<span class="comment">[Continue with full HTML description]</span>
+
+<span class="comment">── TAGS (JSON Array) ───────────────────────────────────</span>
+["cp plus", "ip camera", "2mp camera", "bullet camera", "outdoor cctv",
+ "color night vision", "stqc camera", "ip67 camera", "poe camera",
+ "cp-unc-ta21l3c", "cctv camera", "security camera"]
+
+<span class="comment">── SPECIFICATIONS (JSON Array) ─────────────────────────</span>
+[
+  {"label": "Image Sensor",      "value": "1/2.8\" Sony STARVIS CMOS"},
+  {"label": "Resolution",        "value": "2MP (1920×1080 @ 25fps)"},
+  {"label": "Lens",              "value": "3.6mm Fixed Lens"},
+  {"label": "IR Night Vision",   "value": "Up to 30m"},
+  {"label": "Color Night Vision","value": "Yes"},
+  {"label": "Compression",       "value": "H.265+ / H.264+"},
+  {"label": "IP Rating",         "value": "IP67 (Dustproof & Waterproof)"},
+  {"label": "Power",             "value": "12V DC / PoE (802.3af)"},
+  {"label": "Built-in Mic",      "value": "Yes"},
+  {"label": "Certifications",    "value": "STQC, CE, FCC"},
+  {"label": "Warranty",          "value": "2 Years"}
+]
+
+<span class="comment">── FEATURES (JSON Array) ────────────────────────────────</span>
+[
+  "2MP Full HD 1080p — Day &amp; Night Sharp Video",
+  "Sony STARVIS Sensor — Superior Low-Light Performance",
+  "Color Night Vision — See Colours in the Dark",
+  "IP67 Weatherproof — Rain, Dust &amp; Humidity Resistant",
+  "STQC Government Certified — Trusted Quality",
+  "PoE Support — Install with Just One Cable",
+  "H.265+ Compression — Reduces Storage by 50%",
+  "Built-in Mic — Record Audio Alongside Video"
+]
+
+<span class="comment">── DIMENSIONS (JSON Object) ─────────────────────────────</span>
+{"length": 172, "width": 72, "height": 72}
+
+<span class="comment">── SEO FIELDS ───────────────────────────────────────────</span>
+<span class="key">meta_title:</span>       <span class="str">CP Plus 2MP IP Bullet Camera CP-UNC-TA21L3C | STQC | Buy Online</span>
+<span class="key">meta_description:</span> <span class="str">Buy CP Plus 2MP STQC certified IP outdoor bullet camera with colour
+night vision, IP67 rating & built-in mic. Best price in India.
+Order now at Infysmart — Fast Shipping.</span>
+<span class="key">meta_keywords:</span>    <span class="str">cp plus 2mp ip camera, cp-unc-ta21l3c, stqc ip camera, outdoor bullet
+camera, colour night vision camera, ip67 cctv camera, poe camera
+india, buy cp plus camera online, cctv camera price india</span>
+
+<span class="comment">── IMAGES (User uploads manually) ───────────────────────</span>
+<span class="comment">thumbnail:  Front view on white background (min 800×800px)</span>
+<span class="comment">gallery 1:  3/4 angle front-left view</span>
+<span class="comment">gallery 2:  Side profile showing cable entry</span>
+<span class="comment">gallery 3:  Rear view showing connectors &amp; label</span>
+<span class="comment">gallery 4:  Installed on wall/pole example</span>
+<span class="comment">gallery 5:  Box / packaging shot</span>
+<span class="comment">og_image:   Product lifestyle image at 1200×630px</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PAGE 8 — QUICK REFERENCE CHEAT SHEET                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-header">
+    <div class="section-number">8</div>
+    <div class="section-title">
+      <h2>Quick Reference Cheat Sheet</h2>
+      <p>All field rules at a glance</p>
+    </div>
+  </div>
+
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Rule</th>
+        <th>Bad Example ✗</th>
+        <th>Good Example ✓</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>slug</td>
+        <td>Lowercase, hyphens only</td>
+        <td>CP Plus Camera 2MP!</td>
+        <td>cp-plus-camera-2mp</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td>INR, numbers only</td>
+        <td>₹3,499</td>
+        <td>3499</td>
+      </tr>
+      <tr>
+        <td>weight</td>
+        <td>In kg (decimal)</td>
+        <td>350g</td>
+        <td>0.35</td>
+      </tr>
+      <tr>
+        <td>dimensions</td>
+        <td>JSON, values in mm</td>
+        <td>172 x 72 x 72</td>
+        <td>{"length":172,"width":72,"height":72}</td>
+      </tr>
+      <tr>
+        <td>meta_title</td>
+        <td>Max 60 chars</td>
+        <td>Very long title with every spec and feature listed out in full...</td>
+        <td>CP Plus 2MP IP Camera — Buy Online | Infysmart</td>
+      </tr>
+      <tr>
+        <td>meta_description</td>
+        <td>140–160 chars</td>
+        <td>A camera. Buy it.</td>
+        <td>Buy CP Plus 2MP IP camera with night vision. STQC certified. Best price India. Shop Infysmart.</td>
+      </tr>
+      <tr>
+        <td>meta_keywords</td>
+        <td>Comma-separated, lowercase, no quotes</td>
+        <td>IP Camera, CCTV, Outdoor</td>
+        <td>cp plus ip camera, 2mp bullet camera, outdoor cctv, night vision camera, cctv price india</td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td>Exact string value</td>
+        <td>Published / Active / Yes</td>
+        <td>published</td>
+      </tr>
+      <tr>
+        <td>is_featured</td>
+        <td>Boolean, not string</td>
+        <td>"true" or "yes"</td>
+        <td>true or false</td>
+      </tr>
+      <tr>
+        <td>features</td>
+        <td>JSON array of strings</td>
+        <td>IP67 rated, Night vision, PoE</td>
+        <td>["IP67 Weatherproof", "Color Night Vision", "PoE Support"]</td>
+      </tr>
+      <tr>
+        <td>tags</td>
+        <td>JSON array, lowercase</td>
+        <td>["IP Camera", "CCTV"]</td>
+        <td>["ip camera", "cctv camera", "2mp camera"]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <div class="two-col">
+    <div class="callout green" style="margin-bottom:0">
+      <div class="callout-icon">✅</div>
+      <div class="callout-content">
+        <strong>Always Include</strong>
+        <ul>
+          <li>name, slug, sku, price</li>
+          <li>short_description (plain text)</li>
+          <li>specifications JSON</li>
+          <li>features JSON</li>
+          <li>meta_title &amp; meta_description</li>
+          <li>status: "published"</li>
+          <li>Image upload instructions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout red" style="margin-bottom:0">
+      <div class="callout-icon">❌</div>
+      <div class="callout-content">
+        <strong>Never Do</strong>
+        <ul>
+          <li>Duplicate category/brand records</li>
+          <li>Use ₹ symbol in price field</li>
+          <li>Use single quotes in JSON</li>
+          <li>Meta title over 60 characters</li>
+          <li>Skip sku — must be unique</li>
+          <li>Set sale_price ≥ price</li>
+          <li>Use status: "active" or "live"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="callout orange">
+    <div class="callout-icon">🚀</div>
+    <div class="callout-content">
+      <strong>Directus Admin URL</strong>
+      <p>Products are managed at: <strong>https://api.infysmart.com/admin</strong><br>
+      Navigate: Content → products → Create Item → fill fields → Save</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

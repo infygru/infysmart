@@ -2,10 +2,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { directus, getAssetUrl } from '@/lib/directus';
 import { readItems, readSingleton } from '@directus/sdk';
-import type { Product, ProductCategory, ProductBrand, ProductImage, GlobalSettings } from '@/lib/directus';
+import type { Product, ProductCategory, ProductBrand, ProductImage, GlobalSettings, ProductReview } from '@/lib/directus';
 import ProductGallery from '@/components/shop/ProductGallery';
 import AddToCartSection from '@/components/shop/AddToCartSection';
 import ProductCard from '@/components/shop/ProductCard';
+import ProductReviews from '@/components/shop/ProductReviews';
 import { formatPrice, getEffectivePrice, extractGST, extractBasePrice } from '@/lib/utils';
 import { CheckCircle2, Package, ShieldCheck, Truck, ChevronRight, Tag, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
@@ -108,6 +109,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     ? product.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
     : product.short_description;
 
+  // Fetch reviews for schema
+  let reviews: Pick<ProductReview, 'rating' | 'content' | 'date_created'>[] = [];
+  try {
+    reviews = await directus.request(readItems('product_reviews', {
+      filter: { product: { _eq: product.id }, status: { _eq: 'published' } },
+      fields: ['rating', 'content', 'date_created'],
+      limit: 5,
+    } as never)) as unknown as any[];
+  } catch {
+    // collection might not exist yet
+  }
+  
+  const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+  const avgRating = reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : undefined;
+
   // priceValidUntil = 1 year from today (not from date_created)
   const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
@@ -125,6 +141,19 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     url: `https://infysmart.com/shop/${product.slug}`,
     ...(product.weight ? { weight: { '@type': 'QuantitativeValue', value: product.weight, unitCode: 'KGM' } } : {}),
     ...(product.tags?.length ? { keywords: product.tags.join(', ') } : {}),
+    ...(avgRating ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: avgRating,
+        reviewCount: reviews.length,
+      },
+      review: reviews.map((r) => ({
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: r.rating },
+        author: { '@type': 'Person', name: 'Verified Buyer' },
+        reviewBody: r.content
+      }))
+    } : {}),
     offers: {
       '@type': 'Offer',
       priceCurrency: 'INR',
@@ -347,6 +376,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
           )}
+
+          <ProductReviews productId={product.id} />
         </div>
       </section>
 

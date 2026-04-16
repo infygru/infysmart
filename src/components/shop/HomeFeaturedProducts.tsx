@@ -102,8 +102,8 @@ export default function HomeFeaturedProducts({ products }: Props) {
           <span className="text-gray-400 text-xs hidden sm:block">·</span>
           <p className="text-xs text-gray-500">
             Need help choosing?{' '}
-            <a href="tel:+919677061414" className="text-[#FF4500] font-semibold hover:underline">
-              Call +91 96770 61414
+            <a href="tel:+919445675619" className="text-[#FF4500] font-semibold hover:underline">
+              Call +91 94456 75619
             </a>
           </p>
         </div>

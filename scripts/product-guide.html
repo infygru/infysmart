@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Infysmart — Product Upload & SEO Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11pt;
+    color: #1e293b;
+    background: #fff;
+    line-height: 1.65;
+  }
+
+  /* ─── COVER PAGE ─── */
+  .cover {
+    page-break-after: always;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,69,0,0.15) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+  }
+  .cover-logo {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .cover-logo span { color: #FF4500; }
+  .cover-tagline {
+    font-size: 10pt;
+    color: #94a3b8;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 60px;
+    position: relative; z-index: 1;
+  }
+  .cover-title {
+    font-size: 32pt;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 600px;
+    margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+  .cover-title .highlight {
+    background: linear-gradient(90deg, #FF4500, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cover-subtitle {
+    font-size: 13pt;
+    color: #94a3b8;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+    position: relative; z-index: 1;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    position: relative; z-index: 1;
+  }
+  .cover-meta-item { text-align: center; }
+  .cover-meta-item .num {
+    font-size: 22pt;
+    font-weight: 800;
+    color: #FF4500;
+    display: block;
+  }
+  .cover-meta-item .label {
+    font-size: 8pt;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .cover-footer {
+    position: absolute;
+    bottom: 30px;
+    font-size: 8pt;
+    color: #475569;
+    position: relative; z-index: 1;
+    margin-top: 60px;
+  }
+
+  /* ─── TOC PAGE ─── */
+  .toc-page {
+    page-break-after: always;
+    padding: 60px 60px;
+  }
+  .toc-header {
+    font-size: 22pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .toc-sub {
+    font-size: 10pt;
+    color: #64748b;
+    margin-bottom: 40px;
+  }
+  .toc-section { margin-bottom: 10px; }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .toc-num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #FF4500, #f97316);
+    color: #fff;
+    font-size: 9pt;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-right: 14px;
+  }
+  .toc-text { flex: 1; font-weight: 600; font-size: 11pt; color: #1e293b; }
+  .toc-dots { flex: 1; border-bottom: 2px dotted #e2e8f0; margin: 0 12px; }
+  .toc-page-num { font-size: 9pt; color: #94a3b8; font-weight: 600; }
+  .toc-sub-items { padding-left: 46px; }
+  .toc-sub-item {
+    font-size: 9.5pt;
+    color: #64748b;
+    padding: 4px 0;
+    border-bottom: 1px solid #f8fafc;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toc-sub-item::before { content: '→'; color: #FF4500; font-size: 9pt; }
+
+  /* ─── CONTENT PAGES ─── */
+  .page {
+    padding: 55px 60px;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ─── SECTION HEADER ─── */
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #ea580c;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .section-badge.blue {
+    background: #eff6ff; border-color: #bfdbfe; color: #2563eb;
+  }
+  .section-badge.green {
+    background: #f0fdf4; border-color: #bbf7d0; color: #16a34a;
+  }
+  .section-badge.purple {
+    background: #faf5ff; border-color: #e9d5ff; color: #9333ea;
+  }
+
+  h1 {
+    font-size: 26pt;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 18pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: 22px;
+    margin-bottom: 8px;
+  }
+  h4 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #334155;
+    margin-top: 16px;
+    margin-bottom: 6px;
+  }
+  p { margin-bottom: 10px; color: #334155; }
+  .lead {
+    font-size: 12pt;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 3px;
+    background: linear-gradient(90deg, #FF4500, #f97316, transparent);
+    border-radius: 2px;
+    margin: 18px 0 28px;
+  }
+
+  /* ─── FIELD CARD ─── */
+  .field-card {
+    background: #fff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+  }
+  .field-card:hover { border-color: #fed7aa; }
+  .field-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .field-name {
+    font-family: 'Courier New', monospace;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #0f172a;
+    background: #f8fafc;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+  .field-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge {
+    font-size: 7.5pt;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-required { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .badge-optional { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .badge-seo { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .badge-schema { background: #faf5ff; color: #9333ea; border: 1px solid #e9d5ff; }
+  .badge-new { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+
+  .field-label {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+  .field-desc { font-size: 9.5pt; color: #64748b; margin-bottom: 10px; line-height: 1.5; }
+
+  .field-example {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #FF4500;
+    border-radius: 0 8px 8px 0;
+    padding: 8px 12px;
+    font-size: 9pt;
+    color: #475569;
+    margin-top: 8px;
+  }
+  .field-example strong { color: #FF4500; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .field-tips {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    font-size: 9pt;
+    color: #92400e;
+  }
+  .field-tips strong { color: #b45309; }
+
+  /* ─── TWO COLUMN ─── */
+  .two-col { display: flex; gap: 16px; margin-bottom: 14px; }
+  .two-col .field-card { flex: 1; margin-bottom: 0; }
+
+  /* ─── INFO BOX ─── */
+  .info-box {
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    page-break-inside: avoid;
+  }
+  .info-box.orange {
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+  }
+  .info-box.blue {
+    background: #eff6ff;
+    border: 1.5px solid #bfdbfe;
+  }
+  .info-box.green {
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+  }
+  .info-box.red {
+    background: #fef2f2;
+    border: 1.5px solid #fecaca;
+  }
+  .info-box.slate {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+  }
+  .info-box-title {
+    font-size: 10pt;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .info-box.orange .info-box-title { color: #c2410c; }
+  .info-box.blue .info-box-title { color: #1d4ed8; }
+  .info-box.green .info-box-title { color: #15803d; }
+  .info-box.red .info-box-title { color: #b91c1c; }
+  .info-box.slate .info-box-title { color: #334155; }
+  .info-box p, .info-box li { font-size: 9.5pt; color: #475569; line-height: 1.55; }
+  .info-box ul, .info-box ol { padding-left: 18px; }
+  .info-box li { margin-bottom: 4px; }
+
+  /* ─── CHECKLIST ─── */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 10pt;
+    color: #334155;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── STEP BOX ─── */
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    page-break-inside: avoid;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #FF4500, #f97316);
+    color: #fff;
+    font-size: 13pt;
+    font-weight: 800;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-title { font-size: 11pt; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .step-desc { font-size: 9.5pt; color: #64748b; line-height: 1.55; }
+
+  /* ─── TABLE ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 14px 0;
+    page-break-inside: avoid;
+  }
+  thead tr {
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    color: #fff;
+  }
+  thead th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tbody tr { border-bottom: 1px solid #f1f5f9; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody td { padding: 9px 12px; color: #334155; vertical-align: top; }
+  tbody td:first-child { font-family: 'Courier New', monospace; font-size: 9pt; font-weight: 600; color: #0f172a; }
+  .tag-required { color: #dc2626; font-weight: 700; }
+  .tag-optional { color: #16a34a; font-weight: 700; }
+  .tag-seo { color: #2563eb; font-weight: 700; }
+
+  /* ─── FLOW DIAGRAM ─── */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 18px 0;
+    page-break-inside: avoid;
+  }
+  .flow-item {
+    flex: 1;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 0;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #334155;
+    position: relative;
+  }
+  .flow-item:first-child { border-radius: 10px 0 0 10px; }
+  .flow-item:last-child { border-radius: 0 10px 10px 0; }
+  .flow-item.active {
+    background: linear-gradient(135deg, #FF4500, #f97316);
+    border-color: #FF4500;
+    color: #fff;
+  }
+  .flow-item .flow-step { font-size: 7pt; opacity: 0.7; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 1px; }
+  .flow-arrow {
+    display: flex; align-items: center;
+    font-size: 14pt; color: #FF4500; font-weight: 700;
+    padding: 0 2px;
+  }
+
+  /* ─── KEYWORD TABLE ─── */
+  .kw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .kw-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 8.5pt;
+    color: #475569;
+  }
+  .kw-item strong { color: #0f172a; display: block; font-size: 9pt; margin-bottom: 2px; }
+
+  /* ─── PRINT SETTINGS ─── */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-after: always; }
+  }
+
+  /* ─── PAGE FOOTER ─── */
+  .page-footer {
+    position: relative;
+    margin-top: 30px;
+    padding-top: 14px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #94a3b8;
+  }
+  .page-footer strong { color: #FF4500; }
+
+  /* ─── SEO SCORE BAR ─── */
+  .score-bar-wrap { margin: 12px 0; }
+  .score-bar-label {
+    display: flex; justify-content: space-between;
+    font-size: 9pt; font-weight: 600; color: #334155;
+    margin-bottom: 5px;
+  }
+  .score-bar-bg {
+    height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #FF4500, #f97316);
+  }
+
+  /* word break for long strings */
+  code { word-break: break-all; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER PAGE
+════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">Infy<span>Smart</span></div>
+  <div class="cover-tagline">Infygru Private Limited</div>
+
+  <div class="cover-title">
+    Product Upload &<br><span class="highlight">SEO Guide</span>
+  </div>
+  <div class="cover-subtitle">
+    A complete step-by-step reference for adding products to the Infysmart Directus CMS — optimised for Google, Google Shopping & AI search engines.
+  </div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="num">27</span>
+      <span class="label">Fields Covered</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="num">8</span>
+      <span class="label">SEO Rules</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="num">6</span>
+      <span class="label">Sections</span>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    Infysmart Internal Document &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Confidential
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+════════════════════════════════════════════════════════ -->
+<div class="toc-page">
+  <div class="section-badge">Contents</div>
+  <div class="toc-header">Table of Contents</div>
+  <div class="toc-sub">This guide covers everything your team needs to upload products correctly and rank well on Google.</div>
+
+  <div class="toc-item">
+    <div class="toc-num">1</div>
+    <div class="toc-text">Before You Start — Preparation Checklist</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">3</div>
+  </div>
+  <div class="toc-sub-items">
+    <div class="toc-sub-item">Assets to collect before logging in</div>
+    <div class="toc-sub-item">Image preparation rules</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">2</div>
+    <div class="toc-text">Step-by-Step: Adding a Product in Directus</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">4</div>
+  </div>
+  <div class="toc-sub-items">
+    <div class="toc-sub-item">Login & navigate to Products</div>
+    <div class="toc-sub-item">Fill every field in the correct order</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">3</div>
+    <div class="toc-text">Core Product Fields — Full Reference</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">5</div>
+  </div>
+  <div class="toc-sub-items">
+    <div class="toc-sub-item">Identity: Name, Slug, SKU</div>
+    <div class="toc-sub-item">Pricing: Price, Sale Price, GST</div>
+    <div class="toc-sub-item">Inventory: Stock, Tracking</div>
+    <div class="toc-sub-item">Content: Short Description, Full Description</div>
+    <div class="toc-sub-item">Taxonomy: Category, Brand, Tags</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">4</div>
+    <div class="toc-text">SEO Fields — Detailed Guide</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">7</div>
+  </div>
+  <div class="toc-sub-items">
+    <div class="toc-sub-item">meta_title — Google headline</div>
+    <div class="toc-sub-item">meta_description — Google snippet</div>
+    <div class="toc-sub-item">meta_keywords — Search signals</div>
+    <div class="toc-sub-item">og_image — Social share image</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">5</div>
+    <div class="toc-text">Images — Upload Rules & Best Practices</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">9</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">6</div>
+    <div class="toc-text">Specifications, Features & Schema Data</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">10</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">7</div>
+    <div class="toc-text">SEO Writing Rules for Product Content</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">11</div>
+  </div>
+
+  <div class="toc-item">
+    <div class="toc-num">8</div>
+    <div class="toc-text">Final QA Checklist Before Publishing</div>
+    <div class="toc-dots"></div>
+    <div class="toc-page-num">13</div>
+  </div>
+
+  <div class="info-box blue" style="margin-top:30px;">
+    <div class="info-box-title">📌 How to use this guide</div>
+    <p>Read sections 1–2 first. Then use sections 3–6 as a reference while you fill each field. Use the Section 8 checklist before hitting <strong>Publish</strong> on every product.</p>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Internal Use Only</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — PREPARATION
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge">Section 1</div>
+  <h2>Before You Start</h2>
+  <div class="divider"></div>
+  <p class="lead">Before logging into Directus, gather everything listed below. Trying to add a product without these assets leads to incomplete listings and poor SEO.</p>
+
+  <h3>Assets to Collect</h3>
+  <div class="info-box slate">
+    <ul>
+      <li><strong>Product name</strong> — exact model name from the manufacturer (e.g. <em>Hikvision DS-2CD2121G1-I 2MP WDR Fixed Dome Network Camera</em>)</li>
+      <li><strong>Brand name</strong> — Hikvision / Dahua / CP Plus / Essl / Matrix / Honeywell etc.</li>
+      <li><strong>SKU / Model number</strong> — from the manufacturer datasheet</li>
+      <li><strong>Category</strong> — CCTV Cameras / NVR-DVR / Access Control / Networking / Solar CCTV / Biometric</li>
+      <li><strong>MRP / selling price</strong> — in INR, inclusive of GST</li>
+      <li><strong>Sale price</strong> (if applicable) — must be lower than MRP</li>
+      <li><strong>Stock quantity</strong> — how many units are physically in stock</li>
+      <li><strong>Product images</strong> — minimum 3 photos (see image rules below)</li>
+      <li><strong>Short description</strong> — 1–2 sentences summarising the product</li>
+      <li><strong>Full description</strong> — detailed HTML content (see Section 6)</li>
+      <li><strong>Technical specifications</strong> — from datasheet (resolution, lens, IR range, etc.)</li>
+      <li><strong>Key features</strong> — bullet list of selling points</li>
+      <li><strong>Weight & dimensions</strong> — for shipping calculation</li>
+      <li><strong>Tags</strong> — relevant search keywords</li>
+    </ul>
+  </div>
+
+  <h3>Image Preparation Rules</h3>
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-label">📐 Dimensions</div>
+      <div class="field-desc">Minimum <strong>800×600px</strong>. Recommended <strong>1200×900px</strong>. Aspect ratio <strong>4:3</strong> for consistency across the grid.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-label">📁 File Format & Size</div>
+      <div class="field-desc">Use <strong>JPG</strong> for photos (quality 85). Use <strong>PNG</strong> only for white-background product cutouts. Max <strong>500 KB per image</strong>.</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-label">🖼️ What to photograph</div>
+      <div class="field-desc"><strong>Image 1</strong>: Front-facing on white/grey background (this becomes the thumbnail).<br><strong>Image 2</strong>: Side or 3/4 angle view.<br><strong>Image 3</strong>: Rear panel / ports / label.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-label">✍️ File Naming</div>
+      <div class="field-desc">Before uploading, rename files descriptively: <br><code>hikvision-ds-2cd2121g1-dome-camera-front.jpg</code><br>This helps Google Image Search index the product.</div>
+    </div>
+  </div>
+
+  <div class="info-box red">
+    <div class="info-box-title">🚫 Never do this with images</div>
+    <ul>
+      <li>Do NOT upload images with watermarks or logos from other sites</li>
+      <li>Do NOT upload screenshots — always use real product photos or official press images</li>
+      <li>Do NOT name files <code>IMG_20240312.jpg</code> — use descriptive names</li>
+      <li>Do NOT upload images larger than 2 MB</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 1 · Preparation</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2 — STEP BY STEP
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge">Section 2</div>
+  <h2>Step-by-Step: Adding a Product</h2>
+  <div class="divider"></div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">Log in to Directus</div>
+      <div class="step-desc">Go to <strong>https://api.infysmart.com/admin</strong>. Use your team credentials. You will land on the Collections dashboard.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">Open the Products collection</div>
+      <div class="step-desc">In the left sidebar, click <strong>Content → Products</strong>. You will see a list of all existing products.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">Click the + button to create a new product</div>
+      <div class="step-desc">Top-right corner of the Products list. A blank form opens with all fields.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <div class="step-title">Fill fields in order — top to bottom</div>
+      <div class="step-desc">Follow Sections 3, 4, 5 and 6 of this guide. <strong>Do not skip any required field</strong>. Fill SEO fields (Section 4) last after the core content is done.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <div class="step-title">Set Status to "Published" only when fully ready</div>
+      <div class="step-desc">Keep status as <strong>Draft</strong> while filling fields. Only change to <strong>Published</strong> after completing the Section 8 checklist. A published product is immediately live and indexed by Google.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+      <div class="step-title">Save and verify on the live site</div>
+      <div class="step-desc">After publishing, visit <strong>https://infysmart.com/shop/[your-slug]</strong> and confirm the product page looks correct before sharing the link.</div>
+    </div>
+  </div>
+
+  <h3>The Journey of a Product</h3>
+  <div class="flow">
+    <div class="flow-item active">
+      <div class="flow-step">Step 1</div>
+      Draft Created
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-item">
+      <div class="flow-step">Step 2</div>
+      Fields Filled
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-item">
+      <div class="flow-step">Step 3</div>
+      Images Added
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-item">
+      <div class="flow-step">Step 4</div>
+      SEO Fields Done
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-item">
+      <div class="flow-step">Step 5</div>
+      QA Checklist
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-item">
+      <div class="flow-step">Step 6</div>
+      Published ✓
+    </div>
+  </div>
+
+  <div class="info-box orange">
+    <div class="info-box-title">⏱️ Time estimate per product</div>
+    <p>A fully optimised product entry (with all SEO fields, 3+ images, full description and specifications) takes approximately <strong>20–30 minutes</strong>. Do not rush. A well-done listing ranks better and converts more visitors into buyers.</p>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 2 · Step-by-Step</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — CORE FIELDS (Page 1)
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge">Section 3</div>
+  <h2>Core Product Fields</h2>
+  <div class="divider"></div>
+
+  <!-- NAME -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">name</div>
+      <div class="field-badges">
+        <span class="badge badge-required">Required</span>
+        <span class="badge badge-seo">SEO Impact: High</span>
+      </div>
+    </div>
+    <div class="field-label">Product Name</div>
+    <div class="field-desc">The full, official name of the product. This appears as the H1 heading on the product page and is used in the Google Product schema. Use the exact manufacturer model name — do not abbreviate.</div>
+    <div class="field-example">
+      <strong>✅ Good:</strong> Hikvision DS-2CD2121G1-I 2MP WDR Fixed Dome Network Camera<br>
+      <strong>❌ Bad:</strong> Hikvision Dome Cam 2MP
+    </div>
+    <div class="field-tips"><strong>SEO Tip:</strong> Include the brand, model number, resolution (e.g. 2MP / 4MP) and camera type (dome / bullet / PTZ). These are the exact terms buyers search for.</div>
+  </div>
+
+  <!-- SLUG -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">slug</div>
+      <div class="field-badges">
+        <span class="badge badge-required">Required</span>
+        <span class="badge badge-seo">SEO Impact: High</span>
+      </div>
+    </div>
+    <div class="field-label">URL Slug</div>
+    <div class="field-desc">The URL-friendly version of the product name. This becomes part of the permanent product URL: <code>infysmart.com/shop/[slug]</code>. Directus auto-generates this from the name — <strong>but always check and clean it up manually</strong>.</div>
+    <div class="field-example">
+      <strong>✅ Good:</strong> hikvision-2mp-wdr-fixed-dome-camera-ds-2cd2121g1<br>
+      <strong>❌ Bad:</strong> hikvision-ds-2cd2121g1-i-2mp-wdr-fixed-dome-network-camera-1 (too long / has number suffix)
+    </div>
+    <div class="field-tips"><strong>SEO Rule:</strong> Slug must be: all lowercase, hyphens only (no underscores or spaces), under 60 characters, include the brand + model + key term. Once a product is published, <strong>never change the slug</strong> — it breaks existing Google rankings and links.</div>
+  </div>
+
+  <!-- SKU -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">sku</div>
+      <div class="field-badges">
+        <span class="badge badge-required">Required</span>
+        <span class="badge badge-schema">Used in Product Schema</span>
+      </div>
+    </div>
+    <div class="field-label">SKU / Model Number</div>
+    <div class="field-desc">Stock Keeping Unit — the unique identifier for this product. Use the manufacturer's official model number exactly as printed on the box/datasheet. This appears in the Google Product structured data (schema.org) which helps Google Shopping.</div>
+    <div class="field-example">
+      <strong>✅ Good:</strong> DS-2CD2121G1-I &nbsp;|&nbsp; DH-IPC-HFW2849S-S-IL &nbsp;|&nbsp; CP-UNC-TC21L3C-MD
+    </div>
+  </div>
+
+  <!-- PRICE -->
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">price</div>
+        <span class="badge badge-required">Required</span>
+      </div>
+      <div class="field-label">Base Price (₹, incl. GST)</div>
+      <div class="field-desc">The regular selling price in Indian Rupees, <strong>inclusive of 18% GST</strong>. Enter as a number only — no ₹ symbol. Example: <code>2499</code></div>
+      <div class="field-tips"><strong>Note:</strong> The website automatically separates the base price and GST for display. Always enter the final price the customer pays.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">sale_price</div>
+        <span class="badge badge-optional">Optional</span>
+      </div>
+      <div class="field-label">Sale / Discounted Price (₹)</div>
+      <div class="field-desc">Leave <strong>blank</strong> unless the product is on sale. If filled, it must be <strong>lower than the regular price</strong>. The discount percentage is calculated and displayed automatically.</div>
+    </div>
+  </div>
+
+  <!-- STOCK -->
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">stock_quantity</div>
+        <span class="badge badge-required">Required</span>
+      </div>
+      <div class="field-label">Stock Quantity</div>
+      <div class="field-desc">Number of units currently in stock. Enter <code>0</code> if out of stock. Affects the "In Stock" / "Out of Stock" display and the Google Shopping schema.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">track_inventory</div>
+        <span class="badge badge-required">Required</span>
+      </div>
+      <div class="field-label">Track Inventory</div>
+      <div class="field-desc">Toggle <strong>ON</strong> for all physical products. When ON, the site shows "Only X left" warnings when stock drops below 5 units. Toggle OFF only for made-to-order or unlimited items.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 3 · Core Fields</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 CONTINUED — CONTENT FIELDS
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge">Section 3 · Continued</div>
+  <h2>Content & Taxonomy Fields</h2>
+  <div class="divider"></div>
+
+  <!-- SHORT DESCRIPTION -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">short_description</div>
+      <div class="field-badges">
+        <span class="badge badge-required">Required</span>
+        <span class="badge badge-seo">SEO Fallback</span>
+      </div>
+    </div>
+    <div class="field-label">Short Description (1–3 sentences)</div>
+    <div class="field-desc">A concise summary shown on product cards and used as the Google meta description if you don't fill in <code>meta_description</code>. Must be <strong>120–160 characters</strong>.</div>
+    <div class="field-example">
+      <strong>✅ Good:</strong> Hikvision 2MP WDR Fixed Dome Camera with H.265+ compression, 30m IR range, and IP67 weatherproof rating. Ideal for indoor and outdoor use in offices, factories and homes.<br><br>
+      <strong>❌ Bad:</strong> Good camera for security.
+    </div>
+    <div class="field-tips"><strong>SEO Tip:</strong> Include: brand, resolution, IR distance, weather rating (IP67/IP66), and one use-case (office / home / factory). This text also appears as the Google search result snippet when <code>meta_description</code> is blank.</div>
+  </div>
+
+  <!-- FULL DESCRIPTION -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">description</div>
+      <div class="field-badges">
+        <span class="badge badge-optional">Recommended</span>
+        <span class="badge badge-seo">SEO Impact: Very High</span>
+        <span class="badge badge-schema">Used in Product Schema</span>
+      </div>
+    </div>
+    <div class="field-label">Full Description (Rich Text / HTML)</div>
+    <div class="field-desc">The detailed product page content. This is the most important SEO field after the title. Google reads this to understand what the product is and when to show it in search results. <strong>Minimum 150 words. Ideal: 250–400 words.</strong></div>
+    <div class="field-example">
+      <strong>✅ Recommended structure:</strong><br>
+      <strong>Para 1:</strong> What the product is and who it's for.<br>
+      <strong>Para 2:</strong> Key technical highlights (resolution, night vision, connectivity).<br>
+      <strong>Para 3:</strong> Use cases (home, office, factory, outdoor).<br>
+      <strong>Para 4:</strong> Why buy from Infysmart (authorized dealer, warranty, support).
+    </div>
+    <div class="field-tips"><strong>SEO Rule:</strong> Naturally include search phrases like "buy [brand] [model] online", "[resolution] CCTV camera price", "indoor/outdoor [type] camera". Do NOT keyword stuff — write for the human reader first.</div>
+  </div>
+
+  <!-- CATEGORY & BRAND -->
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">category</div>
+        <span class="badge badge-required">Required</span>
+      </div>
+      <div class="field-label">Product Category</div>
+      <div class="field-desc">Select one from the dropdown. Categories: <strong>CCTV Cameras, NVR/DVR, Access Control, Networking, Solar CCTV, Biometric</strong>. This drives the shop filter and breadcrumb navigation.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">brand</div>
+        <span class="badge badge-required">Required</span>
+      </div>
+      <div class="field-label">Brand</div>
+      <div class="field-desc">Select from dropdown: <strong>Hikvision, Dahua, CP Plus, Honeywell, Essl, Matrix</strong>. This appears in the Google Product schema as the brand entity, which helps brand-specific searches.</div>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">tags</div>
+      <div class="field-badges">
+        <span class="badge badge-optional">Optional</span>
+        <span class="badge badge-seo">Keyword Fallback</span>
+      </div>
+    </div>
+    <div class="field-label">Tags (search keywords array)</div>
+    <div class="field-desc">An array of keywords associated with this product. These are used as the SEO keyword fallback if <code>meta_keywords</code> is empty. Add one tag per entry. Use terms buyers actually search for.</div>
+    <div class="field-example">
+      <strong>Example tags for a Hikvision dome camera:</strong><br>
+      hikvision dome camera · 2mp cctv camera · indoor dome camera · ip67 weatherproof camera · hikvision price india · cctv camera for office
+    </div>
+  </div>
+
+  <!-- WEIGHT & DIMENSIONS -->
+  <div class="two-col">
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">weight</div>
+        <span class="badge badge-optional">Optional</span>
+      </div>
+      <div class="field-label">Weight (kg)</div>
+      <div class="field-desc">Product weight in kilograms. Example: <code>0.35</code>. Used in shipping calculation and the Product schema's weight property.</div>
+    </div>
+    <div class="field-card">
+      <div class="field-header">
+        <div class="field-name">dimensions</div>
+        <span class="badge badge-optional">Optional</span>
+      </div>
+      <div class="field-label">Dimensions (L × W × H in mm)</div>
+      <div class="field-desc">Product box dimensions in millimetres. Fill when available from the datasheet. Helps with accurate shipping quotes.</div>
+    </div>
+  </div>
+
+  <!-- IS FEATURED -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">is_featured</div>
+      <span class="badge badge-optional">Optional</span>
+    </div>
+    <div class="field-label">Featured Product</div>
+    <div class="field-desc">Toggle <strong>ON</strong> for up to 8 products you want displayed on the homepage "Featured Products" section. Featured products get significantly more visibility and traffic. Only mark your best-selling or highest-margin products as featured.</div>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 3 · Content Fields</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — SEO FIELDS
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge blue">Section 4 — Most Important</div>
+  <h2>SEO Fields — Detailed Guide</h2>
+  <div class="divider"></div>
+  <p class="lead">These 4 fields directly control what Google shows when someone searches for your product. They also control how your product looks when shared on WhatsApp, Instagram and Facebook.</p>
+
+  <!-- META TITLE -->
+  <div class="field-card" style="border-color: #bfdbfe; border-width: 2px;">
+    <div class="field-header">
+      <div class="field-name">meta_title</div>
+      <div class="field-badges">
+        <span class="badge badge-seo">Google Headline</span>
+        <span class="badge badge-optional">Optional (has fallback)</span>
+      </div>
+    </div>
+    <div class="field-label">SEO Page Title — The Blue Link on Google</div>
+    <div class="field-desc">This is the first thing someone sees on a Google search results page. It directly affects your <strong>click-through rate (CTR)</strong> — a better title means more clicks even at the same rank position.</div>
+
+    <div class="score-bar-wrap">
+      <div class="score-bar-label"><span>SEO Impact</span><span>Critical</span></div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:95%"></div></div>
+    </div>
+
+    <div class="field-example">
+      <strong>FALLBACK (auto-generated when left blank):</strong><br>
+      [Product Name] — Buy Online | Infysmart<br><br>
+      <strong>✅ Better (write this yourself):</strong><br>
+      Buy Hikvision 2MP Dome Camera DS-2CD2121G1 — ₹2,499 | Infysmart<br><br>
+      <strong>✅ Also Good:</strong><br>
+      Hikvision 2MP WDR Dome Camera — IP67, 30m IR, H.265+ | Infysmart Shop
+    </div>
+    <div class="field-tips">
+      <strong>Rules:</strong><br>
+      · Maximum <strong>60 characters</strong> (Google truncates anything longer with "…")<br>
+      · Always end with "| Infysmart" or "| Infysmart Shop"<br>
+      · Include: Brand + Resolution/Model + 1 key feature + price (optional)<br>
+      · Do NOT repeat the same word more than twice<br>
+      · Do NOT use ALL CAPS
+    </div>
+  </div>
+
+  <!-- META DESCRIPTION -->
+  <div class="field-card" style="border-color: #bfdbfe; border-width: 2px;">
+    <div class="field-header">
+      <div class="field-name">meta_description</div>
+      <div class="field-badges">
+        <span class="badge badge-seo">Google Snippet</span>
+        <span class="badge badge-optional">Optional (has fallback)</span>
+      </div>
+    </div>
+    <div class="field-label">Meta Description — The Grey Text Under the Google Title</div>
+    <div class="field-desc">The 1–2 line summary shown under the blue link in Google results. Doesn't directly affect ranking but hugely affects whether someone clicks your result. <strong>Fallback</strong>: uses <code>short_description</code> if left blank.</div>
+
+    <div class="score-bar-wrap">
+      <div class="score-bar-label"><span>Click-Through Impact</span><span>High</span></div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:80%"></div></div>
+    </div>
+
+    <div class="field-example">
+      <strong>✅ Good example:</strong><br>
+      Buy Hikvision 2MP WDR Fixed Dome Camera at ₹2,499. IP67 waterproof, 30m IR night vision, H.265+ compression. Authorized dealer. 1-year warranty. Free shipping above ₹5,000.<br><br>
+      <strong>❌ Bad example:</strong><br>
+      Hikvision dome camera available. Buy now.
+    </div>
+    <div class="field-tips">
+      <strong>Rules:</strong><br>
+      · Maximum <strong>160 characters</strong><br>
+      · Include: price (₹X,XXX), 2–3 specs, "authorized dealer" or "1-year warranty", call to action<br>
+      · Use Indian Rupee symbol ₹ — it stands out in search results<br>
+      · Write as if convincing someone to click in 2 seconds
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 4 · SEO Fields</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 CONTINUED — KEYWORDS & OG IMAGE
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge blue">Section 4 · Continued</div>
+  <h2>Keywords & Social Image</h2>
+  <div class="divider"></div>
+
+  <!-- META KEYWORDS -->
+  <div class="field-card" style="border-color: #bfdbfe; border-width: 2px;">
+    <div class="field-header">
+      <div class="field-name">meta_keywords</div>
+      <div class="field-badges">
+        <span class="badge badge-new">New Field</span>
+        <span class="badge badge-seo">Search Signals</span>
+        <span class="badge badge-optional">Optional (has fallback)</span>
+      </div>
+    </div>
+    <div class="field-label">SEO Keywords — Comma-Separated Search Terms</div>
+    <div class="field-desc">A comma-separated list of keywords that describe this product. These are embedded in the page HTML and in the Product structured data (schema.org). <strong>Fallback</strong>: uses the <code>tags</code> field if left blank.</div>
+
+    <div class="score-bar-wrap">
+      <div class="score-bar-label"><span>Schema/AI Search Impact</span><span>Medium-High</span></div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:70%"></div></div>
+    </div>
+
+    <div class="field-example">
+      <strong>✅ Good example (for a Hikvision 2MP dome camera):</strong><br>
+      hikvision dome camera, 2mp cctv camera, hikvision ds-2cd2121g1 price, buy hikvision camera online, indoor cctv camera, IP67 dome camera, hikvision camera price india, cctv camera for office
+    </div>
+
+    <h4>How to find the right keywords</h4>
+    <div class="kw-grid">
+      <div class="kw-item">
+        <strong>Brand + Model</strong>
+        hikvision ds-2cd2121g1 price
+      </div>
+      <div class="kw-item">
+        <strong>Brand + Type</strong>
+        hikvision dome camera india
+      </div>
+      <div class="kw-item">
+        <strong>Resolution + Type</strong>
+        2mp dome camera price
+      </div>
+      <div class="kw-item">
+        <strong>Use Case</strong>
+        cctv camera for office
+      </div>
+      <div class="kw-item">
+        <strong>Buy Intent</strong>
+        buy hikvision camera online
+      </div>
+      <div class="kw-item">
+        <strong>Location</strong>
+        cctv camera price chennai
+      </div>
+    </div>
+    <div class="field-tips">
+      <strong>Rules:</strong><br>
+      · Add <strong>6–12 keywords</strong> per product<br>
+      · Separate each keyword with a comma and a space<br>
+      · Include both short (2-word) and long (4-word) keyword phrases<br>
+      · Do NOT repeat keywords you already have in the meta_title<br>
+      · Think: "What would a buyer type into Google to find this product?"
+    </div>
+  </div>
+
+  <!-- OG IMAGE -->
+  <div class="field-card" style="border-color: #bfdbfe; border-width: 2px;">
+    <div class="field-header">
+      <div class="field-name">og_image</div>
+      <div class="field-badges">
+        <span class="badge badge-new">New Field</span>
+        <span class="badge badge-optional">Optional (has fallback)</span>
+      </div>
+    </div>
+    <div class="field-label">Social Share Image (OG Image)</div>
+    <div class="field-desc">The image that appears when this product link is shared on WhatsApp, Facebook, Instagram, Twitter/X, or LinkedIn. <strong>Fallback order:</strong> og_image → thumbnail → site default image. You only need to upload this if you want a custom banner/promotional image for social sharing.</div>
+
+    <div class="two-col" style="margin-top: 12px;">
+      <div class="info-box green" style="flex:1; margin:0;">
+        <div class="info-box-title">✅ When to use</div>
+        <p>For sale/discount banners, promotional campaigns, or when the product thumbnail doesn't look great as a landscape image.</p>
+      </div>
+      <div class="info-box slate" style="flex:1; margin:0;">
+        <div class="info-box-title">📐 Required Size</div>
+        <p><strong>1200 × 630 pixels</strong> (landscape). JPG format. Include product photo + price + brand logo for best engagement.</p>
+      </div>
+    </div>
+    <div class="field-tips" style="margin-top: 10px;"><strong>For most products, leave this blank.</strong> The product thumbnail is automatically cropped to 1200×630 and used as the OG image. Only upload a custom OG image for featured or promotional products.</div>
+  </div>
+
+  <div class="info-box blue" style="margin-top: 20px;">
+    <div class="info-box-title">🔍 How these 4 fields work together on Google</div>
+    <table style="margin:6px 0;">
+      <thead><tr><th>What Google shows</th><th>Which field it comes from</th><th>Fallback</th></tr></thead>
+      <tbody>
+        <tr><td>Blue headline link</td><td>meta_title</td><td>Product name + "| Infysmart"</td></tr>
+        <tr><td>Grey description text</td><td>meta_description</td><td>short_description</td></tr>
+        <tr><td>Product schema keywords</td><td>meta_keywords</td><td>tags array</td></tr>
+        <tr><td>WhatsApp/social image</td><td>og_image</td><td>thumbnail → /og-image.png</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 4 · SEO Fields Continued</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 5 — IMAGES
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge green">Section 5</div>
+  <h2>Images — Upload Rules</h2>
+  <div class="divider"></div>
+
+  <!-- THUMBNAIL -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">thumbnail</div>
+      <div class="field-badges">
+        <span class="badge badge-required">Required</span>
+        <span class="badge badge-seo">SEO Impact: High</span>
+      </div>
+    </div>
+    <div class="field-label">Primary / Thumbnail Image</div>
+    <div class="field-desc">The main product image. Shown on product cards in the shop grid, in the image gallery, in Google Search image results, in cart, and as the social share image fallback. This is the single most visible image for the product.</div>
+    <div class="field-example">
+      <strong>Requirements:</strong> JPG · Min 800×600px · Recommended 1200×900px · Aspect ratio 4:3 · White or light grey background · Clear product view (front-facing) · Under 500 KB
+    </div>
+    <div class="field-tips">
+      <strong>SEO Tip:</strong> Rename the file before uploading: <code>hikvision-2mp-dome-camera-ds2cd2121.jpg</code>
+      Google indexes the filename as a signal for image search. Generic names like <code>IMG_001.jpg</code> get no benefit.
+    </div>
+  </div>
+
+  <!-- GALLERY IMAGES -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">images</div>
+      <div class="field-badges">
+        <span class="badge badge-optional">Recommended</span>
+        <span class="badge badge-seo">Schema: Up to 5 images</span>
+      </div>
+    </div>
+    <div class="field-label">Gallery Images (Multiple)</div>
+    <div class="field-desc">Additional product images shown in the page image gallery. The product page shows an interactive gallery. Google's Product schema includes up to <strong>5 images</strong> — more images = richer Google Shopping listing.</div>
+
+    <table>
+      <thead><tr><th>Image #</th><th>What to show</th><th>Alt Text to enter</th></tr></thead>
+      <tbody>
+        <tr><td>Image 1</td><td>Front view (matches thumbnail)</td><td>Hikvision 2MP Dome Camera — Front View</td></tr>
+        <tr><td>Image 2</td><td>Side / 3/4 angle view</td><td>Hikvision DS-2CD2121G1 — Side View</td></tr>
+        <tr><td>Image 3</td><td>Rear panel / cable ports</td><td>Hikvision Dome Camera — Rear Ports &amp; Cable</td></tr>
+        <tr><td>Image 4</td><td>Installed / in-use photo</td><td>Hikvision Dome Camera installed in office ceiling</td></tr>
+        <tr><td>Image 5</td><td>Box / packaging + accessories</td><td>Hikvision DS-2CD2121G1 box contents</td></tr>
+      </tbody>
+    </table>
+
+    <div class="field-tips">
+      <strong>Critical — Always fill Alt Text for every image.</strong> Alt text is read by:
+      (1) Google Image Search — to understand and rank your image
+      (2) Screen readers — for accessibility compliance
+      (3) Google Product schema — for richer search results
+      Format: <em>[Brand] [Model] [Camera Type] — [Angle/Context]</em>
+    </div>
+  </div>
+
+  <div class="info-box orange">
+    <div class="info-box-title">📸 Image Alt Text Formula</div>
+    <p><strong>[Brand] [Resolution] [Camera Type] [Model] — [View/Context]</strong></p>
+    <p style="margin-top:6px;">Examples:</p>
+    <ul>
+      <li>Hikvision 2MP Fixed Dome Network Camera DS-2CD2121G1 — Front View</li>
+      <li>Dahua 4MP Bullet Camera DH-IPC-HFW2849S — Outdoor Installed</li>
+      <li>CP Plus 8 Channel DVR CPUAT0801H2M1 — Rear Panel Ports</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 5 · Images</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 6 — SPECIFICATIONS & FEATURES
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge purple">Section 6</div>
+  <h2>Specifications, Features & Schema Data</h2>
+  <div class="divider"></div>
+
+  <!-- SPECIFICATIONS -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">specifications</div>
+      <div class="field-badges">
+        <span class="badge badge-optional">Recommended</span>
+        <span class="badge badge-schema">Shown in Product Page Table</span>
+      </div>
+    </div>
+    <div class="field-label">Technical Specifications (Label–Value pairs)</div>
+    <div class="field-desc">Structured technical data shown as a table on the product page. Each entry has a <strong>Label</strong> and a <strong>Value</strong>. Copy these from the manufacturer datasheet. This content helps Google understand the technical details of the product and match it to specific searches like "30m IR range CCTV camera".</div>
+
+    <table>
+      <thead><tr><th>Label (Field)</th><th>Example Value</th></tr></thead>
+      <tbody>
+        <tr><td>Image Sensor</td><td>1/2.8" Progressive Scan CMOS</td></tr>
+        <tr><td>Resolution</td><td>1920 × 1080 (2MP Full HD)</td></tr>
+        <tr><td>Max Frame Rate</td><td>25fps @ 1080P</td></tr>
+        <tr><td>Lens</td><td>2.8mm Fixed</td></tr>
+        <tr><td>IR Range</td><td>Up to 30m</td></tr>
+        <tr><td>Compression</td><td>H.265+, H.265, H.264+, H.264</td></tr>
+        <tr><td>Ingress Protection</td><td>IP67 (Outdoor Weatherproof)</td></tr>
+        <tr><td>Operating Temperature</td><td>-30°C to +60°C</td></tr>
+        <tr><td>Power Supply</td><td>12V DC / PoE (IEEE 802.3af)</td></tr>
+        <tr><td>Interface</td><td>1 × RJ45 10M/100M</td></tr>
+        <tr><td>Dimensions</td><td>Ø101.6mm × 87.3mm</td></tr>
+        <tr><td>Weight</td><td>320g</td></tr>
+      </tbody>
+    </table>
+    <div class="field-tips"><strong>Add as many spec rows as available.</strong> Technical buyers often search for very specific terms like "H.265 2MP dome camera" or "PoE IP67 camera" — having these specs in your content helps you rank for those searches.</div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="field-card">
+    <div class="field-header">
+      <div class="field-name">features</div>
+      <div class="field-badges">
+        <span class="badge badge-optional">Recommended</span>
+        <span class="badge badge-seo">SEO Impact: Medium</span>
+      </div>
+    </div>
+    <div class="field-label">Key Features (Bullet list)</div>
+    <div class="field-desc">A list of the product's main selling points shown as bullet points on the product page. Each entry should be a complete, benefit-focused sentence. Add 5–8 features per product.</div>
+    <div class="field-example">
+      <strong>✅ Good feature entries:</strong><br>
+      · 2MP Full HD resolution for crisp, clear surveillance footage<br>
+      · 30m infrared night vision for 24/7 monitoring in complete darkness<br>
+      · H.265+ compression reduces storage by up to 75% vs. standard H.264<br>
+      · IP67 weatherproof rating for reliable outdoor installation<br>
+      · PoE support (IEEE 802.3af) — single cable for power and data<br>
+      · Works with Hikvision NVR and iVMS-4200 monitoring software<br><br>
+      <strong>❌ Bad feature entries:</strong><br>
+      · Good quality · Nice camera · HD
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 6 · Specifications</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 7 — SEO WRITING RULES
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge">Section 7</div>
+  <h2>SEO Writing Rules for Product Content</h2>
+  <div class="divider"></div>
+
+  <h3>Rule 1: Write the Full Description for Both Humans AND Google</h3>
+  <div class="info-box slate">
+    <p>Google's algorithm reads your product description the same way a human would. It looks for natural language that answers the question: <em>"Is this the product the searcher is looking for?"</em></p>
+    <p>Write as if you're explaining the product to a buyer who can't see it in person. Be specific about what it does, who it's for, and why it's better than generic alternatives.</p>
+  </div>
+
+  <h3>Rule 2: The Keyword Placement Priority</h3>
+  <table>
+    <thead><tr><th>Location</th><th>Priority</th><th>How to use keywords</th></tr></thead>
+    <tbody>
+      <tr><td>Product Name (H1)</td><td style="color:#dc2626; font-weight:700;">Highest</td><td>Brand + Model + Resolution + Type. Be exact.</td></tr>
+      <tr><td>meta_title</td><td style="color:#dc2626; font-weight:700;">Highest</td><td>Primary keyword + price or key feature</td></tr>
+      <tr><td>meta_description</td><td style="color:#ea580c; font-weight:700;">High</td><td>Secondary keywords + price + trust signals</td></tr>
+      <tr><td>Short Description</td><td style="color:#ea580c; font-weight:700;">High</td><td>2–3 natural keyword phrases in 1–2 sentences</td></tr>
+      <tr><td>Full Description Para 1</td><td style="color:#ca8a04; font-weight:700;">Medium</td><td>State product name + primary keyword naturally</td></tr>
+      <tr><td>Specifications table</td><td style="color:#ca8a04; font-weight:700;">Medium</td><td>Technical keywords appear naturally here</td></tr>
+      <tr><td>Feature bullets</td><td style="color:#16a34a; font-weight:700;">Good</td><td>Long-tail keywords hidden naturally in benefits</td></tr>
+      <tr><td>Image alt text</td><td style="color:#16a34a; font-weight:700;">Good</td><td>Brand + model + type + angle</td></tr>
+      <tr><td>meta_keywords / tags</td><td style="color:#0284c7; font-weight:700;">Signals</td><td>All additional keyword variants</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Rule 3: Never Keyword Stuff</h3>
+  <div class="two-col">
+    <div class="info-box red" style="flex:1; margin:0;">
+      <div class="info-box-title">❌ Keyword Stuffing — BAD</div>
+      <p>"Buy Hikvision CCTV camera Hikvision price Hikvision dome camera CCTV camera price CCTV camera India buy CCTV camera online…"</p>
+      <p style="margin-top:6px;">Google penalises this. Your page will rank lower.</p>
+    </div>
+    <div class="info-box green" style="flex:1; margin:0;">
+      <div class="info-box-title">✅ Natural Language — GOOD</div>
+      <p>"The Hikvision DS-2CD2121G1 is a 2MP Full HD dome camera designed for indoor and outdoor surveillance. With H.265+ compression and 30m IR range, it's ideal for offices and small factories."</p>
+    </div>
+  </div>
+
+  <h3>Rule 4: Use Indian Context</h3>
+  <div class="info-box orange">
+    <div class="info-box-title">🇮🇳 India-specific SEO signals that boost local rankings</div>
+    <ul>
+      <li>Always include the ₹ symbol with price in descriptions: <em>"available at ₹2,499"</em></li>
+      <li>Mention Tamil Nadu, Karnataka, Chennai, Hosur where relevant for local SEO</li>
+      <li>Include "GST invoice", "authorized dealer", "pan-India delivery" — these are high-trust phrases Indian buyers search for</li>
+      <li>Mention "1-year warranty" and "Infysmart installation available" to differentiate from grey-market sellers</li>
+    </ul>
+  </div>
+
+  <h3>Rule 5: Character Limits That Matter</h3>
+  <table>
+    <thead><tr><th>Field</th><th>Limit</th><th>What happens if exceeded</th></tr></thead>
+    <tbody>
+      <tr><td>meta_title</td><td><strong>60 characters</strong></td><td>Google truncates with "…" making it look unprofessional</td></tr>
+      <tr><td>meta_description</td><td><strong>160 characters</strong></td><td>Google truncates — your call-to-action gets cut off</td></tr>
+      <tr><td>short_description</td><td><strong>160 characters</strong></td><td>Truncated on product cards in the shop grid</td></tr>
+      <tr><td>slug</td><td><strong>60 characters</strong></td><td>Long URLs look spammy and reduce CTR</td></tr>
+      <tr><td>Full description</td><td><strong>Minimum 150 words</strong></td><td>Thin content — Google may not rank short pages</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 7 · SEO Writing Rules</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 8 — QA CHECKLIST
+════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-badge green">Section 8 — Final Step</div>
+  <h2>QA Checklist — Before You Hit Publish</h2>
+  <div class="divider"></div>
+  <p class="lead">Run through every item below before changing the product status to <strong>Published</strong>. A product with even one missing item ranks lower and converts worse.</p>
+
+  <h3>✅ Identity & Pricing</h3>
+  <ul class="checklist">
+    <li><div class="check-icon"></div>Product name includes: Brand + Model Number + Resolution/Spec + Camera Type</li>
+    <li><div class="check-icon"></div>Slug is clean, lowercase, under 60 chars, with hyphens only</li>
+    <li><div class="check-icon"></div>SKU matches the official manufacturer model number exactly</li>
+    <li><div class="check-icon"></div>Price is entered in INR inclusive of GST (not ex-GST)</li>
+    <li><div class="check-icon"></div>If a sale price exists, it is lower than the regular price</li>
+    <li><div class="check-icon"></div>Stock quantity is correct and track_inventory is toggled ON</li>
+    <li><div class="check-icon"></div>Category and Brand are selected from the dropdown</li>
+  </ul>
+
+  <h3>✅ Content</h3>
+  <ul class="checklist">
+    <li><div class="check-icon"></div>Short description is 120–160 characters and includes brand, resolution, key spec</li>
+    <li><div class="check-icon"></div>Full description is at least 150 words, structured in paragraphs</li>
+    <li><div class="check-icon"></div>Full description naturally contains primary keywords (not stuffed)</li>
+    <li><div class="check-icon"></div>At least 5 specification rows are filled from the datasheet</li>
+    <li><div class="check-icon"></div>At least 5 feature bullet points are filled (complete benefit sentences)</li>
+    <li><div class="check-icon"></div>Tags array has at least 5 relevant keyword entries</li>
+  </ul>
+
+  <h3>✅ Images</h3>
+  <ul class="checklist">
+    <li><div class="check-icon"></div>Thumbnail image uploaded — min 800×600px, JPG, on white/grey background</li>
+    <li><div class="check-icon"></div>At least 2 additional gallery images uploaded (3+ recommended)</li>
+    <li><div class="check-icon"></div>Every gallery image has a descriptive Alt Text filled in</li>
+    <li><div class="check-icon"></div>No watermarks, no screenshots, no blurry images</li>
+  </ul>
+
+  <h3>✅ SEO Fields</h3>
+  <ul class="checklist">
+    <li><div class="check-icon"></div>meta_title written — under 60 characters, includes brand + model + "| Infysmart"</li>
+    <li><div class="check-icon"></div>meta_description written — under 160 chars, includes price (₹) + trust signal</li>
+    <li><div class="check-icon"></div>meta_keywords filled — 6–12 comma-separated keyword phrases</li>
+    <li><div class="check-icon"></div>og_image uploaded if this is a featured/promotional product (optional otherwise)</li>
+  </ul>
+
+  <h3>✅ Final Checks</h3>
+  <ul class="checklist">
+    <li><div class="check-icon"></div>Status changed to "Published" only after all above items are complete</li>
+    <li><div class="check-icon"></div>Visited the live URL: <code>infysmart.com/shop/[slug]</code> and confirmed correct display</li>
+    <li><div class="check-icon"></div>Checked that the product thumbnail and price appear correctly in the shop grid</li>
+    <li><div class="check-icon"></div>If featured (is_featured = ON): confirmed it appears on the homepage</li>
+  </ul>
+
+  <div class="info-box green" style="margin-top: 24px;">
+    <div class="info-box-title">🚀 Once Published — What Happens Automatically</div>
+    <ul>
+      <li>The product page is added to the sitemap within 60 seconds (Google crawls sitemaps regularly)</li>
+      <li>The product schema (JSON-LD) is embedded: tells Google the price, brand, availability and shipping details</li>
+      <li>The OG/Twitter meta tags are set: sharing the URL on WhatsApp/social shows the correct image and title</li>
+      <li>Google typically indexes a new product within <strong>1–7 days</strong> of the sitemap being updated</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span><strong>Infysmart</strong> — Product Upload & SEO Guide</span>
+    <span>Section 8 · QA Checklist</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BACK COVER
+════════════════════════════════════════════════════════ -->
+<div class="cover" style="page-break-before: always;">
+  <div class="cover-logo">Infy<span>Smart</span></div>
+  <div class="cover-tagline">Infygru Private Limited</div>
+
+  <div style="margin-top:40px; margin-bottom:40px; position:relative; z-index:1;">
+    <div style="font-size:14pt; color:#94a3b8; margin-bottom:20px;">Need help? Contact the tech team:</div>
+    <div style="font-size:20pt; font-weight:800; color:#fff; margin-bottom:10px;">info@infysmart.com</div>
+    <div style="font-size:13pt; color:#94a3b8;">https://infysmart.com &nbsp;·&nbsp; https://api.infysmart.com/admin</div>
+  </div>
+
+  <div style="display:flex; gap:30px; position:relative; z-index:1; flex-wrap:wrap; justify-content:center;">
+    <div style="text-align:center;">
+      <div style="font-size:28pt; font-weight:800; color:#FF4500;">27</div>
+      <div style="font-size:8pt; color:#64748b; text-transform:uppercase; letter-spacing:1.5px;">Fields Documented</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:28pt; font-weight:800; color:#FF4500;">4</div>
+      <div style="font-size:8pt; color:#64748b; text-transform:uppercase; letter-spacing:1.5px;">SEO Fields</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:28pt; font-weight:800; color:#FF4500;">30+</div>
+      <div style="font-size:8pt; color:#64748b; text-transform:uppercase; letter-spacing:1.5px;">Checklist Items</div>
+    </div>
+  </div>
+
+  <div style="position:relative; z-index:1; margin-top:50px; font-size:8pt; color:#475569; text-align:center;">
+    Infysmart Internal Document &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; Confidential
+  </div>
+</div>
+
+</body>
+</html>
