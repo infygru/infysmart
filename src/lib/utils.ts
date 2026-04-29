@@ -19,9 +19,11 @@ export function formatPrice(amount: number): string {
  * Returns the effective selling price for a product.
  * Uses sale_price if set and lower than price.
  */
-export function getEffectivePrice(price: number, salePrice: number | null): number {
-  if (salePrice !== null && salePrice > 0 && salePrice < price) return salePrice;
-  return price;
+export function getEffectivePrice(price: number | string, salePrice: number | string | null): number {
+  const p = Number(price);
+  const s = salePrice !== null ? Number(salePrice) : null;
+  if (s !== null && s > 0 && s < p) return s;
+  return p;
 }
 
 /**

@@ -88,9 +88,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     ...sortedImages.filter((img) => img.image !== product.thumbnail),
   ] as ProductImage[];
 
-  const effectivePrice = getEffectivePrice(product.price, product.sale_price);
-  const hasDiscount = product.sale_price !== null && product.sale_price < product.price;
-  const discountPercent = hasDiscount ? Math.round(((product.price - effectivePrice) / product.price) * 100) : 0;
+  const priceNum = Number(product.price);
+  const salePriceNum = product.sale_price !== null ? Number(product.sale_price) : null;
+  const effectivePrice = getEffectivePrice(priceNum, salePriceNum);
+  const hasDiscount = salePriceNum !== null && salePriceNum < priceNum;
+  const discountPercent = hasDiscount ? Math.round(((priceNum - effectivePrice) / priceNum) * 100) : 0;
   const gstAmount = extractGST(effectivePrice, gstRate);
   const basePrice = extractBasePrice(effectivePrice, gstRate);
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
@@ -267,7 +269,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <span className="text-3xl font-extrabold text-gray-900">{formatPrice(effectivePrice)}</span>
                   {hasDiscount && (
                     <>
-                      <span className="text-lg text-gray-400 line-through">{formatPrice(product.price)}</span>
+                      <span className="text-lg text-gray-400 line-through">{formatPrice(priceNum)}</span>
                       <span className="bg-gradient-to-r from-[#FF4500] to-orange-500 text-white text-sm font-bold px-2.5 py-0.5 rounded-lg">
                         {discountPercent}% OFF
                       </span>

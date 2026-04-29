@@ -112,8 +112,10 @@ export default function CartPage() {
             {/* Cart Items */}
             <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100 shadow-sm">
               {items.map(({ product, quantity }) => {
-                const effectivePrice = getEffectivePrice(product.price, product.sale_price);
-                const hasDiscount = product.sale_price !== null && product.sale_price < product.price;
+                const priceNum = Number(product.price);
+                const salePriceNum = product.sale_price !== null ? Number(product.sale_price) : null;
+                const effectivePrice = getEffectivePrice(priceNum, salePriceNum);
+                const hasDiscount = salePriceNum !== null && salePriceNum < priceNum;
                 const thumbSrc = product.thumbnail
                   ? getAssetUrl(product.thumbnail, { width: '160', height: '160', fit: 'cover' })
                   : null;
@@ -165,7 +167,7 @@ export default function CartPage() {
                           <p className="font-bold text-slate-900">{formatPrice(effectivePrice * quantity)}</p>
                           {hasDiscount ? (
                             <p className="text-xs text-slate-400">
-                              <span className="line-through">{formatPrice(product.price)}</span>{' '}
+                              <span className="line-through">{formatPrice(priceNum)}</span>{' '}
                               <span className="text-blue-600 font-semibold">{formatPrice(effectivePrice)} each</span>
                             </p>
                           ) : quantity > 1 ? (

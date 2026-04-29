@@ -90,7 +90,9 @@ export default function CartDrawer() {
           ) : (
             <ul className="divide-y divide-gray-100 px-4">
               {items.map(({ product, quantity }) => {
-                const effectivePrice = getEffectivePrice(product.price, product.sale_price);
+                const priceNum = Number(product.price);
+                const salePriceNum = product.sale_price !== null ? Number(product.sale_price) : null;
+                const effectivePrice = getEffectivePrice(priceNum, salePriceNum);
                 const thumbSrc = product.thumbnail
                   ? getAssetUrl(product.thumbnail, { width: '120', height: '120', fit: 'cover' })
                   : null;

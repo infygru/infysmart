@@ -16,10 +16,12 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart, isInCart, getItemQuantity } = useCart();
 
-  const effectivePrice = getEffectivePrice(product.price, product.sale_price);
-  const hasDiscount = product.sale_price !== null && product.sale_price < product.price;
+  const priceNum = Number(product.price);
+  const salePriceNum = product.sale_price !== null ? Number(product.sale_price) : null;
+  const effectivePrice = getEffectivePrice(priceNum, salePriceNum);
+  const hasDiscount = salePriceNum !== null && salePriceNum < priceNum;
   const discountPercent = hasDiscount
-    ? Math.round(((product.price - effectivePrice) / product.price) * 100)
+    ? Math.round(((priceNum - effectivePrice) / priceNum) * 100)
     : 0;
 
   const isOutOfStock = product.track_inventory && product.stock_quantity <= 0;
@@ -42,8 +44,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     name: product.name,
     slug: product.slug,
     sku: product.sku,
-    price: product.price,
-    sale_price: product.sale_price,
+    price: priceNum,
+    sale_price: salePriceNum,
     thumbnail: product.thumbnail,
     stock_quantity: product.stock_quantity,
     track_inventory: product.track_inventory,
@@ -102,7 +104,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="flex items-baseline gap-1.5">
           <span className="text-sm sm:text-base font-extrabold text-gray-900">{formatPrice(effectivePrice)}</span>
           {hasDiscount && (
-            <span className="text-xs text-gray-400 line-through">{formatPrice(product.price)}</span>
+            <span className="text-xs text-gray-400 line-through">{formatPrice(priceNum)}</span>
           )}
         </div>
         <p className="text-[9px] sm:text-[10px] text-gray-400 -mt-0.5">Incl. taxes</p>
