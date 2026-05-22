@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { CheckCircle2, ShoppingCart, Phone } from 'lucide-react';
+import { ShoppingCart, Phone } from 'lucide-react';
 import FadeIn from '@/components/animations/FadeIn';
 
 export const metadata: Metadata = {

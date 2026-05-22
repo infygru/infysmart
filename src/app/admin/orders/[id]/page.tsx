@@ -4,6 +4,7 @@ import { directusAdmin } from '@/lib/directus-admin';
 import { readItem } from '@directus/sdk';
 import type { Order, OrderItem } from '@/lib/directus';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { StatusBadge, PaymentBadge } from '../../page';
 import OrderStatusUpdater from './OrderStatusUpdater';
@@ -80,7 +81,7 @@ export default async function AdminOrderDetailPage({ params }: { params: Promise
                   <div key={item.id} className="flex items-center gap-4 px-5 py-3.5">
                     <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 border border-gray-200">
                       {thumb
-                        ? <img src={thumb} alt={item.product_name} className="w-full h-full object-cover" />
+                        ? <Image src={thumb} alt={item.product_name} width={56} height={56} className="w-full h-full object-cover" unoptimized />
                         : <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No img</div>
                       }
                     </div>

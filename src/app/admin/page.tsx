@@ -4,7 +4,7 @@ import { directusAdmin } from '@/lib/directus-admin';
 import { readItems } from '@directus/sdk';
 import type { Order } from '@/lib/directus';
 import Link from 'next/link';
-import { ShoppingBag, Clock, CheckCircle, TrendingUp, AlertCircle, Package } from 'lucide-react';
+import { ShoppingBag, Clock, TrendingUp, AlertCircle, Package } from 'lucide-react';
 
 const ADMIN_EMAILS = ['infysmartbiz@gmail.com', 'csenaren@gmail.com'];
 

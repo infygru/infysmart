@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { MapPin, CheckCircle2, Phone, Star, Shield, Factory, Wrench } from 'lucide-react';
+import { MapPin, CheckCircle2, Phone, Star, Shield, Factory } from 'lucide-react';
 import FadeIn from '@/components/animations/FadeIn';
 
 export const metadata: Metadata = {

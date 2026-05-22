@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Star, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
+import type { ProductReview } from '@/lib/directus';
 
 interface Props {
   productId: number | string;
@@ -11,7 +12,7 @@ interface Props {
 
 export default function ProductReviews({ productId }: Props) {
   const { data: session, status } = useSession();
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -22,22 +23,22 @@ export default function ProductReviews({ productId }: Props) {
   const [submitMessage, setSubmitMessage] = useState<{ type: 'error' | 'success', text: string } | null>(null);
 
   useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(`/api/reviews?productId=${productId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setReviews(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchReviews();
   }, [productId]);
-
-  const fetchReviews = async () => {
-    try {
-      const res = await fetch(`/api/reviews?productId=${productId}`);
-      if (res.ok) {
-        const data = await res.json();
-        setReviews(data);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +61,7 @@ export default function ProductReviews({ productId }: Props) {
       } else {
         setSubmitMessage({ type: 'error', text: data.error || 'Failed to submit review.' });
       }
-    } catch (err) {
+    } catch {
       setSubmitMessage({ type: 'error', text: 'An unexpected error occurred.' });
     } finally {
       setIsSubmitting(false);
@@ -121,7 +122,7 @@ export default function ProductReviews({ productId }: Props) {
                   </div>
                   <p className="text-sm text-gray-600 mb-2">{review.content}</p>
                   <p className="text-xs text-gray-400">
-                    By <span className="font-medium text-gray-600">{review.customer?.name || 'Verified Buyer'}</span> on{' '}
+                    By <span className="font-medium text-gray-600">{typeof review.customer === 'object' && review.customer !== null && 'name' in review.customer ? (review.customer as { name: string }).name : 'Verified Buyer'}</span> on{' '}
                     {new Date(review.date_created).toLocaleDateString('en-IN', {
                       year: 'numeric',
                       month: 'long',

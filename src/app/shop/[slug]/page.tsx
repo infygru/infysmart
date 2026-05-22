@@ -118,7 +118,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       filter: { product: { _eq: product.id }, status: { _eq: 'published' } },
       fields: ['rating', 'content', 'date_created'],
       limit: 5,
-    } as never)) as unknown as any[];
+    } as never)) as unknown as Pick<ProductReview, 'rating' | 'content' | 'date_created'>[];
   } catch {
     // collection might not exist yet
   }
@@ -127,6 +127,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const avgRating = reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : undefined;
 
   // priceValidUntil = 1 year from today (not from date_created)
+  // eslint-disable-next-line react-hooks/purity
   const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   const productSchema = {

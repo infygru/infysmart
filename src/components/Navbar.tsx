@@ -120,7 +120,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-slate-700 hover:bg-slate-100`}
                 >
                   {session.user.image ? (
-                    <img src={session.user.image} alt="" className="w-7 h-7 rounded-full object-cover" />
+                    <Image src={session.user.image} alt="" width={28} height={28} className="w-7 h-7 rounded-full object-cover" unoptimized />
                   ) : (
                     <User className="w-5 h-5" />
                   )}
