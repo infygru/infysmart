@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ShieldCheck, ShoppingBag, Star, CheckCircle, Camera, Sun, Fingerprint, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface HeroProps {
   heroImage?: string;
@@ -49,7 +49,7 @@ export default function Hero({ heroImage }: HeroProps) {
           <div>
 
             {/* Gov badge — truncated on mobile */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
@@ -62,10 +62,10 @@ export default function Hero({ heroImage }: HeroProps) {
               {/* Short on mobile, full on sm+ */}
               <span className="text-[10px] sm:hidden">Govt-Approved · TN &amp; KA</span>
               <span className="hidden sm:inline text-xs">Govt-Approved Vendor · Tamil Nadu &amp; Karnataka</span>
-            </motion.div>
+            </m.div>
 
             {/* Headline */}
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' as const }}
@@ -78,10 +78,10 @@ export default function Hero({ heroImage }: HeroProps) {
               <span className="block text-slate-300 text-lg sm:text-2xl font-semibold mt-1.5">
                 in Tamil Nadu &amp; Bangalore
               </span>
-            </motion.h1>
+            </m.h1>
 
             {/* Trust checklist — 2-col on mobile */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.22, ease: 'easeOut' as const }}
@@ -93,10 +93,10 @@ export default function Hero({ heroImage }: HeroProps) {
                   {t}
                 </span>
               ))}
-            </motion.div>
+            </m.div>
 
             {/* CTAs — stacked on mobile, row on sm+ */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.32, ease: 'easeOut' as const }}
@@ -116,10 +116,10 @@ export default function Hero({ heroImage }: HeroProps) {
                 <ShoppingBag className="w-4 h-4" />
                 Shop Now
               </Link>
-            </motion.div>
+            </m.div>
 
             {/* Stats — 4-col on mobile with dividers */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.42, ease: 'easeOut' as const }}
@@ -131,11 +131,11 @@ export default function Hero({ heroImage }: HeroProps) {
                   <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">{s.label}</p>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* ─────────── RIGHT COLUMN (desktop only) ─────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' as const }}
@@ -158,7 +158,7 @@ export default function Hero({ heroImage }: HeroProps) {
                 </div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-              <motion.div
+              <m.div
                 initial={{ y: '0%' }}
                 animate={{ y: ['0%', '100%', '0%'] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
@@ -188,7 +188,7 @@ export default function Hero({ heroImage }: HeroProps) {
             </div>
 
             {/* Floating trust badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7, duration: 0.45 }}
@@ -201,10 +201,10 @@ export default function Hero({ heroImage }: HeroProps) {
                 <p className="text-[9px] text-slate-500 uppercase font-bold tracking-widest">Compliance</p>
                 <p className="text-white font-bold text-xs leading-tight">TNPL · ACCET Approved</p>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Floating rating badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.85, duration: 0.45 }}
@@ -217,12 +217,12 @@ export default function Hero({ heroImage }: HeroProps) {
                 <p className="text-[9px] text-slate-500 uppercase font-bold tracking-widest">Rating</p>
                 <p className="text-white font-bold text-xs">4.9 / 5 · 200+ Reviews</p>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
 
         {/* ─────────── SERVICE CHIPS ─────────── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.52, duration: 0.45 }}
@@ -250,7 +250,7 @@ export default function Hero({ heroImage }: HeroProps) {
               CCTV AMC
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

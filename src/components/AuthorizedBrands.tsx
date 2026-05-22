@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import { getAssetUrl } from '@/lib/directus';
 import type { ProductBrand } from '@/lib/directus';
@@ -29,7 +29,7 @@ export default function AuthorizedBrands({ brands }: Props) {
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
 
-        <motion.div
+        <m.div
           className="flex items-center gap-16 md:gap-24 flex-nowrap pl-4"
           animate={{ x: ['0%', '-50%'] }}
           transition={{ repeat: Infinity, ease: 'linear', duration: 40 }}
@@ -54,7 +54,7 @@ export default function AuthorizedBrands({ brands }: Props) {
               )}
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

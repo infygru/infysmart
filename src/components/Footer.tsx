@@ -104,7 +104,9 @@ export default function Footer({ settings }: { settings?: GlobalSettings | null 
             <h4 className="text-white font-bold mb-5 text-sm uppercase tracking-wide">Areas We Serve</h4>
             <ul className="space-y-2 text-xs text-slate-500">
               <li className="font-semibold text-slate-400 text-xs">Tamil Nadu</li>
-              <li><Link href="/cctv-installation/chennai" className="hover:text-brand-blue transition-colors">Chennai &amp; Suburbs</Link></li>
+              <li><Link href="/cctv-installation-chennai" className="hover:text-brand-blue transition-colors">CCTV Installation Chennai</Link></li>
+              <li><Link href="/cctv-amc-chennai" className="hover:text-brand-blue transition-colors">CCTV AMC Chennai</Link></li>
+              <li><Link href="/cctv-dealers-chennai" className="hover:text-brand-blue transition-colors">CCTV Dealers Chennai</Link></li>
               <li><Link href="/cctv-installation/hosur-krishnagiri" className="hover:text-brand-blue transition-colors">Hosur, Krishnagiri Dt.</Link></li>
               <li><Link href="/cctv-installation/coimbatore" className="hover:text-brand-blue transition-colors">Coimbatore</Link></li>
               <li><Link href="/cctv-installation/dharmapuri" className="hover:text-brand-blue transition-colors">Dharmapuri</Link></li>

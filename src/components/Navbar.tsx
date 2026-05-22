@@ -62,6 +62,7 @@ export default function Navbar({ settings }: { settings: GlobalSettings | null }
                 width={160}
                 height={44}
                 className="object-contain h-10 w-auto"
+                priority
               />
             ) : (
               <div className="text-xl font-extrabold tracking-tight text-slate-900">

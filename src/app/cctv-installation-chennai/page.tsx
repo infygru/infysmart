@@ -409,7 +409,13 @@ export default function ChennaiCCTVPage() {
               <Phone className="w-4 h-4" /> Call: +91 94456 75619
             </a>
           </div>
-          <p className="text-blue-200 text-sm mt-6">Also serving: <Link href="/cctv-installation-hosur" className="underline hover:text-white">Hosur</Link> · <Link href="/cctv-installation-coimbatore" className="underline hover:text-white">Coimbatore</Link> · <Link href="/cctv-installation-bangalore" className="underline hover:text-white">Bangalore</Link></p>
+          <div className="mt-10 pt-6 border-t border-blue-800/50 flex flex-col md:flex-row items-center justify-center gap-4 text-blue-200 text-sm">
+            <span>More Chennai Services:</span>
+            <Link href="/cctv-amc-chennai" className="underline hover:text-white font-medium">CCTV AMC Chennai</Link>
+            <span className="hidden md:inline">•</span>
+            <Link href="/cctv-dealers-chennai" className="underline hover:text-white font-medium">CCTV Dealers & Sales Chennai</Link>
+          </div>
+          <p className="text-blue-200/70 text-xs mt-6">Also serving: <Link href="/cctv-installation-hosur" className="underline hover:text-white">Hosur</Link> · <Link href="/cctv-installation-coimbatore" className="underline hover:text-white">Coimbatore</Link> · <Link href="/cctv-installation-bangalore" className="underline hover:text-white">Bangalore</Link></p>
         </div>
       </section>
     </main>

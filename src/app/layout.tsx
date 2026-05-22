@@ -11,7 +11,7 @@ import { SessionProvider } from "next-auth/react";
 import { directus } from "@/lib/directus";
 import type { NotificationBar } from "@/lib/directus";
 import { readSingleton } from "@directus/sdk";
-
+import FramerProvider from "@/components/animations/FramerProvider";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -323,18 +323,20 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
         <CartProvider>
-          {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-          />
-          <AnnouncementBar bar={notificationBar} />
-          <Navbar settings={settings} />
-          {children}
-          <Footer settings={settings} />
-          <MobileStickyButton />
-          {/* Global Cart Drawer — rendered outside page stack for correct z-index */}
-          <CartDrawer />
+          <FramerProvider>
+            {/* Organization + WebSite Schema — in body per Next.js App Router recommendation */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+            />
+            <AnnouncementBar bar={notificationBar} />
+            <Navbar settings={settings} />
+            {children}
+            <Footer settings={settings} />
+            <MobileStickyButton />
+            {/* Global Cart Drawer — rendered outside page stack for correct z-index */}
+            <CartDrawer />
+          </FramerProvider>
         </CartProvider>
         </SessionProvider>
       </body>

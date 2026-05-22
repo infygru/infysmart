@@ -77,6 +77,18 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 0.92,
   },
   {
+    url: `${BASE_URL}/cctv-amc-chennai`,
+    lastModified: SITE_UPDATED,
+    changeFrequency: 'monthly',
+    priority: 0.92,
+  },
+  {
+    url: `${BASE_URL}/cctv-dealers-chennai`,
+    lastModified: SITE_UPDATED,
+    changeFrequency: 'monthly',
+    priority: 0.92,
+  },
+  {
     url: `${BASE_URL}/cctv-installation-hosur`,
     lastModified: SITE_UPDATED,
     changeFrequency: 'monthly',

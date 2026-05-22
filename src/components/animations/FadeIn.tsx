@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface FadeInProps {
     children: React.ReactNode;
@@ -28,7 +28,7 @@ export default function FadeIn({
     };
 
     return (
-        <motion.div
+        <m.div
             initial={{
                 opacity: 0,
                 x: directionOffset[direction].x,
@@ -48,6 +48,6 @@ export default function FadeIn({
             className={className}
         >
             {children}
-        </motion.div>
+        </m.div>
     );
 }
