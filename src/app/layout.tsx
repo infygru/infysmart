@@ -320,6 +320,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://api.infysmart.com" />
+      </head>
       <body className={inter.className}>
         <SessionProvider>
         <CartProvider>

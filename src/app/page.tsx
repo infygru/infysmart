@@ -110,7 +110,7 @@ export default async function HomePage() {
   });
 
   const heroImageUrl = settings?.hero_image
-    ? getAssetUrl(settings.hero_image)
+    ? getAssetUrl(settings.hero_image, { format: 'webp', width: '1200', quality: '75' })
     : undefined;
 
   return (

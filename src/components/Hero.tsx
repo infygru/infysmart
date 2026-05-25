@@ -150,6 +150,7 @@ export default function Hero({ heroImage }: HeroProps) {
                   fill
                   className="object-cover opacity-60"
                   priority
+                  unoptimized
                   sizes="(max-width: 1280px) 50vw, 640px"
                 />
               ) : (
